@@ -2223,6 +2223,15 @@ body > div.flex-1.flex.max-w-7xl > main{
 .cheeya-real-logo-wrap .cheeya-brand-tagline{margin-top:4px;font-size:10px;letter-spacing:.01em}
 @media(max-width:640px){.cheeya-real-logo{width:58px!important;height:58px!important;flex-basis:58px}.cheeya-real-logo-wrap{gap:8px!important}.cheeya-real-logo-wrap .cheeya-brand-tagline{display:none!important}}
 </style>
+<style id="cheeya-accessible-font-scale">
+:root {
+  --app-font-scale: 1.10;
+}
+html {
+  font-size: calc(16px * var(--app-font-scale, 1.10)) !important;
+  transition: font-size 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+</style>
 </head>
 <body class="min-h-screen flex flex-col relative selection:bg-pink-100 selection:text-pink-800">
 <div id="cheeya-butterfly-layer" aria-hidden="true"><span class="cheeya-butterfly" style="--x:8vw;--y:10vh;--c:#ff69aa;--s:34px;--fs:26px;--d:4.8s;--delay:-1s;--tw:18px;--mx:12px;"></span><span class="cheeya-butterfly" style="--x:17vw;--y:30vh;--c:#8ed8ff;--s:28px;--fs:22px;--d:5.9s;--delay:-3s;--tw:15px;--mx:-10px;"></span><span class="cheeya-butterfly" style="--x:27vw;--y:16vh;--c:#ffe06f;--s:30px;--fs:24px;--d:6.7s;--delay:-4s;--tw:16px;--mx:14px;"></span><span class="cheeya-butterfly" style="--x:39vw;--y:8vh;--c:#c5a0ff;--s:26px;--fs:21px;--d:5.2s;--delay:-2s;--tw:14px;--mx:-12px;"></span><span class="cheeya-butterfly" style="--x:52vw;--y:25vh;--c:#ff8fbd;--s:32px;--fs:25px;--d:6.1s;--delay:-5s;--tw:17px;--mx:10px;"></span><span class="cheeya-butterfly" style="--x:66vw;--y:12vh;--c:#8bdcc6;--s:28px;--fs:22px;--d:5.5s;--delay:-2s;--tw:15px;--mx:-14px;"></span><span class="cheeya-butterfly" style="--x:79vw;--y:29vh;--c:#a9dfff;--s:34px;--fs:26px;--d:7.2s;--delay:-6s;--tw:18px;--mx:9px;"></span><span class="cheeya-butterfly" style="--x:91vw;--y:17vh;--c:#ff7eb7;--s:26px;--fs:21px;--d:5.8s;--delay:-4s;--tw:14px;--mx:-12px;"></span><span class="cheeya-butterfly" style="--x:12vw;--y:67vh;--c:#ffd967;--s:27px;--fs:21px;--d:6.4s;--delay:-2s;--tw:15px;--mx:13px;"></span><span class="cheeya-butterfly" style="--x:24vw;--y:82vh;--c:#c9a4ff;--s:33px;--fs:25px;--d:7s;--delay:-5s;--tw:17px;--mx:-9px;"></span><span class="cheeya-butterfly" style="--x:44vw;--y:72vh;--c:#ff82b7;--s:28px;--fs:22px;--d:5.6s;--delay:-3s;--tw:15px;--mx:11px;"></span><span class="cheeya-butterfly" style="--x:59vw;--y:88vh;--c:#8ed9ff;--s:31px;--fs:24px;--d:6.8s;--delay:-7s;--tw:16px;--mx:-13px;"></span><span class="cheeya-butterfly" style="--x:73vw;--y:62vh;--c:#9be5ce;--s:27px;--fs:21px;--d:5.3s;--delay:-1s;--tw:14px;--mx:10px;"></span><span class="cheeya-butterfly" style="--x:87vw;--y:78vh;--c:#ffcf62;--s:34px;--fs:26px;--d:7.3s;--delay:-6s;--tw:18px;--mx:-11px;"></span><span class="cheeya-butterfly" style="--x:4vw;--y:48vh;--c:#ff9cc9;--s:25px;--fs:20px;--d:6.2s;--delay:-2s;--tw:14px;--mx:12px;"></span><span class="cheeya-butterfly" style="--x:95vw;--y:53vh;--c:#b99cff;--s:29px;--fs:22px;--d:5.7s;--delay:-4s;--tw:16px;--mx:-10px;"></span><span class="cheeya-butterfly" style="--x:34vw;--y:55vh;--c:#ffe17a;--s:24px;--fs:19px;--d:6.9s;--delay:-5s;--tw:13px;--mx:9px;"></span><span class="cheeya-butterfly" style="--x:48vw;--y:46vh;--c:#ff72ad;--s:26px;--fs:20px;--d:5.4s;--delay:-1s;--tw:14px;--mx:-8px;"></span></div>
@@ -2273,6 +2282,16 @@ body > div.flex-1.flex.max-w-7xl > main{
 
       <!-- Center / Right: Progress Summary & Search -->
       <div class="flex items-center gap-3">
+                <!-- Accessible Font Size Scaling Controls (A- / [Scale %] / A+) -->
+        <div class="flex items-center bg-sky-100/90 px-1.5 py-0.5 rounded-xl border border-sky-300 text-xs font-bold gap-1 shadow-xs" title="Sesuaikan Ukuran Teks">
+          <button onclick="changeFontSize(-1)" class="w-6 h-6 flex items-center justify-center hover:bg-sky-200 text-sky-800 rounded-lg transition font-extrabold cursor-pointer select-none" title="Perkecil teks (A-)">
+            A-
+          </button>
+          <span id="fontScaleLabel" class="text-[10px] font-extrabold text-sky-700 px-1 select-none">110%</span>
+          <button onclick="changeFontSize(1)" class="w-6 h-6 flex items-center justify-center hover:bg-sky-200 text-sky-800 rounded-lg transition font-extrabold cursor-pointer select-none" title="Perbesar teks (A+)">
+            A+
+          </button>
+        </div>
         <!-- Global Search Button -->
         <button onclick="App.openSearchModal()" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100/90 text-slate-500 hover:bg-pink-50 hover:text-pink-600 text-xs font-medium border border-slate-200/70 transition-all shadow-sm">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -11576,6 +11595,52 @@ const CheatSheetSystem = {
     setTimeout(()=>{ring.remove();heart.remove();layer.querySelectorAll('.cheeya-click-spark').forEach(e=>{if(e.getAnimations().length===0)e.remove()})},900);
   }
   document.addEventListener('pointerdown',e=>{ if(e.button===0) burst(e.clientX,e.clientY); },{passive:true});
+})();
+</script>
+<script id="cheeya-font-scale-js">
+(function() {
+  const FONT_STORAGE_KEY = 'cheeya_font_scale_idx';
+  const FONT_SCALES = [
+    { label: '90%', scale: 0.92 },
+    { label: '100%', scale: 1.00 },
+    { label: '110%', scale: 1.10 },
+    { label: '125%', scale: 1.25 },
+    { label: '140%', scale: 1.40 },
+    { label: '160%', scale: 1.60 }
+  ];
+  let currentFontScaleIndex = 2; // default: 110%
+
+  function initFontSize() {
+    try {
+      const saved = localStorage.getItem(FONT_STORAGE_KEY);
+      if (saved !== null) {
+        const idx = parseInt(saved, 10);
+        if (idx >= 0 && idx < FONT_SCALES.length) currentFontScaleIndex = idx;
+      }
+    } catch(e) {}
+    applyFontSize();
+  }
+
+  function applyFontSize() {
+    const item = FONT_SCALES[currentFontScaleIndex];
+    document.documentElement.style.setProperty('--app-font-scale', item.scale);
+    const labels = document.querySelectorAll('#fontScaleLabel, .fontScaleLabel');
+    labels.forEach(lbl => { lbl.textContent = item.label; });
+    try {
+      localStorage.setItem(FONT_STORAGE_KEY, currentFontScaleIndex);
+    } catch(e) {}
+  }
+
+  window.changeFontSize = function(delta) {
+    currentFontScaleIndex = Math.max(0, Math.min(FONT_SCALES.length - 1, currentFontScaleIndex + delta));
+    applyFontSize();
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFontSize);
+  } else {
+    initFontSize();
+  }
 })();
 </script>
 </body>
