@@ -2236,6 +2236,14 @@ html {
   transition: font-size 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 </style>
+
+  <!-- PWA Manifest & App Metas -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#ec4899">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="CheeYa German A1">
 </head>
 <body class="min-h-screen flex flex-col relative selection:bg-pink-100 selection:text-pink-800">
 <div id="cheeya-butterfly-layer" aria-hidden="true"><span class="cheeya-butterfly" style="--x:8vw;--y:10vh;--c:#ff69aa;--s:34px;--fs:26px;--d:4.8s;--delay:-1s;--tw:18px;--mx:12px;"></span><span class="cheeya-butterfly" style="--x:17vw;--y:30vh;--c:#8ed8ff;--s:28px;--fs:22px;--d:5.9s;--delay:-3s;--tw:15px;--mx:-10px;"></span><span class="cheeya-butterfly" style="--x:27vw;--y:16vh;--c:#ffe06f;--s:30px;--fs:24px;--d:6.7s;--delay:-4s;--tw:16px;--mx:14px;"></span><span class="cheeya-butterfly" style="--x:39vw;--y:8vh;--c:#c5a0ff;--s:26px;--fs:21px;--d:5.2s;--delay:-2s;--tw:14px;--mx:-12px;"></span><span class="cheeya-butterfly" style="--x:52vw;--y:25vh;--c:#ff8fbd;--s:32px;--fs:25px;--d:6.1s;--delay:-5s;--tw:17px;--mx:10px;"></span><span class="cheeya-butterfly" style="--x:66vw;--y:12vh;--c:#8bdcc6;--s:28px;--fs:22px;--d:5.5s;--delay:-2s;--tw:15px;--mx:-14px;"></span><span class="cheeya-butterfly" style="--x:79vw;--y:29vh;--c:#a9dfff;--s:34px;--fs:26px;--d:7.2s;--delay:-6s;--tw:18px;--mx:9px;"></span><span class="cheeya-butterfly" style="--x:91vw;--y:17vh;--c:#ff7eb7;--s:26px;--fs:21px;--d:5.8s;--delay:-4s;--tw:14px;--mx:-12px;"></span><span class="cheeya-butterfly" style="--x:12vw;--y:67vh;--c:#ffd967;--s:27px;--fs:21px;--d:6.4s;--delay:-2s;--tw:15px;--mx:13px;"></span><span class="cheeya-butterfly" style="--x:24vw;--y:82vh;--c:#c9a4ff;--s:33px;--fs:25px;--d:7s;--delay:-5s;--tw:17px;--mx:-9px;"></span><span class="cheeya-butterfly" style="--x:44vw;--y:72vh;--c:#ff82b7;--s:28px;--fs:22px;--d:5.6s;--delay:-3s;--tw:15px;--mx:11px;"></span><span class="cheeya-butterfly" style="--x:59vw;--y:88vh;--c:#8ed9ff;--s:31px;--fs:24px;--d:6.8s;--delay:-7s;--tw:16px;--mx:-13px;"></span><span class="cheeya-butterfly" style="--x:73vw;--y:62vh;--c:#9be5ce;--s:27px;--fs:21px;--d:5.3s;--delay:-1s;--tw:14px;--mx:10px;"></span><span class="cheeya-butterfly" style="--x:87vw;--y:78vh;--c:#ffcf62;--s:34px;--fs:26px;--d:7.3s;--delay:-6s;--tw:18px;--mx:-11px;"></span><span class="cheeya-butterfly" style="--x:4vw;--y:48vh;--c:#ff9cc9;--s:25px;--fs:20px;--d:6.2s;--delay:-2s;--tw:14px;--mx:12px;"></span><span class="cheeya-butterfly" style="--x:95vw;--y:53vh;--c:#b99cff;--s:29px;--fs:22px;--d:5.7s;--delay:-4s;--tw:16px;--mx:-10px;"></span><span class="cheeya-butterfly" style="--x:34vw;--y:55vh;--c:#ffe17a;--s:24px;--fs:19px;--d:6.9s;--delay:-5s;--tw:13px;--mx:9px;"></span><span class="cheeya-butterfly" style="--x:48vw;--y:46vh;--c:#ff72ad;--s:26px;--fs:20px;--d:5.4s;--delay:-1s;--tw:14px;--mx:-8px;"></span></div>
@@ -2312,6 +2320,12 @@ html {
           <span id="headerProgressCount" class="font-bold text-pink-700">0 / 38</span>
         </div>
 
+                <!-- PWA Install Button in Header -->
+        <button id="pwaInstallHeaderBtn" onclick="PWAInstaller.promptInstall()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white text-xs font-bold shadow-sm shadow-pink-200 transition-all cursor-pointer select-none" title="Pasang CheeYa German A1 di HP / Laptop">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          <span class="hidden sm:inline">Install App</span>
+          <span class="sm:hidden">Install</span>
+        </button>
         <button onclick="App.navigateTo('dashboard')" class="px-3 py-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-semibold shadow-sm shadow-pink-200 transition-all">
           Dashboard
         </button>
@@ -11809,6 +11823,134 @@ const CheatSheetSystem = {
     initFontSize();
   }
 })();
+</script>
+
+<!-- Floating PWA Install Notification Banner -->
+<div id="pwaInstallBanner" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-pink-200 shadow-xl flex items-center justify-between gap-3 transition-all duration-300" style="display: none;">
+  <div class="flex items-center gap-3 min-w-0">
+    <img src="logo_app_icon.png" class="w-10 h-10 rounded-xl flex-shrink-0 object-cover border border-pink-200 shadow-xs" alt="CheeYa Logo">
+    <div class="min-w-0">
+      <h4 class="text-xs font-bold text-slate-800 truncate">Pasang Aplikasi CheeYa</h4>
+      <p class="text-[11px] text-slate-500 leading-tight">Install di HP atau laptop agar bisa dibuka cepat & offline!</p>
+    </div>
+  </div>
+  <div class="flex items-center gap-1.5 flex-shrink-0">
+    <button onclick="PWAInstaller.promptInstall()" class="px-3 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl text-xs font-bold shadow-xs hover:from-pink-600 hover:to-rose-600 transition-all cursor-pointer">
+      Install
+    </button>
+    <button onclick="PWAInstaller.dismissBanner()" class="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg transition-colors cursor-pointer" title="Tutup">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- PWA Manual Install Guide Modal (for iOS / desktop / browsers without native prompt) -->
+<div id="pwaGuideModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 transition-all" style="display: none;">
+  <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-pink-100 relative animate-in fade-in zoom-in-95 duration-200">
+    <button onclick="PWAInstaller.closeGuideModal()" class="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-600 rounded-xl hover:bg-slate-100 transition-colors">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+    
+    <div class="text-center mb-5">
+      <img src="logo_app_icon.png" class="w-16 h-16 rounded-2xl mx-auto mb-3 shadow-md border border-pink-100" alt="CheeYa Logo">
+      <h3 class="text-base font-bold text-slate-800">Pasang CheeYa German A1</h3>
+      <p class="text-xs text-slate-500 mt-1">Aplikasi akan muncul langsung di layar utama perangkat Anda.</p>
+    </div>
+
+    <div class="space-y-3 text-xs text-slate-600 bg-pink-50/60 p-4 rounded-2xl border border-pink-100">
+      <div class="flex items-start gap-2.5">
+        <span class="w-5 h-5 rounded-full bg-pink-200 text-pink-700 font-bold flex items-center justify-center flex-shrink-0 text-[10px]">1</span>
+        <p><strong>Android (Chrome):</strong> Tekan tombol menu titik tiga (<strong>â‹®</strong>) di pojok kanan atas, lalu pilih <strong>"Install app"</strong> atau <strong>"Tambahkan ke Layar Utama"</strong>.</p>
+      </div>
+      <div class="flex items-start gap-2.5">
+        <span class="w-5 h-5 rounded-full bg-pink-200 text-pink-700 font-bold flex items-center justify-center flex-shrink-0 text-[10px]">2</span>
+        <p><strong>iPhone / iPad (Safari):</strong> Tekan tombol <strong>Share</strong> (ikon kotak tanda panah ke atas âŽ‹), lalu pilih <strong>"Add to Home Screen"</strong> (Tambah ke Layar Utama).</p>
+      </div>
+      <div class="flex items-start gap-2.5">
+        <span class="w-5 h-5 rounded-full bg-pink-200 text-pink-700 font-bold flex items-center justify-center flex-shrink-0 text-[10px]">3</span>
+        <p><strong>Laptop / PC:</strong> Klik ikon install komputer di sebelah kanan address bar browser Anda.</p>
+      </div>
+    </div>
+
+    <button onclick="PWAInstaller.closeGuideModal()" class="w-full mt-5 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-bold rounded-xl text-xs shadow-md shadow-pink-200 hover:from-pink-600 hover:to-rose-600 transition-all">
+      Mengerti
+    </button>
+  </div>
+</div>
+
+<script id="cheeya-pwa-installer-js">
+const PWAInstaller = {
+  deferredPrompt: null,
+
+  init() {
+    // 1. Register Service Worker if supported and running over HTTP/HTTPS
+    if ('serviceWorker' in navigator && (location.protocol === 'http:' || location.protocol === 'https:')) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js').then((reg) => {
+          console.log('CheeYa PWA Service Worker registered:', reg.scope);
+        }).catch((err) => {
+          console.warn('CheeYa PWA Service Worker registration non-fatal notice:', err);
+        });
+      });
+    }
+
+    // 2. Capture beforeinstallprompt
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      this.deferredPrompt = e;
+      
+      // Show install banner if not dismissed in this session
+      const dismissed = sessionStorage.getItem('cheeya_pwa_banner_dismissed');
+      if (!dismissed) {
+        const banner = document.getElementById('pwaInstallBanner');
+        if (banner) {
+          setTimeout(() => { banner.style.display = 'flex'; }, 2000);
+        }
+      }
+    });
+
+    // 3. Listen when successfully installed
+    window.addEventListener('appinstalled', () => {
+      this.deferredPrompt = null;
+      this.dismissBanner();
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('CheeYa German A1 berhasil dipasang!');
+      }
+    });
+  },
+
+  async promptInstall() {
+    if (this.deferredPrompt) {
+      this.deferredPrompt.prompt();
+      const choice = await this.deferredPrompt.userChoice;
+      if (choice && choice.outcome === 'accepted') {
+        this.dismissBanner();
+      }
+      this.deferredPrompt = null;
+    } else {
+      // If native prompt is not available, show guide modal
+      this.openGuideModal();
+    }
+  },
+
+  dismissBanner() {
+    const banner = document.getElementById('pwaInstallBanner');
+    if (banner) banner.style.display = 'none';
+    sessionStorage.setItem('cheeya_pwa_banner_dismissed', 'true');
+  },
+
+  openGuideModal() {
+    const modal = document.getElementById('pwaGuideModal');
+    if (modal) modal.style.display = 'flex';
+  },
+
+  closeGuideModal() {
+    const modal = document.getElementById('pwaGuideModal');
+    if (modal) modal.style.display = 'none';
+  }
+};
+
+PWAInstaller.init();
 </script>
 </body>
 </html>

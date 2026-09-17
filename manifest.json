@@ -1,0 +1,19 @@
+{
+  "name": "CheeYa Studio • German A1 Learning Platform",
+  "short_name": "CheeYa German A1",
+  "description": "Interactive German A1 Learning Platform with 38 comprehensive structured lessons, grammar tables, bilingual dialogues, audio drills, and exam prep.",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#fff5f9",
+  "theme_color": "#ec4899",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "logo_app_icon.png",
+      "sizes": "256x256",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "books", "productivity"]
+}
