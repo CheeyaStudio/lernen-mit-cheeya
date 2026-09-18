@@ -2877,18 +2877,12 @@ html[data-theme="dark"] select {
             </div>
           </div>
 
-          <!-- Right: Proportionate German A1 Emblem & Highlights (Nicely balanced, not at the extreme edge) -->
-          <div class="hidden sm:flex flex-col items-center justify-center self-center shrink-0 z-10 py-2 sm:px-4 md:px-8 lg:px-12">
-            <div class="relative flex flex-col items-center justify-center text-center w-36 h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-white via-pink-50 to-rose-100/90 border border-pink-200/90 shadow-xl select-none" style="box-shadow: 0 14px 32px rgba(214,109,164,.18), inset 0 0 0 8px rgba(255,255,255,.75); animation: badgeFloat 4.5s ease-in-out infinite;">
-              <span class="text-[11px] font-black tracking-widest text-pink-600 uppercase">GERMAN</span>
-              <span class="text-3xl md:text-4xl font-black text-pink-500 my-0.5">A1</span>
-              <span class="text-[10px] font-black text-pink-600/90 tracking-wider">&#10022; 38 LESSONS</span>
-            </div>
-            <!-- Small Balanced Highlight Tags -->
-            <div class="flex items-center gap-1.5 mt-3 select-none">
-              <span class="px-2.5 py-0.5 rounded-full bg-white/80 border border-pink-200/60 text-[10px] font-bold text-slate-600 shadow-2xs">9 Modules</span>
-              <span class="px-2.5 py-0.5 rounded-full bg-white/80 border border-pink-200/60 text-[10px] font-bold text-pink-600 shadow-2xs">A1 Level</span>
-              <span class="px-2.5 py-0.5 rounded-full bg-white/80 border border-pink-200/60 text-[10px] font-bold text-purple-600 shadow-2xs">27 Tracks</span>
+          <!-- Beautiful Round German A1 Badge (Slightly larger, centered, cleanly inside borders without tags) -->
+          <div class="hidden sm:flex flex-col items-center justify-center self-center shrink-0 z-10 my-auto sm:pr-4 md:pr-8 lg:pr-14">
+            <div class="relative flex flex-col items-center justify-center text-center w-44 h-44 sm:w-48 sm:h-48 md:w-52 md:h-52 rounded-full bg-gradient-to-br from-white via-pink-50 to-rose-100/90 border-2 border-pink-200/90 shadow-xl select-none" style="box-shadow: 0 16px 36px rgba(214,109,164,.18), inset 0 0 0 10px rgba(255,255,255,.75), inset 0 0 0 11px rgba(255,190,225,.35); animation: badgeFloat 4.5s ease-in-out infinite;">
+              <span class="text-xs md:text-sm font-black tracking-widest text-pink-600 uppercase">GERMAN</span>
+              <span class="text-4xl md:text-5xl font-black text-pink-500 my-1 font-sans">A1</span>
+              <span class="text-[10px] md:text-xs font-black text-pink-600/90 tracking-wider">&#10022; 38 LESSONS</span>
             </div>
           </div>
         </div>
@@ -12748,33 +12742,58 @@ const CheatSheetSystem = {
         let html = '';
         MODULES.forEach(mod => {
           const modLessons = LESSON_INDEX.filter(l => l.mod === mod.id);
+          const completedInMod = modLessons.filter(l => this.completedLessons.includes(l.id)).length;
+          const isModDone = completedInMod === modLessons.length && modLessons.length > 0;
+
           html += `
-            <div class="pt-2 pb-1">
-              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-2 py-1 flex items-center gap-1">
-                <span>${mod.icon}</span>
-                <span>${mod.name}</span>
+            <div class="pt-3 pb-1">
+              <!-- Cute Girly Module Header Ribbon -->
+              <div class="flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-50 via-rose-50/60 to-pink-50/20 border border-pink-200/60 mb-1.5 shadow-2xs">
+                <div class="flex items-center gap-1.5 min-w-0">
+                  <span class="text-xs">${mod.icon || '&#127800;'}</span>
+                  <span class="text-[11px] font-black text-pink-800 tracking-wide uppercase truncate font-sans">${mod.name}</span>
+                </div>
+                <span class="text-[9px] font-black px-1.5 py-0.5 rounded-full ${isModDone ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-pink-100 text-pink-700 border border-pink-200/60'} shrink-0 ml-1">
+                  ${isModDone ? '&#10003; Done' : `${completedInMod}/${modLessons.length}`}
+                </span>
               </div>
+              
+              <!-- Aesthetic Lesson Items -->
+              <div class="space-y-1">
           `;
 
           modLessons.forEach(l => {
             const isCurrent = this.currentView === 'lesson' && this.currentLessonId === l.id;
             const isDone = this.completedLessons.includes(l.id);
 
-            let bgClass = "text-slate-600 hover:bg-pink-50 hover:text-pink-700";
-            if (isCurrent) bgClass = "bg-pink-100/90 text-pink-800 font-bold border-l-2 border-pink-500 shadow-xs";
+            let rowStyle = "bg-white/70 text-slate-600 border border-pink-100/70 hover:bg-pink-50/90 hover:border-pink-300 hover:text-pink-900 shadow-2xs hover:translate-x-1";
+            if (isCurrent) {
+              rowStyle = "bg-gradient-to-r from-pink-100 via-rose-50 to-pink-50 text-pink-950 font-extrabold border-2 border-pink-400 shadow-xs scale-[1.01]";
+            } else if (isDone) {
+              rowStyle = "bg-emerald-50/40 text-slate-700 border border-emerald-200/70 hover:bg-emerald-50/90 hover:border-emerald-300";
+            }
+
+            const numBadge = isDone
+              ? '<span class="w-5 h-5 rounded-full bg-emerald-500 text-white font-black text-[10px] flex items-center justify-center shrink-0 shadow-2xs">&#10003;</span>'
+              : isCurrent
+                ? '<span class="w-5 h-5 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 text-white font-black text-[9px] flex items-center justify-center shrink-0 shadow-2xs animate-pulse">&#9679;</span>'
+                : `<span class="w-5 h-5 rounded-full bg-pink-50 text-pink-600 border border-pink-200/80 font-black text-[9px] flex items-center justify-center shrink-0">${String(l.id).padStart(2, '0')}</span>`;
 
             html += `
-              <button onclick="App.openLesson(${l.id})" class="w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between transition-colors ${bgClass}">
-                <div class="flex items-center gap-2 truncate min-w-0">
-                  <span class="font-mono text-[10px] text-slate-400">${String(l.id).padStart(2, '0')}</span>
-                  <span class="truncate text-xs">${l.title}</span>
+              <button onclick="App.openLesson(${l.id})" class="w-full text-left px-2.5 py-1.5 rounded-xl flex items-center justify-between transition-all duration-200 ${rowStyle} group select-none cursor-pointer">
+                <div class="flex items-center gap-2 min-w-0 pr-1 truncate">
+                  ${numBadge}
+                  <span class="text-xs truncate ${isCurrent ? 'font-black text-pink-950' : 'font-medium text-slate-700 group-hover:text-pink-900'}">${l.title}</span>
                 </div>
-                ${isDone ? '<span class="text-emerald-500 font-bold text-xs ml-1">✓</span>' : ''}
+                ${isDone ? '<span class="text-[9px] font-black text-emerald-700 bg-emerald-100/90 px-1.5 py-0.5 rounded-md border border-emerald-200/60 shrink-0 ml-1">Selesai</span>' : isCurrent ? '<span class="text-xs text-pink-500 font-bold shrink-0 ml-1">&#10022;</span>' : ''}
               </button>
             `;
           });
 
-          html += `</div>`;
+          html += `
+              </div>
+            </div>
+          `;
         });
 
         list.innerHTML = html;
