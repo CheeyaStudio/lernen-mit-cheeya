@@ -1,4 +1,4 @@
-
+﻿
 
 
 
@@ -3354,10 +3354,22 @@ html[data-theme="dark"] select {
 
   <!-- Search & Category Filters -->
   <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs space-y-3">
-    <div class="flex flex-col sm:flex-row gap-3">
-      <div class="relative flex-1">
+    <div class="flex flex-col sm:flex-row items-center gap-3">
+      <div class="relative flex-1 w-full">
         <input type="text" id="fcSearchInput" oninput="DualFlashcardSystem.setSearch(this.value)" placeholder="Search in German or English..." class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-sm font-medium outline-none focus:border-pink-500 focus:bg-white transition-all">
         <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      </div>
+
+      <!-- Study Mode Filter: To Learn (Unmemorized) vs Show All -->
+      <div class="inline-flex p-1 bg-slate-100 rounded-xl border border-slate-200 text-xs font-bold shrink-0">
+        <button id="fcFilterToLearnBtn" onclick="DualFlashcardSystem.setStudyMode('toLearn')" class="px-3 py-1.5 rounded-lg bg-emerald-600 text-white shadow-2xs flex items-center gap-1.5 cursor-pointer transition-all" title="Hide memorized words - only show words to learn">
+          <span>🎯</span>
+          <span>To Learn (<b id="fcToLearnBadge">0</b>)</span>
+        </button>
+        <button id="fcFilterAllBtn" onclick="DualFlashcardSystem.setStudyMode('all')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer transition-all" title="Show all words including memorized">
+          <span>📚</span>
+          <span>Show All</span>
+        </button>
       </div>
     </div>
 
@@ -3369,9 +3381,12 @@ html[data-theme="dark"] select {
 
   <!-- Empty Notice -->
   <div id="fcEmptyNotice" class="hidden text-center py-12 bg-white rounded-3xl border border-slate-200 p-8 space-y-3">
-    <div class="text-3xl">🔍</div>
-    <div class="text-base font-bold text-slate-700">No vocabulary items match your search or filter.</div>
-    <button onclick="DualFlashcardSystem.resetFilters()" class="px-4 py-2 rounded-xl bg-pink-500 text-white text-xs font-bold">Clear Filters</button>
+    <div id="fcEmptyIcon" class="text-4xl">🔍</div>
+    <div id="fcEmptyTitle" class="text-base font-bold text-slate-700">No vocabulary items match your search or filter.</div>
+    <p id="fcEmptyDesc" class="text-xs text-slate-500 max-w-sm mx-auto hidden"></p>
+    <div id="fcEmptyActions" class="flex items-center justify-center gap-2">
+      <button onclick="DualFlashcardSystem.resetFilters()" class="px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold cursor-pointer transition-all">Clear Filters</button>
+    </div>
   </div>
 
   <!-- 1. CARD MODE AREA -->
@@ -17751,6 +17766,7 @@ const DualFlashcardSystem = {
   currentIndex: 0,
   isFlipped: false,
   viewMode: 'card', // 'card' or 'grid'
+  studyMode: 'toLearn', // 'toLearn' (hide memorized) or 'all' (show all)
   gridPage: 1,
   pageSize: 40,
   masteredIds: { nouns: [], verbs: [] },
@@ -17782,7 +17798,6 @@ const DualFlashcardSystem = {
       // If masteredOrder not yet initialized, build it with newest-first logic
       if (!this.masteredOrder || this.masteredOrder.length === 0) {
         this.masteredOrder = [];
-        // Populate existing IDs (most recently added/stored preserved)
         (this.masteredIds.verbs || []).forEach(id => this.masteredOrder.push({ id, deck: 'verbs' }));
         (this.masteredIds.nouns || []).forEach(id => this.masteredOrder.push({ id, deck: 'nouns' }));
       }
@@ -17791,11 +17806,19 @@ const DualFlashcardSystem = {
       if (savedDeck && (savedDeck === 'nouns' || savedDeck === 'verbs')) {
         this.currentDeck = savedDeck;
       }
+
+      const savedMode = localStorage.getItem('cheeya_fc_studymode');
+      if (savedMode === 'all' || savedMode === 'toLearn') {
+        this.studyMode = savedMode;
+      } else {
+        this.studyMode = 'toLearn'; // Default to hiding memorized words!
+      }
     } catch (e) {
       console.error('Error loading mastered flashcards:', e);
     }
 
     this.renderDeckSelector();
+    this.renderStudyModeButtons();
     this.renderCategoryPills();
     this.showCard();
     this.updateMasteredUI();
@@ -17811,11 +17834,50 @@ const DualFlashcardSystem = {
     try { localStorage.setItem('cheeya_fc_deck', deck); } catch (e) {}
     
     this.renderDeckSelector();
+    this.renderStudyModeButtons();
     this.renderCategoryPills();
     if (this.viewMode === 'card') {
       this.showCard();
     } else {
       this.renderGrid();
+    }
+  },
+
+  setStudyMode(mode) {
+    this.studyMode = mode;
+    this.currentIndex = 0;
+    this.gridPage = 1;
+    this.isFlipped = false;
+    try { localStorage.setItem('cheeya_fc_studymode', mode); } catch (e) {}
+
+    this.renderStudyModeButtons();
+    this.renderCategoryPills();
+    if (this.viewMode === 'card') {
+      this.showCard();
+    } else {
+      this.renderGrid();
+    }
+  },
+
+  renderStudyModeButtons() {
+    const toLearnBtn = document.getElementById('fcFilterToLearnBtn');
+    const allBtn = document.getElementById('fcFilterAllBtn');
+    const badge = document.getElementById('fcToLearnBadge');
+
+    const rawList = this.getRawList();
+    const unmasteredCount = rawList.filter(item => !this.isMastered(item.id, this.currentDeck)).length;
+    if (badge) badge.innerText = unmasteredCount;
+
+    if (toLearnBtn) {
+      toLearnBtn.className = this.studyMode === 'toLearn'
+        ? "px-3 py-1.5 rounded-lg bg-emerald-600 text-white shadow-2xs flex items-center gap-1.5 cursor-pointer transition-all"
+        : "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer transition-all";
+    }
+
+    if (allBtn) {
+      allBtn.className = this.studyMode === 'all'
+        ? "px-3 py-1.5 rounded-lg bg-slate-800 text-white shadow-2xs flex items-center gap-1.5 cursor-pointer transition-all"
+        : "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer transition-all";
     }
   },
 
@@ -17828,6 +17890,9 @@ const DualFlashcardSystem = {
 
   getFilteredList() {
     let list = this.getRawList();
+    if (this.studyMode === 'toLearn') {
+      list = list.filter(item => !this.isMastered(item.id, this.currentDeck));
+    }
     if (this.activeCategory !== 'all') {
       list = list.filter(item => item.cat === this.activeCategory);
     }
@@ -17860,10 +17925,11 @@ const DualFlashcardSystem = {
 
     const deckInfo = document.getElementById('fcDeckInfo');
     if (deckInfo) {
-      const count = this.getRawList().length;
+      const raw = this.getRawList();
+      const unmastered = raw.filter(item => !this.isMastered(item.id, this.currentDeck)).length;
       deckInfo.innerText = isNoun 
-        ? `📘 Noun Deck (${count} Words with der/die/das & plurals)` 
-        : `⚡ Verb Deck (${count} Words with conjugations & Perfekt)`;
+        ? `📘 Noun Deck (${unmastered} to learn of ${raw.length} total words with der/die/das & plurals)` 
+        : `⚡ Verb Deck (${unmastered} to learn of ${raw.length} total words with conjugations & Perfekt)`;
     }
   },
 
@@ -17871,17 +17937,22 @@ const DualFlashcardSystem = {
     const container = document.getElementById('flashcardCategoryPills');
     if (!container) return;
 
-    const rawList = this.getRawList();
+    let baseList = this.getRawList();
+    if (this.studyMode === 'toLearn') {
+      baseList = baseList.filter(item => !this.isMastered(item.id, this.currentDeck));
+    }
+
     const catCounts = {};
-    rawList.forEach(item => {
+    baseList.forEach(item => {
       catCounts[item.cat] = (catCounts[item.cat] || 0) + 1;
     });
 
-    const categories = ['all', ...Object.keys(catCounts).sort()];
+    const allCategories = new Set(this.getRawList().map(i => i.cat));
+    const categories = ['all', ...Array.from(allCategories).sort()];
 
     container.innerHTML = categories.map(c => {
       const isAct = this.activeCategory === c;
-      const count = c === 'all' ? rawList.length : catCounts[c];
+      const count = c === 'all' ? baseList.length : (catCounts[c] || 0);
       const activeCls = this.currentDeck === 'nouns' 
         ? 'bg-pink-500 text-white shadow-xs' 
         : 'bg-purple-500 text-white shadow-xs';
@@ -17927,6 +17998,7 @@ const DualFlashcardSystem = {
   resetFilters() {
     this.activeCategory = 'all';
     this.searchQuery = '';
+    this.studyMode = 'toLearn';
     const input = document.getElementById('fcSearchInput');
     if (input) input.value = '';
     this.setDeck(this.currentDeck);
@@ -17973,7 +18045,45 @@ const DualFlashcardSystem = {
     const controls = document.getElementById('fcControlsBar');
 
     if (list.length === 0) {
-      if (emptyNotice) emptyNotice.classList.remove('hidden');
+      if (emptyNotice) {
+        emptyNotice.classList.remove('hidden');
+        const iconEl = document.getElementById('fcEmptyIcon');
+        const titleEl = document.getElementById('fcEmptyTitle');
+        const descEl = document.getElementById('fcEmptyDesc');
+        const actionsEl = document.getElementById('fcEmptyActions');
+
+        const totalMasteredInDeck = (this.masteredIds[this.currentDeck] || []).length;
+
+        if (this.studyMode === 'toLearn' && totalMasteredInDeck > 0) {
+          if (iconEl) iconEl.innerText = '🎉';
+          if (titleEl) titleEl.innerText = 'All Words Memorized in this View!';
+          if (descEl) {
+            descEl.classList.remove('hidden');
+            descEl.innerText = 'You have memorized all words in this category. Click "Show All" to review them or switch categories!';
+          }
+          if (actionsEl) {
+            actionsEl.innerHTML = `
+              <button onclick="DualFlashcardSystem.setStudyMode('all')" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold cursor-pointer transition-all">
+                📚 Review All Words
+              </button>
+              <button onclick="DualFlashcardSystem.resetFilters()" class="px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold cursor-pointer transition-all">
+                Reset Filters
+              </button>
+            `;
+          }
+        } else {
+          if (iconEl) iconEl.innerText = '🔍';
+          if (titleEl) titleEl.innerText = 'No vocabulary items match your search or filter.';
+          if (descEl) descEl.classList.add('hidden');
+          if (actionsEl) {
+            actionsEl.innerHTML = `
+              <button onclick="DualFlashcardSystem.resetFilters()" class="px-4 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-bold cursor-pointer transition-all">
+                Clear Filters
+              </button>
+            `;
+          }
+        }
+      }
       if (cardEl) cardEl.classList.add('hidden');
       if (controls) controls.classList.add('hidden');
       return;
@@ -17996,7 +18106,8 @@ const DualFlashcardSystem = {
 
     const progEl = document.getElementById('fcProgressIndex');
     if (progEl) {
-      progEl.innerText = `${this.currentIndex + 1} / ${list.length}`;
+      const modeLabel = this.studyMode === 'toLearn' ? 'To Learn' : 'All';
+      progEl.innerText = `${this.currentIndex + 1} / ${list.length} (${modeLabel})`;
     }
 
     // Populate Front & Back based on Noun vs Verb
@@ -18173,12 +18284,23 @@ const DualFlashcardSystem = {
     }
 
     this.updateMasteredUI();
-    this.updateMasteredButtons();
+    this.renderStudyModeButtons();
+    this.renderCategoryPills();
+
     if (this.viewMode === 'grid') {
       this.renderGrid();
+    } else {
+      // In Card mode: if we are in 'toLearn' mode and the card was just memorized,
+      // it is now filtered out, so show the next unmemorized card immediately!
+      if (this.studyMode === 'toLearn' && isNowMastered) {
+        this.showCard();
+      } else {
+        this.updateMasteredButtons();
+      }
     }
+
     if (typeof App !== 'undefined' && App.showToast) {
-      App.showToast(isNowMastered ? '⭐ Word marked as Memorized!' : 'Word removed from Memorized list');
+      App.showToast(isNowMastered ? '⭐ Word memorized! Next card shown.' : 'Word returned to practice deck.');
     }
     return isNowMastered;
   },
@@ -18261,6 +18383,9 @@ const DualFlashcardSystem = {
     if (histNoun) histNoun.innerText = totalNouns;
     const histVerb = document.getElementById('histVerbCount');
     if (histVerb) histVerb.innerText = totalVerbs;
+
+    this.renderStudyModeButtons();
+    this.renderDeckSelector();
 
     // If modal is open, refresh its list
     const modal = document.getElementById('fcHistoryModal');
@@ -18804,7 +18929,7 @@ const DualFlashcardSystem = {
     if (pagedItems.length === 0) {
       container.innerHTML = `
         <div class="col-span-full py-12 text-center text-slate-400 text-sm">
-          No words found matching "${this.searchQuery}". Try another search query.
+          No words found matching "${this.searchQuery}". Try another search query or switch to "Show All".
         </div>
       `;
       if (pagination) pagination.innerHTML = '';
