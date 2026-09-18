@@ -1,4 +1,4 @@
-﻿
+
 
 
 
@@ -2766,27 +2766,35 @@ html[data-theme="dark"] select {
                 <!-- Global Search Button -->
         <button onclick="App.openSearchModal()" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100/90 text-slate-500 hover:bg-pink-50 hover:text-pink-600 text-xs font-medium border border-slate-200/70 transition-all shadow-sm">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-          <span class="hidden md:inline">Search Curriculum</span>
-          <kbd class="hidden md:inline px-1.5 py-0.5 text-[9px] bg-white rounded border border-slate-300 font-mono">âŒ˜K</kbd>
+          <span class="hidden md:inline" data-i18n="searchCurriculum">Search Curriculum</span>
+          <kbd class="hidden md:inline px-1.5 py-0.5 text-[9px] bg-white rounded border border-slate-300 font-mono">&#8984;K</kbd>
         </button>
 
-        <!-- Live Progress Interactive Button (Click to view completed modules) -->
-        <button onclick="App.openProgressModal()" class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/95 border border-pink-200 hover:border-pink-400 hover:bg-pink-50/60 shadow-xs text-xs cursor-pointer transition-all select-none group" title="Klik untuk melihat modul & pelajaran yang sudah selesai">
-          <span class="text-slate-500 font-medium group-hover:text-pink-600">Progress:</span>
+                <!-- Live Progress Interactive Button (Click to view completed modules) -->
+        <button onclick="App.openProgressModal()" class="hidden sm:flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-white/95 border border-pink-200 hover:border-pink-400 hover:bg-pink-50/60 shadow-xs text-xs cursor-pointer transition-all select-none group" title="View completed modules and lessons">
+          <span class="text-slate-500 font-medium group-hover:text-pink-600" data-i18n="progressLabel">Progress:</span>
           <div class="w-20 sm:w-24 bg-slate-100 h-2 rounded-full overflow-hidden border border-pink-100">
             <div id="headerProgressBar" class="h-full bg-gradient-to-r from-pink-400 to-rose-400 rounded-full transition-all duration-500" style="width: 0%"></div>
           </div>
           <span id="headerProgressCount" class="font-bold text-pink-700">0 / 38</span>
-          <span class="text-[10px] bg-pink-100 group-hover:bg-pink-200 text-pink-700 px-1.5 py-0.5 rounded font-bold transition-colors flex items-center gap-1">Modul <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></span>
+          <span class="text-[10px] bg-pink-100 group-hover:bg-pink-200 text-pink-700 px-1.5 py-0.5 rounded font-bold transition-colors flex items-center gap-1"><span data-i18n="modulBtn">Modul</span> <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></span>
         </button>
-          <span id="headerProgressCount" class="font-bold text-pink-700">0 / 38</span>
+
+        <!-- Cute Bilingual Language Switcher (EN | ID) -->
+        <div class="flex items-center p-0.5 rounded-xl bg-slate-100/90 border border-pink-200/80 shadow-2xs select-none">
+          <button id="langBtnEn" onclick="I18n.setLanguage('en')" class="px-2.5 py-1 rounded-lg text-xs font-black transition-all cursor-pointer bg-white text-pink-600 shadow-2xs" title="English (Default)">
+            EN
+          </button>
+          <button id="langBtnId" onclick="I18n.setLanguage('id')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-500 hover:text-pink-600" title="Bahasa Indonesia (Santai & Mudah Dipahami)">
+            ID
+          </button>
         </div>
 
                 <!-- PWA Install Button in Header -->
         <button id="pwaInstallHeaderBtn" onclick="PWAInstaller.promptInstall()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white text-xs font-bold shadow-sm shadow-pink-200 transition-all cursor-pointer select-none" title="Install CheeYa German A1 on Mobile / Desktop">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-          <span class="hidden sm:inline">Install App</span>
-          <span class="sm:hidden">Install</span>
+          <span class="hidden sm:inline" data-i18n="installApp">Install App</span>
+          <span class="sm:hidden" data-i18n="install">Install</span>
         </button>
         <button onclick="App.navigateTo('dashboard')" class="px-3 py-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-semibold shadow-sm shadow-pink-200 transition-all">
           Dashboard
@@ -2804,7 +2812,7 @@ html[data-theme="dark"] select {
     <aside id="sidebarNav" class="fixed lg:sticky top-16 z-40 lg:z-20 w-72 h-[calc(100vh-4rem)] bg-white/95 lg:bg-transparent border-r border-pink-100 p-4 overflow-y-auto flex flex-col justify-between transition-transform duration-300 -translate-x-full lg:translate-x-0 no-print">
       <div>
         <div class="flex items-center justify-between pb-3 mb-2 border-b border-pink-100 lg:hidden">
-          <span class="font-display font-bold text-slate-800 text-sm">38-Lesson Curriculum</span>
+          <span class="font-display font-bold text-slate-800 text-sm" data-i18n="curriculumSubtitle">38-Lesson Curriculum</span>
           <button onclick="App.toggleMobileSidebar()" class="p-1 rounded-lg text-slate-400 hover:text-slate-600">✕</button>
         </div>
 
@@ -2815,27 +2823,27 @@ html[data-theme="dark"] select {
           </button>
           <button onclick="App.navigateTo('exam')" class="w-full text-left px-2.5 py-2 rounded-xl flex items-center gap-2.5 text-xs font-bold text-amber-800 bg-amber-50/80 hover:bg-amber-100 transition-colors border border-amber-200/60 shadow-xs">
             <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <span>Goethe A1 Exam</span>
+            <span data-i18n="navExam">Goethe A1 Exam</span>
           </button>
           <button onclick="App.navigateTo('translator')" class="w-full text-left px-2.5 py-2 rounded-xl flex items-center gap-2.5 text-xs font-bold text-indigo-700 hover:bg-indigo-50 transition-colors">
             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10m-.178-2h-6.644"/></svg>
-            <span>Smart Translator</span>
+            <span data-i18n="navTranslator">Smart Translator</span>
           </button>
           <button onclick="App.navigateTo('flashcards')" class="w-full text-left px-2.5 py-2 rounded-xl flex items-center gap-2.5 text-xs font-bold text-emerald-700 hover:bg-emerald-50 transition-colors">
             <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-            <span>Vocabulary Flashcards</span>
+            <span data-i18n="navFlashcards">Vocabulary Flashcards</span>
           </button>
           <button onclick="App.navigateTo('articleFinder')" class="w-full text-left px-2.5 py-2 rounded-xl flex items-center gap-2.5 text-xs font-bold text-pink-700 hover:bg-pink-50 transition-colors">
             <svg class="w-4 h-4 text-pink-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            <span>Der Die Das Finder</span>
+            <span data-i18n="navArticleFinder">Der Die Das Finder</span>
           </button>
           <button onclick="StudyMusicPlayer.togglePanel()" class="w-full text-left px-2.5 py-2 rounded-xl flex items-center gap-2.5 text-xs font-bold text-purple-700 hover:bg-purple-50 transition-colors">
             <svg class="w-4 h-4 text-purple-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
-            <span>Study Music Player</span>
+            <span data-i18n="navMusic">Study Music Player</span>
           </button>
         </div>
         <div class="text-[11px] font-bold tracking-wider text-pink-800/80 uppercase px-2 mb-2 flex items-center justify-between">
-          <span>Curriculum Modules</span>
+          <span data-i18n="curriculumModules">Curriculum Modules</span>
           <span class="text-[10px] bg-pink-100 text-pink-700 px-1.5 py-0.5 rounded font-bold">A1</span>
         </div>
 
@@ -2858,21 +2866,21 @@ html[data-theme="dark"] select {
           <!-- Left Text Content -->
           <div class="relative z-10 flex-1 max-w-xl lg:max-w-2xl">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-semibold mb-3">
-              &#10022; Welcome to CheeYa Studio
+              <span data-i18n="welcomeBadge">&#10022; Welcome to CheeYa Studio</span>
             </span>
             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-800 tracking-tight mb-2.5">
-              German A1 Complete Self-Study Platform
+              <span data-i18n="heroTitle">German A1 Complete Self-Study Platform</span>
             </h1>
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
-              Learn German systematically through 38 comprehensive structured lessons&mdash;from the alphabet and foundational grammar to fluid conversation, cases, and complete A1 proficiency.
+              <span data-i18n="heroDesc">Learn German systematically through 38 comprehensive structured lessons&mdash;from the alphabet and foundational grammar to fluid conversation, cases, and complete A1 proficiency.</span>
             </p>
             <div class="flex flex-wrap items-center gap-3">
               <button onclick="App.continueActiveLesson()" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold text-sm shadow-md shadow-pink-200 transition-all flex items-center gap-2">
-                <span>Continue Study</span>
+                <span data-i18n="continueStudy">Continue Study</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </button>
               <button onclick="App.openLesson(1)" class="px-5 py-2.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm border border-pink-200 shadow-sm transition-all">
-                Start from Lesson 01
+                <span data-i18n="startLesson01">Start from Lesson 01</span>
               </button>
             </div>
           </div>
@@ -2880,9 +2888,9 @@ html[data-theme="dark"] select {
           <!-- Beautiful Round German A1 Badge (Slightly larger, centered, cleanly inside borders without tags) -->
           <div class="hidden sm:flex flex-col items-center justify-center self-center shrink-0 z-10 my-auto sm:pr-4 md:pr-8 lg:pr-14">
             <div class="relative flex flex-col items-center justify-center text-center w-44 h-44 sm:w-48 sm:h-48 md:w-52 md:h-52 rounded-full bg-gradient-to-br from-white via-pink-50 to-rose-100/90 border-2 border-pink-200/90 shadow-xl select-none" style="box-shadow: 0 16px 36px rgba(214,109,164,.18), inset 0 0 0 10px rgba(255,255,255,.75), inset 0 0 0 11px rgba(255,190,225,.35); animation: badgeFloat 4.5s ease-in-out infinite;">
-              <span class="text-xs md:text-sm font-black tracking-widest text-pink-600 uppercase">GERMAN</span>
+              <span class="text-xs md:text-sm font-black tracking-widest text-pink-600 uppercase" data-i18n="badgeGerman">GERMAN</span>
               <span class="text-4xl md:text-5xl font-black text-pink-500 my-1 font-sans">A1</span>
-              <span class="text-[10px] md:text-xs font-black text-pink-600/90 tracking-wider">&#10022; 38 LESSONS</span>
+              <span class="text-[10px] md:text-xs font-black text-pink-600/90 tracking-wider" data-i18n="badgeLessons">&#10022; 38 LESSONS</span>
             </div>
           </div>
         </div>
@@ -2890,24 +2898,24 @@ html[data-theme="dark"] select {
         <!-- Live Metrics Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs">
-            <div class="text-xs text-slate-500 font-medium">Completed</div>
+            <div class="text-xs text-slate-500 font-medium" data-i18n="statCompleted">Completed</div>
             <div id="statCompletedCount" class="text-2xl font-bold text-pink-600 mt-1">0</div>
-            <div class="text-[11px] text-slate-400 mt-0.5">out of 38 Lessons</div>
+            <div class="text-[11px] text-slate-400 mt-0.5" data-i18n="outOf38">out of 38 Lessons</div>
           </div>
           <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs">
-            <div class="text-xs text-slate-500 font-medium">Remaining</div>
+            <div class="text-xs text-slate-500 font-medium" data-i18n="statRemaining">Remaining</div>
             <div id="statRemainingCount" class="text-2xl font-bold text-slate-700 mt-1">38</div>
-            <div class="text-[11px] text-slate-400 mt-0.5">Lessons to complete</div>
+            <div class="text-[11px] text-slate-400 mt-0.5" data-i18n="lessonsToComplete">Lessons to complete</div>
           </div>
           <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs">
-            <div class="text-xs text-slate-500 font-medium">Overall Progress</div>
+            <div class="text-xs text-slate-500 font-medium" data-i18n="statOverallProgress">Overall Progress</div>
             <div id="statProgressPercent" class="text-2xl font-bold text-pink-600 mt-1">0%</div>
-            <div class="text-[11px] text-slate-400 mt-0.5">German A1 Path</div>
+            <div class="text-[11px] text-slate-400 mt-0.5" data-i18n="germanA1Path">German A1 Path</div>
           </div>
           <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs">
-            <div class="text-xs text-slate-500 font-medium">Curriculum Level</div>
+            <div class="text-xs text-slate-500 font-medium" data-i18n="statLevel">Curriculum Level</div>
             <div class="text-2xl font-bold text-sky-600 mt-1">CEFR A1</div>
-            <div class="text-[11px] text-slate-400 mt-0.5">Beginner Standard</div>
+            <div class="text-[11px] text-slate-400 mt-0.5" data-i18n="beginnerStandard">Beginner Standard</div>
           </div>
         </div>
 
@@ -2923,9 +2931,9 @@ html[data-theme="dark"] select {
         ✨ Interactive Learning Suite
       </span>
       <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">
-        Practice Tools & Official Exam Prep
+        <span data-i18n="suiteTitle">Practice Tools & Official Exam Prep</span>
       </h2>
-      <p class="text-xs sm:text-sm text-slate-500">Accelerate your A1 fluency with real-time test simulations, smart grammar translations, and 3D flashcards.</p>
+      <p class="text-xs sm:text-sm text-slate-500"><span data-i18n="suiteSubtitle">Accelerate your A1 fluency with real-time test simulations, smart grammar translations, and 3D flashcards.</span></p>
     </div>
   </div>
 
@@ -2937,7 +2945,7 @@ html[data-theme="dark"] select {
           🎓
         </div>
         <div class="flex items-center gap-2 mb-1">
-          <h3 class="font-bold text-slate-800 text-sm">Goethe A1 Simulator</h3>
+          <h3 class="font-bold text-slate-800 text-sm" data-i18n="examCardTitle">Goethe A1 Simulator</h3>
           <span class="text-[10px] font-bold bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">65m Official</span>
         </div>
         <p class="text-xs text-slate-500 leading-relaxed">
@@ -2945,7 +2953,7 @@ html[data-theme="dark"] select {
         </p>
       </div>
       <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-amber-600">
-        <span>Start Exam</span>
+        <span data-i18n="examCardBtn">Start Exam</span>
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </div>
     </div>
@@ -2957,7 +2965,7 @@ html[data-theme="dark"] select {
           🌐
         </div>
         <div class="flex items-center gap-2 mb-1">
-          <h3 class="font-bold text-slate-800 text-sm">Smart Translator</h3>
+          <h3 class="font-bold text-slate-800 text-sm" data-i18n="translatorCardTitle">Smart Translator</h3>
           <span class="text-[10px] font-bold bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded">Grammar AI</span>
         </div>
         <p class="text-xs text-slate-500 leading-relaxed">
@@ -2965,7 +2973,7 @@ html[data-theme="dark"] select {
         </p>
       </div>
       <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-indigo-600">
-        <span>Analyze Sentence</span>
+        <span data-i18n="translatorCardBtn">Analyze Sentence</span>
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </div>
     </div>
@@ -2977,7 +2985,7 @@ html[data-theme="dark"] select {
           🗂️
         </div>
         <div class="flex items-center gap-2 mb-1">
-          <h3 class="font-bold text-slate-800 text-sm">3D Flashcards</h3>
+          <h3 class="font-bold text-slate-800 text-sm" data-i18n="flashcardsCardTitle">3D Flashcards</h3>
           <span class="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded">500+ Words</span>
         </div>
         <p class="text-xs text-slate-500 leading-relaxed">
@@ -2985,7 +2993,7 @@ html[data-theme="dark"] select {
         </p>
       </div>
       <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-emerald-600">
-        <span>Practice Deck</span>
+        <span data-i18n="flashcardsCardBtn">Practice Deck</span>
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </div>
     </div>
@@ -2997,7 +3005,7 @@ html[data-theme="dark"] select {
           🔍
         </div>
         <div class="flex items-center gap-2 mb-1">
-          <h3 class="font-bold text-slate-800 text-sm">Der, Die, Das Finder</h3>
+          <h3 class="font-bold text-slate-800 text-sm" data-i18n="articleCardTitle">Der, Die, Das Finder</h3>
           <span class="text-[10px] font-bold bg-pink-100 text-pink-700 px-1.5 py-0.5 rounded">Article Quiz</span>
         </div>
         <p class="text-xs text-slate-500 leading-relaxed">
@@ -3005,7 +3013,7 @@ html[data-theme="dark"] select {
         </p>
       </div>
       <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-pink-600">
-        <span>Find Articles</span>
+        <span data-i18n="articleCardBtn">Find Articles</span>
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </div>
     </div>
@@ -3020,8 +3028,8 @@ html[data-theme="dark"] select {
         <div>
           <div class="flex items-center justify-between mb-4">
             <div>
-              <h2 class="text-xl font-bold text-slate-800">Curriculum Roadmap</h2>
-              <p class="text-xs text-slate-500">Official 38 lessons organized into 9 developmental modules</p>
+              <h2 class="text-xl font-bold text-slate-800" data-i18n="curriculumRoadmap">Curriculum Roadmap</h2>
+              <p class="text-xs text-slate-500" data-i18n="curriculumRoadmapDesc">Official 38 lessons organized into 9 developmental modules</p>
             </div>
           </div>
           <div id="roadmapContainer" class="space-y-6"></div>
@@ -3033,7 +3041,7 @@ html[data-theme="dark"] select {
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-pink-100 no-print">
           <button onclick="App.navigateTo('dashboard')" class="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-pink-600 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-            <span>Back to Dashboard</span>
+            <span data-i18n="backToDashboard">Back to Dashboard</span>
           </button>
 
           <div class="flex items-center gap-2">
@@ -3046,7 +3054,7 @@ html[data-theme="dark"] select {
             <!-- Download PDF Button -->
             <button id="downloadPdfBtn" onclick="PDFGenerator.downloadLesson(App.currentLessonId)" class="px-3.5 py-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-semibold shadow-sm shadow-pink-200 transition-all flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              <span>Download Lesson PDF</span>
+              <span data-i18n="downloadPdf">Download Lesson PDF</span>
             </button>
 
             <!-- Print / Save as PDF Fallback -->
@@ -12416,6 +12424,219 @@ const CheatSheetSystem = {
 </script>
 
   <script>
+        /* ==========================================================================
+       CheeYa German A1 - Bilingual Internationalization (EN / ID)
+       Default: English (en) | Switchable to: Indonesian (id)
+       Conversational, friendly, modern Indonesian (tidak kaku/baku berlebihan)
+       ========================================================================== */
+    const I18n = {
+      currentLang: localStorage.getItem('cheeya_lang') || 'en',
+
+      translations: {
+        en: {
+          searchCurriculum: "Search Curriculum",
+          searchPlaceholder: "Search topics, grammar, words, or lesson #...",
+          progressLabel: "Progress:",
+          modulBtn: "Modul",
+          installApp: "Install App",
+          install: "Install",
+          navDashboard: "Dashboard",
+          navExam: "Goethe A1 Exam",
+          navTranslator: "Smart Translator",
+          navFlashcards: "Vocabulary Flashcards",
+          navArticleFinder: "Der Die Das Finder",
+          navMusic: "Study Music Player",
+          curriculumModules: "Curriculum Modules",
+          curriculumSubtitle: "38-Lesson Curriculum",
+          studioFooter: "CheeYa Studio • Standard A1",
+
+          welcomeBadge: "&#10022; Welcome to CheeYa Studio",
+          heroTitle: "German A1 Complete Self-Study Platform",
+          heroDesc: "Learn German systematically through 38 comprehensive structured lessons&mdash;from the alphabet and foundational grammar to fluid conversation, cases, and complete A1 proficiency.",
+          continueStudy: "Continue Study",
+          startLesson01: "Start from Lesson 01",
+          badgeGerman: "GERMAN",
+          badgeLessons: "&#10022; 38 LESSONS",
+
+          statCompleted: "Completed",
+          statRemaining: "Remaining",
+          statOverallProgress: "Overall Progress",
+          statLevel: "Curriculum Level",
+          outOf38: "out of 38 Lessons",
+          lessonsToComplete: "Lessons to complete",
+          germanA1Path: "German A1 Path",
+          beginnerStandard: "Beginner Standard",
+
+          suiteBadge: "&#10024; Interactive Learning Suite",
+          suiteTitle: "Practice Tools & Official Exam Prep",
+          suiteSubtitle: "Accelerate your A1 fluency with real-time test simulations, smart grammar translations, and 3D flashcards.",
+          examCardTitle: "Goethe A1 Simulator",
+          examCardBtn: "Start Exam",
+          translatorCardTitle: "Smart Translator",
+          translatorCardBtn: "Analyze Sentence",
+          flashcardsCardTitle: "3D Flashcards",
+          flashcardsCardBtn: "Practice Deck",
+          articleCardTitle: "Der, Die, Das Finder",
+          articleCardBtn: "Find Articles",
+
+          curriculumRoadmap: "Curriculum Roadmap",
+          curriculumRoadmapDesc: "Official 38 lessons organized into 9 developmental modules",
+          backToDashboard: "Back to Dashboard",
+          downloadPdf: "Download Lesson PDF",
+          markCompleted: "Mark Completed",
+          completed: "Completed",
+          nextLesson: "Next Lesson",
+          prevLesson: "Previous Lesson",
+          finishReview: "Finish Review",
+          doneTag: "Done",
+          openArrow: "Open &rarr;",
+          curriculumLevelA1: "A1 CURRICULUM",
+
+          progressModalTitle: "Learning Progress & Completed Modules",
+          progressModalSubtitle: "Complete overview of all 9 modules & German A1 lessons",
+          lessonsCompletedLabel: "Lessons Completed",
+          modulesCompletedLabel: "Modules Completed",
+          totalProgressLabel: "Total Progress",
+          statusDone: "Done",
+          statusInProgress: "In Progress",
+          statusNotStarted: "Not Started",
+          closeBtn: "Close"
+        },
+
+        id: {
+          searchCurriculum: "Cari Materi",
+          searchPlaceholder: "Ketik topik, tata bahasa, kosakata, atau bab...",
+          progressLabel: "Progres:",
+          modulBtn: "Modul",
+          installApp: "Pasang Aplikasi",
+          install: "Pasang",
+          navDashboard: "Beranda",
+          navExam: "Simulasi Ujian Goethe",
+          navTranslator: "Penerjemah Pintar",
+          navFlashcards: "Kartu Kosakata",
+          navArticleFinder: "Pencari Der Die Das",
+          navMusic: "Musik & Lagu Belajar",
+          curriculumModules: "Modul Belajar",
+          curriculumSubtitle: "38 Pelajaran Lengkap A1",
+          studioFooter: "CheeYa Studio • Standar Resmi A1",
+
+          welcomeBadge: "&#10022; Selamat Datang di CheeYa Studio",
+          heroTitle: "Panduan Lengkap Belajar Mandiri Bahasa Jerman A1",
+          heroDesc: "Belajar bahasa Jerman step-by-step lewat 38 materi terstruktur—dari alfabet, tata bahasa dasar, percakapan sehari-hari, sampai siap ujian Goethe A1!",
+          continueStudy: "Lanjut Belajar",
+          startLesson01: "Mulai dari Bab 01",
+          badgeGerman: "JERMAN",
+          badgeLessons: "&#10022; 38 PELAJARAN",
+
+          statCompleted: "Selesai",
+          statRemaining: "Sisa",
+          statOverallProgress: "Total Progres",
+          statLevel: "Level Belajar",
+          outOf38: "dari 38 Pelajaran",
+          lessonsToComplete: "Pelajaran lagi",
+          germanA1Path: "Jalur Belajar A1",
+          beginnerStandard: "Tingkat Pemula",
+
+          suiteBadge: "&#10024; Menu Latihan & Persiapan Ujian",
+          suiteTitle: "Fitur Latihan & Ujian Resmi Goethe",
+          suiteSubtitle: "Makin lancar bahasa Jerman dengan simulasi ujian real-time, penerjemah tata bahasa pintar, dan flashcard interaktif.",
+          examCardTitle: "Simulasi Ujian Goethe",
+          examCardBtn: "Mulai Ujian",
+          translatorCardTitle: "Penerjemah Tata Bahasa",
+          translatorCardBtn: "Analisis Kalimat",
+          flashcardsCardTitle: "Kartu Kosakata (Flashcards)",
+          flashcardsCardBtn: "Latihan Kosakata",
+          articleCardTitle: "Pencari Artikel Der Die Das",
+          articleCardBtn: "Cari Artikel",
+
+          curriculumRoadmap: "Peta Materi & Modul",
+          curriculumRoadmapDesc: "38 bab pelajaran resmi terbagi dalam 9 modul bertahap",
+          backToDashboard: "Kembali ke Beranda",
+          downloadPdf: "Unduh PDF Bab Ini",
+          markCompleted: "Tandai Selesai",
+          completed: "Selesai &#10003;",
+          nextLesson: "Pelajaran Selanjutnya",
+          prevLesson: "Pelajaran Sebelumnya",
+          finishReview: "Selesai & Ke Beranda",
+          doneTag: "Selesai",
+          openArrow: "Buka &rarr;",
+          curriculumLevelA1: "KURIKULUM A1",
+
+          progressModalTitle: "Progres Belajar & Modul Selesai",
+          progressModalSubtitle: "Daftar lengkap 9 modul & pelajaran German A1 yang telah selesai",
+          lessonsCompletedLabel: "Pelajaran Selesai",
+          modulesCompletedLabel: "Modul Selesai",
+          totalProgressLabel: "Total Progres",
+          statusDone: "Selesai",
+          statusInProgress: "Sedang Berjalan",
+          statusNotStarted: "Belum Mulai",
+          closeBtn: "Tutup"
+        }
+      },
+
+      t(key) {
+        const lang = this.currentLang;
+        if (this.translations[lang] && this.translations[lang][key] !== undefined) {
+          return this.translations[lang][key];
+        }
+        if (this.translations['en'] && this.translations['en'][key] !== undefined) {
+          return this.translations['en'][key];
+        }
+        return key;
+      },
+
+      setLanguage(lang) {
+        if (lang !== 'en' && lang !== 'id') lang = 'en';
+        this.currentLang = lang;
+        localStorage.setItem('cheeya_lang', lang);
+        this.apply();
+      },
+
+      init() {
+        this.apply();
+      },
+
+      apply() {
+        const lang = this.currentLang;
+
+        // 1. Update Language buttons in Header
+        const btnEn = document.getElementById('langBtnEn');
+        const btnId = document.getElementById('langBtnId');
+        if (btnEn && btnId) {
+          if (lang === 'en') {
+            btnEn.className = "px-2.5 py-1 rounded-lg text-xs font-black transition-all cursor-pointer bg-white text-pink-600 shadow-2xs";
+            btnId.className = "px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-500 hover:text-pink-600";
+          } else {
+            btnEn.className = "px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-500 hover:text-pink-600";
+            btnId.className = "px-2.5 py-1 rounded-lg text-xs font-black transition-all cursor-pointer bg-white text-pink-600 shadow-2xs";
+          }
+        }
+
+        // 2. Update all DOM elements with data-i18n
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          const val = this.t(key);
+          if (val) el.innerHTML = val;
+        });
+
+        // 3. Update all DOM elements with data-i18n-placeholder
+        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+          const key = el.getAttribute('data-i18n-placeholder');
+          const val = this.t(key);
+          if (val) el.placeholder = val;
+        });
+
+        // 4. Update dynamic elements
+        if (typeof App !== 'undefined') {
+          if (App.updateCompleteButtonUI) App.updateCompleteButtonUI();
+          if (App.renderSidebar) App.renderSidebar();
+          if (App.renderRoadmap) App.renderRoadmap();
+          if (App.updateProgressMetrics) App.updateProgressMetrics();
+        }
+      }
+    };
+
+
     const App = {
       currentView: 'dashboard',
       currentLessonId: 1,
@@ -12427,6 +12648,7 @@ const CheatSheetSystem = {
         this.currentLessonId = Storage.getActiveLesson();
         
         AmbientSystem.init();
+        if (typeof I18n !== 'undefined') I18n.init();
 
         this.renderSidebar();
         this.renderRoadmap();
@@ -12524,9 +12746,11 @@ const CheatSheetSystem = {
         const nextBtn = document.getElementById('nextLessonBtn');
         if (prevBtn) prevBtn.style.visibility = lessonId === 1 ? 'hidden' : 'visible';
         if (nextBtn) {
+          const nextText = (typeof I18n !== 'undefined') ? I18n.t('nextLesson') : 'Next Lesson';
+          const finishText = (typeof I18n !== 'undefined') ? I18n.t('finishReview') : 'Finish Review';
           nextBtn.innerHTML = lessonId === 38 
-            ? `<span>Finish Review</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`
-            : `<span>Next Lesson</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
+            ? `<span>${finishText}</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`
+            : `<span>${nextText}</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
         }
 
         this.navigateTo('lesson');
@@ -12751,10 +12975,10 @@ const CheatSheetSystem = {
               <div class="flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-50 via-rose-50/60 to-pink-50/20 border border-pink-200/60 mb-1.5 shadow-2xs">
                 <div class="flex items-center gap-1.5 min-w-0">
                   <span class="text-xs">${mod.icon || '&#127800;'}</span>
-                  <span class="text-[11px] font-black text-pink-800 tracking-wide uppercase truncate font-sans">${mod.name}</span>
+                  <span class="text-[11px] font-black text-pink-800 tracking-wide uppercase truncate font-sans">${(typeof I18n !== 'undefined' && I18n.currentLang === 'id' && mod.name_id) ? mod.name_id : mod.name}</span>
                 </div>
                 <span class="text-[9px] font-black px-1.5 py-0.5 rounded-full ${isModDone ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-pink-100 text-pink-700 border border-pink-200/60'} shrink-0 ml-1">
-                  ${isModDone ? '&#10003; Done' : `${completedInMod}/${modLessons.length}`}
+                  ${isModDone ? '&#10003; ' + ((typeof I18n !== 'undefined') ? I18n.t('doneTag') : 'Done') : `${completedInMod}/${modLessons.length}`}
                 </span>
               </div>
               
@@ -12785,7 +13009,7 @@ const CheatSheetSystem = {
                   ${numBadge}
                   <span class="text-xs truncate ${isCurrent ? 'font-black text-pink-950' : 'font-medium text-slate-700 group-hover:text-pink-900'}">${l.title}</span>
                 </div>
-                ${isDone ? '<span class="text-[9px] font-black text-emerald-700 bg-emerald-100/90 px-1.5 py-0.5 rounded-md border border-emerald-200/60 shrink-0 ml-1">Selesai</span>' : isCurrent ? '<span class="text-xs text-pink-500 font-bold shrink-0 ml-1">&#10022;</span>' : ''}
+                ${isDone ? '<span class="text-[9px] font-black text-emerald-700 bg-emerald-100/90 px-1.5 py-0.5 rounded-md border border-emerald-200/60 shrink-0 ml-1">' + ((typeof I18n !== 'undefined') ? I18n.t('doneTag') : 'Done') + '</span>' : isCurrent ? '<span class="text-xs text-pink-500 font-bold shrink-0 ml-1">&#10022;</span>' : ''}
               </button>
             `;
           });
