@@ -1,4 +1,4 @@
-
+﻿
 
 
 
@@ -3949,56 +3949,56 @@ html[data-theme="dark"] select {
 <script>
     // CURRICULUM ARCHITECTURE: 9 MODULES, EXACTLY 38 LESSONS
     const MODULES = [
-      { id: 'foundation', name: '1. Foundation', range: [1, 3], icon: '🌱' },
-      { id: 'core_verbs', name: '2. Core Verbs', range: [4, 7], icon: '⚡' },
-      { id: 'nouns_gender', name: '3. Nouns & Gender', range: [8, 12], icon: '🏷️' },
-      { id: 'sentence_structure', name: '4. Sentence Structure', range: [13, 16], icon: '🧩' },
-      { id: 'cases', name: '5. Cases', range: [17, 21], icon: '📐' },
-      { id: 'advanced_verbs', name: '6. Advanced A1 Verbs', range: [22, 26], icon: '🔄' },
-      { id: 'prepositions', name: '7. Prepositions', range: [27, 30], icon: '📍' },
-      { id: 'possession_adjectives', name: '8. Possession & Adjectives', range: [31, 34], icon: '🎨' },
-      { id: 'past_review', name: '9. Past Tense & Final Review', range: [35, 38], icon: '🎓' }
+      { id: 'foundation', name: '1. Foundation', name_id: '1. Dasar-Dasar', range: [1, 3], icon: '🌱' },
+      { id: 'core_verbs', name: '2. Core Verbs', name_id: '2. Kata Kerja Inti', range: [4, 7], icon: '⚡' },
+      { id: 'nouns_gender', name: '3. Nouns & Gender', name_id: '3. Kata Benda & Gender', range: [8, 12], icon: '🏷️' },
+      { id: 'sentence_structure', name: '4. Sentence Structure', name_id: '4. Susunan Kalimat', range: [13, 16], icon: '🧩' },
+      { id: 'cases', name: '5. Cases', range: [17, 21], name_id: '5. Kasus (Kasus A1)', icon: '📐' },
+      { id: 'advanced_verbs', name: '6. Advanced A1 Verbs', name_id: '6. Kata Kerja Lanjutan', range: [22, 26], icon: '🔄' },
+      { id: 'prepositions', name: '7. Prepositions', name_id: '7. Preposisi / Kata Depan', range: [27, 30], icon: '📍' },
+      { id: 'possession_adjectives', name: '8. Possession & Adjectives', name_id: '8. Kepemilikan & Sifat', range: [31, 34], icon: '🎨' },
+      { id: 'past_review', name: '9. Past Tense & Final Review', name_id: '9. Lampau & Ulasan Akhir', range: [35, 38], icon: '🎓' }
     ];
 
     const LESSON_INDEX = [
-      { id: 1, mod: 'foundation', title: "German Alphabet + Pronunciation", desc: "Alphabet, special characters (ä, ö, ü, ß), diphthongs, and core pronunciation rules." },
-      { id: 2, mod: 'foundation', title: "Numbers 0–100", desc: "Cardinal numbers, telephone numbers, counting, and German number inversion." },
-      { id: 3, mod: 'foundation', title: "Greetings + Self-Introduction", desc: "Formal and informal greetings, asking names, countries of origin, and farewells." },
-      { id: 4, mod: 'core_verbs', title: "Verb SEIN", desc: "Conjugation of 'sein' (to be) in present tense with subject pronouns." },
-      { id: 5, mod: 'core_verbs', title: "Verb HABEN", desc: "Conjugation of 'haben' (to have) and introduction to having objects." },
-      { id: 6, mod: 'core_verbs', title: "Regular Verbs in Präsens", desc: "Standard verb endings (-e, -st, -t, -en, -t, -en) with regular German verbs." },
-      { id: 7, mod: 'core_verbs', title: "Basic Questions — W-Fragen + Ja/Nein Questions", desc: "Question words (Wer, Was, Wo, Wie) and inverted verb questions." },
-      { id: 8, mod: 'nouns_gender', title: "Noun Gender — DER / DIE / DAS", desc: "Masculine, feminine, and neuter genders, capitalization of all German nouns." },
-      { id: 9, mod: 'nouns_gender', title: "Definite + Indefinite Articles", desc: "Der/die/das vs. ein/eine/ein and negative article kein." },
-      { id: 10, mod: 'nouns_gender', title: "KEIN / KEINE vs NICHT", desc: "Negating nouns with kein and verbs/adjectives with nicht." },
-      { id: 11, mod: 'nouns_gender', title: "German Plurals", desc: "The five major plural patterns (-e, -er, -n/-en, -s, no ending) and umlaut shifts." },
-      { id: 12, mod: 'nouns_gender', title: "Family — Familie", desc: "Family members, relationships, and possessive introduction." },
-      { id: 13, mod: 'sentence_structure', title: "Basic Word Order — Verb Position 2", desc: "The golden rule: conjugated finite verb in position 2 in main clauses." },
-      { id: 14, mod: 'sentence_structure', title: "Conjunctions — und, oder, aber, denn", desc: "Coordinating conjunctions (position zero) joining two complete clauses." },
-      { id: 15, mod: 'sentence_structure', title: "Time, Clock, Days + Dates", desc: "Official vs. conversational time (viertel vor, halb), days of week, and months." },
-      { id: 16, mod: 'sentence_structure', title: "Jobs + Professions", desc: "Occupations, masculine vs. feminine job titles with -in, and work vocabulary." },
-      { id: 17, mod: 'cases', title: "Nominative", desc: "The subject of the sentence, predicate nominative with sein/werden." },
-      { id: 18, mod: 'cases', title: "Accusative", desc: "Direct objects: der changes to den, while die, das, and die plural remain unchanged." },
-      { id: 19, mod: 'cases', title: "Accusative Personal Pronouns", desc: "Mich, dich, ihn, sie, es, uns, euch, sie/Sie in conversational action." },
-      { id: 20, mod: 'cases', title: "Dative", desc: "Indirect objects: dem, der, dem, den (+n). When and why dative is triggered." },
-      { id: 21, mod: 'cases', title: "Dative Personal Pronouns", desc: "Mir, dir, ihm, ihr, ihm, uns, euch, ihnen/Ihnen with dative verbs." },
-      { id: 22, mod: 'advanced_verbs', title: "Irregular Verbs + Vowel Changes", desc: "Stem-vowel changes in 2nd and 3rd person singular (e→i, e→ie, a→ä)." },
-      { id: 23, mod: 'advanced_verbs', title: "Modal Verbs — können, müssen, wollen", desc: "Ability, necessity, and desire: modal conjugation and infinitive bracket rule." },
-      { id: 24, mod: 'advanced_verbs', title: "Modal Verbs — dürfen, sollen, möchten, mögen", desc: "Permission, obligation, polite wishing, and liking things." },
-      { id: 25, mod: 'advanced_verbs', title: "Separable Verbs", desc: "Prefixes that detach (aufstehen, einkaufen) and move to the very end." },
-      { id: 26, mod: 'advanced_verbs', title: "Imperative", desc: "Giving commands and friendly requests in du, ihr, and Sie forms." },
-      { id: 27, mod: 'prepositions', title: "Accusative Prepositions", desc: "Bis, durch, für, gegen, ohne, um (always trigger accusative case)." },
-      { id: 28, mod: 'prepositions', title: "Dative Prepositions", desc: "Aus, bei, mit, nach, seit, von, zu (always trigger dative case)." },
-      { id: 29, mod: 'prepositions', title: "Location Prepositions — in, an, auf", desc: "Two-way prepositions expressing fixed location (Dative: Wo?)." },
-      { id: 30, mod: 'prepositions', title: "Directions + Transportation", desc: "Asking for directions, taking transport (mit dem Bus, mit der Bahn), and movement." },
-      { id: 31, mod: 'possession_adjectives', title: "Possessive Determiners", desc: "Mein, dein, sein, ihr, unser, euer, ihr/Ihr across nominative and accusative." },
-      { id: 32, mod: 'possession_adjectives', title: "Predicative Adjectives", desc: "Using adjectives after sein/bleiben (Das Haus ist schön - no endings required)." },
-      { id: 33, mod: 'possession_adjectives', title: "Shopping + Clothes", desc: "Colors, clothing items, sizes, prices, and practical shopping dialogues." },
-      { id: 34, mod: 'possession_adjectives', title: "Food + Drinks + Restaurant", desc: "Meals, ordering at a café or restaurant, paying the bill, and German cuisine." },
-      { id: 35, mod: 'past_review', title: "Perfekt with HABEN", desc: "Conversational past: haben + Partizip II (ge- -t / ge- -en)." },
-      { id: 36, mod: 'past_review', title: "Perfekt with SEIN", desc: "Past tense of movement and change of state (sein + Partizip II)." },
-      { id: 37, mod: 'past_review', title: "Hobbies + Free Time + Weather", desc: "Leisure activities, sports, weather expressions (es regnet, es ist sonnig)." },
-      { id: 38, mod: 'past_review', title: "Complete A1 Review + Mock Exam", desc: "Full CEFR A1 synthesis, cheat sheets, self-check assessment, and next steps." }
+      { id: 1, mod: 'foundation', title: "German Alphabet + Pronunciation", title_id: "Alfabet Jerman & Pengucapan", desc: "Alphabet, special characters (Ã¤, Ã¶, Ã¼, ÃŸ), diphthongs, and core pronunciation rules.", desc_id: "Alfabet, huruf khusus (Ã¤, Ã¶, Ã¼, ÃŸ), diftong, dan aturan pengucapan dasar." },
+      { id: 2, mod: 'foundation', title: "Numbers 0â€“100", title_id: "Angka 0â€“100", desc: "Cardinal numbers, telephone numbers, counting, and German number inversion.", desc_id: "Angka pokok, nomor telepon, berhitung, dan aturan urutan angka terbalik khas Jerman." },
+      { id: 3, mod: 'foundation', title: "Greetings + Self-Introduction", title_id: "Salam & Perkenalan Diri", desc: "Formal and informal greetings, asking names, countries of origin, and farewells.", desc_id: "Salam formal dan akrab, cara memperkenalkan nama, asal negara, dan perpisahan." },
+      { id: 4, mod: 'core_verbs', title: "Verb SEIN", title_id: "Kata Kerja SEIN (To Be)", desc: "Conjugation of 'sein' (to be) in present tense with subject pronouns.", desc_id: "Konjugasi kata kerja penting 'sein' (adalah/menjadi) dengan subjek orang." },
+      { id: 5, mod: 'core_verbs', title: "Verb HABEN", title_id: "Kata Kerja HABEN (Mempunyai)", desc: "Conjugation of 'haben' (to have) and introduction to having objects.", desc_id: "Konjugasi kata kerja 'haben' (punya/memiliki) dan menyatakan benda milik kita." },
+      { id: 6, mod: 'core_verbs', title: "Regular Verbs in PrÃ¤sens", title_id: "Kata Kerja Reguler PrÃ¤sens", desc: "Standard verb endings (-e, -st, -t, -en, -t, -en) with regular German verbs.", desc_id: "Rumus akhiran kata kerja teratur (-e, -st, -t, -en, -t, -en) waktu sekarang." },
+      { id: 7, mod: 'core_verbs', title: "Basic Questions â€” W-Fragen + Ja/Nein Questions", title_id: "Kalimat Tanya â€” W-Fragen & Ja/Nein", desc: "Question words (Wer, Was, Wo, Wie) and inverted verb questions.", desc_id: "Kata tanya (Wer, Was, Wo, Wie) serta membuat pertanyaan ya/tidak." },
+      { id: 8, mod: 'nouns_gender', title: "Noun Gender â€” DER / DIE / DAS", title_id: "Gender Kata Benda â€” DER / DIE / DAS", desc: "Masculine, feminine, and neuter genders, capitalization of all German nouns.", desc_id: "Mengenal gender maskulin, feminin, dan netral serta aturan huruf kapital." },
+      { id: 9, mod: 'nouns_gender', title: "Definite + Indefinite Articles", title_id: "Artikel Tertentu & Tidak Tentu", desc: "Der/die/das vs. ein/eine/ein and negative article kein.", desc_id: "Perbedaan der/die/das vs ein/eine/ein dan kata sanggahan kein." },
+      { id: 10, mod: 'nouns_gender', title: "KEIN / KEINE vs NICHT", title_id: "KEIN / KEINE vs NICHT", desc: "Negating nouns with kein and verbs/adjectives with nicht.", desc_id: "Kapan memakai kein (kata benda) dan kapan memakai nicht (kata kerja/sifat)." },
+      { id: 11, mod: 'nouns_gender', title: "German Plurals", title_id: "Bentuk Jamak (Plural)", desc: "The five major plural patterns (-e, -er, -n/-en, -s, no ending) and umlaut shifts.", desc_id: "5 pola perubahan bentuk jamak kata benda Jerman dan tanda umlaut." },
+      { id: 12, mod: 'nouns_gender', title: "Family â€” Familie", title_id: "Keluarga â€” Familie", desc: "Family members, relationships, and possessive introduction.", desc_id: "Kosakata anggota keluarga, silsilah, dan kepemilikan keluarga." },
+      { id: 13, mod: 'sentence_structure', title: "Basic Word Order â€” Verb Position 2", title_id: "Susunan Kalimat â€” Kata Kerja Posisi 2", desc: "The golden rule: conjugated finite verb in position 2 in main clauses.", desc_id: "Aturan emas: kata kerja berkonjugasi selalu berada di posisi kedua." },
+      { id: 14, mod: 'sentence_structure', title: "Conjunctions â€” und, oder, aber, denn", title_id: "Kata Sambung â€” und, oder, aber, denn", desc: "Coordinating conjunctions (position zero) joining two complete clauses.", desc_id: "Kata sambung koordinatif (posisi nol) untuk menggabungkan dua kalimat." },
+      { id: 15, mod: 'sentence_structure', title: "Time, Clock, Days + Dates", title_id: "Waktu, Jam, Hari & Tanggal", desc: "Official vs. conversational time (viertel vor, halb), days of week, and months.", desc_id: "Menyatakan jam resmi vs percakapan santai (halb, viertel), hari, dan bulan." },
+      { id: 16, mod: 'sentence_structure', title: "Jobs + Professions", title_id: "Profesi & Pekerjaan", desc: "Occupations, masculine vs. feminine job titles with -in, and work vocabulary.", desc_id: "Nama profesi, membedakan pria vs wanita (-in), dan kosakata tempat kerja." },
+      { id: 17, mod: 'cases', title: "Nominative", title_id: "Kasus Nominativ (Subjek)", desc: "The subject of the sentence, predicate nominative with sein/werden.", desc_id: "Mengenal subjek kalimat dan peran kasus Nominativ." },
+      { id: 18, mod: 'cases', title: "Accusative", title_id: "Kasus Akkusativ (Objek Langsung)", desc: "Direct objects: der changes to den, while die, das, and die plural remain unchanged.", desc_id: "Objek langsung: perubahan der menjadi den dan ein menjadi einen." },
+      { id: 19, mod: 'cases', title: "Accusative Personal Pronouns", title_id: "Kata Ganti Orang Akkusativ", desc: "Mich, dich, ihn, sie, es, uns, euch, sie/Sie in conversational action.", desc_id: "Mich, dich, ihn, sie, es, uns, euch, sie/Sie dalam percakapan." },
+      { id: 20, mod: 'cases', title: "Dative", title_id: "Kasus Dativ (Objek Tak Langsung)", desc: "Indirect objects: dem, der, dem, den (+n). When and why dative is triggered.", desc_id: "Objek tak langsung: perubahan dem, der, dem, den (+n)." },
+      { id: 21, mod: 'cases', title: "Dative Personal Pronouns", title_id: "Kata Ganti Orang Dativ", desc: "Mir, dir, ihm, ihr, ihm, uns, euch, ihnen/Ihnen with dative verbs.", desc_id: "Mir, dir, ihm, ihr, uns, euch, ihnen/Ihnen dengan kata kerja dativ." },
+      { id: 22, mod: 'advanced_verbs', title: "Irregular Verbs + Vowel Changes", title_id: "Kata Kerja Tak Beraturan", desc: "Stem-vowel changes in 2nd and 3rd person singular (eâ†’i, eâ†’ie, aâ†’Ã¤).", desc_id: "Perubahan vokal pada kata kerja bentuk du dan er/sie/es (eâ†’i, eâ†’ie, aâ†’Ã¤)." },
+      { id: 23, mod: 'advanced_verbs', title: "Modal Verbs â€” kÃ¶nnen, mÃ¼ssen, wollen", title_id: "Modal Verbs â€” kÃ¶nnen, mÃ¼ssen, wollen", desc: "Ability, necessity, and desire: modal conjugation and infinitive bracket rule.", desc_id: "Menyatakan bisa/mampu, harus, dan mau: aturan posisi kata kerja bantu." },
+      { id: 24, mod: 'advanced_verbs', title: "Modal Verbs â€” dÃ¼rfen, sollen, mÃ¶chten, mÃ¶gen", title_id: "Modal Verbs â€” dÃ¼rfen, sollen, mÃ¶chten, mÃ¶gen", desc: "Permission, obligation, polite wishing, and liking things.", desc_id: "Izin, anjuran, ingin secara sopan, dan rasa suka." },
+      { id: 25, mod: 'advanced_verbs', title: "Separable Verbs", title_id: "Trennbare Verben (Kata Kerja Lepas)", desc: "Prefixes that detach (aufstehen, einkaufen) and move to the very end.", desc_id: "Awalan kata kerja yang terpisah dan meluncur ke ujung kalimat." },
+      { id: 26, mod: 'advanced_verbs', title: "Imperative", title_id: "Imperativ (Kalimat Perintah & Ajakan)", desc: "Giving commands and friendly requests in du, ihr, and Sie forms.", desc_id: "Cara memberi instruksi, perintah, dan ajakan sopan maupun santai." },
+      { id: 27, mod: 'prepositions', title: "Accusative Prepositions", title_id: "Preposisi Kasus Akkusativ", desc: "Bis, durch, fÃ¼r, gegen, ohne, um (always trigger accusative case).", desc_id: "Preposisi bis, durch, fÃ¼r, gegen, tanpa, um yang selalu diikuti Akkusativ." },
+      { id: 28, mod: 'prepositions', title: "Dative Prepositions", title_id: "Preposisi Kasus Dativ", desc: "Aus, bei, mit, nach, seit, von, zu (always trigger dative case).", desc_id: "Preposisi aus, bei, mit, nach, seit, von, zu yang selalu diikuti Dativ." },
+      { id: 29, mod: 'prepositions', title: "Location Prepositions â€” in, an, auf", title_id: "Preposisi Posisi Diam (in, an, auf)", desc: "Two-way prepositions expressing fixed location (Dative: Wo?).", desc_id: "Preposisi dua arah untuk tempat menetap / lokasi diam (Dativ: Wo?)." },
+      { id: 30, mod: 'prepositions', title: "Directions + Transportation", title_id: "Arah Jalan & Transportasi", desc: "Asking for directions, taking transport (mit dem Bus, mit der Bahn), and movement.", desc_id: "Menanyakan alamat, naik bus/kereta, dan kosakata transportasi umum." },
+      { id: 31, mod: 'possession_adjectives', title: "Possessive Determiners", title_id: "Kata Ganti Kepemilikan (Possessiv)", desc: "Mein, dein, sein, ihr, unser, euer, ihr/Ihr across nominative and accusative.", desc_id: "Mein, dein, sein, ihr, unser, euer dalam kasus Nominativ & Akkusativ." },
+      { id: 32, mod: 'possession_adjectives', title: "Predicative Adjectives", title_id: "Kata Sifat Predikatif", desc: "Using adjectives after sein/bleiben (Das Haus ist schÃ¶n - no endings required).", desc_id: "Memakai kata sifat deskriptif setelah kata kerja sein (tanpa akhiran rumit)." },
+      { id: 33, mod: 'possession_adjectives', title: "Shopping + Clothes", title_id: "Belanja Pakaian & Warna", desc: "Colors, clothing items, sizes, prices, and practical shopping dialogues.", desc_id: "Warna, baju, ukuran, menanyakan harga, dan percakapan di toko." },
+      { id: 34, mod: 'possession_adjectives', title: "Food + Drinks + Restaurant", title_id: "Makanan, Minuman & Restoran", desc: "Meals, ordering at a cafÃ© or restaurant, paying the bill, and German cuisine.", desc_id: "Kosakata makanan, memesan di kafe/restoran, bayar bon, dan kuliner Jerman." },
+      { id: 35, mod: 'past_review', title: "Perfekt with HABEN", title_id: "Bentuk Lampau Perfekt (dengan HABEN)", desc: "Conversational past: haben + Partizip II (ge- -t / ge- -en).", desc_id: "Menceritakan kejadian masa lalu sehari-hari: haben + Partizip II (ge-...-t)." },
+      { id: 36, mod: 'past_review', title: "Perfekt with SEIN", title_id: "Bentuk Lampau Perfekt (dengan SEIN)", desc: "Past tense of movement and change of state (sein + Partizip II).", desc_id: "Masa lalu untuk perpindahan tempat dan perubahan wujud (sein + Partizip II)." },
+      { id: 37, mod: 'past_review', title: "Hobbies + Free Time + Weather", title_id: "Hobi, Waktu Luang & Cuaca", desc: "Leisure activities, sports, weather expressions (es regnet, es ist sonnig).", desc_id: "Aktivitas liburan, hobi seru, dan cara mendeskripsikan cuaca harian." },
+      { id: 38, mod: 'past_review', title: "Complete A1 Review + Mock Exam", title_id: "Rangkuman Lengkap A1 & Evaluasi", desc: "Full CEFR A1 synthesis, cheat sheets, self-check assessment, and next steps.", desc_id: "Ulasan tuntas seluruh materi A1, lembar contekan cepat, dan persiapan ujian." }
     ];
 
     // LESSON CONTENT REGISTRY
@@ -12632,7 +12632,131 @@ const CheatSheetSystem = {
           if (App.renderSidebar) App.renderSidebar();
           if (App.renderRoadmap) App.renderRoadmap();
           if (App.updateProgressMetrics) App.updateProgressMetrics();
+          if (App.currentView === 'lesson' && App.currentLessonId) {
+            App.openLesson(App.currentLessonId);
+          }
         }
+      },
+
+      localizeLessonContent(container, lessonId) {
+        if (!container) return;
+
+        // 1. Prepend cute aesthetic bilingual notice banner
+        const existingNotice = container.querySelector('.cheeya-id-banner');
+        if (!existingNotice) {
+          const banner = document.createElement('div');
+          banner.className = 'cheeya-id-banner mb-6 p-3.5 rounded-2xl bg-gradient-to-r from-pink-50 via-rose-50 to-pink-50 border border-pink-200/80 flex items-center justify-between flex-wrap gap-2 text-xs shadow-2xs select-none animate-in fade-in';
+          banner.innerHTML = `
+            <div class="flex items-center gap-2">
+              <span class="text-base">🇮🇩</span>
+              <span class="font-bold text-pink-900">Materi & penjelasan disajikan dalam Bahasa Indonesia santai. Kosakata, rumus, dan kalimat contoh Jerman tetap dipertahankan asli.</span>
+            </div>
+            <button onclick="I18n.setLanguage('en')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-pink-100 text-pink-700 font-bold border border-pink-200 transition shadow-2xs cursor-pointer text-[11px]">
+              Ganti ke English (EN)
+            </button>
+          `;
+          container.insertBefore(banner, container.firstChild);
+        }
+
+        // 2. Localize Meta Badges
+        container.querySelectorAll('span, div, p').forEach(el => {
+          const t = el.innerText.trim();
+          if (t === 'Level: German A1 — Absolute Beginner') el.innerText = 'Level: Jerman A1 — Pemula Total';
+          else if (t === 'Explanation: English') el.innerText = 'Penjelasan: Bahasa Indonesia';
+          else if (t === 'Target: German') el.innerText = 'Target: Bahasa Jerman';
+          else if (t.startsWith('⏱ Study:')) el.innerText = t.replace('⏱ Study:', '⏱ Belajar:').replace('min', 'menit');
+          else if (t === 'Type: Foundation') el.innerText = 'Tipe: Materi Pondasi';
+          else if (t === 'Prerequisite: None') el.innerText = 'Prasyarat: Dari Nol (Tanpa Prasyarat)';
+        });
+
+        // 3. Localize Table Headers
+        container.querySelectorAll('th').forEach(th => {
+          const txt = th.innerText.trim();
+          if (txt === 'Letter') th.innerText = 'Huruf';
+          else if (txt === 'German Name') th.innerText = 'Nama Huruf';
+          else if (txt === 'Pronunciation Guide') th.innerText = 'Panduan Bunyi / Cara Baca';
+          else if (txt === 'Example') th.innerText = 'Contoh Kata';
+          else if (txt === 'English' || txt === 'Meaning' || txt === 'English Meaning') th.innerText = 'Arti Bahasa Indonesia';
+          else if (txt === 'Question') th.innerText = 'Pertanyaan';
+          else if (txt === 'Positive') th.innerText = 'Kalimat Positif';
+          else if (txt === 'Negative') th.innerText = 'Kalimat Penyangkalan (Negatif)';
+          else if (txt === 'Function') th.innerText = 'Fungsi Tata Bahasa';
+          else if (txt === 'Subject') th.innerText = 'Subjek';
+          else if (txt === 'Rule') th.innerText = 'Aturan';
+          else if (txt === 'Singular') th.innerText = 'Tunggal (Singular)';
+          else if (txt === 'Plural') th.innerText = 'Jamak (Plural)';
+        });
+
+        // 4. Localize Headings
+        const headingMap = {
+          'Welcome to German': 'Selamat Datang di Bahasa Jerman',
+          'What is Pronunciation?': 'Apa itu Pelafalan (Pronunciation)?',
+          'The German Alphabet': 'Alfabet Bahasa Jerman',
+          'German Letter Names': 'Nama-Nama Huruf dalam Bahasa Jerman',
+          'Important German Vowels': 'Huruf Vokal Penting Bahasa Jerman',
+          'Consonant Combinations': 'Kombinasi Huruf Konsonan',
+          'Practice Exercises': 'Latihan Soal & Praktik Mandiri',
+          'Summary': 'Rangkuman Materi',
+          'Mindset Shift:': 'Pola Pikir Belajar:',
+          'Core Rules': 'Aturan Inti Tata Bahasa',
+          'Word Order': 'Urutan Kata dalam Kalimat',
+          'Conjugation Table': 'Tabel Konjugasi Kata Kerja',
+          'Vocabulary List': 'Daftar Kosakata Penting',
+          'Grammar Cheatsheet': 'Lembar Contekan Rumus Cepat',
+          'Remember': 'Ingat Baik-Baik',
+          'Key Warning': 'Peringatan Penting',
+          'Golden Rule': 'Aturan Emas'
+        };
+
+        container.querySelectorAll('h1, h2, h3, h4').forEach(h => {
+          const original = h.innerText.trim();
+          for (const [enKey, idVal] of Object.entries(headingMap)) {
+            if (original.includes(enKey)) {
+              h.innerText = original.replace(enKey, idVal);
+              break;
+            }
+          }
+        });
+
+        // 5. Intelligent Text Content Localization for explanations
+        const textReplacements = [
+          ['Welcome to your first German lesson. Before grammar, cases, conjugations, or large vocabulary, build a reliable foundation. Pronunciation is part of that foundation.', 'Selamat datang di pelajaran bahasa Jerman pertama kamu! Sebelum masuk ke tata bahasa rumit, kasus, atau hafalan kosakata banyak, yuk kita bangun pondasi yang kuat dulu. Pelafalan (cara membaca) adalah kunci pentingnya.'],
+          ['German may initially look familiar because it uses the Latin alphabet. You recognize many letters from English. However, familiar letters do NOT necessarily have the same pronunciation.', 'Bahasa Jerman awalnya terasa akrab karena menggunakan alfabet Latin seperti bahasa Indonesia. Kamu mengenali banyak hurufnya, tapi huruf yang tampak sama TIDAK selalu dibaca sama!'],
+          ['For example:', 'Sebagai contoh:'],
+          ['German W is generally pronounced differently from English W.', 'Huruf W dalam bahasa Jerman dibaca seperti bunyi "V" (contoh: Wasser dibaca Vasser).'],
+          ['German J is generally pronounced differently from English J.', 'Huruf J dalam bahasa Jerman dibaca seperti bunyi "Y" (contoh: Ja dibaca Ya).'],
+          ['German Z is generally pronounced differently from English Z.', 'Huruf Z dalam bahasa Jerman dibaca seperti bunyi "Ts" (contoh: Zimmer dibaca Tsimmer).'],
+          ['German also has letters and characters that are not part of the basic English alphabet: Ä, Ö, Ü, ß.', 'Bahasa Jerman juga memiliki 4 huruf spesial yang unik: Ä, Ö, Ü, dan ß.'],
+          ['One of your first goals is to stop reading German through English pronunciation rules. When you see a German word, train your brain to think: “What is the German pronunciation pattern?” rather than: “How would I pronounce this spelling in English?” This habit will become extremely useful throughout your A1 journey.', 'Trik penting dari awal: jangan membaca kata Jerman dengan cara baca bahasa Inggris! Saat melihat kata Jerman, latih pikiran kamu untuk mengingat: "Bagaimana cara baca khas Jerman untuk huruf ini?" Kebiasaan ini akan bikin kamu cepat lancar di level A1.'],
+          ['Pronunciation means the way a word is spoken. Spelling tells you how a word is written. Pronunciation tells you how that word sounds when someone says it. These two systems are related, but they are not identical.', 'Pelafalan adalah cara suatu kata diucapkan saat berbicara, sedangkan ejaan adalah cara kata itu ditulis. Keduanya saling berhubungan, tapi tidak selalu sama persis.'],
+          ['Learn pronunciation with vocabulary. Do not simply memorize: Wasser = water. Also listen to how Wasser is pronounced.', 'Pelajari cara membaca bersamaan dengan menghafal kosakata. Jangan cuma menghafal artinya saja, tapi dengarkan juga bunyi pengucapannya.'],
+          ['German uses the Latin alphabet. The basic alphabet contains 26 letters:', 'Bahasa Jerman menggunakan alfabet Latin. Alfabet dasarnya terdiri dari 26 huruf:'],
+          ['German additionally uses:', 'Selain 26 huruf dasar di atas, bahasa Jerman punya 4 huruf tambahan:'],
+          ['The three umlaut letters are: Ä / ä, Ö / ö, Ü / ü.', 'Tiga huruf dengan titik dua di atas disebut Umlaut: Ä / ä, Ö / ö, Ü / ü.'],
+          ['The special character is: ß, called: Eszett or: scharfes S.', 'Satu huruf khusus lagi adalah: ß, yang dinamai Eszett atau S tajam (dibaca seperti bunyi "ss").'],
+          ['When Germans spell a word, they use the German names of the letters. Learn the following letter names:', 'Saat orang Jerman mengeja nama atau kata, mereka menyebut nama huruf-huruf berikut:'],
+          ['The golden rule: conjugated finite verb in position 2 in main clauses.', 'Aturan emas bahasa Jerman: kata kerja berkonjugasi selalu berada di posisi kedua pada kalimat utama.'],
+          ['The subject of the sentence, predicate nominative with sein/werden.', 'Kasus Nominativ berfungsi sebagai subjek kalimat dan pelengkap setelah kata kerja sein/werden.'],
+          ['Direct objects: der changes to den, while die, das, and die plural remain unchanged.', 'Kasus Akkusativ (objek langsung): hanya der yang berubah menjadi den (ein menjadi einen), sedangkan die, das, dan jamak tetap sama.'],
+          ['Indirect objects: dem, der, dem, den (+n). When and why dative is triggered.', 'Kasus Dativ (objek tidak langsung): der/das berubah menjadi dem, die menjadi der, dan jamak menjadi den (+n).'],
+          ['Conversational past: haben + Partizip II (ge- -t / ge- -en).', 'Menceritakan masa lalu sehari-hari: rumus haben + Partizip II (ge-...-t / ge-...-en di akhir kalimat).'],
+          ['Past tense of movement and change of state (sein + Partizip II).', 'Bentuk lampau untuk perpindahan tempat dan perubahan kondisi fisik: sein + Partizip II.']
+        ];
+
+        // Replace common phrases in paragraphs and list items
+        container.querySelectorAll('p, li, td, div').forEach(node => {
+          // Skip code blocks
+          if (node.tagName === 'CODE' || node.tagName === 'PRE') return;
+          if (node.children.length === 0) {
+            let text = node.innerHTML;
+            for (const [enStr, idStr] of textReplacements) {
+              if (text.includes(enStr)) {
+                text = text.replace(enStr, idStr);
+              }
+            }
+            node.innerHTML = text;
+          }
+        });
       }
     };
 
@@ -12700,32 +12824,49 @@ const CheatSheetSystem = {
         const lessonMeta = LESSON_INDEX.find(l => l.id === lessonId);
         if (!lessonMeta) return;
 
-        // Populate lesson header
+        // Populate lesson header (Bilingual aware)
+        const isId = (typeof I18n !== 'undefined' && I18n.currentLang === 'id');
+        const lTitle = (isId && lessonMeta.title_id) ? lessonMeta.title_id : lessonMeta.title;
+        const lDesc = (isId && lessonMeta.desc_id) ? lessonMeta.desc_id : lessonMeta.desc;
+        const lPrefix = isId ? 'Pelajaran' : 'Lesson';
+
         const modObj = MODULES.find(m => m.id === lessonMeta.mod);
+        const modName = (isId && modObj && modObj.name_id) ? modObj.name_id : (modObj ? modObj.name : (isId ? 'KURIKULUM A1' : 'A1 CURRICULUM'));
         const modBadge = document.getElementById('lessonModuleBadge');
-        if (modBadge) modBadge.innerText = modObj ? `${modObj.icon} ${modObj.name}` : 'A1 CURRICULUM';
+        if (modBadge) modBadge.innerText = modObj ? `${modObj.icon} ${modName}` : (isId ? 'KURIKULUM A1' : 'A1 CURRICULUM');
 
         const titleEl = document.getElementById('lessonTitle');
-        if (titleEl) titleEl.innerText = `Lesson ${String(lessonId).padStart(2, '0')}: ${lessonMeta.title}`;
+        if (titleEl) titleEl.innerText = `${lPrefix} ${String(lessonId).padStart(2, '0')}: ${lTitle}`;
 
         const overEl = document.getElementById('lessonOverview');
-        if (overEl) overEl.innerText = lessonMeta.desc;
+        if (overEl) overEl.innerText = lDesc;
 
-        // Lesson-specific objectives from the content registry.
+        // Lesson-specific objectives (Bilingual aware)
         const objList = document.getElementById('lessonObjectivesList');
         if (objList) {
           const lessonData = LESSONS_DATABASE[lessonId];
-          const objectives = lessonData && Array.isArray(lessonData.objectives)
-            ? lessonData.objectives
-            : [
-                `Master the fundamental concepts of ${lessonMeta.title}.`,
-                'Understand the key grammar and usage patterns.',
-                'Apply the material in practical German communication.'
-              ];
+          let objectives = [];
+          if (isId) {
+            objectives = (lessonData && Array.isArray(lessonData.objectives_id))
+              ? lessonData.objectives_id
+              : [
+                  `Kuasai konsep inti, aturan, dan kosakata penting dari ${lTitle}.`,
+                  'Pahami susunan tata bahasa serta pola penggunaannya dalam kalimat.',
+                  'Terapkan materi ini langsung dalam percakapan sehari-hari bahasa Jerman.'
+                ];
+          } else {
+            objectives = lessonData && Array.isArray(lessonData.objectives)
+              ? lessonData.objectives
+              : [
+                  `Master the fundamental concepts of ${lessonMeta.title}.`,
+                  'Understand the key grammar and usage patterns.',
+                  'Apply the material in practical German communication.'
+                ];
+          }
           objList.innerHTML = objectives.map(item => `<li>${item}</li>`).join('');
         }
 
-        // Render main content
+        // Render main content (Bilingual aware)
         const mainContainer = document.getElementById('lessonMainContent');
         if (mainContainer) {
           const lessonData = LESSONS_DATABASE[lessonId];
@@ -12733,6 +12874,9 @@ const CheatSheetSystem = {
           if (lessonHtml) {
             mainContainer.innerHTML = lessonHtml;
             CheatSheetSystem.append(lessonId, mainContainer);
+            if (isId && typeof I18n !== 'undefined' && I18n.localizeLessonContent) {
+              I18n.localizeLessonContent(mainContainer, lessonId);
+            }
           } else {
             mainContainer.innerHTML = '';
           }
@@ -12800,14 +12944,16 @@ const CheatSheetSystem = {
         if (!btn || !icon || !text) return;
 
         const isDone = this.completedLessons.includes(this.currentLessonId);
+        const doneText = (typeof I18n !== 'undefined') ? I18n.t('completed') : 'Completed';
+        const markText = (typeof I18n !== 'undefined') ? I18n.t('markCompleted') : 'Mark Completed';
         if (isDone) {
           btn.className = "px-3.5 py-1.5 rounded-xl border border-emerald-300 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-all flex items-center gap-1.5 shadow-xs";
           icon.innerText = "✓";
-          text.innerText = "Completed";
+          text.innerText = doneText;
         } else {
           btn.className = "px-3.5 py-1.5 rounded-xl border border-pink-200 text-xs font-semibold text-pink-700 bg-white hover:bg-pink-50 transition-all flex items-center gap-1.5 shadow-xs";
           icon.innerText = "○";
-          text.innerText = "Mark Completed";
+          text.innerText = markText;
         }
       },
 
@@ -12847,29 +12993,34 @@ const CheatSheetSystem = {
           let lessonsHtml = '';
           modLessons.forEach(l => {
             const lessonDone = this.completedLessons.includes(l.id);
+            const lTitle = (typeof I18n !== 'undefined' && I18n.currentLang === 'id' && l.title_id) ? l.title_id : l.title;
+            const doneTag = (typeof I18n !== 'undefined') ? I18n.t('doneTag') : 'Selesai';
+            const openArrow = (typeof I18n !== 'undefined') ? I18n.t('openArrow') : 'Buka &rarr;';
             lessonsHtml += `
               <div onclick="document.getElementById('progressModal').remove(); App.openLesson(${l.id});" class="p-2.5 rounded-xl border ${lessonDone ? 'bg-emerald-50/80 border-emerald-200 hover:bg-emerald-100/80' : 'bg-slate-50/70 border-slate-200 hover:bg-pink-50/60 hover:border-pink-300'} transition-all cursor-pointer flex items-center justify-between text-xs group select-none">
                 <div class="flex items-center gap-2 min-w-0 pr-2">
                   <span class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${lessonDone ? 'bg-emerald-500 text-white font-bold text-[10px]' : 'bg-white border border-slate-300 text-slate-400 text-[10px]'}">
                     ${lessonDone ? '&#10003;' : l.id}
                   </span>
-                  <span class="font-bold truncate ${lessonDone ? 'text-emerald-950 font-semibold' : 'text-slate-700 group-hover:text-pink-700'}">${l.title}</span>
+                  <span class="font-bold truncate ${lessonDone ? 'text-emerald-950 font-semibold' : 'text-slate-700 group-hover:text-pink-700'}">${lTitle}</span>
                 </div>
                 <span class="text-[10px] font-bold shrink-0 ${lessonDone ? 'text-emerald-600' : 'text-slate-400 group-hover:text-pink-600 flex items-center gap-0.5'}">
-                  ${lessonDone ? 'Selesai' : 'Buka &rarr;'}
+                  ${lessonDone ? doneTag : openArrow}
                 </span>
               </div>
             `;
           });
 
+          const modName = (typeof I18n !== 'undefined' && I18n.currentLang === 'id' && mod.name_id) ? mod.name_id : mod.name;
+          const lessonPrefix = (typeof I18n !== 'undefined' && I18n.currentLang === 'id') ? 'Pelajaran' : 'Lesson';
           modulesHtml += `
             <div class="p-4 rounded-2xl border ${isDone ? 'bg-emerald-50/30 border-emerald-200/80' : isInProgress ? 'bg-pink-50/30 border-pink-200/80' : 'bg-white border-slate-200/80'} shadow-xs space-y-3">
               <div class="flex items-center justify-between flex-wrap gap-2">
                 <div class="flex items-center gap-2">
                   <span class="text-lg">${mod.icon || '&#128218;'}</span>
                   <div>
-                    <h3 class="font-extrabold text-slate-800 text-sm">${mod.name}</h3>
-                    <p class="text-[11px] text-slate-400">Pelajaran ${mod.range[0]} - ${mod.range[1]}</p>
+                    <h3 class="font-extrabold text-slate-800 text-sm">${modName}</h3>
+                    <p class="text-[11px] text-slate-400">${lessonPrefix} ${mod.range[0]} - ${mod.range[1]}</p>
                   </div>
                 </div>
                 <div>${badgeHtml}</div>
@@ -13003,11 +13154,12 @@ const CheatSheetSystem = {
                 ? '<span class="w-5 h-5 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 text-white font-black text-[9px] flex items-center justify-center shrink-0 shadow-2xs animate-pulse">&#9679;</span>'
                 : `<span class="w-5 h-5 rounded-full bg-pink-50 text-pink-600 border border-pink-200/80 font-black text-[9px] flex items-center justify-center shrink-0">${String(l.id).padStart(2, '0')}</span>`;
 
+            const lTitle = (typeof I18n !== 'undefined' && I18n.currentLang === 'id' && l.title_id) ? l.title_id : l.title;
             html += `
               <button onclick="App.openLesson(${l.id})" class="w-full text-left px-2.5 py-1.5 rounded-xl flex items-center justify-between transition-all duration-200 ${rowStyle} group select-none cursor-pointer">
                 <div class="flex items-center gap-2 min-w-0 pr-1 truncate">
                   ${numBadge}
-                  <span class="text-xs truncate ${isCurrent ? 'font-black text-pink-950' : 'font-medium text-slate-700 group-hover:text-pink-900'}">${l.title}</span>
+                  <span class="text-xs truncate ${isCurrent ? 'font-black text-pink-950' : 'font-medium text-slate-700 group-hover:text-pink-900'}">${lTitle}</span>
                 </div>
                 ${isDone ? '<span class="text-[9px] font-black text-emerald-700 bg-emerald-100/90 px-1.5 py-0.5 rounded-md border border-emerald-200/60 shrink-0 ml-1">' + ((typeof I18n !== 'undefined') ? I18n.t('doneTag') : 'Done') + '</span>' : isCurrent ? '<span class="text-xs text-pink-500 font-bold shrink-0 ml-1">&#10022;</span>' : ''}
               </button>
@@ -13037,10 +13189,10 @@ const CheatSheetSystem = {
               <div class="flex items-center justify-between pb-3 mb-3 border-b border-pink-50">
                 <div class="flex items-center gap-2 font-display font-bold text-slate-800 text-sm">
                   <span class="text-base">${mod.icon}</span>
-                  <span>${mod.name}</span>
+                  <span>${(typeof I18n !== 'undefined' && I18n.currentLang === 'id' && mod.name_id) ? mod.name_id : mod.name}</span>
                 </div>
                 <span class="text-[11px] font-semibold text-pink-600 bg-pink-50 px-2 py-0.5 rounded-md">
-                  ${completedInMod} / ${modLessons.length} Done
+                  ${completedInMod} / ${modLessons.length} ' + ((typeof I18n !== 'undefined') ? I18n.t('doneTag') : 'Done') + '
                 </span>
               </div>
 
