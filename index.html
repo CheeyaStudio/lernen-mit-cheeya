@@ -1,4 +1,4 @@
-
+﻿
 
 
 
@@ -3319,7 +3319,7 @@ html[data-theme="dark"] select {
     </div>
 
     <!-- Mode & View Switchers -->
-    <div class="flex items-center gap-2">
+    <div class="flex flex-wrap items-center gap-2">
       <!-- Deck Switcher -->
       <div class="inline-flex p-1 bg-slate-100 rounded-2xl border border-slate-200 text-xs font-bold">
         <button id="fcDeckBtnNouns" onclick="DualFlashcardSystem.setDeck('nouns')" class="px-3.5 py-1.5 rounded-xl transition-all bg-emerald-600 text-white shadow-xs flex items-center gap-1.5">
@@ -3343,6 +3343,12 @@ html[data-theme="dark"] select {
           <span class="hidden sm:inline">Full Grid</span>
         </button>
       </div>
+
+      <!-- Memorized History Button -->
+      <button onclick="DualFlashcardSystem.openHistoryModal()" class="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-extrabold text-xs shadow-md shadow-amber-200 flex items-center gap-1.5 transition-all cursor-pointer" title="View Memorized Words History & Download PDF">
+        <span>📜</span>
+        <span>Memorized History (<b id="fcHistoryCountBadge">0</b>)</span>
+      </button>
     </div>
   </div>
 
@@ -3377,7 +3383,13 @@ html[data-theme="dark"] select {
         <div class="flashcard-front bg-gradient-to-br from-white via-pink-50/40 to-rose-50/40 p-7 border-2 border-pink-200 shadow-md">
           <div class="flex items-center justify-between">
             <span id="fcGenderBadge" class="gender-der px-3 py-1 rounded-xl text-xs font-black uppercase">der</span>
-            <span id="fcCategoryBadge" class="text-xs font-bold text-slate-500 bg-white/90 border border-slate-200 px-2.5 py-0.5 rounded-lg">Basics</span>
+            <div class="flex items-center gap-1.5">
+              <button id="fcFrontMasteredBtn" onclick="event.stopPropagation(); DualFlashcardSystem.toggleMasteredCurrent()" class="px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-slate-200 bg-white hover:bg-amber-50 text-slate-600 cursor-pointer" title="Toggle Memorized Status">
+                <span id="fcFrontMasteredStar">☆</span>
+                <span id="fcFrontMasteredText">Mark Memorized</span>
+              </button>
+              <span id="fcCategoryBadge" class="text-xs font-bold text-slate-500 bg-white/90 border border-slate-200 px-2.5 py-0.5 rounded-lg">Basics</span>
+            </div>
           </div>
           <div class="my-auto text-center space-y-2">
             <div id="fcGermanWord" class="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight">der Apfel</div>
@@ -3397,7 +3409,13 @@ html[data-theme="dark"] select {
           <div>
             <div class="flex items-center justify-between mb-2">
               <span class="text-xs font-bold text-purple-700 bg-purple-100 px-2.5 py-1 rounded-lg">English Meaning</span>
-              <span class="text-[11px] text-slate-400 font-mono">Spaced Repetition</span>
+              <div class="flex items-center gap-1.5">
+                <button id="fcBackMasteredBtn" onclick="event.stopPropagation(); DualFlashcardSystem.toggleMasteredCurrent()" class="px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-slate-200 bg-white hover:bg-amber-50 text-slate-600 cursor-pointer" title="Toggle Memorized Status">
+                  <span id="fcBackMasteredStar">☆</span>
+                  <span id="fcBackMasteredText">Mark Memorized</span>
+                </button>
+                <span class="text-[11px] text-slate-400 font-mono">Spaced Repetition</span>
+              </div>
             </div>
             <div id="fcEnglishMeaning" class="text-2xl font-black text-slate-800 mb-3">the apple</div>
 
@@ -3442,17 +3460,27 @@ html[data-theme="dark"] select {
     </div>
 
     <!-- Controls Bar -->
-    <div id="fcControlsBar" class="w-full flex items-center justify-between gap-3 mt-5">
-      <button onclick="DualFlashcardSystem.prevCard()" class="px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition-all flex items-center gap-1">
-        <span>&larr; Previous</span>
+    <div id="fcControlsBar" class="w-full flex flex-wrap items-center justify-between gap-2.5 mt-5">
+      <div class="flex items-center gap-2">
+        <button onclick="DualFlashcardSystem.prevCard()" class="px-3.5 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition-all flex items-center gap-1">
+          <span>&larr; Previous</span>
+        </button>
+        <button onclick="DualFlashcardSystem.flip()" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-all flex items-center gap-1">
+          <span>&#8635; Flip</span>
+        </button>
+      </div>
+
+      <button id="fcControlsMasteredBtn" onclick="DualFlashcardSystem.toggleMasteredCurrent()" class="px-4 py-2 rounded-xl font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 cursor-pointer">
+        <span id="fcControlsMasteredStar">☆</span>
+        <span id="fcControlsMasteredText">Mark as Memorized</span>
       </button>
-      <button onclick="DualFlashcardSystem.flip()" class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs transition-all flex items-center gap-1">
-        <span>&#8635; Flip Card</span>
-      </button>
-      <span id="fcProgressIndex" class="text-xs font-mono font-bold text-slate-500">1 / 1000</span>
-      <button onclick="DualFlashcardSystem.nextCard()" class="px-4 py-2.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1">
-        <span>Next &rarr;</span>
-      </button>
+
+      <div class="flex items-center gap-2">
+        <span id="fcProgressIndex" class="text-xs font-mono font-bold text-slate-500">1 / 1000</span>
+        <button onclick="DualFlashcardSystem.nextCard()" class="px-3.5 py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1">
+          <span>Next &rarr;</span>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -3463,6 +3491,85 @@ html[data-theme="dark"] select {
     </div>
     <div id="fcGridPagination" class="flex items-center justify-center gap-2 pt-4">
       <!-- Pagination controls injected dynamically -->
+    </div>
+  </div>
+
+  <!-- 3. MEMORIZED VOCABULARY HISTORY MODAL -->
+  <div id="fcHistoryModal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto" onclick="DualFlashcardSystem.closeHistoryModal()">
+    <div class="bg-white max-w-4xl w-full max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-amber-200 animate-in fade-in" onclick="event.stopPropagation()">
+      <!-- Header -->
+      <div class="p-5 border-b border-amber-100 flex items-center justify-between bg-gradient-to-r from-amber-50/90 via-orange-50/40 to-white">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-400 text-white flex items-center justify-center text-lg shadow-sm shadow-amber-200">
+            📜
+          </div>
+          <div>
+            <h2 class="text-base sm:text-lg font-black text-slate-800">Memorized Vocabulary History</h2>
+            <p class="text-xs text-slate-500">All words you have memorized from flashcards with full details &amp; PDF download</p>
+          </div>
+        </div>
+        <button onclick="DualFlashcardSystem.closeHistoryModal()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border border-slate-200 text-slate-500 hover:text-slate-700 flex items-center justify-center text-lg font-bold transition-colors cursor-pointer" title="Close">
+          &times;
+        </button>
+      </div>
+
+      <!-- Stats Bar & Actions -->
+      <div class="p-4 bg-slate-50/80 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <!-- Counts Pills -->
+        <div class="flex items-center gap-2 text-xs font-bold">
+          <span class="px-3 py-1 rounded-xl bg-amber-100 text-amber-800 border border-amber-200">
+            Total: <b id="histTotalCount">0</b> words
+          </span>
+          <span class="px-3 py-1 rounded-xl bg-pink-100 text-pink-800 border border-pink-200">
+            📘 <b id="histNounCount">0</b> Nouns
+          </span>
+          <span class="px-3 py-1 rounded-xl bg-purple-100 text-purple-800 border border-purple-200">
+            ⚡ <b id="histVerbCount">0</b> Verbs
+          </span>
+        </div>
+
+        <!-- Action Button: Download PDF -->
+        <div class="flex items-center gap-2">
+          <button onclick="DualFlashcardSystem.downloadHistoryPDF()" id="fcDownloadPdfBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-extrabold text-xs shadow-md shadow-pink-200 flex items-center gap-2 transition-all cursor-pointer">
+            <span>📥</span>
+            <span>Download PDF (Unduh Semua)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter & Search Sub-bar -->
+      <div class="p-3 bg-white border-b border-slate-100 flex flex-col sm:flex-row items-center gap-3">
+        <!-- Deck Filter -->
+        <div class="inline-flex p-0.5 bg-slate-100 rounded-xl text-xs font-bold shrink-0">
+          <button id="histFilterAll" onclick="DualFlashcardSystem.setHistoryFilter('all')" class="px-3 py-1.5 rounded-lg bg-white text-slate-800 shadow-xs cursor-pointer">All</button>
+          <button id="histFilterNouns" onclick="DualFlashcardSystem.setHistoryFilter('nouns')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 cursor-pointer">Nouns</button>
+          <button id="histFilterVerbs" onclick="DualFlashcardSystem.setHistoryFilter('verbs')" class="px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 cursor-pointer">Verbs</button>
+        </div>
+
+        <!-- Search Input -->
+        <div class="relative flex-1 w-full">
+          <input type="text" id="histSearchInput" oninput="DualFlashcardSystem.filterHistoryList(this.value)" placeholder="Search memorized words (German or English)..." class="w-full pl-9 pr-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium outline-none focus:border-amber-500 focus:bg-white transition-all">
+          <svg class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </div>
+      </div>
+
+      <!-- Scrollable Word List Container -->
+      <div id="fcHistoryListContainer" class="p-4 sm:p-5 overflow-y-auto space-y-2 flex-1 text-xs max-h-[50vh]">
+        <!-- Injected dynamically by DualFlashcardSystem.renderHistoryList() -->
+      </div>
+
+      <!-- Footer -->
+      <div class="p-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+        <span id="fcHistoryFooterSummary" class="text-slate-500 text-xs">0 words shown</span>
+        <div class="flex items-center gap-2">
+          <button onclick="DualFlashcardSystem.downloadHistoryPDF()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer">
+            <span>📥</span><span>Download PDF</span>
+          </button>
+          <button onclick="DualFlashcardSystem.closeHistoryModal()" class="px-4 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition-all cursor-pointer">
+            Close
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -17650,20 +17757,33 @@ const DualFlashcardSystem = {
   gridPage: 1,
   pageSize: 40,
   masteredIds: { nouns: [], verbs: [] },
+  historyFilter: 'all', // 'all', 'nouns', 'verbs'
+  historySearchQuery: '',
 
   init() {
     try {
       const savedM = localStorage.getItem('cheeya_fc_mastered_dual');
-      if (savedM) this.masteredIds = JSON.parse(savedM);
+      if (savedM) {
+        const parsed = JSON.parse(savedM);
+        if (parsed && typeof parsed === 'object') {
+          this.masteredIds = {
+            nouns: Array.isArray(parsed.nouns) ? parsed.nouns : [],
+            verbs: Array.isArray(parsed.verbs) ? parsed.verbs : []
+          };
+        }
+      }
       const savedDeck = localStorage.getItem('cheeya_fc_deck');
       if (savedDeck && (savedDeck === 'nouns' || savedDeck === 'verbs')) {
         this.currentDeck = savedDeck;
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error('Error loading mastered flashcards:', e);
+    }
 
     this.renderDeckSelector();
     this.renderCategoryPills();
     this.showCard();
+    this.updateMasteredUI();
   },
 
   setDeck(deck) {
@@ -17714,13 +17834,13 @@ const DualFlashcardSystem = {
     
     if (nounBtn) {
       nounBtn.className = isNoun
-        ? "flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 text-white font-extrabold text-sm shadow-md shadow-pink-200 transition-all flex items-center justify-center gap-2"
-        : "flex-1 py-3 px-4 rounded-2xl bg-white text-slate-700 hover:bg-pink-50 border border-slate-200 font-bold text-sm transition-all flex items-center justify-center gap-2";
+        ? "px-3.5 py-1.5 rounded-xl transition-all bg-emerald-600 text-white shadow-xs flex items-center gap-1.5 cursor-pointer"
+        : "px-3.5 py-1.5 rounded-xl transition-all text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer";
     }
     if (verbBtn) {
       verbBtn.className = !isNoun
-        ? "flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-extrabold text-sm shadow-md shadow-purple-200 transition-all flex items-center justify-center gap-2"
-        : "flex-1 py-3 px-4 rounded-2xl bg-white text-slate-700 hover:bg-purple-50 border border-slate-200 font-bold text-sm transition-all flex items-center justify-center gap-2";
+        ? "px-3.5 py-1.5 rounded-xl transition-all bg-purple-600 text-white shadow-xs flex items-center gap-1.5 cursor-pointer"
+        : "px-3.5 py-1.5 rounded-xl transition-all text-slate-600 hover:text-slate-900 flex items-center gap-1.5 cursor-pointer";
     }
 
     const deckInfo = document.getElementById('fcDeckInfo');
@@ -17752,10 +17872,10 @@ const DualFlashcardSystem = {
         : 'bg-purple-500 text-white shadow-xs';
       
       return `
-        <button onclick="DualFlashcardSystem.setCategory('${c}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+        <button onclick="DualFlashcardSystem.setCategory('${c}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
           isAct ? activeCls : 'bg-white hover:bg-slate-100 text-slate-600 border border-slate-200'
         }">
-          ${c === 'all' ? '\u2728 All Categories' : c} <span class="opacity-75 font-mono text-[10px]">(${count})</span>
+          ${c === 'all' ? '✨ All Categories' : c} <span class="opacity-75 font-mono text-[10px]">(${count})</span>
         </button>
       `;
     }).join('');
@@ -17811,14 +17931,14 @@ const DualFlashcardSystem = {
     if (mode === 'card') {
       if (cardSec) cardSec.classList.remove('hidden');
       if (gridSec) gridSec.classList.add('hidden');
-      if (cBtn) cBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-white";
-      if (gBtn) gBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-200";
+      if (cBtn) cBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-white cursor-pointer";
+      if (gBtn) gBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-200 cursor-pointer";
       this.showCard();
     } else {
       if (cardSec) cardSec.classList.add('hidden');
       if (gridSec) gridSec.classList.remove('hidden');
-      if (cBtn) cBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-200";
-      if (gBtn) gBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-white";
+      if (cBtn) cBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-white text-slate-600 border border-slate-200 cursor-pointer";
+      if (gBtn) gBtn.className = "px-3 py-1.5 rounded-xl text-xs font-bold bg-slate-800 text-white cursor-pointer";
       this.renderGrid();
     }
   },
@@ -17870,6 +17990,8 @@ const DualFlashcardSystem = {
     } else {
       this.renderVerbCard(item);
     }
+
+    this.updateMasteredButtons();
   },
 
   renderNounCard(n) {
@@ -17993,26 +18115,539 @@ const DualFlashcardSystem = {
     }
   },
 
-  markMastered() {
-    const list = this.getFilteredList();
-    if (list.length === 0) return;
-    const id = list[this.currentIndex].id;
-    const arr = this.masteredIds[this.currentDeck];
-    if (!arr.includes(id)) {
-      arr.push(id);
-      try { localStorage.setItem('cheeya_fc_mastered_dual', JSON.stringify(this.masteredIds)); } catch (e) {}
-    }
-    if (typeof App !== 'undefined' && App.showToast) {
-      App.showToast('\u2705 Word marked as Mastered!');
-    }
-    this.nextCard();
+  isMastered(id, deck = this.currentDeck) {
+    const d = deck || this.currentDeck;
+    return Array.isArray(this.masteredIds[d]) && this.masteredIds[d].includes(id);
   },
 
-  markPractice() {
-    if (typeof App !== 'undefined' && App.showToast) {
-      App.showToast('\u26a0\ufe0f Added to Review List!');
+  toggleMastered(id, deck = this.currentDeck) {
+    const d = deck || this.currentDeck;
+    if (!this.masteredIds[d]) this.masteredIds[d] = [];
+    const arr = this.masteredIds[d];
+    const idx = arr.indexOf(id);
+    let isNowMastered = false;
+    if (idx >= 0) {
+      arr.splice(idx, 1);
+      isNowMastered = false;
+    } else {
+      arr.push(id);
+      isNowMastered = true;
     }
-    this.nextCard();
+    try {
+      localStorage.setItem('cheeya_fc_mastered_dual', JSON.stringify(this.masteredIds));
+    } catch (e) {
+      console.error('Error saving mastered cards:', e);
+    }
+
+    this.updateMasteredUI();
+    this.updateMasteredButtons();
+    if (this.viewMode === 'grid') {
+      this.renderGrid();
+    }
+    if (typeof App !== 'undefined' && App.showToast) {
+      App.showToast(isNowMastered ? '⭐ Word marked as Memorized!' : 'Word removed from Memorized list');
+    }
+    return isNowMastered;
+  },
+
+  toggleMasteredCurrent() {
+    const list = this.getFilteredList();
+    if (list.length === 0) return;
+    const item = list[this.currentIndex];
+    this.toggleMastered(item.id, this.currentDeck);
+  },
+
+  updateMasteredButtons() {
+    const list = this.getFilteredList();
+    if (list.length === 0 || this.currentIndex >= list.length) return;
+    const item = list[this.currentIndex];
+    const isM = this.isMastered(item.id, this.currentDeck);
+
+    // Front button
+    const frontBtn = document.getElementById('fcFrontMasteredBtn');
+    const frontStar = document.getElementById('fcFrontMasteredStar');
+    const frontText = document.getElementById('fcFrontMasteredText');
+    if (frontBtn) {
+      if (isM) {
+        frontBtn.className = "px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-amber-300 bg-amber-100 text-amber-900 shadow-2xs cursor-pointer";
+        if (frontStar) frontStar.innerText = "⭐";
+        if (frontText) frontText.innerText = "Memorized ✓";
+      } else {
+        frontBtn.className = "px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-slate-200 bg-white hover:bg-amber-50 text-slate-600 cursor-pointer";
+        if (frontStar) frontStar.innerText = "☆";
+        if (frontText) frontText.innerText = "Mark Memorized";
+      }
+    }
+
+    // Back button
+    const backBtn = document.getElementById('fcBackMasteredBtn');
+    const backStar = document.getElementById('fcBackMasteredStar');
+    const backText = document.getElementById('fcBackMasteredText');
+    if (backBtn) {
+      if (isM) {
+        backBtn.className = "px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-amber-300 bg-amber-100 text-amber-900 shadow-2xs cursor-pointer";
+        if (backStar) backStar.innerText = "⭐";
+        if (backText) backText.innerText = "Memorized ✓";
+      } else {
+        backBtn.className = "px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-slate-200 bg-white hover:bg-amber-50 text-slate-600 cursor-pointer";
+        if (backStar) backStar.innerText = "☆";
+        if (backText) backText.innerText = "Mark Memorized";
+      }
+    }
+
+    // Controls bar button
+    const cBtn = document.getElementById('fcControlsMasteredBtn');
+    const cStar = document.getElementById('fcControlsMasteredStar');
+    const cText = document.getElementById('fcControlsMasteredText');
+    if (cBtn) {
+      if (isM) {
+        cBtn.className = "px-4 py-2 rounded-xl font-extrabold text-xs shadow-xs transition-all flex items-center gap-1.5 border border-amber-400 bg-amber-400 text-amber-950 cursor-pointer";
+        if (cStar) cStar.innerText = "⭐";
+        if (cText) cText.innerText = "Memorized (Done ✓)";
+      } else {
+        cBtn.className = "px-4 py-2 rounded-xl font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 border border-amber-300 bg-amber-50 hover:bg-amber-100 text-amber-900 cursor-pointer";
+        if (cStar) cStar.innerText = "☆";
+        if (cText) cText.innerText = "Mark as Memorized";
+      }
+    }
+  },
+
+  updateMasteredUI() {
+    const totalNouns = (this.masteredIds.nouns || []).length;
+    const totalVerbs = (this.masteredIds.verbs || []).length;
+    const totalAll = totalNouns + totalVerbs;
+
+    // Header badge
+    const headerBadge = document.getElementById('fcHistoryCountBadge');
+    if (headerBadge) headerBadge.innerText = totalAll;
+
+    // Modal badges
+    const histTotal = document.getElementById('histTotalCount');
+    if (histTotal) histTotal.innerText = totalAll;
+    const histNoun = document.getElementById('histNounCount');
+    if (histNoun) histNoun.innerText = totalNouns;
+    const histVerb = document.getElementById('histVerbCount');
+    if (histVerb) histVerb.innerText = totalVerbs;
+
+    // If modal is open, refresh its list
+    const modal = document.getElementById('fcHistoryModal');
+    if (modal && !modal.classList.contains('hidden')) {
+      this.renderHistoryList();
+    }
+  },
+
+  getMemorizedWords(deckFilter = 'all') {
+    const result = [];
+    if (!window.GERMAN_VOCAB_DB) return result;
+
+    if (deckFilter === 'all' || deckFilter === 'nouns') {
+      const allNouns = window.GERMAN_VOCAB_DB.nouns || [];
+      const nounMap = new Map();
+      allNouns.forEach(n => nounMap.set(n.id, n));
+      (this.masteredIds.nouns || []).forEach(id => {
+        const item = nounMap.get(id);
+        if (item) result.push({ ...item, deckType: 'nouns' });
+      });
+    }
+
+    if (deckFilter === 'all' || deckFilter === 'verbs') {
+      const allVerbs = window.GERMAN_VOCAB_DB.verbs || [];
+      const verbMap = new Map();
+      allVerbs.forEach(v => verbMap.set(v.id, v));
+      (this.masteredIds.verbs || []).forEach(id => {
+        const item = verbMap.get(id);
+        if (item) result.push({ ...item, deckType: 'verbs' });
+      });
+    }
+
+    return result;
+  },
+
+  openHistoryModal() {
+    const modal = document.getElementById('fcHistoryModal');
+    if (!modal) return;
+    this.historyFilter = 'all';
+    this.historySearchQuery = '';
+    const searchInp = document.getElementById('histSearchInput');
+    if (searchInp) searchInp.value = '';
+    this.setHistoryFilter('all');
+    this.updateMasteredUI();
+    modal.classList.remove('hidden');
+  },
+
+  closeHistoryModal() {
+    const modal = document.getElementById('fcHistoryModal');
+    if (modal) modal.classList.add('hidden');
+  },
+
+  setHistoryFilter(filter) {
+    this.historyFilter = filter;
+    const btnAll = document.getElementById('histFilterAll');
+    const btnNouns = document.getElementById('histFilterNouns');
+    const btnVerbs = document.getElementById('histFilterVerbs');
+
+    if (btnAll) {
+      btnAll.className = filter === 'all'
+        ? "px-3 py-1.5 rounded-lg bg-white text-slate-800 shadow-xs cursor-pointer"
+        : "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 cursor-pointer";
+    }
+    if (btnNouns) {
+      btnNouns.className = filter === 'nouns'
+        ? "px-3 py-1.5 rounded-lg bg-white text-slate-800 shadow-xs cursor-pointer"
+        : "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 cursor-pointer";
+    }
+    if (btnVerbs) {
+      btnVerbs.className = filter === 'verbs'
+        ? "px-3 py-1.5 rounded-lg bg-white text-slate-800 shadow-xs cursor-pointer"
+        : "px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 cursor-pointer";
+    }
+
+    this.renderHistoryList();
+  },
+
+  filterHistoryList(query) {
+    this.historySearchQuery = (query || '').toLowerCase().trim();
+    this.renderHistoryList();
+  },
+
+  renderHistoryList() {
+    const container = document.getElementById('fcHistoryListContainer');
+    const footerSummary = document.getElementById('fcHistoryFooterSummary');
+    if (!container) return;
+
+    let words = this.getMemorizedWords(this.historyFilter || 'all');
+    if (this.historySearchQuery) {
+      const q = this.historySearchQuery;
+      words = words.filter(w => {
+        return (w.de && w.de.toLowerCase().includes(q)) ||
+               (w.en && w.en.toLowerCase().includes(q)) ||
+               (w.art && w.art.toLowerCase().includes(q)) ||
+               (w.cat && w.cat.toLowerCase().includes(q));
+      });
+    }
+
+    if (footerSummary) {
+      footerSummary.innerText = `${words.length} memorized words shown`;
+    }
+
+    if (words.length === 0) {
+      const totalAll = (this.masteredIds.nouns || []).length + (this.masteredIds.verbs || []).length;
+      if (totalAll === 0) {
+        container.innerHTML = `
+          <div class="py-12 px-4 text-center space-y-3">
+            <div class="text-4xl">🌟</div>
+            <div class="text-base font-extrabold text-slate-800">No Memorized Words Yet</div>
+            <p class="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
+              When studying vocabulary, click the <b>"⭐ Mark as Memorized"</b> button on any flashcard. All your memorized words will be recorded here and can be exported as a PDF file anytime!
+            </p>
+          </div>
+        `;
+      } else {
+        container.innerHTML = `
+          <div class="py-10 text-center text-slate-400 text-xs">
+            No memorized words match your search or filter.
+          </div>
+        `;
+      }
+      return;
+    }
+
+    container.innerHTML = `
+      <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-extrabold text-slate-600 uppercase tracking-wider">
+              <th class="p-3 w-10 text-center">#</th>
+              <th class="p-3">German Word</th>
+              <th class="p-3">Type / Details</th>
+              <th class="p-3">English Translation</th>
+              <th class="p-3">Category</th>
+              <th class="p-3 hidden sm:table-cell">Example Sentence</th>
+              <th class="p-3 w-20 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 bg-white">
+            ${words.map((w, idx) => {
+              const isNoun = w.deckType === 'nouns';
+              let badgeCls = isNoun
+                ? (w.art === 'der' ? 'gender-der' : (w.art === 'die' ? 'gender-die' : 'gender-das'))
+                : 'bg-purple-100 text-purple-700 border border-purple-200';
+              const typeText = isNoun ? w.art : (w.typ || 'Verb');
+              const details = isNoun ? `Plural: ${w.pl || '-'}` : `Perfekt: ${w.perfekt || '-'}`;
+              const speakText = isNoun ? `${w.art} ${w.de}` : w.de;
+
+              return `
+                <tr class="hover:bg-amber-50/40 transition-colors">
+                  <td class="p-3 text-center text-slate-400 font-mono text-[11px]">${idx + 1}</td>
+                  <td class="p-3 font-extrabold text-slate-800">
+                    <div class="flex items-center gap-1.5">
+                      <span class="${badgeCls} px-2 py-0.5 rounded text-[10px] font-black uppercase">${typeText}</span>
+                      <span>${isNoun ? `${w.art} ${w.de}` : w.de}</span>
+                    </div>
+                  </td>
+                  <td class="p-3 text-slate-600 font-mono text-[11px]">${details}</td>
+                  <td class="p-3 text-slate-700 font-medium">${w.en || '-'}</td>
+                  <td class="p-3 text-slate-500">${w.cat || '-'}</td>
+                  <td class="p-3 text-slate-500 italic hidden sm:table-cell max-w-xs truncate" title="${w.sDe || ''} (${w.sEn || ''})">
+                    ${w.sDe || '-'}
+                  </td>
+                  <td class="p-3 text-center">
+                    <div class="flex items-center justify-center gap-1">
+                      <button onclick="AudioSpeedSystem.speak('${speakText.replace(/'/g, "\\'")}'); event.stopPropagation();" class="p-1.5 rounded-lg hover:bg-pink-100 text-pink-600 transition-colors cursor-pointer" title="Pronounce">
+                        🔊
+                      </button>
+                      <button onclick="DualFlashcardSystem.toggleMastered(${w.id}, '${w.deckType}'); event.stopPropagation();" class="p-1.5 rounded-lg hover:bg-rose-100 text-rose-500 transition-colors cursor-pointer" title="Remove from Memorized">
+                        ✕
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  },
+
+  downloadHistoryPDF() {
+    const words = this.getMemorizedWords(this.historyFilter || 'all');
+    if (words.length === 0) {
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('⚠️ No memorized words to download. Mark some words first!');
+      } else {
+        alert('No memorized words to download. Mark some words in the flashcard deck first!');
+      }
+      return;
+    }
+
+    const btn = document.getElementById('fcDownloadPdfBtn');
+    const originalText = btn ? btn.innerHTML : '';
+    if (btn) {
+      btn.innerHTML = '<span class="animate-spin text-xs">⏳</span><span>Generating PDF...</span>';
+      btn.disabled = true;
+    }
+
+    try {
+      if (!window.jspdf || !window.jspdf.jsPDF) {
+        this.fallbackPrintHistory(words);
+        if (btn) { btn.innerHTML = originalText; btn.disabled = false; }
+        return;
+      }
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
+
+      let studentName = 'German A1 Learner';
+      try {
+        const savedName = localStorage.getItem('cheeya_student_name');
+        if (savedName && savedName.trim()) studentName = savedName.trim();
+      } catch (e) {}
+
+      const now = new Date();
+      const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      function cleanText(val) {
+        if (!val) return '';
+        return String(val)
+          .replace(/[\u2018\u2019]/g, "'")
+          .replace(/[\u201C\u201D]/g, '"')
+          .replace(/[\u2014\u2013]/g, ' - ')
+          .replace(/\u2022/g, '- ');
+      }
+
+      // 1. Header Banner
+      doc.setFillColor(190, 24, 93); // CheeYa Rose Pink
+      doc.rect(14, 14, 182, 22, 'F');
+
+      doc.setTextColor(255, 255, 255);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(14);
+      doc.text('CHEE-YA GERMAN A1 - MEMORIZED VOCABULARY', 20, 23);
+
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.text('Official Flashcard Mastery Record - Standard German A1 Curriculum', 20, 30);
+
+      // 2. Info Card
+      doc.setFillColor(253, 242, 248); // Soft pink bg
+      doc.setDrawColor(244, 114, 182); // Pink border
+      doc.roundedRect(14, 40, 182, 16, 2, 2, 'FD');
+
+      doc.setTextColor(30, 41, 59);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(8.5);
+      doc.text(`Student: ${cleanText(studentName)}`, 18, 46);
+      doc.text(`Total Words: ${words.length} (${(this.masteredIds.nouns || []).length} Nouns, ${(this.masteredIds.verbs || []).length} Verbs)`, 18, 52);
+
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Date Exported: ${dateStr}`, 125, 46);
+      doc.text(`Progress: Flashcards Mastered`, 125, 52);
+
+      // 3. Table Rows
+      const tableRows = words.map((w, idx) => {
+        const isNoun = w.deckType === 'nouns';
+        const deWord = isNoun ? `${w.art} ${w.de}` : w.de;
+        const details = isNoun ? `Plural: ${w.pl || '-'}` : `Perfekt: ${w.perfekt || '-'}`;
+        const ex = w.sDe ? `${w.sDe}\n(${w.sEn || ''})` : '-';
+        return [
+          idx + 1,
+          cleanText(deWord),
+          cleanText(details),
+          cleanText(w.en || '-'),
+          cleanText(w.cat || 'General'),
+          cleanText(ex)
+        ];
+      });
+
+      doc.autoTable({
+        startY: 60,
+        head: [['#', 'German Word', 'Type / Details', 'English Meaning', 'Category', 'Example Sentence']],
+        body: tableRows,
+        theme: 'grid',
+        headStyles: {
+          fillColor: [190, 24, 93],
+          textColor: [255, 255, 255],
+          fontStyle: 'bold',
+          fontSize: 8,
+          halign: 'left',
+          cellPadding: 2.2
+        },
+        bodyStyles: {
+          fontSize: 7.5,
+          textColor: [30, 41, 59],
+          cellPadding: 2.2,
+          valign: 'middle'
+        },
+        alternateRowStyles: {
+          fillColor: [253, 248, 251]
+        },
+        columnStyles: {
+          0: { cellWidth: 8, halign: 'center' },
+          1: { cellWidth: 32, fontStyle: 'bold' },
+          2: { cellWidth: 28 },
+          3: { cellWidth: 32 },
+          4: { cellWidth: 24 },
+          5: { cellWidth: 'auto' }
+        },
+        margin: { left: 14, right: 14, bottom: 16 },
+        didDrawPage: function(data) {
+          const pageCount = doc.internal.getNumberOfPages();
+          doc.setFont('helvetica', 'italic');
+          doc.setFontSize(7.5);
+          doc.setTextColor(148, 163, 184);
+          doc.text(
+            `Page ${data.pageNumber} of ${pageCount} - CheeYa Studio German A1 Flashcard Vocabulary`,
+            14,
+            doc.internal.pageSize.height - 8
+          );
+        }
+      });
+
+      const safeName = studentName.replace(/[^a-zA-Z0-9]/g, '_');
+      doc.save(`German_A1_Memorized_Vocabulary_${safeName}.pdf`);
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast(`✅ Successfully downloaded ${words.length} memorized words as PDF!`);
+      }
+    } catch (err) {
+      console.error('PDF error:', err);
+      this.fallbackPrintHistory(words);
+    } finally {
+      if (btn) {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    }
+  },
+
+  fallbackPrintHistory(words) {
+    const printWin = window.open('', '_blank');
+    if (!printWin) {
+      alert('Pop-up blocked. Please allow pop-ups to print/save your memorized vocabulary.');
+      return;
+    }
+
+    let studentName = 'German A1 Learner';
+    try {
+      const savedName = localStorage.getItem('cheeya_student_name');
+      if (savedName && savedName.trim()) studentName = savedName.trim();
+    } catch (e) {}
+
+    const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+    printWin.document.write(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>CheeYa German A1 - Memorized Vocabulary</title>
+        <meta charset="utf-8">
+        <style>
+          body { font-family: Arial, sans-serif; font-size: 11px; color: #1e293b; padding: 20px; }
+          .header { background: #be185d; color: white; padding: 14px 20px; border-radius: 8px; margin-bottom: 15px; }
+          .header h1 { margin: 0; font-size: 16px; }
+          .header p { margin: 4px 0 0 0; font-size: 11px; opacity: 0.9; }
+          .info { background: #fdf2f8; border: 1px solid #f472b6; padding: 10px 15px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; font-size: 10px; }
+          table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+          th { background: #be185d; color: white; text-align: left; padding: 6px 8px; font-size: 10px; }
+          td { border-bottom: 1px solid #e2e8f0; padding: 6px 8px; font-size: 10px; vertical-align: top; }
+          tr:nth-child(even) { background: #fdf8fb; }
+          .tag { font-weight: bold; font-size: 9px; padding: 1px 4px; border-radius: 3px; background: #e2e8f0; }
+          .der { background: #dbeafe; color: #1e40af; }
+          .die { background: #fce7f3; color: #9d174d; }
+          .das { background: #dcfce7; color: #166534; }
+          @media print {
+            body { padding: 0; }
+            .no-print { display: none; }
+          }
+        </style>
+      </head>
+      <body>
+        <div class="no-print" style="margin-bottom: 15px;">
+          <button onclick="window.print()" style="padding: 8px 16px; background: #be185d; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Print / Save as PDF</button>
+        </div>
+        <div class="header">
+          <h1>CHEE-YA GERMAN A1 - MEMORIZED VOCABULARY</h1>
+          <p>Official Flashcard Mastery Record - Standard German A1 Curriculum</p>
+        </div>
+        <div class="info">
+          <div><b>Student:</b> ${studentName} &bull; <b>Total Words:</b> ${words.length}</div>
+          <div><b>Date:</b> ${dateStr}</div>
+        </div>
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 25px;">#</th>
+              <th style="width: 130px;">German Word</th>
+              <th style="width: 110px;">Type / Details</th>
+              <th style="width: 120px;">English Meaning</th>
+              <th style="width: 90px;">Category</th>
+              <th>Example Sentence</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${words.map((w, idx) => {
+              const isNoun = w.deckType === 'nouns';
+              const deWord = isNoun ? `${w.art} ${w.de}` : w.de;
+              const details = isNoun ? `Plural: ${w.pl || '-'}` : `Perfekt: ${w.perfekt || '-'}`;
+              const tagCls = isNoun ? (w.art || '') : 'tag';
+              return `
+                <tr>
+                  <td>${idx + 1}</td>
+                  <td><b><span class="tag ${tagCls}">${isNoun ? w.art : 'verb'}</span> ${deWord}</b></td>
+                  <td>${details}</td>
+                  <td>${w.en || '-'}</td>
+                  <td>${w.cat || '-'}</td>
+                  <td>${w.sDe || '-'}<br><span style="color: #64748b;">(${w.sEn || ''})</span></td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </body>
+      </html>
+    `);
+    printWin.document.close();
+    setTimeout(() => { printWin.print(); }, 400);
   },
 
   renderGrid() {
@@ -18039,38 +18674,49 @@ const DualFlashcardSystem = {
     }
 
     container.innerHTML = pagedItems.map(item => {
+      const isM = this.isMastered(item.id, this.currentDeck);
       if (this.currentDeck === 'nouns') {
         let badgeCls = 'gender-der';
         if (item.art === 'die') badgeCls = 'gender-die';
         if (item.art === 'das') badgeCls = 'gender-das';
 
         return `
-          <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-pink-300 hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="p-4 rounded-2xl bg-white border ${isM ? 'border-amber-300 bg-amber-50/20' : 'border-slate-200/80'} shadow-xs hover:border-pink-300 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-1.5">
                 <span class="${badgeCls} px-2.5 py-0.5 rounded-lg text-xs font-black uppercase">${item.art}</span>
-                <button onclick="AudioSpeedSystem.speak('${item.art} ${item.de}')" class="text-slate-400 hover:text-pink-600 font-bold text-xs" title="Pronounce">
-                  \ud83d\udd0a
-                </button>
+                <div class="flex items-center gap-1.5">
+                  <button onclick="DualFlashcardSystem.toggleMastered(${item.id}); event.stopPropagation();" class="p-1 rounded-lg ${isM ? 'text-amber-500 bg-amber-100/80 hover:bg-amber-200' : 'text-slate-300 hover:text-amber-400 hover:bg-slate-100'} font-bold text-xs transition-colors cursor-pointer" title="${isM ? 'Memorized (Click to unmark)' : 'Mark as Memorized'}">
+                    ${isM ? '⭐' : '☆'}
+                  </button>
+                  <button onclick="AudioSpeedSystem.speak('${item.art} ${item.de}'); event.stopPropagation();" class="text-slate-400 hover:text-pink-600 font-bold text-xs cursor-pointer" title="Pronounce">
+                    🔊
+                  </button>
+                </div>
               </div>
               <div class="text-base font-extrabold text-slate-800">${item.art} ${item.de}</div>
               <div class="text-xs text-slate-500 font-medium">${item.en}</div>
               <div class="text-[11px] text-slate-400 font-mono mt-0.5">Plural: ${item.pl}</div>
             </div>
             <div class="pt-2 mt-2 border-t border-slate-100 text-[10px] text-slate-400 italic truncate">
-              \ud83d\udca1 ${item.rule || item.cat}
+              💡 ${item.rule || item.cat}
             </div>
           </div>
         `;
       } else {
         return `
-          <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs hover:border-purple-300 hover:shadow-md transition-all flex flex-col justify-between">
+          <div class="p-4 rounded-2xl bg-white border ${isM ? 'border-amber-300 bg-amber-50/20' : 'border-slate-200/80'} shadow-xs hover:border-purple-300 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-1.5">
                 <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-black uppercase bg-purple-100 text-purple-700">${item.typ || 'Verb'}</span>
-                <button onclick="AudioSpeedSystem.speak('${item.de}')" class="text-slate-400 hover:text-purple-600 font-bold text-xs" title="Pronounce">
-                  \ud83d\udd0a
-                </button>
+                <div class="flex items-center gap-1.5">
+                  <button onclick="DualFlashcardSystem.toggleMastered(${item.id}); event.stopPropagation();" class="p-1 rounded-lg ${isM ? 'text-amber-500 bg-amber-100/80 hover:bg-amber-200' : 'text-slate-300 hover:text-amber-400 hover:bg-slate-100'} font-bold text-xs transition-colors cursor-pointer" title="${isM ? 'Memorized (Click to unmark)' : 'Mark as Memorized'}">
+                    ${isM ? '⭐' : '☆'}
+                  </button>
+                  <button onclick="AudioSpeedSystem.speak('${item.de}'); event.stopPropagation();" class="text-slate-400 hover:text-purple-600 font-bold text-xs cursor-pointer" title="Pronounce">
+                    🔊
+                  </button>
+                </div>
               </div>
               <div class="text-base font-extrabold text-slate-800">${item.de}</div>
               <div class="text-xs text-slate-500 font-medium">${item.en}</div>
@@ -18087,12 +18733,12 @@ const DualFlashcardSystem = {
     if (pagination) {
       pagination.innerHTML = `
         <div class="w-full flex items-center justify-between pt-4 border-t border-slate-200 text-xs font-semibold">
-          <button onclick="DualFlashcardSystem.changePage(${this.gridPage - 1})" ${this.gridPage <= 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40">
-            \u2190 Previous Page
+          <button onclick="DualFlashcardSystem.changePage(${this.gridPage - 1})" ${this.gridPage <= 1 ? 'disabled' : ''} class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 cursor-pointer">
+            ← Previous Page
           </button>
           <span class="text-slate-500">Page ${this.gridPage} of ${totalPages} (${list.length} total words)</span>
-          <button onclick="DualFlashcardSystem.changePage(${this.gridPage + 1})" ${this.gridPage >= totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40">
-            Next Page \u2192
+          <button onclick="DualFlashcardSystem.changePage(${this.gridPage + 1})" ${this.gridPage >= totalPages ? 'disabled' : ''} class="px-3 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 disabled:opacity-40 cursor-pointer">
+            Next Page →
           </button>
         </div>
       `;
