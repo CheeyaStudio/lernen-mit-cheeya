@@ -1825,7 +1825,14 @@ body:has(#lessonView:not(.hidden)) #ambientSparkles{opacity:0!important}
 @keyframes heroStars{0%,100%{opacity:.35;transform:translateY(2px)}50%{opacity:.95;transform:translateY(-5px)}}
 
 /* Hero badge floating animation */
-@keyframes badgeFloat{0%,100%{transform:translateY(-50%) rotate(-2deg)}50%{transform:translateY(calc(-50% - 7px)) rotate(2deg)}}
+@keyframes badgeFloat {
+  0%, 100% {
+    transform: translateY(0px) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1deg);
+  }
+}
 
 /* ---------- STATS: soft candy tiles ---------- */
 #dashboardView > .grid.grid-cols-2.sm\:grid-cols-4{
@@ -2847,12 +2854,13 @@ html[data-theme="dark"] select {
       <!-- VIEW 1: DASHBOARD -->
       <section id="dashboardView" class="space-y-8">
         <!-- Welcome Hero Card -->
-        <div class="bg-gradient-to-br from-white via-pink-50/60 to-rose-50/70 p-6 sm:p-8 rounded-3xl border border-pink-200/80 shadow-sm relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-6">
-          <div class="relative z-10 max-w-xl lg:max-w-2xl">
+        <div class="bg-gradient-to-br from-white via-pink-50/60 to-rose-50/70 p-6 sm:p-8 md:p-10 rounded-3xl border border-pink-200/80 shadow-sm relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8 lg:gap-12">
+          <!-- Left Text Content -->
+          <div class="relative z-10 flex-1 max-w-xl lg:max-w-2xl">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-semibold mb-3">
               &#10022; Welcome to CheeYa Studio
             </span>
-            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-800 tracking-tight mb-2">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-800 tracking-tight mb-2.5">
               German A1 Complete Self-Study Platform
             </h1>
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
@@ -2869,11 +2877,19 @@ html[data-theme="dark"] select {
             </div>
           </div>
 
-          <!-- Beautiful Round German A1 Badge (Proportionally placed on the right) -->
-          <div class="hidden sm:flex flex-col items-center justify-center text-center w-36 h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-white/95 via-pink-50/90 to-rose-100/75 border border-pink-300/40 shadow-xl relative z-10 shrink-0 select-none mr-2 lg:mr-8" style="box-shadow: 0 16px 36px rgba(214,109,164,.18), inset 0 0 0 8px rgba(255,255,255,.65); animation: badgeFloat 5s ease-in-out infinite;">
-            <span class="text-xs font-black tracking-widest text-pink-600 uppercase">GERMAN</span>
-            <span class="text-3xl md:text-4xl font-black text-pink-500 my-0.5">A1</span>
-            <span class="text-[10px] font-black text-pink-600/90 tracking-wider">&#10022; 38 LESSONS</span>
+          <!-- Right: Proportionate German A1 Emblem & Highlights (Nicely balanced, not at the extreme edge) -->
+          <div class="hidden sm:flex flex-col items-center justify-center self-center shrink-0 z-10 py-2 sm:px-4 md:px-8 lg:px-12">
+            <div class="relative flex flex-col items-center justify-center text-center w-36 h-36 md:w-44 md:h-44 rounded-full bg-gradient-to-br from-white via-pink-50 to-rose-100/90 border border-pink-200/90 shadow-xl select-none" style="box-shadow: 0 14px 32px rgba(214,109,164,.18), inset 0 0 0 8px rgba(255,255,255,.75); animation: badgeFloat 4.5s ease-in-out infinite;">
+              <span class="text-[11px] font-black tracking-widest text-pink-600 uppercase">GERMAN</span>
+              <span class="text-3xl md:text-4xl font-black text-pink-500 my-0.5">A1</span>
+              <span class="text-[10px] font-black text-pink-600/90 tracking-wider">&#10022; 38 LESSONS</span>
+            </div>
+            <!-- Small Balanced Highlight Tags -->
+            <div class="flex items-center gap-1.5 mt-3 select-none">
+              <span class="px-2.5 py-0.5 rounded-full bg-white/80 border border-pink-200/60 text-[10px] font-bold text-slate-600 shadow-2xs">9 Modules</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-white/80 border border-pink-200/60 text-[10px] font-bold text-pink-600 shadow-2xs">A1 Level</span>
+              <span class="px-2.5 py-0.5 rounded-full bg-white/80 border border-pink-200/60 text-[10px] font-bold text-purple-600 shadow-2xs">27 Tracks</span>
+            </div>
           </div>
         </div>
 
