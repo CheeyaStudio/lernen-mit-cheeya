@@ -13915,39 +13915,262 @@ Markus`,
 /* --------------------------------------------------------------------------
    4. SMART TRANSLATOR & BEGINNER GERMAN GRAMMAR ANALYZER
    -------------------------------------------------------------------------- */
+/* ==========================================================================
+   CheeYa German A1 - Advanced Multilingual Translator & Deep Grammar Analyzer
+   ========================================================================== */
+
 const TranslatorSystem = {
-  // Built-in offline dictionary & phrases for instant zero-latency responses
+  // Built-in high accuracy offline dictionary & common sentences
   offlineDict: {
-    "i would like to drink a coffee.": {
-      de: "Ich möchte einen Kaffee trinken.",
-      en: "I would like to drink a coffee.",
-      id: "Saya ingin minum kopi."
+    "i would like to drink a coffee.": { de: "Ich möchte einen Kaffee trinken.", en: "I would like to drink a coffee.", id: "Saya ingin minum kopi." },
+    "where do you live?": { de: "Wo wohnst du?", en: "Where do you live?", id: "Di mana kamu tinggal?" },
+    "today i am learning german in berlin.": { de: "Heute lerne ich Deutsch in Berlin.", en: "Today I am learning German in Berlin.", id: "Hari ini saya belajar bahasa Jerman di Berlin." },
+    "saya berasal dari indonesia.": { de: "Ich komme aus Indonesien.", en: "I come from Indonesia.", id: "Saya berasal dari Indonesia." },
+    "bisakah anda membantu saya?": { de: "Können Sie mir bitte helfen?", en: "Could you please help me?", id: "Bisakah Anda membantu saya?" },
+    "i give you book": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
+    "i give you a book": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
+    "i love you": { de: "Ich liebe dich.", en: "I love you.", id: "Aku mencintaimu." },
+    "ich liebe dich": { de: "Ich liebe dich.", en: "I love you.", id: "Aku mencintaimu." },
+    "ich gebe dir ein buch": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." }
+  },
+
+  // Linguistic database for in-depth German grammar breakdown
+  linguistics: {
+    pronouns: {
+      'ich': { case: 'Nominativ (Subject)', role: 'Subject ("I")', base: 'ich', desc: '1st person singular pronoun. The person performing the action.' },
+      'mich': { case: 'Akkusativ (Direct Object)', role: 'Direct Object ("me")', base: 'ich', desc: 'Accusative form of "ich". Used when "I" am the direct object being loved, seen, or acted upon.' },
+      'mir': { case: 'Dativ (Indirect Object)', role: 'Recipient ("to me / for me")', base: 'ich', desc: 'Dative form of "ich". Used for the indirect object or recipient (e.g. "Gib mir" = Give to me).' },
+
+      'du': { case: 'Nominativ (Subject)', role: 'Subject ("you" informal)', base: 'du', desc: '2nd person informal pronoun for a friend, family member, or child.' },
+      'dich': { case: 'Akkusativ (Direct Object)', role: 'Direct Object ("you")', base: 'du', desc: 'Accusative form of "du". Essential beginner rule: In German, "you" changes from "du" to "dich" when it is the direct object (e.g. "Ich liebe dich" = I love you)!' },
+      'dir': { case: 'Dativ (Indirect Object)', role: 'Indirect Object ("to you")', base: 'du', desc: 'Dative form of "du". Required when "you" are the recipient of an action (e.g. "Ich gebe dir ein Buch" = I give to you a book), or after dative verbs like "helfen" ("Ich helfe dir")!' },
+
+      'er': { case: 'Nominativ (Subject)', role: 'Subject ("he")', base: 'er', desc: '3rd person singular masculine pronoun.' },
+      'ihn': { case: 'Akkusativ (Direct Object)', role: 'Direct Object ("him")', base: 'er', desc: 'Accusative form of "er". Note the characteristic masculine "-n" ending shift in the accusative!' },
+      'ihm': { case: 'Dativ (Indirect Object)', role: 'Indirect Object ("to him")', base: 'er/es', desc: 'Dative form of "er" and "es" (e.g. "Ich gebe ihm").' },
+
+      'sie': { case: 'Nominativ / Akkusativ', role: 'Subject ("she/they") or Object ("her/them")', base: 'sie', desc: 'Feminine singular or plural pronoun. Keeps the identical form in both Nominativ and Akkusativ.' },
+      'ihr': { case: 'Dativ (Indirect Object) / Nominativ (Plural)', role: 'Indirect Object ("to her") OR Subject ("you all")', base: 'sie / ihr', desc: 'Dative form of "sie" (to her) OR 2nd person plural subject "you all".' },
+
+      'es': { case: 'Nominativ / Akkusativ', role: 'Subject / Object ("it")', base: 'es', desc: 'Neuter pronoun. Does not change form between Nominative and Accusative.' },
+
+      'wir': { case: 'Nominativ (Subject)', role: 'Subject ("we")', base: 'wir', desc: '1st person plural pronoun.' },
+      'uns': { case: 'Akkusativ / Dativ', role: 'Object ("us / to us")', base: 'wir', desc: 'Used for both Accusative and Dative of "wir".' },
+
+      'euch': { case: 'Akkusativ / Dativ', role: 'Object ("you all / to you all")', base: 'ihr', desc: 'Used for both Accusative and Dative of "ihr".' },
+
+      'Sie': { case: 'Nominativ / Akkusativ (Formal)', role: 'Formal Address ("You")', base: 'Sie', desc: 'Always capitalized! Polite formal address used with adults, strangers, and professional settings.' },
+      'Ihnen': { case: 'Dativ (Formal)', role: 'Indirect Object ("to You formal")', base: 'Sie', desc: 'Always capitalized Dative form of "Sie" (e.g. "Wie geht es Ihnen?").' }
     },
-    "where do you live?": {
-      de: "Wo wohnst du?",
-      en: "Where do you live?",
-      id: "Di mana kamu tinggal?"
+
+    articles: {
+      'der': { type: 'Definite Article', gender: 'Masculine (der)', case: 'Nominativ', desc: 'Masculine article "the" in the subject/nominative position.' },
+      'die': { type: 'Definite Article', gender: 'Feminine (die) or Plural', case: 'Nominativ / Akkusativ', desc: 'Feminine or plural article "the".' },
+      'das': { type: 'Definite Article', gender: 'Neuter (das)', case: 'Nominativ / Akkusativ', desc: 'Neuter article "the". Stays identical in both Nominative and Accusative.' },
+      'den': { type: 'Definite Article', gender: 'Masculine', case: 'Akkusativ', desc: 'Crucial German rule: Masculine "der" changes to "den" when it is the direct object (Akkusativ)!' },
+      'dem': { type: 'Definite Article', gender: 'Masculine / Neuter', case: 'Dativ', desc: 'Dative masculine and neuter article (e.g. "mit dem Bus", "dem Mann").' },
+
+      'ein': { type: 'Indefinite Article', gender: 'Neuter (Nom/Akk) or Masc (Nom)', case: 'Nominativ / Akkusativ', desc: 'Indefinite article "a / an". For neuter nouns like "das Buch", it stays "ein" in both Nominative and Accusative (e.g. "ein Buch")!' },
+      'eine': { type: 'Indefinite Article', gender: 'Feminine', case: 'Nominativ / Akkusativ', desc: 'Indefinite article "a / an" for feminine nouns (e.g. "eine Zeitung").' },
+      'einen': { type: 'Indefinite Article', gender: 'Masculine', case: 'Akkusativ', desc: 'Important: "ein" becomes "einen" for masculine direct objects (e.g. "einen Kaffee", "einen Apfel")!' },
+      'einem': { type: 'Indefinite Article', gender: 'Masculine / Neuter', case: 'Dativ', desc: 'Dative form of "ein" (e.g. "mit einem Freund").' },
+      'einer': { type: 'Indefinite Article', gender: 'Feminine', case: 'Dativ', desc: 'Dative form of "eine" (e.g. "in einer Stadt").' },
+
+      'kein': { type: 'Negative Article', gender: 'Neuter / Masculine', case: 'Nominativ / Akkusativ', desc: 'Negative article meaning "no / not a" for nouns.' },
+      'keine': { type: 'Negative Article', gender: 'Feminine / Plural', case: 'Nominativ / Akkusativ', desc: 'Negative article for feminine and plural nouns.' },
+      'keinen': { type: 'Negative Article', gender: 'Masculine', case: 'Akkusativ', desc: 'Negative article for masculine direct objects.' }
     },
-    "today i am learning german in berlin.": {
-      de: "Heute lerne ich Deutsch in Berlin.",
-      en: "Today I am learning German in Berlin.",
-      id: "Hari ini saya belajar bahasa Jerman di Berlin."
+
+    verbs: {
+      'geben': {
+        inf: 'geben',
+        en: 'to give',
+        type: 'Strong Irregular Verb (e ➔ i vowel change)',
+        valency: 'Governs DATIV (recipient) + AKKUSATIV (item given)',
+        ruleExplanation: '<b>Dual-Object Valency:</b> "geben" requires two objects: 1) The person who receives the item takes the <b>Dativ</b> case (<i>dir</i> = to you), and 2) The item given takes the <b>Akkusativ</b> case (<i>ein Buch</i> = a book). Notice that when pronouns are used, Dative comes before Accusative (<i>Dativ vor Akkusativ</i>)!',
+        participle: 'hat gegeben',
+        conjugation: {
+          'ich': 'gebe (stem + -e)',
+          'du': 'gibst (irregular vowel shift: e ➔ i!)',
+          'er/sie/es': 'gibt (irregular vowel shift: e ➔ i!)',
+          'wir': 'geben (infinitive + -en)',
+          'ihr': 'gebt (stem + -t)',
+          'sie/Sie': 'geben (infinitive + -en)'
+        },
+        forms: ['gebe', 'gibst', 'gibt', 'geben', 'gebt']
+      },
+      'lieben': {
+        inf: 'lieben',
+        en: 'to love',
+        type: 'Regular Weak Verb',
+        valency: 'Governs AKKUSATIV (direct object)',
+        ruleExplanation: '<b>Direct Object Valency:</b> "lieben" demands an Accusative direct object! That is why the person loved changes from "du" (subject) to <b>dich</b> (accusative object). In English "you" stays unchanged, but German strictly distinguishes subject vs object!',
+        participle: 'hat geliebt',
+        conjugation: {
+          'ich': 'liebe (stem + -e)',
+          'du': 'liebst (stem + -st)',
+          'er/sie/es': 'liebt (stem + -t)',
+          'wir': 'lieben (infinitive + -en)',
+          'ihr': 'liebt (stem + -t)',
+          'sie/Sie': 'lieben (infinitive + -en)'
+        },
+        forms: ['liebe', 'liebst', 'liebt', 'lieben', 'liebt']
+      },
+      'helfen': {
+        inf: 'helfen',
+        en: 'to help',
+        type: 'Strong Irregular Verb (e ➔ i)',
+        valency: 'Governs DATIV only!',
+        ruleExplanation: '<b>Dative Verb Rule:</b> Unlike English, "helfen" in German strictly demands the Dative case! You must say "Ich helfe <b>dir</b>" (never "dich").',
+        participle: 'hat geholfen',
+        conjugation: {
+          'ich': 'helfe (stem + -e)',
+          'du': 'hilfst (irregular e ➔ i!)',
+          'er/sie/es': 'hilft (irregular e ➔ i!)',
+          'wir': 'helfen (infinitive + -en)',
+          'ihr': 'helft (stem + -t)',
+          'sie/Sie': 'helfen (infinitive + -en)'
+        },
+        forms: ['helfe', 'hilfst', 'hilft', 'helfen', 'helft']
+      },
+      'trinken': {
+        inf: 'trinken',
+        en: 'to drink',
+        type: 'Regular / Strong Verb',
+        valency: 'Governs AKKUSATIV (direct beverage object)',
+        ruleExplanation: 'The beverage you drink is the direct object in the Accusative case (e.g. <i>einen Kaffee</i>, <i>ein Wasser</i>).',
+        participle: 'hat getrunken',
+        conjugation: {
+          'ich': 'trinke',
+          'du': 'trinkst',
+          'er/sie/es': 'trinkt',
+          'wir': 'trinken',
+          'ihr': 'trinkt',
+          'sie/Sie': 'trinken'
+        },
+        forms: ['trinke', 'trinkst', 'trinkt', 'trinken', 'trinkt']
+      },
+      'essen': {
+        inf: 'essen',
+        en: 'to eat',
+        type: 'Strong Irregular Verb (e ➔ i)',
+        valency: 'Governs AKKUSATIV (direct food object)',
+        ruleExplanation: 'Food consumed takes the Accusative case. Notice the irregular forms <i>du isst</i> and <i>er isst</i>!',
+        participle: 'hat gegessen',
+        conjugation: {
+          'ich': 'esse',
+          'du': 'isst (irregular e ➔ i!)',
+          'er/sie/es': 'isst (irregular e ➔ i!)',
+          'wir': 'essen',
+          'ihr': 'esst',
+          'sie/Sie': 'essen'
+        },
+        forms: ['esse', 'isst', 'essen', 'esst']
+      },
+      'haben': {
+        inf: 'haben',
+        en: 'to have',
+        type: 'Irregular Auxiliary Verb',
+        valency: 'Governs AKKUSATIV (possession)',
+        ruleExplanation: '"haben" always takes the direct object in Accusative (e.g. <i>Ich habe einen Bruder</i>, <i>Ich habe keine Zeit</i>).',
+        participle: 'hat gehabt',
+        conjugation: {
+          'ich': 'habe',
+          'du': 'hast (irregular)',
+          'er/sie/es': 'hat (irregular)',
+          'wir': 'haben',
+          'ihr': 'habt',
+          'sie/Sie': 'haben'
+        },
+        forms: ['habe', 'hast', 'hat', 'haben', 'habt']
+      },
+      'sein': {
+        inf: 'sein',
+        en: 'to be',
+        type: 'Irregular Copula Verb',
+        valency: 'Governs NOMINATIV on both sides',
+        ruleExplanation: '"sein" is a copula verb and NEVER takes an Accusative object! Both the subject and predicate noun remain in the Nominative case.',
+        participle: 'ist gewesen',
+        conjugation: {
+          'ich': 'bin',
+          'du': 'bist',
+          'er/sie/es': 'ist',
+          'wir': 'sind',
+          'ihr': 'seid',
+          'sie/Sie': 'sind'
+        },
+        forms: ['bin', 'bist', 'ist', 'sind', 'seid']
+      },
+      'lernen': {
+        inf: 'lernen',
+        en: 'to learn / study',
+        type: 'Regular Weak Verb',
+        valency: 'Governs AKKUSATIV (subject of study)',
+        ruleExplanation: 'The subject or language learned takes the Accusative case (e.g. <i>Ich lerne Deutsch</i>).',
+        participle: 'hat gelernt',
+        conjugation: {
+          'ich': 'lerne',
+          'du': 'lernst',
+          'er/sie/es': 'lernt',
+          'wir': 'lernen',
+          'ihr': 'lernt',
+          'sie/Sie': 'lernen'
+        },
+        forms: ['lerne', 'lernst', 'lernt', 'lernen', 'lernt']
+      },
+      'kommen': {
+        inf: 'kommen',
+        en: 'to come',
+        type: 'Regular Verb',
+        valency: 'Governs prepositional phrase (aus + Dativ)',
+        ruleExplanation: 'Used with preposition "aus" (+ Dativ) to state geographic origin (e.g. <i>Ich komme aus Indonesien</i>).',
+        participle: 'ist gekommen',
+        conjugation: {
+          'ich': 'komme',
+          'du': 'kommst',
+          'er/sie/es': 'kommt',
+          'wir': 'kommen',
+          'ihr': 'kommt',
+          'sie/Sie': 'kommen'
+        },
+        forms: ['komme', 'kommst', 'kommt', 'kommen', 'kommt']
+      },
+      'wohnen': {
+        inf: 'wohnen',
+        en: 'to live / reside',
+        type: 'Regular Verb',
+        valency: 'Governs prepositional phrase (in + Dativ)',
+        ruleExplanation: 'Used with "in" (+ Dativ) to indicate city or residence (e.g. <i>Ich wohne in Berlin</i>).',
+        participle: 'hat gewohnt',
+        conjugation: {
+          'ich': 'wohne',
+          'du': 'wohnst',
+          'er/sie/es': 'wohnt',
+          'wir': 'wohnen',
+          'ihr': 'wohnt',
+          'sie/Sie': 'wohnen'
+        },
+        forms: ['wohne', 'wohnst', 'wohnt', 'wohnen', 'wohnt']
+      }
     },
-    "saya berasal dari indonesia.": {
-      de: "Ich komme aus Indonesien.",
-      en: "I come from Indonesia.",
-      id: "Saya berasal dari Indonesia."
-    },
-    "bisakah anda membantu saya?": {
-      de: "Können Sie mir bitte helfen?",
-      en: "Could you please help me?",
-      id: "Bisakah Anda membantu saya?"
+
+    nouns: {
+      'buch': { gender: 'das', art: 'das (Neuter)', plural: 'die Bücher', en: 'book', rule: 'Neuter object noun. Stays identical in Nominative and Accusative (<i>ein Buch</i>)!' },
+      'apfel': { gender: 'der', art: 'der (Masculine)', plural: 'die Äpfel', en: 'apple', rule: 'Masculine fruit noun. Changes to <i>einen Apfel</i> in Accusative!' },
+      'kaffee': { gender: 'der', art: 'der (Masculine)', plural: 'die Kaffees', en: 'coffee', rule: 'Masculine beverage noun. Changes to <i>einen Kaffee</i> in Accusative!' },
+      'tee': { gender: 'der', art: 'der (Masculine)', plural: 'die Tees', en: 'tea', rule: 'Masculine beverage noun.' },
+      'brot': { gender: 'das', art: 'das (Neuter)', plural: 'die Brote', en: 'bread', rule: 'Neuter staple food noun.' },
+      'wasser': { gender: 'das', art: 'das (Neuter)', plural: '-', en: 'water', rule: 'Neuter liquid noun.' },
+      'zeitung': { gender: 'die', art: 'die (Feminine)', plural: 'die Zeitungen', en: 'newspaper', rule: 'Nouns ending in <b>-ung</b> are 100% Feminine (die)!' },
+      'wohnung': { gender: 'die', art: 'die (Feminine)', plural: 'die Wohnungen', en: 'apartment', rule: 'Nouns ending in <b>-ung</b> are 100% Feminine (die)!' },
+      'frau': { gender: 'die', art: 'die (Feminine)', plural: 'die Frauen', en: 'woman / Mrs.', rule: 'Female person is feminine (die).' },
+      'mann': { gender: 'der', art: 'der (Masculine)', plural: 'die Männer', en: 'man / husband', rule: 'Male person is masculine (der).' },
+      'kind': { gender: 'das', art: 'das (Neuter)', plural: 'die Kinder', en: 'child', rule: 'Young persons are neuter (das).' },
+      'deutsch': { gender: 'das', art: 'das (Neuter)', plural: '-', en: 'German language', rule: 'Languages are neuter without article (e.g. <i>Ich lerne Deutsch</i>).' }
     }
   },
 
-  handleLangChange() {
-    // optional reactive callback
-  },
+  handleLangChange() {},
 
   swapLanguages() {
     const src = document.getElementById('transSourceLang');
@@ -13972,6 +14195,19 @@ const TranslatorSystem = {
     if (input) input.value = '';
   },
 
+  sanitize(text) {
+    if (!text) return '';
+    let clean = text;
+    // Strip crowdsourced spam additions from MyMemory like ", Lucy .." or " - translated by..."
+    clean = clean.replace(/,\s*(Lucy|John|Mary|Mike|user)[^.]*/gi, '');
+    clean = clean.replace(/(\.\.+|\!\!+|\?\?+)/g, '.');
+    clean = clean.replace(/\s+/g, ' ').trim();
+    if (clean.length > 0) {
+      clean = clean.charAt(0).toUpperCase() + clean.slice(1);
+    }
+    return clean;
+  },
+
   async translate() {
     const input = document.getElementById('transInputText');
     const output = document.getElementById('transOutputText');
@@ -13987,7 +14223,7 @@ const TranslatorSystem = {
     }
 
     // Check offline dictionary first
-    const norm = text.toLowerCase();
+    const norm = text.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").trim();
     if (this.offlineDict[norm]) {
       const match = this.offlineDict[norm];
       output.innerText = match[tgtLang] || match.de;
@@ -13995,172 +14231,390 @@ const TranslatorSystem = {
       return;
     }
 
-    // Fetch via MyMemory API
-    if (spinner) spinner.classList.remove('hidden');
+    // If user already typed German into source, use it directly!
+    const germanKeywords = ['ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr', 'Sie', 'gebe', 'liebe', 'komme', 'wohne', 'lerne', 'trinke', 'der', 'die', 'das', 'ein', 'eine', 'dich', 'dir', 'mich', 'mir'];
+    const inputWords = norm.split(/\s+/);
+    const hasGermanWords = inputWords.some(w => germanKeywords.includes(w));
 
+    if (hasGermanWords && (srcLang === 'de' || tgtLang === 'de')) {
+      // Input is already German
+      let cleanDe = this.sanitize(text);
+      if (srcLang === 'de' && tgtLang !== 'de') {
+        // Translate from German to English/Indonesian
+        if (spinner) spinner.classList.remove('hidden');
+        try {
+          const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanDe)}&langpair=de|${tgtLang}`);
+          const data = await res.json();
+          if (data && data.responseData && data.responseData.translatedText) {
+            output.innerText = this.sanitize(data.responseData.translatedText);
+          }
+        } catch (e) {
+          output.innerText = cleanDe;
+        } finally {
+          if (spinner) spinner.classList.add('hidden');
+          this.analyzeGrammar(cleanDe);
+        }
+        return;
+      } else {
+        // Target is German and input is German
+        output.innerText = cleanDe;
+        this.analyzeGrammar(cleanDe);
+        return;
+      }
+    }
+
+    // Otherwise fetch translation via MyMemory API
+    if (spinner) spinner.classList.remove('hidden');
     try {
       const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${srcLang}|${tgtLang}`;
       const res = await fetch(url);
       const data = await res.json();
       if (data && data.responseData && data.responseData.translatedText) {
-        output.innerText = data.responseData.translatedText;
+        output.innerText = this.sanitize(data.responseData.translatedText);
       } else {
         output.innerText = text;
       }
     } catch (err) {
-      console.warn('Online translation network warning:', err);
-      // Fallback
+      console.warn('Translation network notice:', err);
       output.innerText = text;
     } finally {
       if (spinner) spinner.classList.add('hidden');
-      // Analyze grammar of German text (either target or source)
       const germanText = tgtLang === 'de' ? output.innerText : (srcLang === 'de' ? text : output.innerText);
       this.analyzeGrammar(germanText);
     }
   },
 
-  analyzeGrammar(sentence) {
+  analyzeGrammar(rawSentence) {
     const grid = document.getElementById('grammarCardsGrid');
     if (!grid) return;
 
-    // Rule-based beginner German linguistic analysis
-    const words = sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").split(/\s+/).filter(Boolean);
+    const sentence = this.sanitize(rawSentence);
+    const cleanTokens = sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").split(/\s+/).filter(Boolean);
     const isQuestion = sentence.includes('?');
-    const lowerWords = words.map(w => w.toLowerCase());
 
-    // 1. Satzbau (Word Order & Verb in Position 2)
-    let v2Explanation = "In standard German main clauses (Aussagesatz), the conjugated verb always sits firmly in <b>Position 2</b>!";
-    let pos1 = words[0] || '';
-    let pos2 = words[1] || '';
-    let posRest = words.slice(2).join(' ') || '';
+    // 1. ANATOMICAL WORD-BY-WORD PARSER
+    const wordsAnalysis = [];
+    let detectedVerb = null;
+    let detectedSubject = null;
+    let detectedDative = null;
+    let detectedAccusative = null;
+    let detectedNoun = null;
 
-    if (isQuestion) {
-      if (['wo', 'wie', 'wer', 'wann', 'warum', 'was', 'wohin', 'woher'].includes(words[0]?.toLowerCase())) {
-        v2Explanation = "In a <b>W-Question</b> (W-Frage), the question word comes first in Position 1, followed directly by the conjugated verb in <b>Position 2</b>!";
-      } else {
-        v2Explanation = "In a <b>Yes/No Question</b> (Ja/Nein-Frage), the conjugated verb moves to the front in <b>Position 1</b>!";
-        pos1 = words[0] + " (VERB)";
-        pos2 = words[1] + " (SUBJECT)";
+    cleanTokens.forEach((token, idx) => {
+      const lower = token.toLowerCase();
+      let item = {
+        idx: idx + 1,
+        word: token,
+        pos: 'Word',
+        role: 'Sentence Component',
+        base: token,
+        caseBadge: '',
+        desc: ''
+      };
+
+      // Check Pronouns
+      if (this.linguistics.pronouns[lower] || this.linguistics.pronouns[token]) {
+        const pInfo = this.linguistics.pronouns[lower] || this.linguistics.pronouns[token];
+        item.pos = 'Personal Pronoun';
+        item.role = pInfo.role;
+        item.base = pInfo.base;
+        item.desc = pInfo.desc;
+
+        if (pInfo.case.includes('Nominativ')) {
+          item.caseBadge = '<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300">Nominativ (Subject)</span>';
+          if (!detectedSubject) detectedSubject = item;
+        } else if (pInfo.case.includes('Dativ')) {
+          item.caseBadge = '<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-purple-100 text-purple-800 border border-purple-300">Dativ (Indirect Object)</span>';
+          detectedDative = item;
+        } else if (pInfo.case.includes('Akkusativ')) {
+          item.caseBadge = '<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-blue-100 text-blue-800 border border-blue-300">Akkusativ (Direct Object)</span>';
+          detectedAccusative = item;
+        }
       }
-    }
-
-    // 2. Subject & Verb Conjugation
-    let subjectPronoun = "Not specified";
-    let verbConjugation = "Regular / Modal structure";
-    const pronouns = ['ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr', 'Sie'];
-    for (let p of pronouns) {
-      if (lowerWords.includes(p)) {
-        subjectPronoun = p;
-        if (p === 'ich') verbConjugation = "Subject 'ich' (I) takes suffix <b>-e</b> (e.g. komme, lerne, trinke).";
-        else if (p === 'du') verbConjugation = "Subject 'du' (you informal) takes suffix <b>-st</b> (e.g. kommst, lernst).";
-        else if (['er', 'sie', 'es'].includes(p)) verbConjugation = "Subject takes suffix <b>-t</b> (e.g. kommt, lernt, wohnt).";
-        else if (['wir', 'sie', 'Sie'].includes(p)) verbConjugation = "Subject takes infinitive ending <b>-en</b> (e.g. kommen, lernen).";
-        else if (p === 'ihr') verbConjugation = "Subject 'ihr' (you all) takes suffix <b>-t</b> (e.g. kommt, trinkt).";
-        break;
+      // Check Articles
+      else if (this.linguistics.articles[lower]) {
+        const aInfo = this.linguistics.articles[lower];
+        item.pos = aInfo.type;
+        item.role = `Article (${aInfo.gender})`;
+        item.base = aInfo.gender.split(' ')[0];
+        item.desc = aInfo.desc;
+        item.caseBadge = `<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-sky-100 text-sky-800 border border-sky-300">${aInfo.case}</span>`;
       }
-    }
-
-    // 3. Articles & Noun Genders detection
-    const nounGenders = [];
-    const mascNouns = ['kaffee', 'apfel', 'tisch', 'mann', 'bruder', 'vater', 'zug', 'bus', 'hauptbahnhof', 'kurs'];
-    const femNouns = ['wohnung', 'zeitung', 'frau', 'mutter', 'schwester', 'stadt', 'kasse', 'uhr', 'nacht', 'familie'];
-    const neutNouns = ['buch', 'auto', 'kind', 'haus', 'brot', 'brötchen', 'wasser', 'wochenende', 'zimmer'];
-
-    words.forEach(w => {
-      const lw = w.toLowerCase();
-      if (mascNouns.includes(lw)) {
-        nounGenders.push({ noun: w, gender: 'der (Masculine)', badge: 'gender-der', color: 'blue' });
-      } else if (femNouns.includes(lw)) {
-        nounGenders.push({ noun: w, gender: 'die (Feminine)', badge: 'gender-die', color: 'pink' });
-      } else if (neutNouns.includes(lw)) {
-        nounGenders.push({ noun: w, gender: 'das (Neuter)', badge: 'gender-das', color: 'emerald' });
+      // Check Verbs
+      else {
+        let matchedVerbKey = Object.keys(this.linguistics.verbs).find(k => this.linguistics.verbs[k].forms.includes(lower));
+        if (matchedVerbKey) {
+          const vInfo = this.linguistics.verbs[matchedVerbKey];
+          item.pos = 'Conjugated Finite Verb';
+          item.role = `Predicate (Position 2 ⚡)`;
+          item.base = vInfo.inf;
+          item.desc = `Conjugated form of the verb "<b>${vInfo.inf}</b>" (${vInfo.en}). ${vInfo.type}.`;
+          item.caseBadge = '<span class="px-2 py-0.5 rounded-md text-[10px] font-extrabold bg-amber-100 text-amber-900 border border-amber-300">Verb (Position 2)</span>';
+          if (!detectedVerb) detectedVerb = vInfo;
+        }
+        // Check Nouns
+        else if (this.linguistics.nouns[lower]) {
+          const nInfo = this.linguistics.nouns[lower];
+          item.pos = 'Noun';
+          item.role = `Direct Object / Noun`;
+          item.base = `${nInfo.art} ${token}`;
+          item.desc = `Gender: <b>${nInfo.art}</b>. Plural: <b>${nInfo.plural}</b>. Meaning: "${nInfo.en}". ${nInfo.rule}`;
+          item.caseBadge = `<span class="gender-${nInfo.gender} px-2 py-0.5 rounded-md text-[10px] font-extrabold">${nInfo.art}</span>`;
+          detectedNoun = { token, ...nInfo };
+        }
+        // Generic fallback
+        else {
+          item.pos = token[0] === token[0].toUpperCase() ? 'Noun / Proper Name' : 'Particle / Adverb';
+          item.role = 'Sentence Element';
+          item.base = token;
+          item.desc = token[0] === token[0].toUpperCase() 
+            ? 'In German, ALL nouns must strictly start with a capital letter!' 
+            : 'Adverb, preposition, or sentence complement.';
+          item.caseBadge = '<span class="px-2 py-0.5 rounded-md text-[10px] font-semibold bg-slate-100 text-slate-600">Complement</span>';
+        }
       }
+
+      wordsAnalysis.push(item);
     });
 
-    let html = `
-      <!-- Card 1: Satzbau / Word Order (V2 Rule) -->
-      <div class="p-5 rounded-2xl bg-indigo-50/50 border border-indigo-100 space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-extrabold text-indigo-700 uppercase tracking-wider">1. Satzbau (Word Order)</span>
-          <span class="text-[10px] font-bold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded">Golden V2 Rule</span>
-        </div>
-        <div class="flex flex-wrap gap-1.5 pt-1">
-          <span class="v2-token bg-white border border-indigo-200 text-indigo-900">
-            <span class="v2-pos-label text-indigo-400">Position 1</span>
-            <span>${pos1 || 'Subject / Adverb'}</span>
-          </span>
-          <span class="v2-token bg-indigo-600 text-white shadow-xs">
-            <span class="v2-pos-label text-indigo-200">Position 2 (Verb ⚡)</span>
-            <span>${pos2 || 'Conjugated Verb'}</span>
-          </span>
-          <span class="v2-token bg-white border border-slate-200 text-slate-700">
-            <span class="v2-pos-label text-slate-400">Rest of Sentence</span>
-            <span>${posRest || 'Objects / Time / Place'}</span>
-          </span>
-        </div>
-        <p class="text-xs text-slate-600 leading-relaxed pt-1">
-          ${v2Explanation}
-        </p>
-      </div>
+    // 2. BUILD DETAILED HTML OUTPUT
+    let html = '';
 
-      <!-- Card 2: Subject & Verb Conjugation -->
-      <div class="p-5 rounded-2xl bg-purple-50/50 border border-purple-100 space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-extrabold text-purple-700 uppercase tracking-wider">2. Subject & Conjugation</span>
-          <span class="text-[10px] font-bold bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Grammar Pattern</span>
-        </div>
-        <div class="text-xs text-slate-700 space-y-1.5">
+    // =========================================================================
+    // SECTION 1: 🔬 WORD-BY-WORD ANATOMICAL TABLE (Tabel Bedah Kata)
+    // =========================================================================
+    html += `
+      <div class="col-span-full bg-white p-5 rounded-2xl border-2 border-indigo-200 shadow-xs space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
           <div class="flex items-center gap-2">
-            <span class="font-bold text-slate-500">Identified Subject:</span>
-            <span class="font-extrabold text-purple-700 bg-purple-100 px-2 py-0.5 rounded">${subjectPronoun}</span>
+            <span class="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">🔬</span>
+            <h3 class="font-extrabold text-slate-800 text-sm">1. Word-by-Word Anatomical Breakdown (Tabel Bedah Kata)</h3>
           </div>
-          <p class="text-xs text-slate-600 leading-relaxed pt-1">
-            ${verbConjugation}
-          </p>
+          <span class="text-[10px] font-bold text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full uppercase">Every Word Explained</span>
         </div>
-      </div>
 
-      <!-- Card 3: Noun Genders & Color Badges -->
-      <div class="p-5 rounded-2xl bg-pink-50/50 border border-pink-100 space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-extrabold text-pink-700 uppercase tracking-wider">3. Noun Genders (Genus)</span>
-          <span class="text-[10px] font-bold bg-pink-100 text-pink-800 px-2 py-0.5 rounded">der / die / das</span>
-        </div>
-        <div class="space-y-2">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="bg-indigo-50/70 text-indigo-900 border-b border-indigo-100">
+                <th class="p-2.5 font-extrabold">#</th>
+                <th class="p-2.5 font-extrabold">Word</th>
+                <th class="p-2.5 font-extrabold">Part of Speech</th>
+                <th class="p-2.5 font-extrabold">Case & Role</th>
+                <th class="p-2.5 font-extrabold">Base / Infinitive</th>
+                <th class="p-2.5 font-extrabold">Beginner Explanation in English</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100">
     `;
 
-    if (nounGenders.length > 0) {
-      nounGenders.forEach(ng => {
-        html += `
-          <div class="flex items-center justify-between p-2 rounded-xl bg-white border border-slate-100 text-xs">
-            <span class="font-extrabold text-slate-800">${ng.noun}</span>
-            <span class="${ng.badge} px-2.5 py-0.5 rounded-lg text-xs font-bold">${ng.gender}</span>
-          </div>
-        `;
-      });
-    } else {
+    wordsAnalysis.forEach(w => {
       html += `
-        <p class="text-xs text-slate-500 italic">
-          No common core A1 nouns detected in this specific fragment. Remember that in German, <b>ALL nouns are capitalized</b>!
-        </p>
+        <tr class="hover:bg-slate-50/80 transition-colors">
+          <td class="p-2.5 font-mono text-slate-400 font-bold">${w.idx}</td>
+          <td class="p-2.5 font-black text-slate-800 text-sm">${w.word}</td>
+          <td class="p-2.5 font-semibold text-slate-600">${w.pos}</td>
+          <td class="p-2.5">${w.caseBadge}</td>
+          <td class="p-2.5 font-mono text-xs text-indigo-700 font-bold">${w.base}</td>
+          <td class="p-2.5 text-slate-600 leading-relaxed">${w.desc}</td>
+        </tr>
+      `;
+    });
+
+    html += `
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    // =========================================================================
+    // SECTION 2: 🎯 ACTIVE GRAMMATICAL CASES IN THIS SENTENCE (Wer? Wen? Wem?)
+    // =========================================================================
+    html += `
+      <div class="p-5 rounded-2xl bg-gradient-to-br from-emerald-50/70 to-teal-50/50 border border-emerald-200 space-y-3">
+        <div class="flex items-center justify-between border-b border-emerald-100 pb-2">
+          <span class="text-xs font-black text-emerald-800 uppercase tracking-wider flex items-center gap-1.5">
+            <span>🎯</span>
+            <span>2. Cases & Object Roles (Kasus: Wer? Wen? Wem?)</span>
+          </span>
+          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Case Architecture</span>
+        </div>
+
+        <div class="space-y-2 text-xs">
+          <!-- Nominative -->
+          <div class="p-2.5 rounded-xl bg-white border border-emerald-200">
+            <div class="flex items-center justify-between">
+              <span class="font-extrabold text-emerald-800">🟢 NOMINATIV (Subject • Wer / Was?):</span>
+              <span class="font-mono font-bold text-emerald-700">${detectedSubject ? detectedSubject.word : 'ich (I)'}</span>
+            </div>
+            <p class="text-[11px] text-slate-600 mt-1">The subject who performs the action. Controls the verb's ending.</p>
+          </div>
+    `;
+
+    // Dative (if present)
+    if (detectedDative) {
+      html += `
+        <div class="p-2.5 rounded-xl bg-white border border-purple-200">
+          <div class="flex items-center justify-between">
+            <span class="font-extrabold text-purple-800">🟣 DATIV (Indirect Object / Recipient • Wem?):</span>
+            <span class="font-mono font-bold text-purple-700">${detectedDative.word} ("to you")</span>
+          </div>
+          <p class="text-[11px] text-slate-600 mt-1">
+            <b>Why "${detectedDative.word}"?</b> Because you are the <b>recipient</b> of the action! In German, giving or helping someone requires the <b>Dativ</b> case (<i>du ➔ dir</i>).
+          </p>
+        </div>
+      `;
+    }
+
+    // Accusative (if present)
+    if (detectedAccusative || detectedNoun) {
+      const akkWord = detectedAccusative ? detectedAccusative.word : (detectedNoun ? `ein ${detectedNoun.token}` : 'Object');
+      html += `
+        <div class="p-2.5 rounded-xl bg-white border border-blue-200">
+          <div class="flex items-center justify-between">
+            <span class="font-extrabold text-blue-800">🔵 AKKUSATIV (Direct Object • Wen / Was?):</span>
+            <span class="font-mono font-bold text-blue-700">${akkWord}</span>
+          </div>
+          <p class="text-[11px] text-slate-600 mt-1">
+            The direct object directly acted upon. ${detectedAccusative && detectedAccusative.word === 'dich' ? 'Notice that "du" becomes <b>dich</b> when you are the direct object of love/action!' : 'Answers the question: What is being given or acted upon?'}
+          </p>
+        </div>
       `;
     }
 
     html += `
         </div>
       </div>
+    `;
 
-      <!-- Card 4: Crucial Beginner German Rules -->
-      <div class="p-5 rounded-2xl bg-emerald-50/50 border border-emerald-100 space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="text-xs font-extrabold text-emerald-700 uppercase tracking-wider">4. Beginner Essential Rules</span>
-          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Pro Tips</span>
+    // =========================================================================
+    // SECTION 3: ⚡ SATZBAU & GOLDEN V2 WORD ORDER SLOTS
+    // =========================================================================
+    let pos1 = cleanTokens[0] || 'Subject';
+    let pos2 = cleanTokens[1] || 'Verb';
+    let posRest = cleanTokens.slice(2).join(' ') || 'Rest';
+
+    html += `
+      <div class="p-5 rounded-2xl bg-gradient-to-br from-indigo-50/70 to-blue-50/50 border border-indigo-200 space-y-3">
+        <div class="flex items-center justify-between border-b border-indigo-100 pb-2">
+          <span class="text-xs font-black text-indigo-800 uppercase tracking-wider flex items-center gap-1.5">
+            <span>⚡</span>
+            <span>3. Satzbau (Golden Verb-in-Position-2 Rule)</span>
+          </span>
+          <span class="text-[10px] font-bold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded">Word Order Slots</span>
         </div>
-        <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
-          <li><b>Capitalization:</b> Every noun in German starts with a capital letter (e.g. <i>der Kaffee</i>, <i>das Buch</i>).</li>
-          <li><b>Accusative Shift:</b> Masculine nouns change from <i>der / ein</i> to <b>den / einen</b> when they are the direct object!</li>
-          <li><b>Polite Address:</b> Use <i>Sie</i> (always capitalized) with formal verb ending <i>-en</i> for strangers and teachers.</li>
-        </ul>
+
+        <div class="flex flex-wrap gap-2 pt-1">
+          <div class="flex-1 min-w-[100px] p-2.5 bg-white rounded-xl border border-indigo-200 text-center">
+            <span class="text-[9px] font-extrabold text-indigo-400 uppercase tracking-wider block">Position 1</span>
+            <span class="font-extrabold text-indigo-900 text-sm">${pos1}</span>
+            <span class="text-[9px] text-slate-400 block mt-0.5">Subject / Topic</span>
+          </div>
+          <div class="flex-1 min-w-[120px] p-2.5 bg-indigo-600 text-white rounded-xl shadow-xs text-center ring-2 ring-indigo-300">
+            <span class="text-[9px] font-extrabold text-indigo-200 uppercase tracking-wider block">Position 2 (Verb ⚡)</span>
+            <span class="font-black text-white text-sm">${pos2}</span>
+            <span class="text-[9px] text-indigo-200 block mt-0.5">Finite Conjugated Verb</span>
+          </div>
+          <div class="flex-1 min-w-[140px] p-2.5 bg-white rounded-xl border border-slate-200 text-center">
+            <span class="text-[9px] font-extrabold text-slate-400 uppercase tracking-wider block">Mittelfeld (Middle Field)</span>
+            <span class="font-bold text-slate-700 text-sm">${posRest}</span>
+            <span class="text-[9px] text-slate-400 block mt-0.5">Objects & Complements</span>
+          </div>
+        </div>
+
+        <div class="text-xs text-slate-600 leading-relaxed pt-1">
+          ${detectedDative ? '<b>Rule Note (Dativ vor Akkusativ):</b> When pronouns are used, the Dative pronoun (<i>dir</i>) strictly precedes the Accusative noun (<i>ein Buch</i>)!' : '<b>Golden Rule:</b> In every German declarative sentence (Aussagesatz), the conjugated verb must strictly occupy <b>Position 2</b>, regardless of what comes first!'}
+        </div>
+      </div>
+    `;
+
+    // =========================================================================
+    // SECTION 4: 📖 VERB CONJUGATION MASTER CHART
+    // =========================================================================
+    if (detectedVerb) {
+      html += `
+        <div class="col-span-full bg-white p-5 rounded-2xl border-2 border-amber-200 shadow-xs space-y-3">
+          <div class="flex items-center justify-between border-b border-amber-100 pb-2">
+            <div class="flex items-center gap-2">
+              <span class="w-7 h-7 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-xs">📖</span>
+              <h4 class="font-extrabold text-slate-800 text-sm">4. Verb Conjugation Chart: "${detectedVerb.inf}" (${detectedVerb.en})</h4>
+            </div>
+            <span class="text-[10px] font-bold text-amber-800 bg-amber-100 px-2 py-0.5 rounded">${detectedVerb.type}</span>
+          </div>
+
+          <div class="p-3 bg-amber-50/60 rounded-xl text-xs text-amber-900 border border-amber-200 leading-relaxed">
+            ${detectedVerb.ruleExplanation}
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 pt-1 text-xs text-center">
+            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 ${detectedSubject && detectedSubject.word.toLowerCase() === 'ich' ? 'ring-2 ring-amber-400 bg-amber-50/50' : ''}">
+              <div class="text-[10px] text-slate-400 font-bold">ich (I)</div>
+              <div class="font-black text-slate-800 mt-1">${detectedVerb.conjugation.ich}</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 ${detectedSubject && detectedSubject.word.toLowerCase() === 'du' ? 'ring-2 ring-amber-400 bg-amber-50/50' : ''}">
+              <div class="text-[10px] text-slate-400 font-bold">du (you)</div>
+              <div class="font-black text-slate-800 mt-1">${detectedVerb.conjugation.du}</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 ${detectedSubject && ['er','sie','es'].includes(detectedSubject.word.toLowerCase()) ? 'ring-2 ring-amber-400 bg-amber-50/50' : ''}">
+              <div class="text-[10px] text-slate-400 font-bold">er / sie / es</div>
+              <div class="font-black text-slate-800 mt-1">${detectedVerb.conjugation['er/sie/es']}</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-[10px] text-slate-400 font-bold">wir (we)</div>
+              <div class="font-black text-slate-800 mt-1">${detectedVerb.conjugation.wir}</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-[10px] text-slate-400 font-bold">ihr (you all)</div>
+              <div class="font-black text-slate-800 mt-1">${detectedVerb.conjugation.ihr}</div>
+            </div>
+            <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200">
+              <div class="text-[10px] text-slate-400 font-bold">sie / Sie</div>
+              <div class="font-black text-slate-800 mt-1">${detectedVerb.conjugation['sie/Sie']}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // =========================================================================
+    // SECTION 5: 💡 BEGINNER KEY QUESTIONS ANSWERED (Why is it like this?)
+    // =========================================================================
+    html += `
+      <div class="col-span-full bg-white p-5 rounded-2xl border-2 border-pink-200 shadow-xs space-y-3">
+        <div class="flex items-center justify-between border-b border-pink-100 pb-2">
+          <div class="flex items-center gap-2">
+            <span class="w-7 h-7 rounded-lg bg-pink-500 text-white flex items-center justify-center font-bold text-xs">💡</span>
+            <h4 class="font-extrabold text-slate-800 text-sm">5. Beginner "Why Is It Like This?" Explanations</h4>
+          </div>
+          <span class="text-[10px] font-bold text-pink-700 bg-pink-100 px-2 py-0.5 rounded">Core Logic</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+          <!-- Question 1 -->
+          <div class="p-3 bg-pink-50/50 rounded-xl border border-pink-100 space-y-1">
+            <div class="font-bold text-pink-900">Q: Why "${detectedDative ? 'dir' : (detectedAccusative ? 'dich' : 'the pronoun')}" and not "du"?</div>
+            <p class="text-slate-600 leading-relaxed">
+              ${detectedDative ? '<b>"du"</b> is strictly reserved for the subject who does the action. Here, you are receiving the item, so German strictly requires the Dative pronoun <b>"dir"</b> (to you).' : (detectedAccusative ? '<b>"du"</b> is only for the subject. When you are the direct recipient of feelings/action, German requires the Accusative pronoun <b>"dich"</b>.' : 'German pronouns change their exact form depending on whether they are the Subject (Nom), Direct Object (Akk), or Indirect Object (Dat).')}
+            </p>
+          </div>
+
+          <!-- Question 2 -->
+          <div class="p-3 bg-indigo-50/50 rounded-xl border border-indigo-100 space-y-1">
+            <div class="font-bold text-indigo-900">Q: Why "${detectedNoun ? 'ein ' + detectedNoun.token : 'the article'}"?</div>
+            <p class="text-slate-600 leading-relaxed">
+              ${detectedNoun && detectedNoun.gender === 'das' ? 'Because <b>das Buch</b> is neuter! Unlike masculine nouns which change to <i>einen</i> in the Accusative, neuter nouns stay as <b>ein</b> in both Nominative and Accusative.' : 'German articles indicate both the gender (der/die/das) and the grammatical case (Nominativ, Akkusativ, Dativ) of the noun.'}
+            </p>
+          </div>
+
+          <!-- Question 3 -->
+          <div class="p-3 bg-emerald-50/50 rounded-xl border border-emerald-100 space-y-1">
+            <div class="font-bold text-emerald-900">Q: Why are nouns capitalized?</div>
+            <p class="text-slate-600 leading-relaxed">
+              In the German language, <b>ALL nouns without exception</b> must begin with a capital letter (e.g. <i>das Buch</i>, <i>der Kaffee</i>, <i>die Liebe</i>). This is a golden spelling rule!
+            </p>
+          </div>
+        </div>
       </div>
     `;
 
@@ -14185,9 +14639,7 @@ const TranslatorSystem = {
   }
 };
 
-/* --------------------------------------------------------------------------
-   5. 3D VOCABULARY FLASHCARDS SYSTEM
-   -------------------------------------------------------------------------- */
+
 const FlashcardSystem = {
   currentIndex: 0,
   isFlipped: false,
