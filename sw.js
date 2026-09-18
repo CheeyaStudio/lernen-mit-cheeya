@@ -1,5 +1,5 @@
 // Service Worker for CheeYa Studio • German A1 PWA
-const CACHE_NAME = 'cheeya-german-a1-v1';
+const CACHE_NAME = 'cheeya-german-a1-v3';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
@@ -37,6 +37,16 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
   if (!event.request.url.startsWith(self.location.origin)) return;
+
+  // Bypass Service Worker for media streaming (audio / video) so native HTTP range requests work smoothly
+  if (event.request.url.includes('/ai%20song/') || 
+      event.request.url.includes('/ai song/') || 
+      event.request.url.endsWith('.mpeg') || 
+      event.request.url.endsWith('.mp3') ||
+      event.request.destination === 'audio' ||
+      event.request.destination === 'video') {
+    return;
+  }
 
   event.respondWith(
     fetch(event.request)
