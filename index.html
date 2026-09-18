@@ -3957,61 +3957,58 @@ html[data-theme="dark"] select {
 </style>
 <script>
     // CURRICULUM ARCHITECTURE: 9 MODULES, EXACTLY 38 LESSONS
-    const MODULES = [
-      { id: 'foundation', name: '1. Foundation', name_id: '1. Dasar-Dasar', range: [1, 3], icon: '🌱' },
-      { id: 'core_verbs', name: '2. Core Verbs', name_id: '2. Kata Kerja Inti', range: [4, 7], icon: '⚡' },
-      { id: 'nouns_gender', name: '3. Nouns & Gender', name_id: '3. Kata Benda & Gender', range: [8, 12], icon: '🏷️' },
-      { id: 'sentence_structure', name: '4. Sentence Structure', name_id: '4. Susunan Kalimat', range: [13, 16], icon: '🧩' },
-      { id: 'cases', name: '5. Cases', range: [17, 21], name_id: '5. Kasus (Kasus A1)', icon: '📐' },
-      { id: 'advanced_verbs', name: '6. Advanced A1 Verbs', name_id: '6. Kata Kerja Lanjutan', range: [22, 26], icon: '🔄' },
-      { id: 'prepositions', name: '7. Prepositions', name_id: '7. Preposisi / Kata Depan', range: [27, 30], icon: '📍' },
-      { id: 'possession_adjectives', name: '8. Possession & Adjectives', name_id: '8. Kepemilikan & Sifat', range: [31, 34], icon: '🎨' },
-      { id: 'past_review', name: '9. Past Tense & Final Review', name_id: '9. Lampau & Ulasan Akhir', range: [35, 38], icon: '🎓' }
-    ];
+const MODULES = [
+  { id: 'foundation', name: '1. Foundation', name_id: '1. Dasar-Dasar', range: [1, 3], icon: '\u2B50' },
+  { id: 'core_verbs', name: '2. Core Verbs', name_id: '2. Kata Kerja Inti', range: [4, 7], icon: '\u26A1' },
+  { id: 'nouns_gender', name: '3. Nouns & Gender', name_id: '3. Kata Benda & Gender', range: [8, 12], icon: '\uD83C\uDFF7\uFE0F' },
+  { id: 'sentence_structure', name: '4. Sentence Structure', name_id: '4. Susunan Kalimat', range: [13, 16], icon: '\uD83E\uDDE9' },
+  { id: 'cases', name: '5. Cases', range: [17, 21], name_id: '5. Kasus (Kasus A1)', icon: '\uD83C\uDFAF' },
+  { id: 'advanced_verbs', name: '6. Advanced A1 Verbs', name_id: '6. Kata Kerja Lanjutan', range: [22, 26], icon: '\uD83D\uDE80' },
+  { id: 'prepositions', name: '7. Prepositions', name_id: '7. Preposisi / Kata Depan', range: [27, 30], icon: '\uD83D\uDCCD' },
+  { id: 'possession_adjectives', name: '8. Possession & Adjectives', name_id: '8. Kepemilikan & Sifat', range: [31, 34], icon: '\u2728' },
+  { id: 'past_review', name: '9. Past Tense & Final Review', name_id: '9. Lampau & Ulasan Akhir', range: [35, 38], icon: '\uD83C\uDFC6' }
+];
 
-    const LESSON_INDEX = [
-      { id: 1, mod: 'foundation', title: "German Alphabet + Pronunciation", title_id: "Alfabet Jerman & Pengucapan", desc: "Alphabet, special characters (Ã¤, Ã¶, Ã¼, ÃŸ), diphthongs, and core pronunciation rules.", desc_id: "Alfabet, huruf khusus (Ã¤, Ã¶, Ã¼, ÃŸ), diftong, dan aturan pengucapan dasar." },
-      { id: 2, mod: 'foundation', title: "Numbers 0â€“100", title_id: "Angka 0â€“100", desc: "Cardinal numbers, telephone numbers, counting, and German number inversion.", desc_id: "Angka pokok, nomor telepon, berhitung, dan aturan urutan angka terbalik khas Jerman." },
-      { id: 3, mod: 'foundation', title: "Greetings + Self-Introduction", title_id: "Salam & Perkenalan Diri", desc: "Formal and informal greetings, asking names, countries of origin, and farewells.", desc_id: "Salam formal dan akrab, cara memperkenalkan nama, asal negara, dan perpisahan." },
-      { id: 4, mod: 'core_verbs', title: "Verb SEIN", title_id: "Kata Kerja SEIN (To Be)", desc: "Conjugation of 'sein' (to be) in present tense with subject pronouns.", desc_id: "Konjugasi kata kerja penting 'sein' (adalah/menjadi) dengan subjek orang." },
-      { id: 5, mod: 'core_verbs', title: "Verb HABEN", title_id: "Kata Kerja HABEN (Mempunyai)", desc: "Conjugation of 'haben' (to have) and introduction to having objects.", desc_id: "Konjugasi kata kerja 'haben' (punya/memiliki) dan menyatakan benda milik kita." },
-      { id: 6, mod: 'core_verbs', title: "Regular Verbs in PrÃ¤sens", title_id: "Kata Kerja Reguler PrÃ¤sens", desc: "Standard verb endings (-e, -st, -t, -en, -t, -en) with regular German verbs.", desc_id: "Rumus akhiran kata kerja teratur (-e, -st, -t, -en, -t, -en) waktu sekarang." },
-      { id: 7, mod: 'core_verbs', title: "Basic Questions â€” W-Fragen + Ja/Nein Questions", title_id: "Kalimat Tanya â€” W-Fragen & Ja/Nein", desc: "Question words (Wer, Was, Wo, Wie) and inverted verb questions.", desc_id: "Kata tanya (Wer, Was, Wo, Wie) serta membuat pertanyaan ya/tidak." },
-      { id: 8, mod: 'nouns_gender', title: "Noun Gender â€” DER / DIE / DAS", title_id: "Gender Kata Benda â€” DER / DIE / DAS", desc: "Masculine, feminine, and neuter genders, capitalization of all German nouns.", desc_id: "Mengenal gender maskulin, feminin, dan netral serta aturan huruf kapital." },
-      { id: 9, mod: 'nouns_gender', title: "Definite + Indefinite Articles", title_id: "Artikel Tertentu & Tidak Tentu", desc: "Der/die/das vs. ein/eine/ein and negative article kein.", desc_id: "Perbedaan der/die/das vs ein/eine/ein dan kata sanggahan kein." },
-      { id: 10, mod: 'nouns_gender', title: "KEIN / KEINE vs NICHT", title_id: "KEIN / KEINE vs NICHT", desc: "Negating nouns with kein and verbs/adjectives with nicht.", desc_id: "Kapan memakai kein (kata benda) dan kapan memakai nicht (kata kerja/sifat)." },
-      { id: 11, mod: 'nouns_gender', title: "German Plurals", title_id: "Bentuk Jamak (Plural)", desc: "The five major plural patterns (-e, -er, -n/-en, -s, no ending) and umlaut shifts.", desc_id: "5 pola perubahan bentuk jamak kata benda Jerman dan tanda umlaut." },
-      { id: 12, mod: 'nouns_gender', title: "Family â€” Familie", title_id: "Keluarga â€” Familie", desc: "Family members, relationships, and possessive introduction.", desc_id: "Kosakata anggota keluarga, silsilah, dan kepemilikan keluarga." },
-      { id: 13, mod: 'sentence_structure', title: "Basic Word Order â€” Verb Position 2", title_id: "Susunan Kalimat â€” Kata Kerja Posisi 2", desc: "The golden rule: conjugated finite verb in position 2 in main clauses.", desc_id: "Aturan emas: kata kerja berkonjugasi selalu berada di posisi kedua." },
-      { id: 14, mod: 'sentence_structure', title: "Conjunctions â€” und, oder, aber, denn", title_id: "Kata Sambung â€” und, oder, aber, denn", desc: "Coordinating conjunctions (position zero) joining two complete clauses.", desc_id: "Kata sambung koordinatif (posisi nol) untuk menggabungkan dua kalimat." },
-      { id: 15, mod: 'sentence_structure', title: "Time, Clock, Days + Dates", title_id: "Waktu, Jam, Hari & Tanggal", desc: "Official vs. conversational time (viertel vor, halb), days of week, and months.", desc_id: "Menyatakan jam resmi vs percakapan santai (halb, viertel), hari, dan bulan." },
-      { id: 16, mod: 'sentence_structure', title: "Jobs + Professions", title_id: "Profesi & Pekerjaan", desc: "Occupations, masculine vs. feminine job titles with -in, and work vocabulary.", desc_id: "Nama profesi, membedakan pria vs wanita (-in), dan kosakata tempat kerja." },
-      { id: 17, mod: 'cases', title: "Nominative", title_id: "Kasus Nominativ (Subjek)", desc: "The subject of the sentence, predicate nominative with sein/werden.", desc_id: "Mengenal subjek kalimat dan peran kasus Nominativ." },
-      { id: 18, mod: 'cases', title: "Accusative", title_id: "Kasus Akkusativ (Objek Langsung)", desc: "Direct objects: der changes to den, while die, das, and die plural remain unchanged.", desc_id: "Objek langsung: perubahan der menjadi den dan ein menjadi einen." },
-      { id: 19, mod: 'cases', title: "Accusative Personal Pronouns", title_id: "Kata Ganti Orang Akkusativ", desc: "Mich, dich, ihn, sie, es, uns, euch, sie/Sie in conversational action.", desc_id: "Mich, dich, ihn, sie, es, uns, euch, sie/Sie dalam percakapan." },
-      { id: 20, mod: 'cases', title: "Dative", title_id: "Kasus Dativ (Objek Tak Langsung)", desc: "Indirect objects: dem, der, dem, den (+n). When and why dative is triggered.", desc_id: "Objek tak langsung: perubahan dem, der, dem, den (+n)." },
-      { id: 21, mod: 'cases', title: "Dative Personal Pronouns", title_id: "Kata Ganti Orang Dativ", desc: "Mir, dir, ihm, ihr, ihm, uns, euch, ihnen/Ihnen with dative verbs.", desc_id: "Mir, dir, ihm, ihr, uns, euch, ihnen/Ihnen dengan kata kerja dativ." },
-      { id: 22, mod: 'advanced_verbs', title: "Irregular Verbs + Vowel Changes", title_id: "Kata Kerja Tak Beraturan", desc: "Stem-vowel changes in 2nd and 3rd person singular (eâ†’i, eâ†’ie, aâ†’Ã¤).", desc_id: "Perubahan vokal pada kata kerja bentuk du dan er/sie/es (eâ†’i, eâ†’ie, aâ†’Ã¤)." },
-      { id: 23, mod: 'advanced_verbs', title: "Modal Verbs â€” kÃ¶nnen, mÃ¼ssen, wollen", title_id: "Modal Verbs â€” kÃ¶nnen, mÃ¼ssen, wollen", desc: "Ability, necessity, and desire: modal conjugation and infinitive bracket rule.", desc_id: "Menyatakan bisa/mampu, harus, dan mau: aturan posisi kata kerja bantu." },
-      { id: 24, mod: 'advanced_verbs', title: "Modal Verbs â€” dÃ¼rfen, sollen, mÃ¶chten, mÃ¶gen", title_id: "Modal Verbs â€” dÃ¼rfen, sollen, mÃ¶chten, mÃ¶gen", desc: "Permission, obligation, polite wishing, and liking things.", desc_id: "Izin, anjuran, ingin secara sopan, dan rasa suka." },
-      { id: 25, mod: 'advanced_verbs', title: "Separable Verbs", title_id: "Trennbare Verben (Kata Kerja Lepas)", desc: "Prefixes that detach (aufstehen, einkaufen) and move to the very end.", desc_id: "Awalan kata kerja yang terpisah dan meluncur ke ujung kalimat." },
-      { id: 26, mod: 'advanced_verbs', title: "Imperative", title_id: "Imperativ (Kalimat Perintah & Ajakan)", desc: "Giving commands and friendly requests in du, ihr, and Sie forms.", desc_id: "Cara memberi instruksi, perintah, dan ajakan sopan maupun santai." },
-      { id: 27, mod: 'prepositions', title: "Accusative Prepositions", title_id: "Preposisi Kasus Akkusativ", desc: "Bis, durch, fÃ¼r, gegen, ohne, um (always trigger accusative case).", desc_id: "Preposisi bis, durch, fÃ¼r, gegen, tanpa, um yang selalu diikuti Akkusativ." },
-      { id: 28, mod: 'prepositions', title: "Dative Prepositions", title_id: "Preposisi Kasus Dativ", desc: "Aus, bei, mit, nach, seit, von, zu (always trigger dative case).", desc_id: "Preposisi aus, bei, mit, nach, seit, von, zu yang selalu diikuti Dativ." },
-      { id: 29, mod: 'prepositions', title: "Location Prepositions â€” in, an, auf", title_id: "Preposisi Posisi Diam (in, an, auf)", desc: "Two-way prepositions expressing fixed location (Dative: Wo?).", desc_id: "Preposisi dua arah untuk tempat menetap / lokasi diam (Dativ: Wo?)." },
-      { id: 30, mod: 'prepositions', title: "Directions + Transportation", title_id: "Arah Jalan & Transportasi", desc: "Asking for directions, taking transport (mit dem Bus, mit der Bahn), and movement.", desc_id: "Menanyakan alamat, naik bus/kereta, dan kosakata transportasi umum." },
-      { id: 31, mod: 'possession_adjectives', title: "Possessive Determiners", title_id: "Kata Ganti Kepemilikan (Possessiv)", desc: "Mein, dein, sein, ihr, unser, euer, ihr/Ihr across nominative and accusative.", desc_id: "Mein, dein, sein, ihr, unser, euer dalam kasus Nominativ & Akkusativ." },
-      { id: 32, mod: 'possession_adjectives', title: "Predicative Adjectives", title_id: "Kata Sifat Predikatif", desc: "Using adjectives after sein/bleiben (Das Haus ist schÃ¶n - no endings required).", desc_id: "Memakai kata sifat deskriptif setelah kata kerja sein (tanpa akhiran rumit)." },
-      { id: 33, mod: 'possession_adjectives', title: "Shopping + Clothes", title_id: "Belanja Pakaian & Warna", desc: "Colors, clothing items, sizes, prices, and practical shopping dialogues.", desc_id: "Warna, baju, ukuran, menanyakan harga, dan percakapan di toko." },
-      { id: 34, mod: 'possession_adjectives', title: "Food + Drinks + Restaurant", title_id: "Makanan, Minuman & Restoran", desc: "Meals, ordering at a cafÃ© or restaurant, paying the bill, and German cuisine.", desc_id: "Kosakata makanan, memesan di kafe/restoran, bayar bon, dan kuliner Jerman." },
-      { id: 35, mod: 'past_review', title: "Perfekt with HABEN", title_id: "Bentuk Lampau Perfekt (dengan HABEN)", desc: "Conversational past: haben + Partizip II (ge- -t / ge- -en).", desc_id: "Menceritakan kejadian masa lalu sehari-hari: haben + Partizip II (ge-...-t)." },
-      { id: 36, mod: 'past_review', title: "Perfekt with SEIN", title_id: "Bentuk Lampau Perfekt (dengan SEIN)", desc: "Past tense of movement and change of state (sein + Partizip II).", desc_id: "Masa lalu untuk perpindahan tempat dan perubahan wujud (sein + Partizip II)." },
-      { id: 37, mod: 'past_review', title: "Hobbies + Free Time + Weather", title_id: "Hobi, Waktu Luang & Cuaca", desc: "Leisure activities, sports, weather expressions (es regnet, es ist sonnig).", desc_id: "Aktivitas liburan, hobi seru, dan cara mendeskripsikan cuaca harian." },
-      { id: 38, mod: 'past_review', title: "Complete A1 Review + Mock Exam", title_id: "Rangkuman Lengkap A1 & Evaluasi", desc: "Full CEFR A1 synthesis, cheat sheets, self-check assessment, and next steps.", desc_id: "Ulasan tuntas seluruh materi A1, lembar contekan cepat, dan persiapan ujian." }
-    ];
-
-    // LESSON CONTENT REGISTRY
-    // Ready for progressive ingestion of full, unabridged content
+const LESSON_INDEX = [
+  { id: 1, mod: 'foundation', title: "German Alphabet + Pronunciation", title_id: "Alfabet Jerman & Pengucapan", desc: "Alphabet, special characters (\u00c4, \u00d6, \u00dc, \u00df), diphthongs, and core pronunciation rules.", desc_id: "Alfabet, huruf khusus (\u00c4, \u00d6, \u00dc, \u00df), diftong, dan aturan pengucapan dasar." },
+  { id: 2, mod: 'foundation', title: "Numbers 0 - 100", title_id: "Angka 0 - 100", desc: "Cardinal numbers, telephone numbers, counting, and German number inversion.", desc_id: "Angka pokok, nomor telepon, berhitung, dan aturan urutan angka terbalik khas Jerman." },
+  { id: 3, mod: 'foundation', title: "Greetings + Self-Introduction", title_id: "Salam & Perkenalan Diri", desc: "Formal and informal greetings, asking names, countries of origin, and farewells.", desc_id: "Salam formal dan akrab, cara memperkenalkan nama, asal negara, dan perpisahan." },
+  { id: 4, mod: 'core_verbs', title: "Verb SEIN", title_id: "Kata Kerja SEIN (To Be)", desc: "Conjugation of 'sein' (to be) in present tense with subject pronouns.", desc_id: "Konjugasi kata kerja penting 'sein' (adalah/menjadi) dengan subjek orang." },
+  { id: 5, mod: 'core_verbs', title: "Verb HABEN", title_id: "Kata Kerja HABEN (Mempunyai)", desc: "Conjugation of 'haben' (to have) and introduction to having objects.", desc_id: "Konjugasi kata kerja 'haben' (punya/memiliki) dan menyatakan benda milik kita." },
+  { id: 6, mod: 'core_verbs', title: "Regular Verbs in Pr\u00e4sens", title_id: "Kata Kerja Reguler Pr\u00e4sens", desc: "Standard verb endings (-e, -st, -t, -en, -t, -en) with regular German verbs.", desc_id: "Rumus akhiran kata kerja teratur (-e, -st, -t, -en, -t, -en) waktu sekarang." },
+  { id: 7, mod: 'core_verbs', title: "Basic Questions - W-Fragen + Ja/Nein", title_id: "Kalimat Tanya - W-Fragen & Ja/Nein", desc: "Question words (Wer, Was, Wo, Wie) and inverted verb questions.", desc_id: "Kata tanya (Wer, Was, Wo, Wie) serta membuat pertanyaan ya/tidak." },
+  { id: 8, mod: 'nouns_gender', title: "Noun Gender - DER / DIE / DAS", title_id: "Gender Kata Benda - DER / DIE / DAS", desc: "Masculine, feminine, and neuter genders, capitalization of all German nouns.", desc_id: "Mengenal gender maskulin, feminin, dan netral serta aturan huruf kapital." },
+  { id: 9, mod: 'nouns_gender', title: "Definite + Indefinite Articles", title_id: "Artikel Tertentu & Tidak Tentu", desc: "Der/die/das vs. ein/eine/ein and negative article kein.", desc_id: "Perbedaan der/die/das vs ein/eine/ein dan kata sanggahan kein." },
+  { id: 10, mod: 'nouns_gender', title: "KEIN / KEINE vs NICHT", title_id: "KEIN / KEINE vs NICHT", desc: "Negating nouns with kein and verbs/adjectives with nicht.", desc_id: "Kapan memakai kein (kata benda) dan kapan memakai nicht (kata kerja/sifat)." },
+  { id: 11, mod: 'nouns_gender', title: "German Plurals", title_id: "Bentuk Jamak (Plural)", desc: "The five major plural patterns (-e, -er, -n/-en, -s, no ending) and umlaut shifts.", desc_id: "5 pola perubahan bentuk jamak kata benda Jerman dan tanda umlaut." },
+  { id: 12, mod: 'nouns_gender', title: "Family - Familie", title_id: "Keluarga - Familie", desc: "Family members, relationships, and possessive introduction.", desc_id: "Kosakata anggota keluarga, silsilah, dan kepemilikan keluarga." },
+  { id: 13, mod: 'sentence_structure', title: "Basic Word Order - Verb Position 2", title_id: "Susunan Kalimat - Kata Kerja Posisi 2", desc: "The golden rule: conjugated finite verb in position 2 in main clauses.", desc_id: "Aturan emas: kata kerja berkonjugasi selalu berada di posisi kedua." },
+  { id: 14, mod: 'sentence_structure', title: "Conjunctions - und, oder, aber, denn", title_id: "Kata Sambung - und, oder, aber, denn", desc: "Coordinating conjunctions (position zero) joining two complete clauses.", desc_id: "Kata sambung koordinatif (posisi nol) untuk menggabungkan dua kalimat." },
+  { id: 15, mod: 'sentence_structure', title: "Time, Clock, Days + Dates", title_id: "Waktu, Jam, Hari & Tanggal", desc: "Official vs. conversational time (viertel vor, halb), days of week, and months.", desc_id: "Menyatakan jam resmi vs percakapan santai (halb, viertel), hari, dan bulan." },
+  { id: 16, mod: 'sentence_structure', title: "Jobs + Professions", title_id: "Profesi & Pekerjaan", desc: "Occupations, masculine vs. feminine job titles with -in, and work vocabulary.", desc_id: "Nama profesi, membedakan pria vs wanita (-in), dan kosakata tempat kerja." },
+  { id: 17, mod: 'cases', title: "Nominative Case", title_id: "Kasus Nominativ (Subjek)", desc: "The subject of the sentence, predicate nominative with sein/werden.", desc_id: "Mengenal subjek kalimat dan peran kasus Nominativ." },
+  { id: 18, mod: 'cases', title: "Accusative Case", title_id: "Kasus Akkusativ (Objek Langsung)", desc: "Direct objects: der changes to den, while die, das, and die plural remain unchanged.", desc_id: "Objek langsung: perubahan der menjadi den dan ein menjadi einen." },
+  { id: 19, mod: 'cases', title: "Accusative Personal Pronouns", title_id: "Kata Ganti Orang Akkusativ", desc: "Mich, dich, ihn, sie, es, uns, euch, sie/Sie in conversational action.", desc_id: "Mich, dich, ihn, sie, es, uns, euch, sie/Sie dalam percakapan." },
+  { id: 20, mod: 'cases', title: "Dative Case", title_id: "Kasus Dativ (Objek Tak Langsung)", desc: "Indirect objects: dem, der, dem, den (+n). When and why dative is triggered.", desc_id: "Objek tak langsung: perubahan dem, der, dem, den (+n)." },
+  { id: 21, mod: 'cases', title: "Dative Personal Pronouns", title_id: "Kata Ganti Orang Dativ", desc: "Mir, dir, ihm, ihr, ihm, uns, euch, ihnen/Ihnen with dative verbs.", desc_id: "Mir, dir, ihm, ihr, uns, euch, ihnen/Ihnen dengan kata kerja dativ." },
+  { id: 22, mod: 'advanced_verbs', title: "Irregular Verbs + Vowel Changes", title_id: "Kata Kerja Tak Beraturan", desc: "Stem-vowel changes in 2nd and 3rd person singular (e->i, e->ie, a->\u00e4).", desc_id: "Perubahan vokal pada kata kerja bentuk du dan er/sie/es (e->i, e->ie, a->\u00e4)." },
+  { id: 23, mod: 'advanced_verbs', title: "Modal Verbs - k\u00f6nnen, m\u00fcssen, wollen", title_id: "Modal Verbs - k\u00f6nnen, m\u00fcssen, wollen", desc: "Ability, necessity, and desire: modal conjugation and infinitive bracket rule.", desc_id: "Menyatakan bisa/mampu, harus, dan mau: aturan posisi kata kerja bantu." },
+  { id: 24, mod: 'advanced_verbs', title: "Modal Verbs - d\u00fcrfen, sollen, m\u00f6chten, m\u00f6gen", title_id: "Modal Verbs - d\u00fcrfen, sollen, m\u00f6chten, m\u00f6gen", desc: "Permission, obligation, polite wishing, and liking things.", desc_id: "Izin, anjuran, ingin secara sopan, dan rasa suka." },
+  { id: 25, mod: 'advanced_verbs', title: "Separable Verbs", title_id: "Trennbare Verben (Kata Kerja Lepas)", desc: "Prefixes that detach (aufstehen, einkaufen) and move to the very end.", desc_id: "Awalan kata kerja yang terpisah dan meluncur ke ujung kalimat." },
+  { id: 26, mod: 'advanced_verbs', title: "Imperative", title_id: "Imperativ (Kalimat Perintah & Ajakan)", desc: "Giving commands and friendly requests in du, ihr, and Sie forms.", desc_id: "Cara memberi instruksi, perintah, dan ajakan sopan maupun santai." },
+  { id: 27, mod: 'prepositions', title: "Accusative Prepositions", title_id: "Preposisi Kasus Akkusativ", desc: "Bis, durch, f\u00fcr, gegen, ohne, um (always trigger accusative case).", desc_id: "Preposisi bis, durch, f\u00fcr, gegen, ohne, um yang selalu diikuti Akkusativ." },
+  { id: 28, mod: 'prepositions', title: "Dative Prepositions", title_id: "Preposisi Kasus Dativ", desc: "Aus, bei, mit, nach, seit, von, zu (always trigger dative case).", desc_id: "Preposisi aus, bei, mit, nach, seit, von, zu yang selalu diikuti Dativ." },
+  { id: 29, mod: 'prepositions', title: "Location Prepositions - in, an, auf", title_id: "Preposisi Posisi Diam (in, an, auf)", desc: "Two-way prepositions expressing fixed location (Dative: Wo?).", desc_id: "Preposisi dua arah untuk tempat menetap / lokasi diam (Dativ: Wo?)." },
+  { id: 30, mod: 'prepositions', title: "Directions + Transportation", title_id: "Arah Jalan & Transportasi", desc: "Asking for directions, taking transport (mit dem Bus, mit der Bahn), and movement.", desc_id: "Menanyakan alamat, naik bus/kereta, dan kosakata transportasi umum." },
+  { id: 31, mod: 'possession_adjectives', title: "Possessive Determiners", title_id: "Kata Ganti Kepemilikan (Possessiv)", desc: "Mein, dein, sein, ihr, unser, euer, ihr/Ihr across nominative and accusative.", desc_id: "Mein, dein, sein, ihr, unser, euer dalam kasus Nominativ & Akkusativ." },
+  { id: 32, mod: 'possession_adjectives', title: "Predicative Adjectives", title_id: "Kata Sifat Predikatif", desc: "Using adjectives after sein/bleiben (Das Haus ist sch\u00f6n - no endings required).", desc_id: "Memakai kata sifat deskriptif setelah kata kerja sein (tanpa akhiran rumit)." },
+  { id: 33, mod: 'possession_adjectives', title: "Shopping + Clothes", title_id: "Belanja Pakaian & Warna", desc: "Colors, clothing items, sizes, prices, and practical shopping dialogues.", desc_id: "Warna, baju, ukuran, menanyakan harga, dan percakapan di toko." },
+  { id: 34, mod: 'possession_adjectives', title: "Food + Drinks + Restaurant", title_id: "Makanan, Minuman & Restoran", desc: "Meals, ordering at a caf\u00e9 or restaurant, paying the bill, and German cuisine.", desc_id: "Kosakata makanan, memesan di kafe/restoran, bayar bon, dan kuliner Jerman." },
+  { id: 35, mod: 'past_review', title: "Perfekt with HABEN", title_id: "Bentuk Lampau Perfekt (dengan HABEN)", desc: "Conversational past: haben + Partizip II (ge- -t / ge- -en).", desc_id: "Menceritakan kejadian masa lalu sehari-hari: haben + Partizip II (ge-...-t)." },
+  { id: 36, mod: 'past_review', title: "Perfekt with SEIN", title_id: "Bentuk Lampau Perfekt (dengan SEIN)", desc: "Past tense of movement and change of state (sein + Partizip II).", desc_id: "Masa lalu untuk perpindahan tempat dan perubahan wujud (sein + Partizip II)." },
+  { id: 37, mod: 'past_review', title: "Hobbies + Free Time + Weather", title_id: "Hobi, Waktu Luang & Cuaca", desc: "Leisure activities, sports, weather expressions (es regnet, es ist sonnig).", desc_id: "Aktivitas liburan, hobi seru, dan cara mendeskripsikan cuaca harian." },
+  { id: 38, mod: 'past_review', title: "Complete A1 Review + Mock Exam", title_id: "Rangkuman Lengkap A1 & Evaluasi", desc: "Full CEFR A1 synthesis, cheat sheets, self-check assessment, and next steps.", desc_id: "Ulasan tuntas seluruh materi A1, lembar contekan cepat, dan persiapan ujian." }
+];
 
 
     const LESSONS_DATABASE = {
@@ -12452,6 +12449,12 @@ const CheatSheetSystem = {
    Friendly, modern, and natural Indonesian ("jangan terlalu baku")
    ========================================================================== */
 
+/* ==========================================================================
+   CheeYa German A1 - Bilingual Internationalization (EN / ID)
+   Default: English (en) | Switchable to: Indonesian (id)
+   Friendly, modern, and natural Indonesian ("jangan terlalu baku")
+   ========================================================================== */
+
 const I18n = {
   currentLang: localStorage.getItem('cheeya_lang') || 'en',
 
@@ -12681,14 +12684,14 @@ const I18n = {
       banner.className = 'cheeya-id-banner mb-6 p-4 rounded-2xl bg-gradient-to-r from-pink-50 via-rose-50 to-pink-50 border border-pink-200/90 flex items-center justify-between flex-wrap gap-3 text-xs shadow-2xs select-none animate-in fade-in';
       banner.innerHTML = `
         <div class="flex items-center gap-3">
-          <span class="text-2xl select-none">&#127470;&#127465;</span>
+          <span class="w-8 h-8 rounded-xl bg-pink-500 text-white font-black flex items-center justify-center text-xs shadow-xs select-none tracking-wider">ID</span>
           <div>
             <div class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
               <span>Materi Bahasa Indonesia Aktif</span>
               <span class="text-[10px] bg-pink-100 text-pink-700 font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">Santai &amp; Praktis</span>
             </div>
             <div class="text-xs text-slate-600 mt-0.5">
-              Penjelasan, rumus tata bahasa &amp; tips belajar disajikan dalam bahasa Indonesia santai agar mudah dipahami.
+              Penjelasan, tabel arti kata, rumus &amp; tips belajar disajikan dalam bahasa Indonesia santai agar mudah dipahami.
             </div>
           </div>
         </div>
@@ -12696,8 +12699,9 @@ const I18n = {
           <button onclick="I18n.triggerGoogleTranslate('id')" class="px-3 py-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs shadow-sm transition-all cursor-pointer flex items-center gap-1" title="Terjemahkan paragraf lengkap via Google Translate">
             <span>&#10024; Auto-Translate Halaman</span>
           </button>
-          <button onclick="I18n.setLanguage('en')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-pink-50 text-slate-700 font-semibold text-xs border border-pink-200 transition-all shadow-2xs cursor-pointer">
-            &#127468;&#127463; Baca versi English
+          <button onclick="I18n.setLanguage('en')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-pink-50 text-slate-700 font-semibold text-xs border border-pink-200 transition-all shadow-2xs cursor-pointer flex items-center">
+            <span class="w-4 h-4 rounded bg-slate-200 text-slate-700 text-[9px] font-black inline-flex items-center justify-center mr-1.5">EN</span>
+            <span>Versi English</span>
           </button>
         </div>
       `;
@@ -12725,6 +12729,7 @@ const I18n = {
       'Pronunciation': 'Cara Baca',
       'Example': 'Contoh Kata',
       'German': 'Bahasa Jerman',
+      'Bahasa Jerman': 'Bahasa Jerman',
       'German Word': 'Kata Jerman',
       'English': 'Arti Bahasa Indonesia',
       'Meaning': 'Arti Bahasa Indonesia',
@@ -12751,14 +12756,21 @@ const I18n = {
       'Dative': 'Dativ (Objek Tak Langsung)',
       'Number': 'Angka',
       'Structure': 'Struktur Pembentukan',
-      'Type': 'Jenis / Tipe'
+      'Type': 'Jenis / Tipe',
+      'Situation': 'Situasi Percakapan',
+      'Sentence': 'Kalimat Contoh',
+      'What you want to say': 'Maksud yang Ingin Disampaikan',
+      'Your answer': 'Jawabanmu',
+      'Options': 'Pilihan Jawaban',
+      'Words': 'Kata Acak',
+      'Positive sentence': 'Kalimat Positif'
     };
     container.querySelectorAll('th').forEach(th => {
       const txt = th.innerText.trim();
       if (tableHeaderMap[txt]) th.innerText = tableHeaderMap[txt];
     });
 
-    // 5. Localize Section Titles & Headings
+    // 5. Localize Section Titles, Headings & Subheads across all 38 lessons
     const headingMap = {
       'Welcome to German': 'Selamat Datang di Bahasa Jerman',
       'What is Pronunciation?': 'Apa itu Pelafalan (Pronunciation)?',
@@ -12814,18 +12826,54 @@ const I18n = {
       'Conjunctions': 'Kata Sambung Kalimat (und, aber, oder, denn, weil, dass)',
       'Goethe A1 Exam Preparation': 'Persiapan Ujian Goethe Zertifikat A1',
       'Exam Simulation': 'Simulasi & Latihan Ujian Goethe A1',
-      'Listening Section': 'Bagian Mendengarkan (H\u00f6ren)',
-      'Reading Section': 'Bagian Membaca (Lesen)',
-      'Writing Section': 'Bagian Menulis (Schreiben)',
-      'Speaking Section': 'Bagian Berbicara (Sprechen)',
       'Grammar Cheatsheet': 'Lembar Rumus Cepat',
       'Core Rules': 'Aturan Inti Tata Bahasa',
       'Golden Rule': 'Aturan Emas',
       'Key Warning': 'Peringatan Penting',
       'Remember': 'Ingat Baik-Baik',
-      'QUICK EXAMPLES': 'CONTOH CEPAT'
+      'QUICK EXAMPLES': 'CONTOH CEPAT',
+
+      // Lesson 4 Specific Headings
+      'B. PROFESSION / ROLE': 'B. PROFESI / PEKERJAAN',
+      'C. STATE / DESCRIPTION / LOCATION': 'C. KONDISI / SIFAT / LOKASI',
+      'A. Identity': 'A. Identitas Diri',
+      'A. IDENTITY': 'A. IDENTITAS DIRI',
+      'DU, IHR, SIE - DON\'T MIX THEM UP': 'DU, IHR, SIE - JANGAN SAMPAI TERTUKAR',
+      'SIE vs. sie': 'SIE (Sopan) vs. sie (Dia/Mereka)',
+      'SEIN IN QUESTIONS': 'SEIN DALAM KALIMAT TANYA',
+      'W-QUESTIONS WITH SEIN': 'W-FRAGEN DENGAN SEIN',
+      'THREE IMPORTANT USES': '3 PENGGUNAAN PENTING KATA KERJA SEIN',
+      'SEIN + BASIC INFORMATION': 'SEIN + INFORMASI DASAR',
+      'COMPLETE THE SENTENCE': 'LENGKAPI KALIMAT DENGAN TEPAT',
+      'CHOOSE THE CORRECT FORM': 'PILIH BENTUK YANG BENAR',
+      'BUILD THE SENTENCE': 'SUSUNLAH KALIMATNYA',
+      'STATEMENT   QUESTION': 'PERNYATAAN \u2192 PERTANYAAN',
+      'STATEMENT \u2192 QUESTION': 'PERNYATAAN \u2192 PERTANYAAN',
+      'MAKE IT NEGATIVE': 'UBAH KE BENTUK NEGATIF',
+      'TRANSLATE INTO GERMAN': 'LATIHAN TERJEMAHKAN KE JERMAN',
+      'SITUATION CHALLENGE': 'TANTANGAN SITUASI SEHARI-HARI',
+      'FINAL REFERENCE': 'TABEL RINGKASAN AKHIR',
+      'PRACTICE - PART A': 'LATIHAN - BAGIAN A',
+      'PRACTICE - PART B': 'LATIHAN - BAGIAN B',
+      'PRACTICE - PART C': 'LATIHAN - BAGIAN C',
+      'PRACTICE - PART D': 'LATIHAN - BAGIAN D',
+      'PRACTICE - PART E': 'LATIHAN - BAGIAN E',
+      'PRACTICE - PART F': 'LATIHAN - BAGIAN F',
+      'PRACTICE - PART G': 'LATIHAN - BAGIAN G',
+
+      // Lesson 37 Specific Headings
+      'HOBBIES, FREE TIME & WEATHER': 'HOBI, WAKTU LUANG & CUACA',
+      '1. HOBBIES \u2014 HOBI': '1. HOBI (HOBBIES)',
+      '1. HOBBIES - HOBI': '1. HOBI (HOBBIES)',
+      '2. WEATHER': '2. CUACA & MUSIM',
+      '3. FREE TIME ACTIVITIES': '3. KEGIATAN WAKTU LUANG',
+      'FINAL A1 CHEATSHEET - TIME': 'LEMBAR CONTEKAN AKHIR - WAKTU & JAM',
+      'FINAL A1 CHEATSHEET - EVERYDAY SENTENCE PATTERNS': 'LEMBAR CONTEKAN AKHIR - POLA KALIMAT HARIAN',
+      'FINAL A1 CHEATSHEET - THE MOST IMPORTANT RULES': 'LEMBAR CONTEKAN AKHIR - ATURAN TERPENTING A1',
+      'FINAL A1 MASTER REVIEW': 'ULASAN TUNTAS PENGUASAAN LEVEL A1'
     };
-    container.querySelectorAll('h1, h2, h3, h4, .l7-section-title, .l7-kicker, .cs-head, .l26-subhead').forEach(h => {
+
+    container.querySelectorAll('h1, h2, h3, h4, .l4-subhead, .l7-section-title, .l7-kicker, .cs-head, .l26-subhead, .l38-title, .l38-subtitle, .l4-section-head span:last-child').forEach(h => {
       const original = h.innerText.trim();
       for (const [enKey, idVal] of Object.entries(headingMap)) {
         if (original.toLowerCase().includes(enKey.toLowerCase())) {
@@ -12835,8 +12883,114 @@ const I18n = {
       }
     });
 
-    // 6. Deep Paragraph & Explanatory Text Replacement
+    // 6. Comprehensive Paragraph, Callout, and Table Cell Localization
     const textReplacements = [
+      // Lesson 4 Table translations (English -> Indonesian)
+      ['I am a student.', 'Saya seorang mahasiswa.'],
+      ['I am a student', 'Saya seorang mahasiswa'],
+      ['He is a teacher.', 'Dia seorang guru (laki-laki).'],
+      ['She is a teacher.', 'Dia seorang guru (perempuan).'],
+      ['We are students.', 'Kami adalah mahasiswa.'],
+      ['I am tired.', 'Saya lelah / capek.'],
+      ['You are nice.', 'Kamu baik hati / ramah.'],
+      ['I am here.', 'Saya ada di sini.'],
+      ['She is Anna.', 'Dia adalah Anna.'],
+      ['I am Anna.', 'Saya Anna.'],
+      ['You are Max.', 'Kamu Max.'],
+      ['He is Thomas.', 'Dia Thomas.'],
+      ['It is cold.', 'Cuacanya dingin.'],
+      ['We are friends.', 'Kami berteman / bersahabat.'],
+      ['You are here.', 'Kalian ada di sini.'],
+      ['They are students.', 'Mereka adalah mahasiswa.'],
+      ['You are Mr. M\u00fcller.', 'Anda adalah Bapak M\u00fcller.'],
+      ['You are Mrs. M\u00fcller.', 'Anda adalah Ibu M\u00fcller.'],
+      ['He is at home.', 'Dia ada di rumah.'],
+      ['Are you tired?', 'Apakah kamu lelah?'],
+      ['Is he a student?', 'Apakah dia seorang mahasiswa?'],
+      ['Is she here?', 'Apakah dia ada di sini?'],
+      ['Are we friends?', 'Apakah kita berteman?'],
+      ['Are they students?', 'Apakah mereka mahasiswa?'],
+      ['Are you Mrs. M\u00fcller?', 'Apakah Anda Ibu M\u00fcller?'],
+      ['Who are you?', 'Siapa kamu? / Siapa Anda?'],
+      ['What is that?', 'Apa itu?'],
+      ['Where is Anna?', 'Di mana Anna?'],
+      ['I am not...', 'Saya bukan...'],
+      ['I am not a...', 'Saya bukan seorang...'],
+      ['I am not tired.', 'Saya tidak lelah.'],
+      ['This is Anna.', 'Ini adalah Anna.'],
+      ['Say that you are tired.', 'Katakan bahwa kamu lelah.'],
+      ['Say that you are a student.', 'Katakan bahwa kamu seorang mahasiswa.'],
+      ['Ask a friend if they are tired.', 'Tanyakan ke teman apakah dia lelah.'],
+      ['Ask who someone is informally.', 'Tanyakan siapa seseorang secara santai.'],
+      ['Ask who someone is formally.', 'Tanyakan siapa seseorang secara formal (sopan).'],
+      ['Say that you are not tired.', 'Katakan bahwa kamu tidak lelah.'],
+      ['Say that someone is a teacher.', 'Katakan bahwa seseorang adalah guru.'],
+      ['Ask what something is.', 'Tanyakan benda apa itu.'],
+      ['You are tired. (informal plural)', 'Kalian lelah. (jamak santai)'],
+      ['You are a teacher. (formal)', 'Anda seorang guru. (formal)'],
+
+      // Lesson 4 Explanations & Structural Notes
+      ['This connects directly to:', 'Pola ini langsung terhubung ke:'],
+      ['What to memorize', 'Rumus yang Wajib Dihafal:'],
+      ['The basic sentence structure is:', 'Susunan kalimat dasarnya adalah:'],
+      ['Subject + sein + information', 'Subjek + sein + informasi pelengkap'],
+      ['Use <strong>sein</strong> to say who someone is.', 'Gunakan <strong>sein</strong> untuk menyebutkan identitas seseorang.'],
+      ['Use sein to say who someone is.', 'Gunakan sein untuk menyebutkan identitas seseorang.'],
+      ['Capitalization changes the meaning.', 'Huruf kapital mengubah arti kata/kalimat.'],
+      ['The verb helps identify the meaning:', 'Bentuk kata kerja membantu membedakan artinya:'],
+      ['For a yes/no question, put the conjugated form of <strong>sein</strong> before the subject.', 'Untuk kalimat tanya ya/tidak, letakkan kata kerja <strong>sein</strong> di depan subjek (posisi 1).'],
+      ['For a yes/no question, put the conjugated form of sein before the subject.', 'Untuk kalimat tanya ya/tidak, letakkan kata kerja sein di depan subjek (posisi 1).'],
+      ['The basic structure is:', 'Rumus dasarnya adalah:'],
+      ['Question word + sein + subject + ...?', 'Kata tanya + sein + subjek + ...?'],
+      ['Fill in the correct form of <strong>sein</strong>.', 'Isi dengan bentuk kata kerja <strong>sein</strong> yang tepat.'],
+      ['Fill in the correct form of sein.', 'Isi dengan bentuk kata kerja sein yang tepat.'],
+      ['Arrange the words into the correct German sentence.', 'Susun kata-kata acak berikut menjadi kalimat Jerman yang benar.'],
+      ['Change each statement into a yes/no question.', 'Ubahlah setiap pernyataan berikut menjadi pertanyaan ya/tidak.'],
+      ['Use <strong>nicht</strong>, <strong>kein</strong>, or <strong>keine</strong>.', 'Gunakan kata <strong>nicht</strong>, <strong>kein</strong>, atau <strong>keine</strong>.'],
+      ['These three forms all translate as <strong>you</strong> in English, but they are different in German.', 'Ketiga bentuk ini semuanya diterjemahkan sebagai "kamu/kalian/Anda", tetapi memiliki peran berbeda dalam bahasa Jerman.'],
+      ['These three forms all translate as you in English, but they are different in German.', 'Ketiga bentuk ini semuanya diterjemahkan sebagai "kamu/kalian/Anda", tetapi memiliki peran berbeda dalam bahasa Jerman.'],
+      ['1 person, informal', '1 orang, santai/akrab'],
+      ['2+ people, informal', '2 orang atau lebih, santai/akrab'],
+      ['formal, 1+ people', '1 orang atau lebih, formal/sopan'],
+      ['Talking to Anna and Lisa', 'Berbicara dengan Anna & Lisa (akrab)'],
+      ['Talking to Anna', 'Berbicara dengan Anna (akrab)'],
+      ['Speaking formally', 'Berbicara secara formal / sopan'],
+
+      // Lesson 37 Table translations (Hobbies & Weather)
+      ['My hobby is ...', 'Hobi saya adalah ...'],
+      ['My hobbies are ...', 'Hobi-hobi saya adalah ...'],
+      ['I have many hobbies.', 'Saya punya banyak hobi.'],
+      ['I like ...', 'Saya suka / gemar ...'],
+      ['What is your hobby?', 'Apa hobimu?'],
+      ['What do you like doing?', 'Apa yang suka kamu lakukan?'],
+      ['das Hobby, die Hobbys = hobby', 'das Hobby, die Hobbys = hobi / kegemaran'],
+      ['To talk about hobbies, German commonly uses:', 'Untuk membicarakan hobi, bahasa Jerman umumnya menggunakan kalimat:'],
+      ['Hobbies, Freizeit, weekend plans, weather, seasons, temperature, and A1 grammar integration.', 'Hobi, waktu luang (Freizeit), rencana akhir pekan, cuaca, musim, suhu, dan penerapan rumus A1.'],
+
+      // Lesson 38 Master Cheatsheet & Patterns
+      ['I have a brother.', 'Saya punya seorang saudara laki-laki.'],
+      ['I live in Berlin.', 'Saya tinggal di Berlin.'],
+      ['I come from Indonesia.', 'Saya berasal dari Indonesia.'],
+      ['I speak English.', 'Saya bisa berbahasa Inggris.'],
+      ['I learn German.', 'Saya sedang belajar bahasa Jerman.'],
+      ['I would like a coffee.', 'Saya mau memesan kopi.'],
+      ['I can speak German.', 'Saya bisa berbicara bahasa Jerman.'],
+      ['I have to work.', 'Saya harus bekerja.'],
+      ['I go to the cinema.', 'Saya pergi ke bioskop.'],
+      ['I go by bus.', 'Saya naik bus.'],
+      ['I cooked.', 'Saya tadi memasak.'],
+      ['I went home.', 'Saya pulang ke rumah.'],
+      ['I like music.', 'Saya suka musik.'],
+      ['I like reading.', 'Saya gemar membaca.'],
+      ['I don\'t have time.', 'Saya tidak punya waktu.'],
+      ['I am not working today.', 'Hari ini saya tidak bekerja.'],
+      ['at 8 o\'clock', 'pada jam 8 tepat'],
+      ['on Monday', 'pada hari Senin'],
+      ['at/on the weekend', 'pada akhir pekan'],
+      ['in January', 'pada bulan Januari'],
+      ['in summer', 'pada musim panas'],
+      ['from 8 to 10', 'dari jam 8 sampai 10'],
+
       // Lesson 1 Explanations
       ['Welcome to your first German lesson. Before grammar, cases, conjugations, or large vocabulary, build a reliable foundation. Pronunciation is part of that foundation.', 'Selamat datang di pelajaran bahasa Jerman pertamamu! Sebelum masuk ke tata bahasa rumit, kasus, atau hafalan kosakata banyak, yuk bangun fondasi yang kuat dulu. Pelafalan (cara membaca) adalah kunci utamanya.'],
       ['German may initially look familiar because it uses the Latin alphabet. You recognize many letters from English. However, familiar letters do <strong>NOT</strong> necessarily have the same pronunciation.', 'Bahasa Jerman awalnya terasa akrab karena menggunakan alfabet Latin seperti bahasa Indonesia. Kamu mengenali banyak hurufnya, tapi huruf yang tampak sama <strong>TIDAK</strong> selalu dibaca sama!'],
@@ -12850,10 +13004,8 @@ const I18n = {
       ['Pronunciation means the way a word is spoken. Spelling tells you how a word is written. Pronunciation tells you how that word sounds when someone says it. These two systems are related, but they are not identical.', 'Pelafalan (pronunciation) adalah cara suatu kata diucapkan saat berbicara, sedangkan ejaan adalah cara kata itu ditulis. Keduanya saling berhubungan, tapi tidak selalu sama persis.'],
       ['Learn pronunciation with vocabulary. Do not simply memorize: <em>Wasser = water</em>. Also listen to how <strong>Wasser</strong> is pronounced.', 'Pelajari cara membaca bersamaan dengan menghafal kosakata. Jangan cuma menghafal artinya saja, tapi dengarkan juga bunyi pengucapannya.'],
       ['German spelling &rarr; German sound &rarr; English meaning', 'Ejaan Jerman &rarr; Bunyi pelafalan Jerman &rarr; Arti bahasa Indonesia'],
-      ['Later, when you learn nouns, you will add: <em>German article &rarr; German noun &rarr; plural &rarr; pronunciation &rarr; meaning</em>.', 'Nanti saat belajar kata benda, kamu akan menambahkan: <em>Artikel Jerman &rarr; Kata benda &rarr; Bentuk jamak &rarr; Pelafalan &rarr; Arti bahasa Indonesia</em>.'],
       ['German uses the Latin alphabet. The basic alphabet contains 26 letters:', 'Bahasa Jerman menggunakan alfabet Latin standar. Alfabet dasarnya terdiri dari 26 huruf:'],
       ['German additionally uses:', 'Selain 26 huruf dasar di atas, bahasa Jerman punya 4 huruf tambahan:'],
-      ['The three umlaut letters are:', 'Tiga huruf dengan titik dua di atas disebut Umlaut:'],
       ['The special character is: <strong>\u00df</strong>, called: Eszett or: scharfes S.', 'Satu huruf khusus lagi adalah: <strong>\u00df</strong>, yang dinamai Eszett atau S tajam (dibaca seperti bunyi "ss").'],
       ['When Germans spell a word, they use the German names of the letters. Learn the following letter names:', 'Saat orang Jerman mengeja nama atau kata, mereka menyebut nama huruf-huruf berikut:'],
 
@@ -12863,20 +13015,18 @@ const I18n = {
       ['THE GOLDEN FORMULA (21-99)', 'RUMUS EMAS ANGKA (21-99)'],
       ['In German, for numbers from 21 to 99, you say the ONES digit first, then the word und (and), and then the TENS digit.', 'Dalam bahasa Jerman, untuk angka 21 sampai 99, sebutkan angka SATUAN terlebih dahulu, lalu kata und (dan), baru angka PULUHAN.'],
       ['For example: 21 is literally one-and-twenty (einundzwanzig).', 'Contoh: 21 diucapkan secara harfiah "satu-dan-dua puluh" (einundzwanzig).'],
-      ['Notice that ein drops the -s when combined:', 'Perhatikan bahwa eins berubah menjadi ein (hilang huruf -s) saat digabungkan:'],
 
       // Lesson 7 Explanations
       ['Questions are used to ask for information or to check whether something is true.', 'Kalimat tanya dipakai untuk meminta info atau mengecek kebenaran suatu hal.'],
       ['In German, there are two basic types of questions:', 'Dalam bahasa Jerman, ada 2 jenis pertanyaan dasar:'],
       ['W-Frage &rarr; question with a question word', 'W-Frage &rarr; Pertanyaan dengan kata tanya (W-word)'],
       ['Ja/Nein-Frage &rarr; question answered with yes or no', 'Ja/Nein-Frage &rarr; Pertanyaan yang cukup dijawab ya/tidak'],
-      ['Compare:', 'Bandingkan:'],
       ['The first question asks for specific information.', 'Pertanyaan pertama menanyakan info spesifik.'],
       ['The second question can be answered with <strong>ja</strong> or <strong>nein</strong>.', 'Pertanyaan kedua bisa dijawab cukup dengan <strong>ja</strong> atau <strong>nein</strong>.'],
       ['Rule 1: In a W-question, the conjugated verb is in position 2.', 'Aturan 1: Pada W-Frage, kata kerja berkonjugasi selalu berada di posisi kedua (posisi 2).'],
       ['Rule 2: In a Yes/No question, the conjugated verb is in position 1.', 'Aturan 2: Pada Ja/Nein-Frage, kata kerja berkonjugasi selalu berada di posisi pertama (posisi 1).'],
 
-      // Universal Cheat Sheet & Grammar Rules
+      // Universal Rules
       ['Quick memory: Learn the pattern, then say the example aloud. This cheat sheet is an added review section; the original lesson material above remains unchanged.', 'Tips ingat cepat: Pahami polanya, lalu ucapkan contoh kalimatnya dengan lantang. Lembar contekan ini adalah rangkuman cepat materi pelajaran.'],
       ['The golden rule: conjugated finite verb in position 2 in main clauses.', 'Aturan emas: kata kerja berkonjugasi selalu berada di posisi 2 pada kalimat utama.'],
       ['The subject of the sentence, predicate nominative with sein/werden.', 'Kasus Nominativ: subjek kalimat dan pelengkap setelah kata kerja sein/werden.'],
@@ -12886,7 +13036,8 @@ const I18n = {
       ['Past tense of movement and change of state (sein + Partizip II).', 'Bentuk lampau untuk perpindahan tempat dan perubahan status: sein + Partizip II.']
     ];
 
-    container.querySelectorAll('p, li, td, .cs-foot, .l7-hero p, .l7-section p').forEach(node => {
+    // Replace in all text and table elements
+    container.querySelectorAll('p, li, td, .cs-foot, .l7-hero p, .l7-section p, .l4-p, .l4-keyline').forEach(node => {
       if (node.tagName === 'CODE' || node.tagName === 'PRE' || node.classList.contains('notranslate')) return;
       let html = node.innerHTML;
       let changed = false;
@@ -12898,6 +13049,20 @@ const I18n = {
       }
       if (changed) {
         node.innerHTML = html;
+      }
+    });
+
+    // Special table cell direct text replacement for single cells (like 'State', 'Description', 'Location')
+    const cellDirectMap = {
+      'State': 'Kondisi / Keadaan',
+      'Description': 'Deskripsi / Sifat',
+      'Location': 'Lokasi / Tempat',
+      'Condition': 'Kondisi Fisik'
+    };
+    container.querySelectorAll('td').forEach(td => {
+      const txt = td.innerText.trim();
+      if (cellDirectMap[txt]) {
+        td.innerText = cellDirectMap[txt];
       }
     });
   }
