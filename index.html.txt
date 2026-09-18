@@ -3349,6 +3349,12 @@ html[data-theme="dark"] select {
         <span>📜</span>
         <span>Memorized History (<b id="fcHistoryCountBadge">0</b>)</span>
       </button>
+
+      <!-- Reset Memorized Button -->
+      <button onclick="DualFlashcardSystem.resetMastered('all')" class="px-3 py-2 rounded-2xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 font-extrabold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-2xs" title="Reset All Memorized Words (return to practice deck)">
+        <span>🔄</span>
+        <span>Reset Memorized</span>
+      </button>
     </div>
   </div>
 
@@ -3543,8 +3549,12 @@ html[data-theme="dark"] select {
           </span>
         </div>
 
-        <!-- Action Button: Download PDF -->
+        <!-- Action Buttons: Reset All & Download PDF -->
         <div class="flex items-center gap-2">
+          <button onclick="DualFlashcardSystem.resetMastered('all')" class="px-3.5 py-2 rounded-xl border border-rose-200 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer shadow-2xs" title="Reset all memorized words">
+            <span>🔄</span>
+            <span>Reset All</span>
+          </button>
           <button onclick="DualFlashcardSystem.downloadHistoryPDF()" id="fcDownloadPdfBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-extrabold text-xs shadow-md shadow-pink-200 flex items-center gap-2 transition-all cursor-pointer">
             <span>📥</span>
             <span>Download PDF</span>
@@ -18373,6 +18383,59 @@ const DualFlashcardSystem = {
       : list[this.currentIndex];
     if (!item) return;
     this.toggleMastered(item.id, this.currentDeck);
+  },
+
+  resetMastered(deck = 'all') {
+    const totalNouns = (this.masteredIds.nouns || []).length;
+    const totalVerbs = (this.masteredIds.verbs || []).length;
+    const totalCount = totalNouns + totalVerbs;
+
+    if (totalCount === 0) {
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('ℹ️ Belum ada kata yang dihafal untuk direset.');
+      } else {
+        alert('Belum ada kata yang dihafal untuk direset.');
+      }
+      return;
+    }
+
+    const deckLabel = deck === 'all' 
+      ? `semua ${totalCount} kata yang sudah dihafal` 
+      : `semua kata ${deck} yang sudah dihafal`;
+
+    if (!confirm(`Apakah Anda yakin ingin mereset ${deckLabel}?\n\nSemua kata yang telah dihafal akan dikembalikan ke daftar belajar.`)) return;
+
+    if (deck === 'all') {
+      this.masteredIds = { nouns: [], verbs: [] };
+      this.masteredOrder = [];
+    } else if (deck === 'nouns') {
+      this.masteredIds.nouns = [];
+      this.masteredOrder = (this.masteredOrder || []).filter(e => e.deck !== 'nouns');
+    } else if (deck === 'verbs') {
+      this.masteredIds.verbs = [];
+      this.masteredOrder = (this.masteredOrder || []).filter(e => e.deck !== 'verbs');
+    }
+
+    try {
+      localStorage.setItem('cheeya_fc_mastered_dual', JSON.stringify(this.masteredIds));
+      localStorage.setItem('cheeya_fc_mastered_order', JSON.stringify(this.masteredOrder));
+    } catch (e) {
+      console.error('Error saving reset mastered storage:', e);
+    }
+
+    this.currentIndex = 0;
+    this.updateMasteredUI();
+    this.renderStudyModeButtons();
+    this.renderCategoryPills();
+    this.updateMasteredButtons();
+    this.showCard();
+    if (this.viewMode === 'grid') {
+      this.renderGrid();
+    }
+
+    if (typeof App !== 'undefined' && App.showToast) {
+      App.showToast('🔄 Semua kata hafalan berhasil direset ke practice deck!');
+    }
   },
 
   updateMasteredButtons() {
