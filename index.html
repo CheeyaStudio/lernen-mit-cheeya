@@ -17382,17 +17382,17 @@ const ExamSystem = {
     modal.className = "fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto";
 
     modal.innerHTML = `
-      <div class="bg-white max-w-xl w-full p-6 sm:p-8 rounded-3xl border-2 ${res.passed ? 'border-emerald-300' : 'border-rose-300'} shadow-2xl space-y-6 animate-in fade-in zoom-in-95">
+      <div class="bg-white max-w-xl w-full p-6 sm:p-8 rounded-3xl border-2 ${res.passed ? 'border-emerald-300' : 'border-rose-300'} shadow-2xl space-y-6 animate-in fade-in zoom-in-95" onclick="event.stopPropagation()">
         <div class="text-center space-y-2">
-          <div class="text-5xl">${res.passed ? '\ud83c\udfc6' : '\u26a0\ufe0f'}</div>
-          <span class="text-xs font-bold uppercase tracking-widest ${res.passed ? 'text-emerald-600 bg-emerald-50' : 'text-rose-600 bg-rose-50'} px-3 py-1 rounded-full">
-            Official Goethe-Zertifikat A1 Evaluation
+          <div class="text-5xl">${res.passed ? '🏆' : '⚠️'}</div>
+          <span class="text-xs font-bold uppercase tracking-widest ${res.passed ? 'text-emerald-600 bg-emerald-50 border border-emerald-200' : 'text-rose-600 bg-rose-50 border border-rose-200'} px-3 py-1 rounded-full">
+            Evaluasi Resmi Goethe-Zertifikat A1
           </span>
           <h2 class="text-2xl sm:text-3xl font-black text-slate-800">
-            ${res.passed ? 'Bestanden! (Passed)' : 'Nicht bestanden (Try Again)'}
+            ${res.passed ? 'Bestanden! (Lulus)' : 'Nicht bestanden (Belum Lulus)'}
           </h2>
           <p class="text-xs text-slate-500">
-            Official Goethe scale requires 60% minimum overall score to earn the Start Deutsch 1 certificate.
+            Standar resmi Goethe-Institut memerlukan minimal 60% untuk lulus ujian Start Deutsch 1.
           </p>
         </div>
 
@@ -17400,7 +17400,7 @@ const ExamSystem = {
           <div class="text-4xl sm:text-5xl font-black ${res.passed ? 'text-emerald-600' : 'text-rose-600'}">
             ${res.percentage}%
           </div>
-          <div class="text-xs font-bold text-slate-600 mt-1">Raw Score: ${res.totalRaw} / 60 Points \u2022 Grade: <b>${res.grade}</b></div>
+          <div class="text-xs font-bold text-slate-600 mt-1">Total Poin: ${res.totalRaw} / 60 Poin &bull; Predikat: <b>${res.grade}</b></div>
         </div>
 
         <!-- 4 Modules Breakdown -->
@@ -17410,7 +17410,7 @@ const ExamSystem = {
             <div class="font-extrabold text-slate-800 text-sm mt-0.5">${res.lesenScore} / 15</div>
           </div>
           <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
-            <div class="text-slate-400 font-bold">2. H\u00f6ren</div>
+            <div class="text-slate-400 font-bold">2. Hören</div>
             <div class="font-extrabold text-slate-800 text-sm mt-0.5">${res.hoerenScore} / 15</div>
           </div>
           <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
@@ -17423,19 +17423,218 @@ const ExamSystem = {
           </div>
         </div>
 
+        <!-- Primary Feature Button: View Full Answer Key & Explanation -->
+        <button onclick="ExamSystem.showReviewModal()" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 hover:from-indigo-600 hover:to-pink-600 text-white font-extrabold text-xs shadow-md shadow-indigo-200 transition-all flex items-center justify-center gap-2 cursor-pointer">
+          <span>🔍 Buka Kunci Jawaban & Pembahasan Lengkap</span>
+        </button>
+
         <!-- Actions -->
-        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <div class="flex flex-col sm:flex-row gap-3 pt-1">
           ${res.passed ? `
-            <button onclick="document.getElementById('examResultsModal').remove(); App.navigateTo('certificate');" class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-extrabold text-xs shadow-md shadow-emerald-200 hover:from-emerald-600 hover:to-teal-600 transition-all text-center">
-              ðŸŽ‰ Selesai Ujian & Ke Dashboard
+            <button onclick="document.getElementById('examResultsModal').remove(); App.navigateTo('dashboard');" class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-extrabold text-xs shadow-md shadow-emerald-200 hover:from-emerald-600 hover:to-teal-600 transition-all text-center">
+              🎉 Selesai & Kembali ke Dashboard
             </button>
           ` : `
             <button onclick="document.getElementById('examResultsModal').remove(); ExamSystem.startExam('official-65');" class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-rose-500 to-pink-500 text-white font-extrabold text-xs shadow-md shadow-rose-200 hover:from-rose-600 hover:to-pink-600 transition-all text-center">
-              \u21bb Retry Exam
+              ↺ Ulangi Ujian (Retry)
             </button>
           `}
           <button onclick="document.getElementById('examResultsModal').remove(); App.navigateTo('dashboard');" class="px-5 py-3 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition-all text-center">
-            Return to Dashboard
+            Tutup
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+  },
+
+  showReviewModal() {
+    const existing = document.getElementById('examReviewModal');
+    if (existing) existing.remove();
+
+    // 1. Lesen Review
+    let lesenHtml = '';
+    // Part 1
+    lesenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-pink-700 mb-2">Teil 1: E-Mail & Briefe (Richtig / Falsch)</div>`;
+    this.examData.lesen[0].texts.forEach(t => {
+      lesenHtml += `<div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs mb-2"><b>${t.title}</b><div class="mt-1 text-slate-600 leading-relaxed">${t.content}</div></div>`;
+      t.items.forEach(q => {
+        const uAns = this.userAnswers.lesen[q.id];
+        const isCorrect = uAns === q.correct;
+        lesenHtml += `
+          <div class="p-3 rounded-xl border ${isCorrect ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/70 border-rose-200'} mb-2 text-xs space-y-1">
+            <div class="flex items-center justify-between font-bold">
+              <span class="text-slate-800">${q.q}</span>
+              <span class="${isCorrect ? 'text-emerald-700 font-black' : 'text-rose-700 font-black'}">${isCorrect ? '✓ Benar' : '✗ Salah'}</span>
+            </div>
+            <div class="text-slate-600">Jawaban Anda: <b>${uAns !== undefined ? q.options[uAns] : 'Tidak dijawab'}</b></div>
+            <div class="text-emerald-800">Kunci Jawaban: <b>${q.options[q.correct]}</b></div>
+            <div class="text-[11px] text-slate-500 italic mt-0.5">💡 Pembahasan: ${q.exp}</div>
+          </div>
+        `;
+      });
+    });
+
+    // Part 2
+    lesenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-pink-700 mt-4 mb-2">Teil 2: Informasi Web (Pilihan a atau b)</div>`;
+    this.examData.lesen[1].items.forEach(item => {
+      const uAns = this.userAnswers.lesen[item.id];
+      const isCorrect = uAns === item.correct;
+      lesenHtml += `
+        <div class="p-3 rounded-xl border ${isCorrect ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/70 border-rose-200'} mb-2 text-xs space-y-1">
+          <div class="flex items-center justify-between font-bold">
+            <span class="text-slate-800">${item.q}</span>
+            <span class="${isCorrect ? 'text-emerald-700 font-black' : 'text-rose-700 font-black'}">${isCorrect ? '✓ Benar' : '✗ Salah'}</span>
+          </div>
+          <div class="text-slate-600">Jawaban Anda: <b>${uAns !== undefined ? item.options[uAns] : 'Tidak dijawab'}</b></div>
+          <div class="text-emerald-800">Kunci Jawaban: <b>${item.options[item.correct]}</b></div>
+          <div class="text-[11px] text-slate-500 italic mt-0.5">💡 Pembahasan: ${item.exp}</div>
+        </div>
+      `;
+    });
+
+    // Part 3
+    lesenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-pink-700 mt-4 mb-2">Teil 3: Papan Informasi & Rambu (Richtig / Falsch)</div>`;
+    this.examData.lesen[2].items.forEach(item => {
+      const uAns = this.userAnswers.lesen[item.id];
+      const isCorrect = uAns === item.correct;
+      lesenHtml += `
+        <div class="p-3 rounded-xl border ${isCorrect ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/70 border-rose-200'} mb-2 text-xs space-y-1">
+          <div class="flex items-center justify-between font-bold">
+            <span class="text-slate-800">${item.q}</span>
+            <span class="${isCorrect ? 'text-emerald-700 font-black' : 'text-rose-700 font-black'}">${isCorrect ? '✓ Benar' : '✗ Salah'}</span>
+          </div>
+          <div class="text-slate-600">Jawaban Anda: <b>${uAns !== undefined ? item.options[uAns] : 'Tidak dijawab'}</b></div>
+          <div class="text-emerald-800">Kunci Jawaban: <b>${item.options[item.correct]}</b></div>
+          <div class="text-[11px] text-slate-500 italic mt-0.5">💡 Pembahasan: ${item.exp}</div>
+        </div>
+      `;
+    });
+
+    // 2. Hoeren Review
+    let hoerenHtml = '';
+    this.examData.hoeren.forEach(part => {
+      hoerenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-purple-700 mt-3 mb-2">${part.title}</div>`;
+      part.items.forEach(q => {
+        const uAns = this.userAnswers.hoeren[q.id];
+        const isCorrect = uAns === q.correct;
+        hoerenHtml += `
+          <div class="p-3 rounded-xl border ${isCorrect ? 'bg-emerald-50/70 border-emerald-200' : 'bg-rose-50/70 border-rose-200'} mb-2 text-xs space-y-1">
+            <div class="flex items-center justify-between font-bold">
+              <span class="text-slate-800">${q.q}</span>
+              <span class="${isCorrect ? 'text-emerald-700 font-black' : 'text-rose-700 font-black'}">${isCorrect ? '✓ Benar' : '✗ Salah'}</span>
+            </div>
+            <div class="p-2 bg-white/70 rounded-lg border border-slate-100 font-mono text-[11px] text-slate-600 mb-1">
+              🔊 Transkrip Audio: "${q.text}"
+            </div>
+            <div class="text-slate-600">Jawaban Anda: <b>${uAns !== undefined ? q.options[uAns] : 'Tidak dijawab'}</b></div>
+            <div class="text-emerald-800">Kunci Jawaban: <b>${q.options[q.correct]}</b></div>
+            <div class="text-[11px] text-slate-500 italic mt-0.5">💡 Pembahasan: ${q.exp}</div>
+          </div>
+        `;
+      });
+    });
+
+    // 3. Schreiben Review
+    const formVals = this.userAnswers.schreiben.form;
+    const formFields = this.examData.schreiben.part1.fields;
+    let formHtml = '';
+    formFields.forEach(f => {
+      const uVal = formVals[f.id] || '';
+      formHtml += `
+        <div class="p-2.5 bg-slate-50 rounded-xl border border-slate-200 text-xs flex flex-col sm:flex-row justify-between gap-1">
+          <span class="font-bold text-slate-700">${f.label}:</span>
+          <div>
+            <span class="text-slate-500">Isian Anda: <b>${uVal || '(kosong)'}</b></span> &bull; 
+            <span class="text-emerald-700 font-bold">Kunci: <b>${f.answer}</b></span>
+          </div>
+        </div>
+      `;
+    });
+
+    const userEmail = this.userAnswers.schreiben.email || '(Anda belum mengisi email)';
+    const modelAnswer = this.examData.schreiben.part2.modelAnswer;
+
+    const modal = document.createElement('div');
+    modal.id = 'examReviewModal';
+    modal.className = "fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4";
+    modal.innerHTML = `
+      <div class="bg-white max-w-3xl w-full max-h-[90vh] rounded-3xl shadow-2xl flex flex-col overflow-hidden border border-pink-100 animate-in fade-in" onclick="event.stopPropagation()">
+        <!-- Header -->
+        <div class="p-5 border-b border-pink-100 flex items-center justify-between bg-gradient-to-r from-indigo-50/80 via-purple-50/50 to-white">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 text-white flex items-center justify-center text-lg shadow-sm shadow-indigo-200">
+              📋
+            </div>
+            <div>
+              <h2 class="text-base sm:text-lg font-black text-slate-800">Kunci Jawaban & Pembahasan Lengkap</h2>
+              <p class="text-xs text-slate-500">Review jawaban Anda dengan kunci jawaban resmi dan pembahasan tiap nomor</p>
+            </div>
+          </div>
+          <button onclick="document.getElementById('examReviewModal').remove()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border border-slate-200 text-slate-500 hover:text-slate-700 flex items-center justify-center text-lg font-bold transition-colors" title="Tutup">
+            &times;
+          </button>
+        </div>
+
+        <!-- Section Navigation Tabs -->
+        <div class="p-2.5 bg-slate-50 border-b border-slate-200 flex items-center gap-2 overflow-x-auto text-xs font-bold">
+          <button onclick="document.getElementById('reviewSecLesen').scrollIntoView({behavior:'smooth'})" class="px-3 py-1.5 rounded-xl bg-white hover:bg-pink-50 text-pink-700 border border-pink-200 shadow-2xs shrink-0 cursor-pointer">
+            📖 1. Lesen (Membaca)
+          </button>
+          <button onclick="document.getElementById('reviewSecHoeren').scrollIntoView({behavior:'smooth'})" class="px-3 py-1.5 rounded-xl bg-white hover:bg-purple-50 text-purple-700 border border-purple-200 shadow-2xs shrink-0 cursor-pointer">
+            🎧 2. Hören (Mendengar)
+          </button>
+          <button onclick="document.getElementById('reviewSecSchreiben').scrollIntoView({behavior:'smooth'})" class="px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs shrink-0 cursor-pointer">
+            ✍️ 3. Schreiben (Menulis)
+          </button>
+        </div>
+
+        <!-- Scrollable Content -->
+        <div class="p-4 sm:p-6 overflow-y-auto space-y-6 flex-1 text-xs">
+          <!-- 1. Lesen -->
+          <div id="reviewSecLesen" class="space-y-2">
+            <h3 class="text-sm font-black text-slate-900 border-b border-pink-100 pb-1.5 flex items-center gap-2">
+              <span>📖 Modul 1: Lesen (15 Soal)</span>
+            </h3>
+            ${lesenHtml}
+          </div>
+
+          <!-- 2. Hoeren -->
+          <div id="reviewSecHoeren" class="space-y-2 pt-4 border-t border-slate-200">
+            <h3 class="text-sm font-black text-slate-900 border-b border-purple-100 pb-1.5 flex items-center gap-2">
+              <span>🎧 Modul 2: Hören (15 Soal)</span>
+            </h3>
+            ${hoerenHtml}
+          </div>
+
+          <!-- 3. Schreiben -->
+          <div id="reviewSecSchreiben" class="space-y-3 pt-4 border-t border-slate-200">
+            <h3 class="text-sm font-black text-slate-900 border-b border-emerald-100 pb-1.5 flex items-center gap-2">
+              <span>✍️ Modul 3: Schreiben (Formulir & E-Mail)</span>
+            </h3>
+            <div class="font-bold text-xs uppercase tracking-wider text-emerald-700 mt-2">Teil 1: Kunci Jawaban Formulir Hotel</div>
+            <div class="space-y-1.5">${formHtml}</div>
+
+            <div class="font-bold text-xs uppercase tracking-wider text-emerald-700 mt-4">Teil 2: Perbandingan Email Anda vs Model Email Resmi</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <div class="font-bold text-slate-600 mb-1">Email yang Anda Tulis:</div>
+                <div class="p-2.5 bg-white rounded-lg border border-slate-200 font-mono text-[11px] whitespace-pre-wrap text-slate-800 min-h-[100px]">${userEmail}</div>
+              </div>
+              <div class="p-3 rounded-xl bg-emerald-50/70 border border-emerald-200">
+                <div class="font-bold text-emerald-800 mb-1">Contoh Kunci Jawaban Resmi Goethe:</div>
+                <div class="p-2.5 bg-white rounded-lg border border-emerald-200 font-mono text-[11px] whitespace-pre-wrap text-emerald-900 min-h-[100px]">${modelAnswer}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="p-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
+          <span class="text-slate-400 text-xs">Simulasi Resmi Goethe-Zertifikat A1 &bull; CheeYa Studio</span>
+          <button onclick="document.getElementById('examReviewModal').remove()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs shadow-sm transition-all">
+            Tutup Review
           </button>
         </div>
       </div>
@@ -17443,6 +17642,7 @@ const ExamSystem = {
 
     document.body.appendChild(modal);
   }
+
 };
 
 
