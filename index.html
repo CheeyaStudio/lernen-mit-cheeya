@@ -2781,52 +2781,6 @@ html[data-theme="dark"] select {
           <span>⚡ 1.0x</span>
         </button>
 
-        <!-- Aesthetic Theme Switcher Popover -->
-        <div class="relative">
-          <button id="headerThemeBtn" onclick="ThemeSystem.toggleMenu()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-slate-700 hover:bg-pink-50 hover:text-pink-600 text-xs font-bold border border-pink-200 shadow-xs transition-all cursor-pointer select-none" title="Choose Aesthetic Theme & Dark Mode">
-            <span id="headerThemeDot" class="w-3 h-3 rounded-full bg-pink-500 inline-block"></span>
-            <span id="headerThemeName" class="hidden sm:inline">Blossom Pink</span>
-          </button>
-          <div id="themePickerPopover" class="hidden absolute right-0 mt-2 w-64 p-2.5 bg-white rounded-2xl border border-slate-200 shadow-xl z-50 space-y-1.5">
-            <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider px-2 py-1">Soft Themes & Dark Mode</div>
-            <button onclick="ThemeSystem.applyTheme('pink'); ThemeSystem.closeMenu();" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-pink-50 text-xs font-bold text-slate-700 transition-colors">
-              <div class="flex items-center gap-2.5">
-                <span class="w-3.5 h-3.5 rounded-full bg-pink-500 border border-pink-600 inline-block shrink-0"></span>
-                <span>Blossom Pink</span>
-              </div>
-              <span class="text-[10px] text-pink-500 font-semibold">Original</span>
-            </button>
-            <button onclick="ThemeSystem.applyTheme('purple'); ThemeSystem.closeMenu();" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-purple-50 text-xs font-bold text-slate-700 transition-colors">
-              <div class="flex items-center gap-2.5">
-                <span class="w-3.5 h-3.5 rounded-full bg-purple-500 border border-purple-600 inline-block shrink-0"></span>
-                <span>Lavender Dream</span>
-              </div>
-              <span class="text-[10px] text-purple-600 font-semibold">Soft Violet</span>
-            </button>
-            <button onclick="ThemeSystem.applyTheme('blue'); ThemeSystem.closeMenu();" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-sky-50 text-xs font-bold text-slate-700 transition-colors">
-              <div class="flex items-center gap-2.5">
-                <span class="w-3.5 h-3.5 rounded-full bg-sky-500 border border-sky-600 inline-block shrink-0"></span>
-                <span>Sky Cloud</span>
-              </div>
-              <span class="text-[10px] text-sky-600 font-semibold">Ocean Blue</span>
-            </button>
-            <button onclick="ThemeSystem.applyTheme('green'); ThemeSystem.closeMenu();" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-emerald-50 text-xs font-bold text-slate-700 transition-colors">
-              <div class="flex items-center gap-2.5">
-                <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 border border-emerald-600 inline-block shrink-0"></span>
-                <span>Sage Mint</span>
-              </div>
-              <span class="text-[10px] text-emerald-600 font-semibold">Pastel Mint</span>
-            </button>
-            <button onclick="ThemeSystem.applyTheme('dark'); ThemeSystem.closeMenu();" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 text-xs font-bold text-slate-700 transition-colors">
-              <div class="flex items-center gap-2.5">
-                <span class="w-3.5 h-3.5 rounded-full bg-slate-900 border border-slate-700 inline-block shrink-0"></span>
-                <span>Dark Slate</span>
-              </div>
-              <span class="text-[10px] text-slate-500 font-semibold">Night Mode</span>
-            </button>
-          </div>
-        </div>
-
         <!-- Goethe A1 Exam Simulator Header Button -->
         <button onclick="App.navigateTo('exam')" class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200/80 transition-all shadow-xs cursor-pointer select-none" title="Goethe-Zertifikat A1 Exam Simulator">
           <span>🎓</span>
@@ -14183,57 +14137,14 @@ PWAInstaller.init();
    -------------------------------------------------------------------------- */
 /* 1. THEME SYSTEM */
 const ThemeSystem = {
-  STORAGE_KEY: 'cheeya_active_theme',
-  themes: [
-    { id: 'pink', name: 'Blossom Pink', icon: '🌸', hex: '#ec4899', desc: 'CheeYa Original Soft Pink' },
-    { id: 'dark', name: 'Dark Slate', icon: '🌙', hex: '#0f172a', desc: 'Eye-Care Evening Mode' },
-    { id: 'purple', name: 'Lavender Dream', icon: '💜', hex: '#8b5cf6', desc: 'Soft Pastel Violet' },
-    { id: 'blue', name: 'Sky Cloud', icon: '💎', hex: '#0ea5e9', desc: 'Refreshing Ocean Blue' },
-    { id: 'green', name: 'Sage Mint', icon: '🌿', hex: '#10b981', desc: 'Calming Pastel Mint' }
-  ],
-  currentTheme: 'pink',
-
   init() {
-    try {
-      const saved = localStorage.getItem(this.STORAGE_KEY);
-      if (saved && this.themes.some(t => t.id === saved)) {
-        this.currentTheme = saved;
-      }
-    } catch (e) {
-      console.warn('Theme storage access error:', e);
-    }
-    this.applyTheme(this.currentTheme, false);
+    document.documentElement.setAttribute('data-theme', 'pink');
   },
-
-  applyTheme(themeId, notify = true) {
-    this.currentTheme = themeId;
-    document.documentElement.setAttribute('data-theme', themeId);
-    try {
-      localStorage.setItem(this.STORAGE_KEY, themeId);
-    } catch (e) {}
-
-    const themeObj = this.themes.find(t => t.id === themeId) || this.themes[0];
-    const btnIcon = document.getElementById('headerThemeIcon');
-    const btnText = document.getElementById('headerThemeName');
-    if (btnIcon) btnIcon.innerText = themeObj.icon;
-    if (btnText) btnText.innerText = themeObj.name;
-
-    if (notify && typeof App !== 'undefined' && App.showToast) {
-      App.showToast('Theme switched to ' + themeObj.name + '! ' + themeObj.icon);
-    }
+  applyTheme(themeId) {
+    document.documentElement.setAttribute('data-theme', themeId || 'pink');
   },
-
-  toggleMenu() {
-    const popover = document.getElementById('themePickerPopover');
-    if (popover) {
-      popover.classList.toggle('hidden');
-    }
-  },
-
-  closeMenu() {
-    const popover = document.getElementById('themePickerPopover');
-    if (popover) popover.classList.add('hidden');
-  }
+  toggleMenu() {},
+  closeMenu() {}
 };
 
 /* 2. AUDIO SPEED SYSTEM */
@@ -18247,21 +18158,21 @@ const CompleteArticleFinder = {
 
 const StudyMusicPlayer = {
   tracks: [
-    { id: 1, title: "City Light", file: "ai song/city light.mpeg", mood: "Lofi Beats \u2022 Focus" },
-    { id: 2, title: "Dark Feathers", file: "ai song/dark feathers.mpeg", mood: "Atmospheric \u2022 Study" },
-    { id: 3, title: "Golden Friendship", file: "ai song/golden friendship.mpeg", mood: "Acoustic Warmth \u2022 Chill" },
-    { id: 4, title: "Goodbye to the Past", file: "ai song/goodbye to the past.mpeg", mood: "Mellow Piano \u2022 Focus" },
-    { id: 5, title: "Got a New Love", file: "ai song/got a new love.mpeg", mood: "Upbeat Study \u2022 Energy" },
-    { id: 6, title: "Higher Places", file: "ai song/higher places.mpeg", mood: "Dreamy Ambient \u2022 Flow" },
-    { id: 7, title: "Kasumi", file: "ai song/kasumi.mpeg", mood: "Japanese Lofi \u2022 Calm" },
-    { id: 8, title: "Magnet for the Magic", file: "ai song/magnet for the magic.mpeg", mood: "Groovy Instrumental \u2022 Study" },
-    { id: 9, title: "Oyasumi Watashi", file: "ai song/oyasumi watashi.mpeg", mood: "Gentle Nightfall \u2022 Rest" },
-    { id: 10, title: "Rainy Cafe Afternoon", file: "ai song/rainy cafe afternoon.mpeg", mood: "Rainy Ambience \u2022 Coffee Vibes" },
-    { id: 11, title: "Semesta Bercanda", file: "ai song/semesta bercanda.mpeg", mood: "Acoustic Melody \u2022 CheeYa Original" },
-    { id: 12, title: "Sunday Tea", file: "ai song/sunday tea.mpeg", mood: "Cozy Afternoon \u2022 Soft Beats" },
-    { id: 13, title: "Tea and Tune", file: "ai song/tea and tune.mpeg", mood: "Sweet Lofi \u2022 Reading" },
-    { id: 14, title: "Trapped in Loving", file: "ai song/trapped in loving.mpeg", mood: "Emotional Harmony \u2022 Focus" },
-    { id: 15, title: "Watashi no Merody", file: "ai song/watashi no merody.mpeg", mood: "Anime Pastel \u2022 Memory Boost" }
+    { id: 1, title: "City Light", file: "ai song/city light.mp3", mood: "Lofi Beats \u2022 Focus" },
+    { id: 2, title: "Dark Feathers", file: "ai song/dark feathers.mp3", mood: "Atmospheric \u2022 Study" },
+    { id: 3, title: "Golden Friendship", file: "ai song/golden friendship.mp3", mood: "Acoustic Warmth \u2022 Chill" },
+    { id: 4, title: "Goodbye to the Past", file: "ai song/goodbye to the past.mp3", mood: "Mellow Piano \u2022 Focus" },
+    { id: 5, title: "Got a New Love", file: "ai song/got a new love.mp3", mood: "Upbeat Study \u2022 Energy" },
+    { id: 6, title: "Higher Places", file: "ai song/higher places.mp3", mood: "Dreamy Ambient \u2022 Flow" },
+    { id: 7, title: "Kasumi", file: "ai song/kasumi.mp3", mood: "Japanese Lofi \u2022 Calm" },
+    { id: 8, title: "Magnet for the Magic", file: "ai song/magnet for the magic.mp3", mood: "Groovy Instrumental \u2022 Study" },
+    { id: 9, title: "Oyasumi Watashi", file: "ai song/oyasumi watashi.mp3", mood: "Gentle Nightfall \u2022 Rest" },
+    { id: 10, title: "Rainy Cafe Afternoon", file: "ai song/rainy cafe afternoon.mp3", mood: "Rainy Ambience \u2022 Coffee Vibes" },
+    { id: 11, title: "Semesta Bercanda", file: "ai song/semesta bercanda.mp3", mood: "Acoustic Melody \u2022 CheeYa Original" },
+    { id: 12, title: "Sunday Tea", file: "ai song/sunday tea.mp3", mood: "Cozy Afternoon \u2022 Soft Beats" },
+    { id: 13, title: "Tea and Tune", file: "ai song/tea and tune.mp3", mood: "Sweet Lofi \u2022 Reading" },
+    { id: 14, title: "Trapped in Loving", file: "ai song/trapped in loving.mp3", mood: "Emotional Harmony \u2022 Focus" },
+    { id: 15, title: "Watashi no Merody", file: "ai song/watashi no merody.mp3", mood: "Anime Pastel \u2022 Memory Boost" }
   ],
 
   currentIndex: 9, // Start with "Rainy Cafe Afternoon"
@@ -18272,15 +18183,25 @@ const StudyMusicPlayer = {
   isOpen: false,
 
   init() {
-    this.audio = new Audio();
+    if (!this.audio) {
+      this.audio = new Audio();
+      this.audio.preload = "metadata";
+
+      this.audio.addEventListener('timeupdate', () => this.onTimeUpdate());
+      this.audio.addEventListener('ended', () => this.nextTrack());
+      this.audio.addEventListener('error', (e) => {
+        console.warn("Audio file playback notice:", e);
+        const track = this.tracks[this.currentIndex];
+        if (this.audio && this.audio.src && this.audio.src.endsWith('.mp3')) {
+          this.audio.src = encodeURI(track.file.replace('.mp3', '.mpeg'));
+          this.audio.load();
+          if (this.isPlaying) {
+            this.audio.play().catch(err => console.warn(err));
+          }
+        }
+      });
+    }
     this.audio.volume = this.volume;
-
-    this.audio.addEventListener('timeupdate', () => this.onTimeUpdate());
-    this.audio.addEventListener('ended', () => this.nextTrack());
-    this.audio.addEventListener('error', (e) => {
-      console.warn("Audio file playback notice:", e);
-    });
-
     this.loadTrack(this.currentIndex, false);
   },
 
@@ -18290,7 +18211,9 @@ const StudyMusicPlayer = {
     this.currentIndex = index;
     const track = this.tracks[this.currentIndex];
 
+    if (!this.audio) this.audio = new Audio();
     this.audio.src = encodeURI(track.file);
+    this.audio.load();
     this.updateUI();
 
     if (autoPlay) {
@@ -18299,6 +18222,7 @@ const StudyMusicPlayer = {
   },
 
   togglePlay() {
+    if (!this.audio) this.init();
     if (this.isPlaying) {
       this.pause();
     } else {
@@ -18307,18 +18231,25 @@ const StudyMusicPlayer = {
   },
 
   play() {
-    if (!this.audio.src) {
+    if (!this.audio) this.init();
+    if (!this.audio.src || this.audio.src === '' || this.audio.src.endsWith('/')) {
       this.loadTrack(this.currentIndex, false);
     }
+    this.audio.volume = this.volume;
+    this.audio.muted = this.isMuted;
+
     const playPromise = this.audio.play();
     if (playPromise !== undefined) {
       playPromise.then(() => {
         this.isPlaying = true;
         this.updateUI();
       }).catch(err => {
-        console.warn("Audio autoplay blocked by browser, user click needed:", err);
+        console.warn("Audio playback notice:", err);
         this.isPlaying = false;
         this.updateUI();
+        if (typeof App !== 'undefined' && App.showToast) {
+          App.showToast("Click play to start music \ud83c\udfb5");
+        }
       });
     }
   },
