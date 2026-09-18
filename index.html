@@ -41,15 +41,6 @@
 .l34-example{display:grid;grid-template-columns:minmax(0,1fr);margin:8px 0;padding:9px 11px;border:1px solid #e6e6e6;border-radius:9px;background:#fafafa}
 .l34-de{font-weight:650}
 @media(max-width:700px){.l34-section{padding:14px}.l34-section h2{margin:-14px -14px 12px}.l34-hero h1{font-size:21px}}
-
-/* Clean Google Translate Integration */
-.goog-te-banner-frame.skiptranslate, iframe.goog-te-banner-frame { display: none !important; }
-body { top: 0px !important; position: static !important; }
-#google_translate_element { display: none !important; }
-.goog-tooltip, .goog-tooltip:hover { display: none !important; }
-.goog-text-highlight { background-color: transparent !important; border: none !important; box-shadow: none !important; }
-font[style] { background-color: transparent !important; box-shadow: none !important; }
-.notranslate { translate: no !important; }
 </style>
 
 
@@ -2775,35 +2766,27 @@ html[data-theme="dark"] select {
                 <!-- Global Search Button -->
         <button onclick="App.openSearchModal()" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100/90 text-slate-500 hover:bg-pink-50 hover:text-pink-600 text-xs font-medium border border-slate-200/70 transition-all shadow-sm">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-          <span class="hidden md:inline" data-i18n="searchCurriculum">Search Curriculum</span>
-          <kbd class="hidden md:inline px-1.5 py-0.5 text-[9px] bg-white rounded border border-slate-300 font-mono">&#8984;K</kbd>
+          <span class="hidden md:inline">Search Curriculum</span>
+          <kbd class="hidden md:inline px-1.5 py-0.5 text-[9px] bg-white rounded border border-slate-300 font-mono">âŒ˜K</kbd>
         </button>
 
-                <!-- Live Progress Interactive Button (Click to view completed modules) -->
-        <button onclick="App.openProgressModal()" class="hidden sm:flex items-center gap-2.5 px-3.5 py-1.5 rounded-xl bg-white/95 border border-pink-200 hover:border-pink-400 hover:bg-pink-50/60 shadow-xs text-xs cursor-pointer transition-all select-none group" title="View completed modules and lessons">
-          <span class="text-slate-500 font-medium group-hover:text-pink-600" data-i18n="progressLabel">Progress:</span>
+        <!-- Live Progress Interactive Button (Click to view completed modules) -->
+        <button onclick="App.openProgressModal()" class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/95 border border-pink-200 hover:border-pink-400 hover:bg-pink-50/60 shadow-xs text-xs cursor-pointer transition-all select-none group" title="Klik untuk melihat modul & pelajaran yang sudah selesai">
+          <span class="text-slate-500 font-medium group-hover:text-pink-600">Progress:</span>
           <div class="w-20 sm:w-24 bg-slate-100 h-2 rounded-full overflow-hidden border border-pink-100">
             <div id="headerProgressBar" class="h-full bg-gradient-to-r from-pink-400 to-rose-400 rounded-full transition-all duration-500" style="width: 0%"></div>
           </div>
-          <span id="headerProgressCount" class="font-bold text-pink-700">0 / 38</span>
-          <span class="text-[10px] bg-pink-100 group-hover:bg-pink-200 text-pink-700 px-1.5 py-0.5 rounded font-bold transition-colors flex items-center gap-1"><span data-i18n="modulBtn">Modul</span> <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></span>
+          <span id="headerProgressCount" class="hidden"></span>
+          <span class="text-[10px] bg-pink-100 group-hover:bg-pink-200 text-pink-700 px-1.5 py-0.5 rounded font-bold transition-colors flex items-center gap-1">Modul <svg class="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg></span>
         </button>
 
-        <!-- Cute Bilingual Language Switcher (EN | ID) -->
-        <div class="flex items-center p-0.5 rounded-xl bg-slate-100/90 border border-pink-200/80 shadow-2xs select-none">
-          <button id="langBtnEn" onclick="I18n.setLanguage('en')" class="px-2.5 py-1 rounded-lg text-xs font-black transition-all cursor-pointer bg-white text-pink-600 shadow-2xs" title="English (Default)">
-            EN
-          </button>
-          <button id="langBtnId" onclick="I18n.setLanguage('id')" class="px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-500 hover:text-pink-600" title="Bahasa Indonesia (Santai & Mudah Dipahami)">
-            ID
-          </button>
-        </div>
+
 
                 <!-- PWA Install Button in Header -->
         <button id="pwaInstallHeaderBtn" onclick="PWAInstaller.promptInstall()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white text-xs font-bold shadow-sm shadow-pink-200 transition-all cursor-pointer select-none" title="Install CheeYa German A1 on Mobile / Desktop">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-          <span class="hidden sm:inline" data-i18n="installApp">Install App</span>
-          <span class="sm:hidden" data-i18n="install">Install</span>
+          <span class="hidden sm:inline">Install App</span>
+          <span class="sm:hidden">Install</span>
         </button>
         <button onclick="App.navigateTo('dashboard')" class="px-3 py-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-semibold shadow-sm shadow-pink-200 transition-all">
           Dashboard
@@ -2821,7 +2804,7 @@ html[data-theme="dark"] select {
     <aside id="sidebarNav" class="fixed lg:sticky top-16 z-40 lg:z-20 w-72 h-[calc(100vh-4rem)] bg-white/95 lg:bg-transparent border-r border-pink-100 p-4 overflow-y-auto flex flex-col justify-between transition-transform duration-300 -translate-x-full lg:translate-x-0 no-print">
       <div>
         <div class="flex items-center justify-between pb-3 mb-2 border-b border-pink-100 lg:hidden">
-          <span class="font-display font-bold text-slate-800 text-sm" data-i18n="curriculumSubtitle">38-Lesson Curriculum</span>
+          <span class="font-display font-bold text-slate-800 text-sm">38-Lesson Curriculum</span>
           <button onclick="App.toggleMobileSidebar()" class="p-1 rounded-lg text-slate-400 hover:text-slate-600">✕</button>
         </div>
 
@@ -2832,27 +2815,27 @@ html[data-theme="dark"] select {
           </button>
           <button onclick="App.navigateTo('exam')" class="w-full text-left px-2.5 py-2 rounded-xl flex items-center gap-2.5 text-xs font-bold text-amber-800 bg-amber-50/80 hover:bg-amber-100 transition-colors border border-amber-200/60 shadow-xs">
             <svg class="w-4 h-4 text-amber-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <span data-i18n="navExam">Goethe A1 Exam</span>
+            <span>Goethe A1 Exam</span>
           </button>
           <button onclick="App.navigateTo('translator')" class="w-full text-left px-2.5 py-2 rounded-xl flex items-center gap-2.5 text-xs font-bold text-indigo-700 hover:bg-indigo-50 transition-colors">
             <svg class="w-4 h-4 text-indigo-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10m-.178-2h-6.644"/></svg>
-            <span data-i18n="navTranslator">Smart Translator</span>
+            <span>Smart Translator</span>
           </button>
           <button onclick="App.navigateTo('flashcards')" class="w-full text-left px-2.5 py-2 rounded-xl flex items-center gap-2.5 text-xs font-bold text-emerald-700 hover:bg-emerald-50 transition-colors">
             <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-            <span data-i18n="navFlashcards">Vocabulary Flashcards</span>
+            <span>Vocabulary Flashcards</span>
           </button>
           <button onclick="App.navigateTo('articleFinder')" class="w-full text-left px-2.5 py-2 rounded-xl flex items-center gap-2.5 text-xs font-bold text-pink-700 hover:bg-pink-50 transition-colors">
             <svg class="w-4 h-4 text-pink-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-            <span data-i18n="navArticleFinder">Der Die Das Finder</span>
+            <span>Der Die Das Finder</span>
           </button>
           <button onclick="StudyMusicPlayer.togglePanel()" class="w-full text-left px-2.5 py-2 rounded-xl flex items-center gap-2.5 text-xs font-bold text-purple-700 hover:bg-purple-50 transition-colors">
             <svg class="w-4 h-4 text-purple-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>
-            <span data-i18n="navMusic">Study Music Player</span>
+            <span>Study Music Player</span>
           </button>
         </div>
         <div class="text-[11px] font-bold tracking-wider text-pink-800/80 uppercase px-2 mb-2 flex items-center justify-between">
-          <span data-i18n="curriculumModules">Curriculum Modules</span>
+          <span>Curriculum Modules</span>
           <span class="text-[10px] bg-pink-100 text-pink-700 px-1.5 py-0.5 rounded font-bold">A1</span>
         </div>
 
@@ -2875,21 +2858,21 @@ html[data-theme="dark"] select {
           <!-- Left Text Content -->
           <div class="relative z-10 flex-1 max-w-xl lg:max-w-2xl">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-semibold mb-3">
-              <span data-i18n="welcomeBadge">&#10022; Welcome to CheeYa Studio</span>
+              &#10022; Welcome to CheeYa Studio
             </span>
             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-800 tracking-tight mb-2.5">
-              <span data-i18n="heroTitle">German A1 Complete Self-Study Platform</span>
+              German A1 Complete Self-Study Platform
             </h1>
             <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-6">
-              <span data-i18n="heroDesc">Learn German systematically through 38 comprehensive structured lessons&mdash;from the alphabet and foundational grammar to fluid conversation, cases, and complete A1 proficiency.</span>
+              Learn German systematically through 38 comprehensive structured lessons&mdash;from the alphabet and foundational grammar to fluid conversation, cases, and complete A1 proficiency.
             </p>
             <div class="flex flex-wrap items-center gap-3">
               <button onclick="App.continueActiveLesson()" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-semibold text-sm shadow-md shadow-pink-200 transition-all flex items-center gap-2">
-                <span data-i18n="continueStudy">Continue Study</span>
+                <span>Continue Study</span>
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </button>
               <button onclick="App.openLesson(1)" class="px-5 py-2.5 rounded-2xl bg-white hover:bg-slate-50 text-slate-700 font-semibold text-sm border border-pink-200 shadow-sm transition-all">
-                <span data-i18n="startLesson01">Start from Lesson 01</span>
+                Start from Lesson 01
               </button>
             </div>
           </div>
@@ -2897,9 +2880,9 @@ html[data-theme="dark"] select {
           <!-- Beautiful Round German A1 Badge (Slightly larger, centered, cleanly inside borders without tags) -->
           <div class="hidden sm:flex flex-col items-center justify-center self-center shrink-0 z-10 my-auto sm:pr-4 md:pr-8 lg:pr-14">
             <div class="relative flex flex-col items-center justify-center text-center w-44 h-44 sm:w-48 sm:h-48 md:w-52 md:h-52 rounded-full bg-gradient-to-br from-white via-pink-50 to-rose-100/90 border-2 border-pink-200/90 shadow-xl select-none" style="box-shadow: 0 16px 36px rgba(214,109,164,.18), inset 0 0 0 10px rgba(255,255,255,.75), inset 0 0 0 11px rgba(255,190,225,.35); animation: badgeFloat 4.5s ease-in-out infinite;">
-              <span class="text-xs md:text-sm font-black tracking-widest text-pink-600 uppercase" data-i18n="badgeGerman">GERMAN</span>
+              <span class="text-xs md:text-sm font-black tracking-widest text-pink-600 uppercase">GERMAN</span>
               <span class="text-4xl md:text-5xl font-black text-pink-500 my-1 font-sans">A1</span>
-              <span class="text-[10px] md:text-xs font-black text-pink-600/90 tracking-wider" data-i18n="badgeLessons">&#10022; 38 LESSONS</span>
+              <span class="text-[10px] md:text-xs font-black text-pink-600/90 tracking-wider">&#10022; 38 LESSONS</span>
             </div>
           </div>
         </div>
@@ -2907,24 +2890,24 @@ html[data-theme="dark"] select {
         <!-- Live Metrics Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs">
-            <div class="text-xs text-slate-500 font-medium" data-i18n="statCompleted">Completed</div>
+            <div class="text-xs text-slate-500 font-medium">Completed</div>
             <div id="statCompletedCount" class="text-2xl font-bold text-pink-600 mt-1">0</div>
-            <div class="text-[11px] text-slate-400 mt-0.5" data-i18n="outOf38">out of 38 Lessons</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">out of 38 Lessons</div>
           </div>
           <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs">
-            <div class="text-xs text-slate-500 font-medium" data-i18n="statRemaining">Remaining</div>
+            <div class="text-xs text-slate-500 font-medium">Remaining</div>
             <div id="statRemainingCount" class="text-2xl font-bold text-slate-700 mt-1">38</div>
-            <div class="text-[11px] text-slate-400 mt-0.5" data-i18n="lessonsToComplete">Lessons to complete</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Lessons to complete</div>
           </div>
           <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs">
-            <div class="text-xs text-slate-500 font-medium" data-i18n="statOverallProgress">Overall Progress</div>
+            <div class="text-xs text-slate-500 font-medium">Overall Progress</div>
             <div id="statProgressPercent" class="text-2xl font-bold text-pink-600 mt-1">0%</div>
-            <div class="text-[11px] text-slate-400 mt-0.5" data-i18n="germanA1Path">German A1 Path</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">German A1 Path</div>
           </div>
           <div class="bg-white p-4 rounded-2xl border border-pink-100 shadow-xs">
-            <div class="text-xs text-slate-500 font-medium" data-i18n="statLevel">Curriculum Level</div>
+            <div class="text-xs text-slate-500 font-medium">Curriculum Level</div>
             <div class="text-2xl font-bold text-sky-600 mt-1">CEFR A1</div>
-            <div class="text-[11px] text-slate-400 mt-0.5" data-i18n="beginnerStandard">Beginner Standard</div>
+            <div class="text-[11px] text-slate-400 mt-0.5">Beginner Standard</div>
           </div>
         </div>
 
@@ -2940,9 +2923,9 @@ html[data-theme="dark"] select {
         ✨ Interactive Learning Suite
       </span>
       <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">
-        <span data-i18n="suiteTitle">Practice Tools & Official Exam Prep</span>
+        Practice Tools & Official Exam Prep
       </h2>
-      <p class="text-xs sm:text-sm text-slate-500"><span data-i18n="suiteSubtitle">Accelerate your A1 fluency with real-time test simulations, smart grammar translations, and 3D flashcards.</span></p>
+      <p class="text-xs sm:text-sm text-slate-500">Accelerate your A1 fluency with real-time test simulations, smart grammar translations, and 3D flashcards.</p>
     </div>
   </div>
 
@@ -2954,7 +2937,7 @@ html[data-theme="dark"] select {
           🎓
         </div>
         <div class="flex items-center gap-2 mb-1">
-          <h3 class="font-bold text-slate-800 text-sm" data-i18n="examCardTitle">Goethe A1 Simulator</h3>
+          <h3 class="font-bold text-slate-800 text-sm">Goethe A1 Simulator</h3>
           <span class="text-[10px] font-bold bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">65m Official</span>
         </div>
         <p class="text-xs text-slate-500 leading-relaxed">
@@ -2962,7 +2945,7 @@ html[data-theme="dark"] select {
         </p>
       </div>
       <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-amber-600">
-        <span data-i18n="examCardBtn">Start Exam</span>
+        <span>Start Exam</span>
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </div>
     </div>
@@ -2974,7 +2957,7 @@ html[data-theme="dark"] select {
           🌐
         </div>
         <div class="flex items-center gap-2 mb-1">
-          <h3 class="font-bold text-slate-800 text-sm" data-i18n="translatorCardTitle">Smart Translator</h3>
+          <h3 class="font-bold text-slate-800 text-sm">Smart Translator</h3>
           <span class="text-[10px] font-bold bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded">Grammar AI</span>
         </div>
         <p class="text-xs text-slate-500 leading-relaxed">
@@ -2982,7 +2965,7 @@ html[data-theme="dark"] select {
         </p>
       </div>
       <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-indigo-600">
-        <span data-i18n="translatorCardBtn">Analyze Sentence</span>
+        <span>Analyze Sentence</span>
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </div>
     </div>
@@ -2994,7 +2977,7 @@ html[data-theme="dark"] select {
           🗂️
         </div>
         <div class="flex items-center gap-2 mb-1">
-          <h3 class="font-bold text-slate-800 text-sm" data-i18n="flashcardsCardTitle">3D Flashcards</h3>
+          <h3 class="font-bold text-slate-800 text-sm">3D Flashcards</h3>
           <span class="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded">500+ Words</span>
         </div>
         <p class="text-xs text-slate-500 leading-relaxed">
@@ -3002,7 +2985,7 @@ html[data-theme="dark"] select {
         </p>
       </div>
       <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-emerald-600">
-        <span data-i18n="flashcardsCardBtn">Practice Deck</span>
+        <span>Practice Deck</span>
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </div>
     </div>
@@ -3014,7 +2997,7 @@ html[data-theme="dark"] select {
           🔍
         </div>
         <div class="flex items-center gap-2 mb-1">
-          <h3 class="font-bold text-slate-800 text-sm" data-i18n="articleCardTitle">Der, Die, Das Finder</h3>
+          <h3 class="font-bold text-slate-800 text-sm">Der, Die, Das Finder</h3>
           <span class="text-[10px] font-bold bg-pink-100 text-pink-700 px-1.5 py-0.5 rounded">Article Quiz</span>
         </div>
         <p class="text-xs text-slate-500 leading-relaxed">
@@ -3022,7 +3005,7 @@ html[data-theme="dark"] select {
         </p>
       </div>
       <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-pink-600">
-        <span data-i18n="articleCardBtn">Find Articles</span>
+        <span>Find Articles</span>
         <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </div>
     </div>
@@ -3037,8 +3020,8 @@ html[data-theme="dark"] select {
         <div>
           <div class="flex items-center justify-between mb-4">
             <div>
-              <h2 class="text-xl font-bold text-slate-800" data-i18n="curriculumRoadmap">Curriculum Roadmap</h2>
-              <p class="text-xs text-slate-500" data-i18n="curriculumRoadmapDesc">Official 38 lessons organized into 9 developmental modules</p>
+              <h2 class="text-xl font-bold text-slate-800">Curriculum Roadmap</h2>
+              <p class="text-xs text-slate-500">Official 38 lessons organized into 9 developmental modules</p>
             </div>
           </div>
           <div id="roadmapContainer" class="space-y-6"></div>
@@ -3050,7 +3033,7 @@ html[data-theme="dark"] select {
         <div class="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-pink-100 no-print">
           <button onclick="App.navigateTo('dashboard')" class="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-pink-600 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
-            <span data-i18n="backToDashboard">Back to Dashboard</span>
+            <span>Back to Dashboard</span>
           </button>
 
           <div class="flex items-center gap-2">
@@ -3063,7 +3046,7 @@ html[data-theme="dark"] select {
             <!-- Download PDF Button -->
             <button id="downloadPdfBtn" onclick="PDFGenerator.downloadLesson(App.currentLessonId)" class="px-3.5 py-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-xs font-semibold shadow-sm shadow-pink-200 transition-all flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-              <span data-i18n="downloadPdf">Download Lesson PDF</span>
+              <span>Download Lesson PDF</span>
             </button>
 
             <!-- Print / Save as PDF Fallback -->
@@ -3957,59 +3940,58 @@ html[data-theme="dark"] select {
 </style>
 <script>
     // CURRICULUM ARCHITECTURE: 9 MODULES, EXACTLY 38 LESSONS
-const MODULES = [
-  { id: 'foundation', name: '1. Foundation', name_id: '1. Dasar-Dasar', range: [1, 3], icon: '\u2B50' },
-  { id: 'core_verbs', name: '2. Core Verbs', name_id: '2. Kata Kerja Inti', range: [4, 7], icon: '\u26A1' },
-  { id: 'nouns_gender', name: '3. Nouns & Gender', name_id: '3. Kata Benda & Gender', range: [8, 12], icon: '\uD83C\uDFF7\uFE0F' },
-  { id: 'sentence_structure', name: '4. Sentence Structure', name_id: '4. Susunan Kalimat', range: [13, 16], icon: '\uD83E\uDDE9' },
-  { id: 'cases', name: '5. Cases', range: [17, 21], name_id: '5. Kasus (Kasus A1)', icon: '\uD83C\uDFAF' },
-  { id: 'advanced_verbs', name: '6. Advanced A1 Verbs', name_id: '6. Kata Kerja Lanjutan', range: [22, 26], icon: '\uD83D\uDE80' },
-  { id: 'prepositions', name: '7. Prepositions', name_id: '7. Preposisi / Kata Depan', range: [27, 30], icon: '\uD83D\uDCCD' },
-  { id: 'possession_adjectives', name: '8. Possession & Adjectives', name_id: '8. Kepemilikan & Sifat', range: [31, 34], icon: '\u2728' },
-  { id: 'past_review', name: '9. Past Tense & Final Review', name_id: '9. Lampau & Ulasan Akhir', range: [35, 38], icon: '\uD83C\uDFC6' }
-];
+    const MODULES = [
+      { id: 'foundation', name: '1. Foundation', range: [1, 3], icon: '\u2B50' },
+      { id: 'core_verbs', name: '2. Core Verbs', range: [4, 7], icon: '\u26A1' },
+      { id: 'nouns_gender', name: '3. Nouns & Gender', range: [8, 12], icon: '\uD83C\uDFF7\uFE0F' },
+      { id: 'sentence_structure', name: '4. Sentence Structure', range: [13, 16], icon: '\uD83E\uDDE9' },
+      { id: 'cases', name: '5. Cases', range: [17, 21], icon: '\uD83C\uDFAF' },
+      { id: 'advanced_verbs', name: '6. Advanced A1 Verbs', range: [22, 26], icon: '\uD83D\uDE80' },
+      { id: 'prepositions', name: '7. Prepositions', range: [27, 30], icon: '\uD83D\uDCCD' },
+      { id: 'possession_adjectives', name: '8. Possession & Adjectives', range: [31, 34], icon: '\u2728' },
+      { id: 'past_review', name: '9. Past Tense & Final Review', range: [35, 38], icon: '\uD83C\uDFC6' }
+    ];
 
-const LESSON_INDEX = [
-  { id: 1, mod: 'foundation', title: "German Alphabet + Pronunciation", title_id: "Alfabet Jerman & Pengucapan", desc: "Alphabet, special characters (\u00c4, \u00d6, \u00dc, \u00df), diphthongs, and core pronunciation rules.", desc_id: "Alfabet, huruf khusus (\u00c4, \u00d6, \u00dc, \u00df), diftong, dan aturan pengucapan dasar." },
-  { id: 2, mod: 'foundation', title: "Numbers 0 - 100", title_id: "Angka 0 - 100", desc: "Cardinal numbers, telephone numbers, counting, and German number inversion.", desc_id: "Angka pokok, nomor telepon, berhitung, dan aturan urutan angka terbalik khas Jerman." },
-  { id: 3, mod: 'foundation', title: "Greetings + Self-Introduction", title_id: "Salam & Perkenalan Diri", desc: "Formal and informal greetings, asking names, countries of origin, and farewells.", desc_id: "Salam formal dan akrab, cara memperkenalkan nama, asal negara, dan perpisahan." },
-  { id: 4, mod: 'core_verbs', title: "Verb SEIN", title_id: "Kata Kerja SEIN (To Be)", desc: "Conjugation of 'sein' (to be) in present tense with subject pronouns.", desc_id: "Konjugasi kata kerja penting 'sein' (adalah/menjadi) dengan subjek orang." },
-  { id: 5, mod: 'core_verbs', title: "Verb HABEN", title_id: "Kata Kerja HABEN (Mempunyai)", desc: "Conjugation of 'haben' (to have) and introduction to having objects.", desc_id: "Konjugasi kata kerja 'haben' (punya/memiliki) dan menyatakan benda milik kita." },
-  { id: 6, mod: 'core_verbs', title: "Regular Verbs in Pr\u00e4sens", title_id: "Kata Kerja Reguler Pr\u00e4sens", desc: "Standard verb endings (-e, -st, -t, -en, -t, -en) with regular German verbs.", desc_id: "Rumus akhiran kata kerja teratur (-e, -st, -t, -en, -t, -en) waktu sekarang." },
-  { id: 7, mod: 'core_verbs', title: "Basic Questions - W-Fragen + Ja/Nein", title_id: "Kalimat Tanya - W-Fragen & Ja/Nein", desc: "Question words (Wer, Was, Wo, Wie) and inverted verb questions.", desc_id: "Kata tanya (Wer, Was, Wo, Wie) serta membuat pertanyaan ya/tidak." },
-  { id: 8, mod: 'nouns_gender', title: "Noun Gender - DER / DIE / DAS", title_id: "Gender Kata Benda - DER / DIE / DAS", desc: "Masculine, feminine, and neuter genders, capitalization of all German nouns.", desc_id: "Mengenal gender maskulin, feminin, dan netral serta aturan huruf kapital." },
-  { id: 9, mod: 'nouns_gender', title: "Definite + Indefinite Articles", title_id: "Artikel Tertentu & Tidak Tentu", desc: "Der/die/das vs. ein/eine/ein and negative article kein.", desc_id: "Perbedaan der/die/das vs ein/eine/ein dan kata sanggahan kein." },
-  { id: 10, mod: 'nouns_gender', title: "KEIN / KEINE vs NICHT", title_id: "KEIN / KEINE vs NICHT", desc: "Negating nouns with kein and verbs/adjectives with nicht.", desc_id: "Kapan memakai kein (kata benda) dan kapan memakai nicht (kata kerja/sifat)." },
-  { id: 11, mod: 'nouns_gender', title: "German Plurals", title_id: "Bentuk Jamak (Plural)", desc: "The five major plural patterns (-e, -er, -n/-en, -s, no ending) and umlaut shifts.", desc_id: "5 pola perubahan bentuk jamak kata benda Jerman dan tanda umlaut." },
-  { id: 12, mod: 'nouns_gender', title: "Family - Familie", title_id: "Keluarga - Familie", desc: "Family members, relationships, and possessive introduction.", desc_id: "Kosakata anggota keluarga, silsilah, dan kepemilikan keluarga." },
-  { id: 13, mod: 'sentence_structure', title: "Basic Word Order - Verb Position 2", title_id: "Susunan Kalimat - Kata Kerja Posisi 2", desc: "The golden rule: conjugated finite verb in position 2 in main clauses.", desc_id: "Aturan emas: kata kerja berkonjugasi selalu berada di posisi kedua." },
-  { id: 14, mod: 'sentence_structure', title: "Conjunctions - und, oder, aber, denn", title_id: "Kata Sambung - und, oder, aber, denn", desc: "Coordinating conjunctions (position zero) joining two complete clauses.", desc_id: "Kata sambung koordinatif (posisi nol) untuk menggabungkan dua kalimat." },
-  { id: 15, mod: 'sentence_structure', title: "Time, Clock, Days + Dates", title_id: "Waktu, Jam, Hari & Tanggal", desc: "Official vs. conversational time (viertel vor, halb), days of week, and months.", desc_id: "Menyatakan jam resmi vs percakapan santai (halb, viertel), hari, dan bulan." },
-  { id: 16, mod: 'sentence_structure', title: "Jobs + Professions", title_id: "Profesi & Pekerjaan", desc: "Occupations, masculine vs. feminine job titles with -in, and work vocabulary.", desc_id: "Nama profesi, membedakan pria vs wanita (-in), dan kosakata tempat kerja." },
-  { id: 17, mod: 'cases', title: "Nominative Case", title_id: "Kasus Nominativ (Subjek)", desc: "The subject of the sentence, predicate nominative with sein/werden.", desc_id: "Mengenal subjek kalimat dan peran kasus Nominativ." },
-  { id: 18, mod: 'cases', title: "Accusative Case", title_id: "Kasus Akkusativ (Objek Langsung)", desc: "Direct objects: der changes to den, while die, das, and die plural remain unchanged.", desc_id: "Objek langsung: perubahan der menjadi den dan ein menjadi einen." },
-  { id: 19, mod: 'cases', title: "Accusative Personal Pronouns", title_id: "Kata Ganti Orang Akkusativ", desc: "Mich, dich, ihn, sie, es, uns, euch, sie/Sie in conversational action.", desc_id: "Mich, dich, ihn, sie, es, uns, euch, sie/Sie dalam percakapan." },
-  { id: 20, mod: 'cases', title: "Dative Case", title_id: "Kasus Dativ (Objek Tak Langsung)", desc: "Indirect objects: dem, der, dem, den (+n). When and why dative is triggered.", desc_id: "Objek tak langsung: perubahan dem, der, dem, den (+n)." },
-  { id: 21, mod: 'cases', title: "Dative Personal Pronouns", title_id: "Kata Ganti Orang Dativ", desc: "Mir, dir, ihm, ihr, ihm, uns, euch, ihnen/Ihnen with dative verbs.", desc_id: "Mir, dir, ihm, ihr, uns, euch, ihnen/Ihnen dengan kata kerja dativ." },
-  { id: 22, mod: 'advanced_verbs', title: "Irregular Verbs + Vowel Changes", title_id: "Kata Kerja Tak Beraturan", desc: "Stem-vowel changes in 2nd and 3rd person singular (e->i, e->ie, a->\u00e4).", desc_id: "Perubahan vokal pada kata kerja bentuk du dan er/sie/es (e->i, e->ie, a->\u00e4)." },
-  { id: 23, mod: 'advanced_verbs', title: "Modal Verbs - k\u00f6nnen, m\u00fcssen, wollen", title_id: "Modal Verbs - k\u00f6nnen, m\u00fcssen, wollen", desc: "Ability, necessity, and desire: modal conjugation and infinitive bracket rule.", desc_id: "Menyatakan bisa/mampu, harus, dan mau: aturan posisi kata kerja bantu." },
-  { id: 24, mod: 'advanced_verbs', title: "Modal Verbs - d\u00fcrfen, sollen, m\u00f6chten, m\u00f6gen", title_id: "Modal Verbs - d\u00fcrfen, sollen, m\u00f6chten, m\u00f6gen", desc: "Permission, obligation, polite wishing, and liking things.", desc_id: "Izin, anjuran, ingin secara sopan, dan rasa suka." },
-  { id: 25, mod: 'advanced_verbs', title: "Separable Verbs", title_id: "Trennbare Verben (Kata Kerja Lepas)", desc: "Prefixes that detach (aufstehen, einkaufen) and move to the very end.", desc_id: "Awalan kata kerja yang terpisah dan meluncur ke ujung kalimat." },
-  { id: 26, mod: 'advanced_verbs', title: "Imperative", title_id: "Imperativ (Kalimat Perintah & Ajakan)", desc: "Giving commands and friendly requests in du, ihr, and Sie forms.", desc_id: "Cara memberi instruksi, perintah, dan ajakan sopan maupun santai." },
-  { id: 27, mod: 'prepositions', title: "Accusative Prepositions", title_id: "Preposisi Kasus Akkusativ", desc: "Bis, durch, f\u00fcr, gegen, ohne, um (always trigger accusative case).", desc_id: "Preposisi bis, durch, f\u00fcr, gegen, ohne, um yang selalu diikuti Akkusativ." },
-  { id: 28, mod: 'prepositions', title: "Dative Prepositions", title_id: "Preposisi Kasus Dativ", desc: "Aus, bei, mit, nach, seit, von, zu (always trigger dative case).", desc_id: "Preposisi aus, bei, mit, nach, seit, von, zu yang selalu diikuti Dativ." },
-  { id: 29, mod: 'prepositions', title: "Location Prepositions - in, an, auf", title_id: "Preposisi Posisi Diam (in, an, auf)", desc: "Two-way prepositions expressing fixed location (Dative: Wo?).", desc_id: "Preposisi dua arah untuk tempat menetap / lokasi diam (Dativ: Wo?)." },
-  { id: 30, mod: 'prepositions', title: "Directions + Transportation", title_id: "Arah Jalan & Transportasi", desc: "Asking for directions, taking transport (mit dem Bus, mit der Bahn), and movement.", desc_id: "Menanyakan alamat, naik bus/kereta, dan kosakata transportasi umum." },
-  { id: 31, mod: 'possession_adjectives', title: "Possessive Determiners", title_id: "Kata Ganti Kepemilikan (Possessiv)", desc: "Mein, dein, sein, ihr, unser, euer, ihr/Ihr across nominative and accusative.", desc_id: "Mein, dein, sein, ihr, unser, euer dalam kasus Nominativ & Akkusativ." },
-  { id: 32, mod: 'possession_adjectives', title: "Predicative Adjectives", title_id: "Kata Sifat Predikatif", desc: "Using adjectives after sein/bleiben (Das Haus ist sch\u00f6n - no endings required).", desc_id: "Memakai kata sifat deskriptif setelah kata kerja sein (tanpa akhiran rumit)." },
-  { id: 33, mod: 'possession_adjectives', title: "Shopping + Clothes", title_id: "Belanja Pakaian & Warna", desc: "Colors, clothing items, sizes, prices, and practical shopping dialogues.", desc_id: "Warna, baju, ukuran, menanyakan harga, dan percakapan di toko." },
-  { id: 34, mod: 'possession_adjectives', title: "Food + Drinks + Restaurant", title_id: "Makanan, Minuman & Restoran", desc: "Meals, ordering at a caf\u00e9 or restaurant, paying the bill, and German cuisine.", desc_id: "Kosakata makanan, memesan di kafe/restoran, bayar bon, dan kuliner Jerman." },
-  { id: 35, mod: 'past_review', title: "Perfekt with HABEN", title_id: "Bentuk Lampau Perfekt (dengan HABEN)", desc: "Conversational past: haben + Partizip II (ge- -t / ge- -en).", desc_id: "Menceritakan kejadian masa lalu sehari-hari: haben + Partizip II (ge-...-t)." },
-  { id: 36, mod: 'past_review', title: "Perfekt with SEIN", title_id: "Bentuk Lampau Perfekt (dengan SEIN)", desc: "Past tense of movement and change of state (sein + Partizip II).", desc_id: "Masa lalu untuk perpindahan tempat dan perubahan wujud (sein + Partizip II)." },
-  { id: 37, mod: 'past_review', title: "Hobbies + Free Time + Weather", title_id: "Hobi, Waktu Luang & Cuaca", desc: "Leisure activities, sports, weather expressions (es regnet, es ist sonnig).", desc_id: "Aktivitas liburan, hobi seru, dan cara mendeskripsikan cuaca harian." },
-  { id: 38, mod: 'past_review', title: "Complete A1 Review + Mock Exam", title_id: "Rangkuman Lengkap A1 & Evaluasi", desc: "Full CEFR A1 synthesis, cheat sheets, self-check assessment, and next steps.", desc_id: "Ulasan tuntas seluruh materi A1, lembar contekan cepat, dan persiapan ujian." }
-];
-
+    const LESSON_INDEX = [
+      { id: 1, mod: 'foundation', title: "German Alphabet + Pronunciation", desc: "Alphabet, special characters (\u00c4, \u00d6, \u00dc, \u00df), diphthongs, and core pronunciation rules." },
+      { id: 2, mod: 'foundation', title: "Numbers 0 - 100", desc: "Cardinal numbers, telephone numbers, counting, and German number inversion." },
+      { id: 3, mod: 'foundation', title: "Greetings + Self-Introduction", desc: "Formal and informal greetings, asking names, countries of origin, and farewells." },
+      { id: 4, mod: 'core_verbs', title: "Verb SEIN", desc: "Conjugation of 'sein' (to be) in present tense with subject pronouns." },
+      { id: 5, mod: 'core_verbs', title: "Verb HABEN", desc: "Conjugation of 'haben' (to have) and introduction to having objects." },
+      { id: 6, mod: 'core_verbs', title: "Regular Verbs in Pr\u00e4sens", desc: "Standard verb endings (-e, -st, -t, -en, -t, -en) with regular German verbs." },
+      { id: 7, mod: 'core_verbs', title: "Basic Questions - W-Fragen + Ja/Nein Questions", desc: "Question words (Wer, Was, Wo, Wie) and inverted verb questions." },
+      { id: 8, mod: 'nouns_gender', title: "Noun Gender - DER / DIE / DAS", desc: "Masculine, feminine, and neuter genders, capitalization of all German nouns." },
+      { id: 9, mod: 'nouns_gender', title: "Definite + Indefinite Articles", desc: "Der/die/das vs. ein/eine/ein and negative article kein." },
+      { id: 10, mod: 'nouns_gender', title: "KEIN / KEINE vs NICHT", desc: "Negating nouns with kein and verbs/adjectives with nicht." },
+      { id: 11, mod: 'nouns_gender', title: "German Plurals", desc: "The five major plural patterns (-e, -er, -n/-en, -s, no ending) and umlaut shifts." },
+      { id: 12, mod: 'nouns_gender', title: "Family - Familie", desc: "Family members, relationships, and possessive introduction." },
+      { id: 13, mod: 'sentence_structure', title: "Basic Word Order - Verb Position 2", desc: "The golden rule: conjugated finite verb in position 2 in main clauses." },
+      { id: 14, mod: 'sentence_structure', title: "Conjunctions - und, oder, aber, denn", desc: "Coordinating conjunctions (position zero) joining two complete clauses." },
+      { id: 15, mod: 'sentence_structure', title: "Time, Clock, Days + Dates", desc: "Official vs. conversational time (viertel vor, halb), days of week, and months." },
+      { id: 16, mod: 'sentence_structure', title: "Jobs + Professions", desc: "Occupations, masculine vs. feminine job titles with -in, and work vocabulary." },
+      { id: 17, mod: 'cases', title: "Nominative Case", desc: "The subject of the sentence, predicate nominative with sein/werden." },
+      { id: 18, mod: 'cases', title: "Accusative Case", desc: "Direct objects: der changes to den, while die, das, and die plural remain unchanged." },
+      { id: 19, mod: 'cases', title: "Accusative Personal Pronouns", desc: "Mich, dich, ihn, sie, es, uns, euch, sie/Sie in conversational action." },
+      { id: 20, mod: 'cases', title: "Dative Case", desc: "Indirect objects: dem, der, dem, den (+n). When and why dative is triggered." },
+      { id: 21, mod: 'cases', title: "Dative Personal Pronouns", desc: "Mir, dir, ihm, ihr, ihm, uns, euch, ihnen/Ihnen with dative verbs." },
+      { id: 22, mod: 'advanced_verbs', title: "Irregular Verbs + Vowel Changes", desc: "Stem-vowel changes in 2nd and 3rd person singular (e->i, e->ie, a->\u00e4)." },
+      { id: 23, mod: 'advanced_verbs', title: "Modal Verbs - k\u00f6nnen, m\u00fcssen, wollen", desc: "Ability, necessity, and desire: modal conjugation and infinitive bracket rule." },
+      { id: 24, mod: 'advanced_verbs', title: "Modal Verbs - d\u00fcrfen, sollen, m\u00f6chten, m\u00f6gen", desc: "Permission, obligation, polite wishing, and liking things." },
+      { id: 25, mod: 'advanced_verbs', title: "Separable Verbs", desc: "Prefixes that detach (aufstehen, einkaufen) and move to the very end." },
+      { id: 26, mod: 'advanced_verbs', title: "Imperative", desc: "Giving commands and friendly requests in du, ihr, and Sie forms." },
+      { id: 27, mod: 'prepositions', title: "Accusative Prepositions", desc: "Bis, durch, f\u00fcr, gegen, ohne, um (always trigger accusative case)." },
+      { id: 28, mod: 'prepositions', title: "Dative Prepositions", desc: "Aus, bei, mit, nach, seit, von, zu (always trigger dative case)." },
+      { id: 29, mod: 'prepositions', title: "Location Prepositions - in, an, auf", desc: "Two-way prepositions expressing fixed location (Dative: Wo?)." },
+      { id: 30, mod: 'prepositions', title: "Directions + Transportation", desc: "Asking for directions, taking transport (mit dem Bus, mit der Bahn), and movement." },
+      { id: 31, mod: 'possession_adjectives', title: "Possessive Determiners", desc: "Mein, dein, sein, ihr, unser, euer, ihr/Ihr across nominative and accusative." },
+      { id: 32, mod: 'possession_adjectives', title: "Predicative Adjectives", desc: "Using adjectives after sein/bleiben (Das Haus ist sch\u00f6n - no endings required)." },
+      { id: 33, mod: 'possession_adjectives', title: "Shopping + Clothes", desc: "Colors, clothing items, sizes, prices, and practical shopping dialogues." },
+      { id: 34, mod: 'possession_adjectives', title: "Food + Drinks + Restaurant", desc: "Meals, ordering at a caf\u00e9 or restaurant, paying the bill, and German cuisine." },
+      { id: 35, mod: 'past_review', title: "Perfekt with HABEN", desc: "Conversational past: haben + Partizip II (ge- -t / ge- -en)." },
+      { id: 36, mod: 'past_review', title: "Perfekt with SEIN", desc: "Past tense of movement and change of state (sein + Partizip II)." },
+      { id: 37, mod: 'past_review', title: "Hobbies + Free Time + Weather", desc: "Leisure activities, sports, weather expressions (es regnet, es ist sonnig)." },
+      { id: 38, mod: 'past_review', title: "Complete A1 Review + Mock Exam", desc: "Full CEFR A1 synthesis, cheat sheets, self-check assessment, and next steps." }
+    ];
 
     const LESSONS_DATABASE = {
       1: {
@@ -12408,667 +12390,28 @@ const CheatSheetSystem = {
     if (container.querySelector('.cheeya-auto-cheatsheet')) return;
     const item = CHEEYA_CHEAT_SHEETS[String(lessonId)];
     if (!item) return;
-
-    const isId = (typeof I18n !== 'undefined' && I18n.currentLang === 'id');
-    const headerTitle = isId 
-      ? `\u26A1 Pelajaran ${String(lessonId).padStart(2,'0')} Lembar Contekan Cepat - ${item.title}` 
-      : `\u26A1 Lesson ${String(lessonId).padStart(2,'0')} Study Cheat Sheet - ${item.title}`;
-    const colPoint = isId ? 'Poin Kunci' : 'Point';
-    const colPattern = isId ? 'Pola / Rumus Inti' : 'Core Pattern';
-    const colExample = isId ? 'Contoh Kalimat' : 'Example';
-    const footText = isId 
-      ? '<strong>Tips Ingat Cepat:</strong> Pahami pola rumusnya, lalu ucapkan contoh kalimatnya dengan lantang. Lembar contekan ini adalah rangkuman cepat materi di atas.' 
-      : '<strong>Quick memory:</strong> Learn the pattern, then say the example aloud. This cheat sheet is an added review section; the original lesson material above remains unchanged.';
-
     const section = document.createElement('section');
     section.className = 'cheeya-auto-cheatsheet';
     section.innerHTML = `
       <div class="cs-head">
-        <span class="cs-kicker">CheeYa Studio \u2726 German A1</span>
-        ${headerTitle}
+        <span class="cs-kicker">CheeYa Studio · German A1</span>
+        ✦ Lesson ${String(lessonId).padStart(2,'0')} Study Cheat Sheet — ${item.title}
       </div>
       <div class="cs-table-wrap">
         <table>
           <colgroup><col class="cs-point"><col class="cs-rule"><col class="cs-example"></colgroup>
-          <thead><tr><th>${colPoint}</th><th>${colPattern}</th><th>${colExample}</th></tr></thead>
+          <thead><tr><th>Point</th><th>Core Pattern</th><th>Example</th></tr></thead>
           <tbody>${item.rows.map(r => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('')}</tbody>
         </table>
       </div>
-      <div class="cs-foot">${footText}</div>
+      <div class="cs-foot"><strong>Quick memory:</strong> Learn the pattern, then say the example aloud. This cheat sheet is an added review section; the original lesson material above remains unchanged.</div>
     `;
     container.appendChild(section);
   }
 };
-
 </script>
 
   <script>
-/* ==========================================================================
-   CheeYa German A1 - Bilingual Internationalization (EN / ID)
-   Default: English (en) | Switchable to: Indonesian (id)
-   Friendly, modern, and natural Indonesian ("jangan terlalu baku")
-   ========================================================================== */
-
-/* ==========================================================================
-   CheeYa German A1 - Bilingual Internationalization (EN / ID)
-   Default: English (en) | Switchable to: Indonesian (id)
-   Friendly, modern, and natural Indonesian ("jangan terlalu baku")
-   ========================================================================== */
-
-const I18n = {
-  currentLang: localStorage.getItem('cheeya_lang') || 'en',
-
-  translations: {
-    en: {
-      searchCurriculum: "Search Curriculum",
-      searchPlaceholder: "Search topics, grammar, words, or lesson #...",
-      progressLabel: "Progress:",
-      modulBtn: "Modul",
-      installApp: "Install App",
-      install: "Install",
-      navDashboard: "Dashboard",
-      navExam: "Goethe A1 Exam",
-      navTranslator: "Smart Translator",
-      navFlashcards: "Vocabulary Flashcards",
-      navArticleFinder: "Der Die Das Finder",
-      navMusic: "Study Music Player",
-      curriculumModules: "Curriculum Modules",
-      curriculumSubtitle: "38-Lesson Curriculum",
-      studioFooter: "CheeYa Studio \u2726 Standard A1",
-
-      welcomeBadge: "&#10022; Welcome to CheeYa Studio",
-      heroTitle: "German A1 Complete Self-Study Platform",
-      heroDesc: "Learn German systematically through 38 comprehensive structured lessons&mdash;from the alphabet and foundational grammar to fluid conversation, cases, and complete A1 proficiency.",
-      continueStudy: "Continue Study",
-      startLesson01: "Start from Lesson 01",
-      badgeGerman: "GERMAN",
-      badgeLessons: "&#10022; 38 LESSONS",
-
-      statCompleted: "Completed",
-      statRemaining: "Remaining",
-      statOverallScore: "Overall Score",
-      statGrammarMastery: "Grammar Mastery",
-
-      bannerNextUp: "NEXT UP",
-      bannerLesson: "Lesson",
-      bannerStartNow: "Start Now &rarr;",
-      bannerExploreRoadmap: "Explore Curriculum Roadmap &darr;",
-
-      curriculumRoadmap: "Curriculum Roadmap",
-      curriculumRoadmapDesc: "38 structured lessons organized across 9 progressive learning modules",
-      backToDashboard: "Back to Dashboard",
-      downloadPdf: "Download PDF Guide",
-      markCompleted: "Mark Completed",
-      completed: "Completed &#10003;",
-      nextLesson: "Next Lesson",
-      prevLesson: "Previous Lesson",
-      finishReview: "Finish &amp; Review",
-      doneTag: "Done",
-      openArrow: "Open &rarr;",
-      curriculumLevelA1: "A1 CURRICULUM",
-
-      progressModalTitle: "Learning Progress &amp; Completed Modules",
-      progressModalSubtitle: "Complete overview of all 9 modules &amp; completed German A1 lessons",
-      lessonsCompletedLabel: "Lessons Completed",
-      modulesCompletedLabel: "Modules Completed",
-      totalProgressLabel: "Total Progress",
-      statusDone: "Completed",
-      statusInProgress: "In Progress",
-      statusNotStarted: "Not Started",
-      closeBtn: "Close"
-    },
-    id: {
-      searchCurriculum: "Cari Kurikulum",
-      searchPlaceholder: "Cari topik, tata bahasa, kata, atau bab #...",
-      progressLabel: "Progres:",
-      modulBtn: "Modul",
-      installApp: "Pasang Aplikasi",
-      install: "Pasang",
-      navDashboard: "Beranda",
-      navExam: "Simulasi Ujian Goethe",
-      navTranslator: "Penerjemah Pintar",
-      navFlashcards: "Kartu Hafalan Kata",
-      navArticleFinder: "Pencari Der Die Das",
-      navMusic: "Musik Belajar Santai",
-      curriculumModules: "Modul Kurikulum",
-      curriculumSubtitle: "38 Bab Lengkap Jerman A1",
-      studioFooter: "CheeYa Studio \u2726 Standar Resmi A1",
-
-      welcomeBadge: "&#10022; Selamat Datang di CheeYa Studio",
-      heroTitle: "Belajar Bahasa Jerman A1 Mandiri &amp; Lengkap",
-      heroDesc: "Kuasai bahasa Jerman secara bertahap lewat 38 bab pelajaran interaktif&mdash;mulai dari cara membaca alfabet, rumus tata bahasa, percakapan sehari-hari, hingga lulus ujian Goethe A1.",
-      continueStudy: "Lanjut Belajar",
-      startLesson01: "Mulai dari Bab 01",
-      badgeGerman: "JERMAN",
-      badgeLessons: "&#10022; 38 PELAJARAN",
-
-      statCompleted: "Telah Selesai",
-      statRemaining: "Tersisa",
-      statOverallScore: "Skor Progres",
-      statGrammarMastery: "Penguasaan Materi",
-
-      bannerNextUp: "PELAJARAN SELANJUTNYA",
-      bannerLesson: "Pelajaran",
-      bannerStartNow: "Mulai Sekarang &rarr;",
-      bannerExploreRoadmap: "Lihat Peta Modul &darr;",
-
-      curriculumRoadmap: "Peta Materi &amp; Modul",
-      curriculumRoadmapDesc: "38 bab pelajaran resmi terbagi dalam 9 modul bertahap",
-      backToDashboard: "Kembali ke Beranda",
-      downloadPdf: "Unduh PDF Bab Ini",
-      markCompleted: "Tandai Selesai",
-      completed: "Selesai &#10003;",
-      nextLesson: "Pelajaran Selanjutnya",
-      prevLesson: "Pelajaran Sebelumnya",
-      finishReview: "Selesai &amp; Ke Beranda",
-      doneTag: "Selesai",
-      openArrow: "Buka &rarr;",
-      curriculumLevelA1: "KURIKULUM A1",
-
-      progressModalTitle: "Progres Belajar &amp; Modul Selesai",
-      progressModalSubtitle: "Daftar lengkap 9 modul &amp; pelajaran German A1 yang telah selesai",
-      lessonsCompletedLabel: "Pelajaran Selesai",
-      modulesCompletedLabel: "Modul Selesai",
-      totalProgressLabel: "Total Progres",
-      statusDone: "Selesai",
-      statusInProgress: "Sedang Berjalan",
-      statusNotStarted: "Belum Mulai",
-      closeBtn: "Tutup"
-    }
-  },
-
-  t(key) {
-    const lang = this.currentLang;
-    if (this.translations[lang] && this.translations[lang][key] !== undefined) {
-      return this.translations[lang][key];
-    }
-    if (this.translations['en'] && this.translations['en'][key] !== undefined) {
-      return this.translations['en'][key];
-    }
-    return key;
-  },
-
-  setLanguage(lang) {
-    if (lang !== 'en' && lang !== 'id') lang = 'en';
-    this.currentLang = lang;
-    localStorage.setItem('cheeya_lang', lang);
-
-    // Sync Google Translate cookies
-    try {
-      if (lang === 'id') {
-        document.cookie = "googtrans=/en/id; path=/";
-        document.cookie = "googtrans=/en/id; domain=" + window.location.hostname + "; path=/";
-      } else {
-        document.cookie = "googtrans=/en/en; path=/";
-        document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-      }
-    } catch(e) {}
-
-    // Trigger Google Translate dropdown if loaded
-    this.triggerGoogleTranslate(lang);
-
-    this.apply();
-  },
-
-  triggerGoogleTranslate(targetLang) {
-    try {
-      const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
-      if (select) {
-        select.value = targetLang;
-        select.dispatchEvent(new Event('change'));
-      }
-    } catch(e) {
-      console.log('Google Translate note:', e);
-    }
-  },
-
-  init() {
-    this.apply();
-  },
-
-  apply() {
-    const lang = this.currentLang;
-
-    // 1. Update Language buttons in Header
-    const btnEn = document.getElementById('langBtnEn');
-    const btnId = document.getElementById('langBtnId');
-    if (btnEn && btnId) {
-      if (lang === 'en') {
-        btnEn.className = "px-2.5 py-1 rounded-lg text-xs font-black transition-all cursor-pointer bg-white text-pink-600 shadow-2xs";
-        btnId.className = "px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-500 hover:text-pink-600";
-      } else {
-        btnEn.className = "px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer text-slate-500 hover:text-pink-600";
-        btnId.className = "px-2.5 py-1 rounded-lg text-xs font-black transition-all cursor-pointer bg-white text-pink-600 shadow-2xs";
-      }
-    }
-
-    // 2. Update all DOM elements with data-i18n
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      const val = this.t(key);
-      if (val) el.innerHTML = val;
-    });
-
-    // 3. Update all DOM elements with data-i18n-placeholder
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const key = el.getAttribute('data-i18n-placeholder');
-      const val = this.t(key);
-      if (val) el.placeholder = val;
-    });
-
-    // 4. Update dynamic elements
-    if (typeof App !== 'undefined') {
-      if (App.updateCompleteButtonUI) App.updateCompleteButtonUI();
-      if (App.renderSidebar) App.renderSidebar();
-      if (App.renderRoadmap) App.renderRoadmap();
-      if (App.updateProgressMetrics) App.updateProgressMetrics();
-      if (App.currentView === 'lesson' && App.currentLessonId) {
-        App.openLesson(App.currentLessonId);
-      }
-    }
-  },
-
-  localizeLessonContent(container, lessonId) {
-    if (!container) return;
-
-    // 1. Mark German words, code blocks, and audio buttons with notranslate
-    container.querySelectorAll('button[onclick*="speak"], button[onclick*="Audio"], code, pre, .font-mono').forEach(el => {
-      el.classList.add('notranslate');
-      el.setAttribute('translate', 'no');
-    });
-
-    // 2. Prepend friendly aesthetic bilingual banner
-    const existingNotice = container.querySelector('.cheeya-id-banner');
-    if (!existingNotice) {
-      const banner = document.createElement('div');
-      banner.className = 'cheeya-id-banner mb-6 p-4 rounded-2xl bg-gradient-to-r from-pink-50 via-rose-50 to-pink-50 border border-pink-200/90 flex items-center justify-between flex-wrap gap-3 text-xs shadow-2xs select-none animate-in fade-in';
-      banner.innerHTML = `
-        <div class="flex items-center gap-3">
-          <span class="w-8 h-8 rounded-xl bg-pink-500 text-white font-black flex items-center justify-center text-xs shadow-xs select-none tracking-wider">ID</span>
-          <div>
-            <div class="font-bold text-slate-800 text-sm flex items-center gap-1.5">
-              <span>Materi Bahasa Indonesia Aktif</span>
-              <span class="text-[10px] bg-pink-100 text-pink-700 font-extrabold px-2 py-0.5 rounded-full uppercase tracking-wider">Santai &amp; Praktis</span>
-            </div>
-            <div class="text-xs text-slate-600 mt-0.5">
-              Penjelasan, tabel arti kata, rumus &amp; tips belajar disajikan dalam bahasa Indonesia santai agar mudah dipahami.
-            </div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2">
-          <button onclick="I18n.triggerGoogleTranslate('id')" class="px-3 py-1.5 rounded-xl bg-pink-500 hover:bg-pink-600 text-white font-bold text-xs shadow-sm transition-all cursor-pointer flex items-center gap-1" title="Terjemahkan paragraf lengkap via Google Translate">
-            <span>&#10024; Auto-Translate Halaman</span>
-          </button>
-          <button onclick="I18n.setLanguage('en')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-pink-50 text-slate-700 font-semibold text-xs border border-pink-200 transition-all shadow-2xs cursor-pointer flex items-center">
-            <span class="w-4 h-4 rounded bg-slate-200 text-slate-700 text-[9px] font-black inline-flex items-center justify-center mr-1.5">EN</span>
-            <span>Versi English</span>
-          </button>
-        </div>
-      `;
-      container.insertBefore(banner, container.firstChild);
-    }
-
-    // 3. Localize Meta Badges
-    container.querySelectorAll('span, div, p').forEach(el => {
-      const t = el.innerText.trim();
-      if (t === 'Level: German A1 - Absolute Beginner') el.innerText = 'Level: Jerman A1 - Pemula Total';
-      else if (t === 'Explanation: English') el.innerText = 'Penjelasan: Bahasa Indonesia (Santai)';
-      else if (t === 'Target: German') el.innerText = 'Target: Bahasa Jerman';
-      else if (t.includes('Study:')) el.innerText = t.replace('Study:', '\u23F1 Waktu Belajar:').replace('min', 'menit');
-      else if (t === 'Type: Foundation') el.innerText = 'Tipe: Pondasi Dasar';
-      else if (t === 'Type: Core Foundation') el.innerText = 'Tipe: Pondasi Inti';
-      else if (t === 'Prerequisite: None') el.innerText = 'Prasyarat: Dari Nol (Tanpa Prasyarat)';
-      else if (t.includes('Prerequisite: Lesson')) el.innerText = t.replace('Prerequisite: Lesson', 'Prasyarat: Pelajaran');
-    });
-
-    // 4. Localize Table Headers
-    const tableHeaderMap = {
-      'Letter': 'Huruf',
-      'German Name': 'Nama Huruf',
-      'Pronunciation Guide': 'Panduan Bunyi / Cara Baca',
-      'Pronunciation': 'Cara Baca',
-      'Example': 'Contoh Kata',
-      'German': 'Bahasa Jerman',
-      'Bahasa Jerman': 'Bahasa Jerman',
-      'German Word': 'Kata Jerman',
-      'English': 'Arti Bahasa Indonesia',
-      'Meaning': 'Arti Bahasa Indonesia',
-      'English Meaning': 'Arti Bahasa Indonesia',
-      'English Translation': 'Arti Bahasa Indonesia',
-      'Question': 'Pertanyaan',
-      'Positive': 'Kalimat Positif',
-      'Negative': 'Kalimat Penyangkalan (Negatif)',
-      'Function': 'Fungsi Tata Bahasa',
-      'Subject': 'Subjek',
-      'Rule': 'Aturan Rumus',
-      'Formula': 'Rumus',
-      'Singular': 'Tunggal (Singular)',
-      'Plural': 'Jamak (Plural)',
-      'Masculine': 'Maskulin (der)',
-      'Feminine': 'Feminin (die)',
-      'Neuter': 'Netral (das)',
-      'Point': 'Poin Kunci',
-      'Core Pattern': 'Pola / Rumus Inti',
-      'Notes': 'Catatan Penting',
-      'Case': 'Kasus Tata Bahasa',
-      'Nominative': 'Nominativ (Subjek)',
-      'Accusative': 'Akkusativ (Objek Langsung)',
-      'Dative': 'Dativ (Objek Tak Langsung)',
-      'Number': 'Angka',
-      'Structure': 'Struktur Pembentukan',
-      'Type': 'Jenis / Tipe',
-      'Situation': 'Situasi Percakapan',
-      'Sentence': 'Kalimat Contoh',
-      'What you want to say': 'Maksud yang Ingin Disampaikan',
-      'Your answer': 'Jawabanmu',
-      'Options': 'Pilihan Jawaban',
-      'Words': 'Kata Acak',
-      'Positive sentence': 'Kalimat Positif'
-    };
-    container.querySelectorAll('th').forEach(th => {
-      const txt = th.innerText.trim();
-      if (tableHeaderMap[txt]) th.innerText = tableHeaderMap[txt];
-    });
-
-    // 5. Localize Section Titles, Headings & Subheads across all 38 lessons
-    const headingMap = {
-      'Welcome to German': 'Selamat Datang di Bahasa Jerman',
-      'What is Pronunciation?': 'Apa itu Pelafalan (Pronunciation)?',
-      'The German Alphabet': 'Alfabet Bahasa Jerman',
-      'German Letter Names': 'Nama-Nama Huruf Bahasa Jerman',
-      'Important German Vowels': 'Huruf Vokal Penting Bahasa Jerman',
-      'Consonant Combinations': 'Kombinasi Huruf Konsonan',
-      'Practice Exercises': 'Latihan Soal & Praktik Mandiri',
-      'Summary': 'Rangkuman Materi',
-      'Mindset Shift:': 'Pola Pikir Belajar:',
-      'The Big Picture': 'Gambaran Besar Materi',
-      'Number Formation': 'Pembentukan Angka',
-      'THE GOLDEN FORMULA': 'RUMUS EMAS PEMBENTUKAN',
-      'Numbers 0 to 12': 'Angka 0 sampai 12: Pondasi Mutlak',
-      'Numbers 13 to 19': 'Angka 13 sampai 19: Akhiran Belasan (-zehn)',
-      'Tens 20 to 100': 'Puluhan 20 sampai 100: Akhiran Puluhan (-zig)',
-      'Compound Numbers 21 to 99': 'Angka Gabungan 21 sampai 99: Satuan + und + Puluhan',
-      'Practical Applications': 'Penerapan Praktis: Usia, Telepon, Harga & Waktu',
-      'Asking and Giving Age': 'Menanyakan dan Menyebutkan Usia',
-      'Phone Numbers in German': 'Nomor Telepon dalam Bahasa Jerman',
-      'Prices: Euro and Cent': 'Harga Belanja: Euro dan Cent',
-      'Everyday Dialogues': 'Dialog Percakapan Sehari-hari',
-      'Common Mistakes to Avoid': 'Kesalahan Umum yang Harus Dihindari',
-      'Common Beginner Mistakes': 'Kesalahan Umum Pemula yang Sering Terjadi',
-      'Number Practice Exercises': 'Latihan Soal Mandiri: Angka',
-      'Personal Pronouns': 'Kata Ganti Orang (Personal Pronouns)',
-      'Regular Verb Conjugation': 'Konjugasi Kata Kerja Beraturan (Pr\u00e4sens)',
-      'Irregular Verbs': 'Kata Kerja Tidak Beraturan (Unregelm\u00e4\u00dfige Verben)',
-      'Articles and Gender': 'Artikel & Gender Kata Benda (der, die, das)',
-      'Definite Articles': 'Artikel Pasti (der, die, das)',
-      'Indefinite Articles': 'Artikel Tidak Pasti (ein, eine, ein)',
-      'Negative Articles': 'Artikel Negatif / Penyangkalan (kein, keine)',
-      'Plural Forms': 'Bentuk Jamak Kata Benda (Plural)',
-      'Basic Questions': 'Kalimat Tanya Dasar (W-Fragen & Ja/Nein-Fragen)',
-      'W-Fragen': 'W-Fragen (Pertanyaan dengan Kata Tanya)',
-      'Ja/Nein-Fragen': 'Ja/Nein-Fragen (Pertanyaan Ya / Tidak)',
-      'Question Words': 'Kata-Kata Tanya (W-W\u00f6rter)',
-      'Word Order Rules': 'Aturan Urutan Kata dalam Kalimat',
-      'Accusative Case': 'Kasus Akkusativ (Objek Langsung)',
-      'Dative Case': 'Kasus Dativ (Objek Tak Langsung)',
-      'Modal Verbs': 'Kata Kerja Modal (Modalverben: k\u00f6nnen, m\u00fcssen, wollen...)',
-      'Separable Verbs': 'Kata Kerja Terpisah (Trennbare Verben)',
-      'Inseparable Verbs': 'Kata Kerja Tak Terpisah (Untrennbare Verben)',
-      'Prepositions with Accusative': 'Preposisi Khusus Akkusativ (durch, f\u00fcr, gegen, ohne, um)',
-      'Prepositions with Dative': 'Preposisi Khusus Dativ (aus, bei, mit, nach, seit, von, zu)',
-      'Two-Way Prepositions': 'Preposisi Dua Kasus (Wechselpr\u00e4positionen)',
-      'Conversational Past (Perfekt)': 'Bentuk Lampau Percakapan (Perfekt: haben / sein)',
-      'Sentence Structure (Satzbau)': 'Struktur & Pola Kalimat (Satzbau)',
-      'TE-KA-MO-LO': 'Urutan Keterangan TE-KA-MO-LO (Waktu, Sebab, Cara, Tempat)',
-      'Adjective Endings': 'Akhiran Kata Sifat (Adjektivendungen)',
-      'Comparative and Superlative': 'Bentuk Perbandingan (Komparativ & Superlativ)',
-      'Imperative (Commands)': 'Kalimat Perintah (Imperativ)',
-      'Conjunctions': 'Kata Sambung Kalimat (und, aber, oder, denn, weil, dass)',
-      'Goethe A1 Exam Preparation': 'Persiapan Ujian Goethe Zertifikat A1',
-      'Exam Simulation': 'Simulasi & Latihan Ujian Goethe A1',
-      'Grammar Cheatsheet': 'Lembar Rumus Cepat',
-      'Core Rules': 'Aturan Inti Tata Bahasa',
-      'Golden Rule': 'Aturan Emas',
-      'Key Warning': 'Peringatan Penting',
-      'Remember': 'Ingat Baik-Baik',
-      'QUICK EXAMPLES': 'CONTOH CEPAT',
-
-      // Lesson 4 Specific Headings
-      'B. PROFESSION / ROLE': 'B. PROFESI / PEKERJAAN',
-      'C. STATE / DESCRIPTION / LOCATION': 'C. KONDISI / SIFAT / LOKASI',
-      'A. Identity': 'A. Identitas Diri',
-      'A. IDENTITY': 'A. IDENTITAS DIRI',
-      'DU, IHR, SIE - DON\'T MIX THEM UP': 'DU, IHR, SIE - JANGAN SAMPAI TERTUKAR',
-      'SIE vs. sie': 'SIE (Sopan) vs. sie (Dia/Mereka)',
-      'SEIN IN QUESTIONS': 'SEIN DALAM KALIMAT TANYA',
-      'W-QUESTIONS WITH SEIN': 'W-FRAGEN DENGAN SEIN',
-      'THREE IMPORTANT USES': '3 PENGGUNAAN PENTING KATA KERJA SEIN',
-      'SEIN + BASIC INFORMATION': 'SEIN + INFORMASI DASAR',
-      'COMPLETE THE SENTENCE': 'LENGKAPI KALIMAT DENGAN TEPAT',
-      'CHOOSE THE CORRECT FORM': 'PILIH BENTUK YANG BENAR',
-      'BUILD THE SENTENCE': 'SUSUNLAH KALIMATNYA',
-      'STATEMENT   QUESTION': 'PERNYATAAN \u2192 PERTANYAAN',
-      'STATEMENT \u2192 QUESTION': 'PERNYATAAN \u2192 PERTANYAAN',
-      'MAKE IT NEGATIVE': 'UBAH KE BENTUK NEGATIF',
-      'TRANSLATE INTO GERMAN': 'LATIHAN TERJEMAHKAN KE JERMAN',
-      'SITUATION CHALLENGE': 'TANTANGAN SITUASI SEHARI-HARI',
-      'FINAL REFERENCE': 'TABEL RINGKASAN AKHIR',
-      'PRACTICE - PART A': 'LATIHAN - BAGIAN A',
-      'PRACTICE - PART B': 'LATIHAN - BAGIAN B',
-      'PRACTICE - PART C': 'LATIHAN - BAGIAN C',
-      'PRACTICE - PART D': 'LATIHAN - BAGIAN D',
-      'PRACTICE - PART E': 'LATIHAN - BAGIAN E',
-      'PRACTICE - PART F': 'LATIHAN - BAGIAN F',
-      'PRACTICE - PART G': 'LATIHAN - BAGIAN G',
-
-      // Lesson 37 Specific Headings
-      'HOBBIES, FREE TIME & WEATHER': 'HOBI, WAKTU LUANG & CUACA',
-      '1. HOBBIES \u2014 HOBI': '1. HOBI (HOBBIES)',
-      '1. HOBBIES - HOBI': '1. HOBI (HOBBIES)',
-      '2. WEATHER': '2. CUACA & MUSIM',
-      '3. FREE TIME ACTIVITIES': '3. KEGIATAN WAKTU LUANG',
-      'FINAL A1 CHEATSHEET - TIME': 'LEMBAR CONTEKAN AKHIR - WAKTU & JAM',
-      'FINAL A1 CHEATSHEET - EVERYDAY SENTENCE PATTERNS': 'LEMBAR CONTEKAN AKHIR - POLA KALIMAT HARIAN',
-      'FINAL A1 CHEATSHEET - THE MOST IMPORTANT RULES': 'LEMBAR CONTEKAN AKHIR - ATURAN TERPENTING A1',
-      'FINAL A1 MASTER REVIEW': 'ULASAN TUNTAS PENGUASAAN LEVEL A1'
-    };
-
-    container.querySelectorAll('h1, h2, h3, h4, .l4-subhead, .l7-section-title, .l7-kicker, .cs-head, .l26-subhead, .l38-title, .l38-subtitle, .l4-section-head span:last-child').forEach(h => {
-      const original = h.innerText.trim();
-      for (const [enKey, idVal] of Object.entries(headingMap)) {
-        if (original.toLowerCase().includes(enKey.toLowerCase())) {
-          h.innerText = original.replace(new RegExp(enKey, 'i'), idVal);
-          break;
-        }
-      }
-    });
-
-    // 6. Comprehensive Paragraph, Callout, and Table Cell Localization
-    const textReplacements = [
-      // Lesson 4 Table translations (English -> Indonesian)
-      ['I am a student.', 'Saya seorang mahasiswa.'],
-      ['I am a student', 'Saya seorang mahasiswa'],
-      ['He is a teacher.', 'Dia seorang guru (laki-laki).'],
-      ['She is a teacher.', 'Dia seorang guru (perempuan).'],
-      ['We are students.', 'Kami adalah mahasiswa.'],
-      ['I am tired.', 'Saya lelah / capek.'],
-      ['You are nice.', 'Kamu baik hati / ramah.'],
-      ['I am here.', 'Saya ada di sini.'],
-      ['She is Anna.', 'Dia adalah Anna.'],
-      ['I am Anna.', 'Saya Anna.'],
-      ['You are Max.', 'Kamu Max.'],
-      ['He is Thomas.', 'Dia Thomas.'],
-      ['It is cold.', 'Cuacanya dingin.'],
-      ['We are friends.', 'Kami berteman / bersahabat.'],
-      ['You are here.', 'Kalian ada di sini.'],
-      ['They are students.', 'Mereka adalah mahasiswa.'],
-      ['You are Mr. M\u00fcller.', 'Anda adalah Bapak M\u00fcller.'],
-      ['You are Mrs. M\u00fcller.', 'Anda adalah Ibu M\u00fcller.'],
-      ['He is at home.', 'Dia ada di rumah.'],
-      ['Are you tired?', 'Apakah kamu lelah?'],
-      ['Is he a student?', 'Apakah dia seorang mahasiswa?'],
-      ['Is she here?', 'Apakah dia ada di sini?'],
-      ['Are we friends?', 'Apakah kita berteman?'],
-      ['Are they students?', 'Apakah mereka mahasiswa?'],
-      ['Are you Mrs. M\u00fcller?', 'Apakah Anda Ibu M\u00fcller?'],
-      ['Who are you?', 'Siapa kamu? / Siapa Anda?'],
-      ['What is that?', 'Apa itu?'],
-      ['Where is Anna?', 'Di mana Anna?'],
-      ['I am not...', 'Saya bukan...'],
-      ['I am not a...', 'Saya bukan seorang...'],
-      ['I am not tired.', 'Saya tidak lelah.'],
-      ['This is Anna.', 'Ini adalah Anna.'],
-      ['Say that you are tired.', 'Katakan bahwa kamu lelah.'],
-      ['Say that you are a student.', 'Katakan bahwa kamu seorang mahasiswa.'],
-      ['Ask a friend if they are tired.', 'Tanyakan ke teman apakah dia lelah.'],
-      ['Ask who someone is informally.', 'Tanyakan siapa seseorang secara santai.'],
-      ['Ask who someone is formally.', 'Tanyakan siapa seseorang secara formal (sopan).'],
-      ['Say that you are not tired.', 'Katakan bahwa kamu tidak lelah.'],
-      ['Say that someone is a teacher.', 'Katakan bahwa seseorang adalah guru.'],
-      ['Ask what something is.', 'Tanyakan benda apa itu.'],
-      ['You are tired. (informal plural)', 'Kalian lelah. (jamak santai)'],
-      ['You are a teacher. (formal)', 'Anda seorang guru. (formal)'],
-
-      // Lesson 4 Explanations & Structural Notes
-      ['This connects directly to:', 'Pola ini langsung terhubung ke:'],
-      ['What to memorize', 'Rumus yang Wajib Dihafal:'],
-      ['The basic sentence structure is:', 'Susunan kalimat dasarnya adalah:'],
-      ['Subject + sein + information', 'Subjek + sein + informasi pelengkap'],
-      ['Use <strong>sein</strong> to say who someone is.', 'Gunakan <strong>sein</strong> untuk menyebutkan identitas seseorang.'],
-      ['Use sein to say who someone is.', 'Gunakan sein untuk menyebutkan identitas seseorang.'],
-      ['Capitalization changes the meaning.', 'Huruf kapital mengubah arti kata/kalimat.'],
-      ['The verb helps identify the meaning:', 'Bentuk kata kerja membantu membedakan artinya:'],
-      ['For a yes/no question, put the conjugated form of <strong>sein</strong> before the subject.', 'Untuk kalimat tanya ya/tidak, letakkan kata kerja <strong>sein</strong> di depan subjek (posisi 1).'],
-      ['For a yes/no question, put the conjugated form of sein before the subject.', 'Untuk kalimat tanya ya/tidak, letakkan kata kerja sein di depan subjek (posisi 1).'],
-      ['The basic structure is:', 'Rumus dasarnya adalah:'],
-      ['Question word + sein + subject + ...?', 'Kata tanya + sein + subjek + ...?'],
-      ['Fill in the correct form of <strong>sein</strong>.', 'Isi dengan bentuk kata kerja <strong>sein</strong> yang tepat.'],
-      ['Fill in the correct form of sein.', 'Isi dengan bentuk kata kerja sein yang tepat.'],
-      ['Arrange the words into the correct German sentence.', 'Susun kata-kata acak berikut menjadi kalimat Jerman yang benar.'],
-      ['Change each statement into a yes/no question.', 'Ubahlah setiap pernyataan berikut menjadi pertanyaan ya/tidak.'],
-      ['Use <strong>nicht</strong>, <strong>kein</strong>, or <strong>keine</strong>.', 'Gunakan kata <strong>nicht</strong>, <strong>kein</strong>, atau <strong>keine</strong>.'],
-      ['These three forms all translate as <strong>you</strong> in English, but they are different in German.', 'Ketiga bentuk ini semuanya diterjemahkan sebagai "kamu/kalian/Anda", tetapi memiliki peran berbeda dalam bahasa Jerman.'],
-      ['These three forms all translate as you in English, but they are different in German.', 'Ketiga bentuk ini semuanya diterjemahkan sebagai "kamu/kalian/Anda", tetapi memiliki peran berbeda dalam bahasa Jerman.'],
-      ['1 person, informal', '1 orang, santai/akrab'],
-      ['2+ people, informal', '2 orang atau lebih, santai/akrab'],
-      ['formal, 1+ people', '1 orang atau lebih, formal/sopan'],
-      ['Talking to Anna and Lisa', 'Berbicara dengan Anna & Lisa (akrab)'],
-      ['Talking to Anna', 'Berbicara dengan Anna (akrab)'],
-      ['Speaking formally', 'Berbicara secara formal / sopan'],
-
-      // Lesson 37 Table translations (Hobbies & Weather)
-      ['My hobby is ...', 'Hobi saya adalah ...'],
-      ['My hobbies are ...', 'Hobi-hobi saya adalah ...'],
-      ['I have many hobbies.', 'Saya punya banyak hobi.'],
-      ['I like ...', 'Saya suka / gemar ...'],
-      ['What is your hobby?', 'Apa hobimu?'],
-      ['What do you like doing?', 'Apa yang suka kamu lakukan?'],
-      ['das Hobby, die Hobbys = hobby', 'das Hobby, die Hobbys = hobi / kegemaran'],
-      ['To talk about hobbies, German commonly uses:', 'Untuk membicarakan hobi, bahasa Jerman umumnya menggunakan kalimat:'],
-      ['Hobbies, Freizeit, weekend plans, weather, seasons, temperature, and A1 grammar integration.', 'Hobi, waktu luang (Freizeit), rencana akhir pekan, cuaca, musim, suhu, dan penerapan rumus A1.'],
-
-      // Lesson 38 Master Cheatsheet & Patterns
-      ['I have a brother.', 'Saya punya seorang saudara laki-laki.'],
-      ['I live in Berlin.', 'Saya tinggal di Berlin.'],
-      ['I come from Indonesia.', 'Saya berasal dari Indonesia.'],
-      ['I speak English.', 'Saya bisa berbahasa Inggris.'],
-      ['I learn German.', 'Saya sedang belajar bahasa Jerman.'],
-      ['I would like a coffee.', 'Saya mau memesan kopi.'],
-      ['I can speak German.', 'Saya bisa berbicara bahasa Jerman.'],
-      ['I have to work.', 'Saya harus bekerja.'],
-      ['I go to the cinema.', 'Saya pergi ke bioskop.'],
-      ['I go by bus.', 'Saya naik bus.'],
-      ['I cooked.', 'Saya tadi memasak.'],
-      ['I went home.', 'Saya pulang ke rumah.'],
-      ['I like music.', 'Saya suka musik.'],
-      ['I like reading.', 'Saya gemar membaca.'],
-      ['I don\'t have time.', 'Saya tidak punya waktu.'],
-      ['I am not working today.', 'Hari ini saya tidak bekerja.'],
-      ['at 8 o\'clock', 'pada jam 8 tepat'],
-      ['on Monday', 'pada hari Senin'],
-      ['at/on the weekend', 'pada akhir pekan'],
-      ['in January', 'pada bulan Januari'],
-      ['in summer', 'pada musim panas'],
-      ['from 8 to 10', 'dari jam 8 sampai 10'],
-
-      // Lesson 1 Explanations
-      ['Welcome to your first German lesson. Before grammar, cases, conjugations, or large vocabulary, build a reliable foundation. Pronunciation is part of that foundation.', 'Selamat datang di pelajaran bahasa Jerman pertamamu! Sebelum masuk ke tata bahasa rumit, kasus, atau hafalan kosakata banyak, yuk bangun fondasi yang kuat dulu. Pelafalan (cara membaca) adalah kunci utamanya.'],
-      ['German may initially look familiar because it uses the Latin alphabet. You recognize many letters from English. However, familiar letters do <strong>NOT</strong> necessarily have the same pronunciation.', 'Bahasa Jerman awalnya terasa akrab karena menggunakan alfabet Latin seperti bahasa Indonesia. Kamu mengenali banyak hurufnya, tapi huruf yang tampak sama <strong>TIDAK</strong> selalu dibaca sama!'],
-      ['For example:', 'Sebagai contoh:'],
-      ['German <strong>W</strong> is generally pronounced differently from English W.', 'Huruf <strong>W</strong> dalam bahasa Jerman dibaca seperti bunyi "V" (contoh: <em>Wasser</em> dibaca <em>Vasser</em>).'],
-      ['German <strong>J</strong> is generally pronounced differently from English J.', 'Huruf <strong>J</strong> dalam bahasa Jerman dibaca seperti bunyi "Y" (contoh: <em>Ja</em> dibaca <em>Ya</em>).'],
-      ['German <strong>Z</strong> is generally pronounced differently from English Z.', 'Huruf <strong>Z</strong> dalam bahasa Jerman dibaca seperti bunyi "Ts" (contoh: <em>Zimmer</em> dibaca <em>Tsimmer</em>).'],
-      ['German <strong>V</strong> is generally pronounced like English F.', 'Huruf <strong>V</strong> dalam bahasa Jerman umumnya dibaca seperti bunyi "F" (contoh: <em>Vater</em> dibaca <em>Fater</em>).'],
-      ['German also has letters and characters that are not part of the basic English alphabet:', 'Bahasa Jerman juga memiliki 4 huruf spesial yang unik:'],
-      ['One of your first goals is to stop reading German through English pronunciation rules. When you see a German word, train your brain to think: <em>"What is the German pronunciation pattern?"</em> rather than: <em>"How would I pronounce this spelling in English?"</em> This habit will become extremely useful throughout your A1 journey.', 'Trik penting dari awal: jangan membaca kata Jerman dengan cara baca bahasa Inggris! Saat melihat kata Jerman, latih pikiran kamu untuk mengingat: <em>"Bagaimana cara baca khas Jerman untuk huruf ini?"</em> Kebiasaan ini akan bikin kamu cepat lancar di level A1.'],
-      ['Pronunciation means the way a word is spoken. Spelling tells you how a word is written. Pronunciation tells you how that word sounds when someone says it. These two systems are related, but they are not identical.', 'Pelafalan (pronunciation) adalah cara suatu kata diucapkan saat berbicara, sedangkan ejaan adalah cara kata itu ditulis. Keduanya saling berhubungan, tapi tidak selalu sama persis.'],
-      ['Learn pronunciation with vocabulary. Do not simply memorize: <em>Wasser = water</em>. Also listen to how <strong>Wasser</strong> is pronounced.', 'Pelajari cara membaca bersamaan dengan menghafal kosakata. Jangan cuma menghafal artinya saja, tapi dengarkan juga bunyi pengucapannya.'],
-      ['German spelling &rarr; German sound &rarr; English meaning', 'Ejaan Jerman &rarr; Bunyi pelafalan Jerman &rarr; Arti bahasa Indonesia'],
-      ['German uses the Latin alphabet. The basic alphabet contains 26 letters:', 'Bahasa Jerman menggunakan alfabet Latin standar. Alfabet dasarnya terdiri dari 26 huruf:'],
-      ['German additionally uses:', 'Selain 26 huruf dasar di atas, bahasa Jerman punya 4 huruf tambahan:'],
-      ['The special character is: <strong>\u00df</strong>, called: Eszett or: scharfes S.', 'Satu huruf khusus lagi adalah: <strong>\u00df</strong>, yang dinamai Eszett atau S tajam (dibaca seperti bunyi "ss").'],
-      ['When Germans spell a word, they use the German names of the letters. Learn the following letter names:', 'Saat orang Jerman mengeja nama atau kata, mereka menyebut nama huruf-huruf berikut:'],
-
-      // Lesson 2 Explanations
-      ['Welcome to Lesson 02. In this lesson, you will master German numbers from 0 to 100. Numbers are an indispensable part of daily life: telling your age, sharing your phone number, paying for a coffee, catching the right bus, or finding your hotel room.', 'Selamat datang di Pelajaran 02! Di bab ini, kamu akan menguasai angka 0 sampai 100 dalam bahasa Jerman. Angka sangat penting untuk aktivitas harian: menyebutkan usia, bertukar nomor telepon, bayar belanjaan, naik bus, atau mencari kamar hotel.'],
-      ['German numbers follow a very systematic, logical pattern once you learn the fundamental building blocks. However, there is one major structural difference from English that every learner must understand from day one:', 'Angka bahasa Jerman polanya sangat teratur dan logis setelah kamu memahami blok pondasinya. Tapi ada satu perbedaan rumus penting yang wajib kamu pahami dari awal:'],
-      ['THE GOLDEN FORMULA (21-99)', 'RUMUS EMAS ANGKA (21-99)'],
-      ['In German, for numbers from 21 to 99, you say the ONES digit first, then the word und (and), and then the TENS digit.', 'Dalam bahasa Jerman, untuk angka 21 sampai 99, sebutkan angka SATUAN terlebih dahulu, lalu kata und (dan), baru angka PULUHAN.'],
-      ['For example: 21 is literally one-and-twenty (einundzwanzig).', 'Contoh: 21 diucapkan secara harfiah "satu-dan-dua puluh" (einundzwanzig).'],
-
-      // Lesson 7 Explanations
-      ['Questions are used to ask for information or to check whether something is true.', 'Kalimat tanya dipakai untuk meminta info atau mengecek kebenaran suatu hal.'],
-      ['In German, there are two basic types of questions:', 'Dalam bahasa Jerman, ada 2 jenis pertanyaan dasar:'],
-      ['W-Frage &rarr; question with a question word', 'W-Frage &rarr; Pertanyaan dengan kata tanya (W-word)'],
-      ['Ja/Nein-Frage &rarr; question answered with yes or no', 'Ja/Nein-Frage &rarr; Pertanyaan yang cukup dijawab ya/tidak'],
-      ['The first question asks for specific information.', 'Pertanyaan pertama menanyakan info spesifik.'],
-      ['The second question can be answered with <strong>ja</strong> or <strong>nein</strong>.', 'Pertanyaan kedua bisa dijawab cukup dengan <strong>ja</strong> atau <strong>nein</strong>.'],
-      ['Rule 1: In a W-question, the conjugated verb is in position 2.', 'Aturan 1: Pada W-Frage, kata kerja berkonjugasi selalu berada di posisi kedua (posisi 2).'],
-      ['Rule 2: In a Yes/No question, the conjugated verb is in position 1.', 'Aturan 2: Pada Ja/Nein-Frage, kata kerja berkonjugasi selalu berada di posisi pertama (posisi 1).'],
-
-      // Universal Rules
-      ['Quick memory: Learn the pattern, then say the example aloud. This cheat sheet is an added review section; the original lesson material above remains unchanged.', 'Tips ingat cepat: Pahami polanya, lalu ucapkan contoh kalimatnya dengan lantang. Lembar contekan ini adalah rangkuman cepat materi pelajaran.'],
-      ['The golden rule: conjugated finite verb in position 2 in main clauses.', 'Aturan emas: kata kerja berkonjugasi selalu berada di posisi 2 pada kalimat utama.'],
-      ['The subject of the sentence, predicate nominative with sein/werden.', 'Kasus Nominativ: subjek kalimat dan pelengkap setelah kata kerja sein/werden.'],
-      ['Direct objects: der changes to den, while die, das, and die plural remain unchanged.', 'Kasus Akkusativ (objek langsung): hanya der yang berubah jadi den (ein &rarr; einen), lainnya tetap.'],
-      ['Indirect objects: dem, der, dem, den (+n). When and why dative is triggered.', 'Kasus Dativ (objek tak langsung): der/das berubah jadi dem, die jadi der, jamak jadi den (+n).'],
-      ['Conversational past: haben + Partizip II (ge- -t / ge- -en).', 'Bentuk lampau percakapan: rumus haben + Partizip II (ge-...-t / ge-...-en di akhir kalimat).'],
-      ['Past tense of movement and change of state (sein + Partizip II).', 'Bentuk lampau untuk perpindahan tempat dan perubahan status: sein + Partizip II.']
-    ];
-
-    // Replace in all text and table elements
-    container.querySelectorAll('p, li, td, .cs-foot, .l7-hero p, .l7-section p, .l4-p, .l4-keyline').forEach(node => {
-      if (node.tagName === 'CODE' || node.tagName === 'PRE' || node.classList.contains('notranslate')) return;
-      let html = node.innerHTML;
-      let changed = false;
-      for (const [enStr, idStr] of textReplacements) {
-        if (html.includes(enStr)) {
-          html = html.split(enStr).join(idStr);
-          changed = true;
-        }
-      }
-      if (changed) {
-        node.innerHTML = html;
-      }
-    });
-
-    // Special table cell direct text replacement for single cells (like 'State', 'Description', 'Location')
-    const cellDirectMap = {
-      'State': 'Kondisi / Keadaan',
-      'Description': 'Deskripsi / Sifat',
-      'Location': 'Lokasi / Tempat',
-      'Condition': 'Kondisi Fisik'
-    };
-    container.querySelectorAll('td').forEach(td => {
-      const txt = td.innerText.trim();
-      if (cellDirectMap[txt]) {
-        td.innerText = cellDirectMap[txt];
-      }
-    });
-  }
-};
-
-
     const App = {
       currentView: 'dashboard',
       currentLessonId: 1,
@@ -13080,7 +12423,6 @@ const I18n = {
         this.currentLessonId = Storage.getActiveLesson();
         
         AmbientSystem.init();
-        if (typeof I18n !== 'undefined') I18n.init();
 
         this.renderSidebar();
         this.renderRoadmap();
@@ -13132,49 +12474,32 @@ const I18n = {
         const lessonMeta = LESSON_INDEX.find(l => l.id === lessonId);
         if (!lessonMeta) return;
 
-        // Populate lesson header (Bilingual aware)
-        const isId = (typeof I18n !== 'undefined' && I18n.currentLang === 'id');
-        const lTitle = (isId && lessonMeta.title_id) ? lessonMeta.title_id : lessonMeta.title;
-        const lDesc = (isId && lessonMeta.desc_id) ? lessonMeta.desc_id : lessonMeta.desc;
-        const lPrefix = isId ? 'Pelajaran' : 'Lesson';
-
+        // Populate lesson header
         const modObj = MODULES.find(m => m.id === lessonMeta.mod);
-        const modName = (isId && modObj && modObj.name_id) ? modObj.name_id : (modObj ? modObj.name : (isId ? 'KURIKULUM A1' : 'A1 CURRICULUM'));
         const modBadge = document.getElementById('lessonModuleBadge');
-        if (modBadge) modBadge.innerText = modObj ? `${modObj.icon} ${modName}` : (isId ? 'KURIKULUM A1' : 'A1 CURRICULUM');
+        if (modBadge) modBadge.innerText = modObj ? `${modObj.icon} ${modObj.name}` : 'A1 CURRICULUM';
 
         const titleEl = document.getElementById('lessonTitle');
-        if (titleEl) titleEl.innerText = `${lPrefix} ${String(lessonId).padStart(2, '0')}: ${lTitle}`;
+        if (titleEl) titleEl.innerText = `Lesson ${String(lessonId).padStart(2, '0')}: ${lessonMeta.title}`;
 
         const overEl = document.getElementById('lessonOverview');
-        if (overEl) overEl.innerText = lDesc;
+        if (overEl) overEl.innerText = lessonMeta.desc;
 
-        // Lesson-specific objectives (Bilingual aware)
+        // Lesson-specific objectives from the content registry.
         const objList = document.getElementById('lessonObjectivesList');
         if (objList) {
           const lessonData = LESSONS_DATABASE[lessonId];
-          let objectives = [];
-          if (isId) {
-            objectives = (lessonData && Array.isArray(lessonData.objectives_id))
-              ? lessonData.objectives_id
-              : [
-                  `Kuasai konsep inti, aturan, dan kosakata penting dari ${lTitle}.`,
-                  'Pahami susunan tata bahasa serta pola penggunaannya dalam kalimat.',
-                  'Terapkan materi ini langsung dalam percakapan sehari-hari bahasa Jerman.'
-                ];
-          } else {
-            objectives = lessonData && Array.isArray(lessonData.objectives)
-              ? lessonData.objectives
-              : [
-                  `Master the fundamental concepts of ${lessonMeta.title}.`,
-                  'Understand the key grammar and usage patterns.',
-                  'Apply the material in practical German communication.'
-                ];
-          }
+          const objectives = lessonData && Array.isArray(lessonData.objectives)
+            ? lessonData.objectives
+            : [
+                `Master the fundamental concepts of ${lessonMeta.title}.`,
+                'Understand the key grammar and usage patterns.',
+                'Apply the material in practical German communication.'
+              ];
           objList.innerHTML = objectives.map(item => `<li>${item}</li>`).join('');
         }
 
-        // Render main content (Bilingual aware)
+        // Render main content
         const mainContainer = document.getElementById('lessonMainContent');
         if (mainContainer) {
           const lessonData = LESSONS_DATABASE[lessonId];
@@ -13182,12 +12507,6 @@ const I18n = {
           if (lessonHtml) {
             mainContainer.innerHTML = lessonHtml;
             CheatSheetSystem.append(lessonId, mainContainer);
-            if (isId && typeof I18n !== 'undefined') {
-              if (I18n.localizeLessonContent) {
-                I18n.localizeLessonContent(mainContainer, lessonId);
-              }
-              I18n.triggerGoogleTranslate('id');
-            }
           } else {
             mainContainer.innerHTML = '';
           }
@@ -13201,11 +12520,9 @@ const I18n = {
         const nextBtn = document.getElementById('nextLessonBtn');
         if (prevBtn) prevBtn.style.visibility = lessonId === 1 ? 'hidden' : 'visible';
         if (nextBtn) {
-          const nextText = (typeof I18n !== 'undefined') ? I18n.t('nextLesson') : 'Next Lesson';
-          const finishText = (typeof I18n !== 'undefined') ? I18n.t('finishReview') : 'Finish Review';
           nextBtn.innerHTML = lessonId === 38 
-            ? `<span>${finishText}</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`
-            : `<span>${nextText}</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
+            ? `<span>Finish Review</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>`
+            : `<span>Next Lesson</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>`;
         }
 
         this.navigateTo('lesson');
@@ -13255,16 +12572,14 @@ const I18n = {
         if (!btn || !icon || !text) return;
 
         const isDone = this.completedLessons.includes(this.currentLessonId);
-        const doneText = (typeof I18n !== 'undefined') ? I18n.t('completed') : 'Completed';
-        const markText = (typeof I18n !== 'undefined') ? I18n.t('markCompleted') : 'Mark Completed';
         if (isDone) {
           btn.className = "px-3.5 py-1.5 rounded-xl border border-emerald-300 text-xs font-semibold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 transition-all flex items-center gap-1.5 shadow-xs";
           icon.innerText = "✓";
-          text.innerText = doneText;
+          text.innerText = "Completed";
         } else {
           btn.className = "px-3.5 py-1.5 rounded-xl border border-pink-200 text-xs font-semibold text-pink-700 bg-white hover:bg-pink-50 transition-all flex items-center gap-1.5 shadow-xs";
           icon.innerText = "○";
-          text.innerText = markText;
+          text.innerText = "Mark Completed";
         }
       },
 
@@ -13304,34 +12619,29 @@ const I18n = {
           let lessonsHtml = '';
           modLessons.forEach(l => {
             const lessonDone = this.completedLessons.includes(l.id);
-            const lTitle = (typeof I18n !== 'undefined' && I18n.currentLang === 'id' && l.title_id) ? l.title_id : l.title;
-            const doneTag = (typeof I18n !== 'undefined') ? I18n.t('doneTag') : 'Selesai';
-            const openArrow = (typeof I18n !== 'undefined') ? I18n.t('openArrow') : 'Buka &rarr;';
             lessonsHtml += `
               <div onclick="document.getElementById('progressModal').remove(); App.openLesson(${l.id});" class="p-2.5 rounded-xl border ${lessonDone ? 'bg-emerald-50/80 border-emerald-200 hover:bg-emerald-100/80' : 'bg-slate-50/70 border-slate-200 hover:bg-pink-50/60 hover:border-pink-300'} transition-all cursor-pointer flex items-center justify-between text-xs group select-none">
                 <div class="flex items-center gap-2 min-w-0 pr-2">
                   <span class="w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${lessonDone ? 'bg-emerald-500 text-white font-bold text-[10px]' : 'bg-white border border-slate-300 text-slate-400 text-[10px]'}">
                     ${lessonDone ? '&#10003;' : l.id}
                   </span>
-                  <span class="font-bold truncate ${lessonDone ? 'text-emerald-950 font-semibold' : 'text-slate-700 group-hover:text-pink-700'}">${lTitle}</span>
+                  <span class="font-bold truncate ${lessonDone ? 'text-emerald-950 font-semibold' : 'text-slate-700 group-hover:text-pink-700'}">${l.title}</span>
                 </div>
                 <span class="text-[10px] font-bold shrink-0 ${lessonDone ? 'text-emerald-600' : 'text-slate-400 group-hover:text-pink-600 flex items-center gap-0.5'}">
-                  ${lessonDone ? doneTag : openArrow}
+                  ${lessonDone ? 'Selesai' : 'Buka &rarr;'}
                 </span>
               </div>
             `;
           });
 
-          const modName = (typeof I18n !== 'undefined' && I18n.currentLang === 'id' && mod.name_id) ? mod.name_id : mod.name;
-          const lessonPrefix = (typeof I18n !== 'undefined' && I18n.currentLang === 'id') ? 'Pelajaran' : 'Lesson';
           modulesHtml += `
             <div class="p-4 rounded-2xl border ${isDone ? 'bg-emerald-50/30 border-emerald-200/80' : isInProgress ? 'bg-pink-50/30 border-pink-200/80' : 'bg-white border-slate-200/80'} shadow-xs space-y-3">
               <div class="flex items-center justify-between flex-wrap gap-2">
                 <div class="flex items-center gap-2">
                   <span class="text-lg">${mod.icon || '&#128218;'}</span>
                   <div>
-                    <h3 class="font-extrabold text-slate-800 text-sm">${modName}</h3>
-                    <p class="text-[11px] text-slate-400">${lessonPrefix} ${mod.range[0]} - ${mod.range[1]}</p>
+                    <h3 class="font-extrabold text-slate-800 text-sm">${mod.name}</h3>
+                    <p class="text-[11px] text-slate-400">Pelajaran ${mod.range[0]} - ${mod.range[1]}</p>
                   </div>
                 </div>
                 <div>${badgeHtml}</div>
@@ -13437,10 +12747,10 @@ const I18n = {
               <div class="flex items-center justify-between px-2.5 py-1.5 rounded-xl bg-gradient-to-r from-pink-50 via-rose-50/60 to-pink-50/20 border border-pink-200/60 mb-1.5 shadow-2xs">
                 <div class="flex items-center gap-1.5 min-w-0">
                   <span class="text-xs">${mod.icon || '&#127800;'}</span>
-                  <span class="text-[11px] font-black text-pink-800 tracking-wide uppercase truncate font-sans">${(typeof I18n !== 'undefined' && I18n.currentLang === 'id' && mod.name_id) ? mod.name_id : mod.name}</span>
+                  <span class="text-[11px] font-black text-pink-800 tracking-wide uppercase truncate font-sans">${mod.name}</span>
                 </div>
                 <span class="text-[9px] font-black px-1.5 py-0.5 rounded-full ${isModDone ? 'bg-emerald-100 text-emerald-800 border border-emerald-200' : 'bg-pink-100 text-pink-700 border border-pink-200/60'} shrink-0 ml-1">
-                  ${isModDone ? '&#10003; ' + ((typeof I18n !== 'undefined') ? I18n.t('doneTag') : 'Done') : `${completedInMod}/${modLessons.length}`}
+                  ${isModDone ? '&#10003; Done' : `${completedInMod}/${modLessons.length}`}
                 </span>
               </div>
               
@@ -13465,14 +12775,13 @@ const I18n = {
                 ? '<span class="w-5 h-5 rounded-full bg-gradient-to-tr from-pink-500 to-rose-400 text-white font-black text-[9px] flex items-center justify-center shrink-0 shadow-2xs animate-pulse">&#9679;</span>'
                 : `<span class="w-5 h-5 rounded-full bg-pink-50 text-pink-600 border border-pink-200/80 font-black text-[9px] flex items-center justify-center shrink-0">${String(l.id).padStart(2, '0')}</span>`;
 
-            const lTitle = (typeof I18n !== 'undefined' && I18n.currentLang === 'id' && l.title_id) ? l.title_id : l.title;
             html += `
               <button onclick="App.openLesson(${l.id})" class="w-full text-left px-2.5 py-1.5 rounded-xl flex items-center justify-between transition-all duration-200 ${rowStyle} group select-none cursor-pointer">
                 <div class="flex items-center gap-2 min-w-0 pr-1 truncate">
                   ${numBadge}
-                  <span class="text-xs truncate ${isCurrent ? 'font-black text-pink-950' : 'font-medium text-slate-700 group-hover:text-pink-900'}">${lTitle}</span>
+                  <span class="text-xs truncate ${isCurrent ? 'font-black text-pink-950' : 'font-medium text-slate-700 group-hover:text-pink-900'}">${l.title}</span>
                 </div>
-                ${isDone ? '<span class="text-[9px] font-black text-emerald-700 bg-emerald-100/90 px-1.5 py-0.5 rounded-md border border-emerald-200/60 shrink-0 ml-1">' + ((typeof I18n !== 'undefined') ? I18n.t('doneTag') : 'Done') + '</span>' : isCurrent ? '<span class="text-xs text-pink-500 font-bold shrink-0 ml-1">&#10022;</span>' : ''}
+                ${isDone ? '<span class="text-[9px] font-black text-emerald-700 bg-emerald-100/90 px-1.5 py-0.5 rounded-md border border-emerald-200/60 shrink-0 ml-1">Selesai</span>' : isCurrent ? '<span class="text-xs text-pink-500 font-bold shrink-0 ml-1">&#10022;</span>' : ''}
               </button>
             `;
           });
@@ -13500,10 +12809,10 @@ const I18n = {
               <div class="flex items-center justify-between pb-3 mb-3 border-b border-pink-50">
                 <div class="flex items-center gap-2 font-display font-bold text-slate-800 text-sm">
                   <span class="text-base">${mod.icon}</span>
-                  <span>${(typeof I18n !== 'undefined' && I18n.currentLang === 'id' && mod.name_id) ? mod.name_id : mod.name}</span>
+                  <span>${mod.name}</span>
                 </div>
                 <span class="text-[11px] font-semibold text-pink-600 bg-pink-50 px-2 py-0.5 rounded-md">
-                  ${completedInMod} / ${modLessons.length} ' + ((typeof I18n !== 'undefined') ? I18n.t('doneTag') : 'Done') + '
+                  ${completedInMod} / ${modLessons.length} Done
                 </span>
               </div>
 
@@ -19483,23 +18792,5 @@ if (document.readyState === 'loading') {
     </select>
   </div>
 </div>
-
-<!-- Google Translate Element for Automatic Real-time Indonesian Translation -->
-<div id="google_translate_element" style="display:none;"></div>
-<script type="text/javascript">
-  function googleTranslateElementInit() {
-    try {
-      new google.translate.TranslateElement({
-        pageLanguage: 'en',
-        includedLanguages: 'id,en',
-        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-        autoDisplay: false
-      }, 'google_translate_element');
-    } catch(e) {
-      console.log('Google Translate init note:', e);
-    }
-  }
-</script>
-<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async></script>
 </body>
 </html>
