@@ -1,4 +1,4 @@
-
+﻿
 
 
 
@@ -2332,6 +2332,351 @@ html {
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="CheeYa German A1">
+
+<style id="cheeya-theme-styles">
+/* ==========================================================================
+   CheeYa German A1 - Advanced Theme System & Learning Suite Styles
+   ========================================================================== */
+
+/* 1. THEME ENGINE VARIABLES & OVERRIDES */
+:root {
+  --theme-primary: #ec4899;
+  --theme-primary-hover: #db2777;
+  --theme-primary-light: #fdf2f8;
+  --theme-primary-border: #fbcfe8;
+  --theme-bg: #faf7f5;
+  --theme-card-bg: #ffffff;
+  --theme-card-border: #fce7f3;
+  --theme-text-main: #1e293b;
+  --theme-text-muted: #64748b;
+  --theme-header-bg: rgba(255, 255, 255, 0.88);
+}
+
+/* --- THEME 1: Blossom Pink (Default) --- */
+html[data-theme="pink"] {
+  --theme-primary: #ec4899;
+  --theme-primary-hover: #db2777;
+  --theme-primary-light: #fdf2f8;
+  --theme-primary-border: #fbcfe8;
+  --theme-bg: #faf7f5;
+  --theme-card-bg: #ffffff;
+  --theme-card-border: #fce7f3;
+  --theme-text-main: #1e293b;
+  --theme-text-muted: #64748b;
+}
+
+/* --- THEME 2: Dark Slate (Night Mode / Eye-Care) --- */
+html[data-theme="dark"] {
+  --theme-primary: #f472b6;
+  --theme-primary-hover: #fb7185;
+  --theme-primary-light: rgba(244, 114, 182, 0.15);
+  --theme-primary-border: #475569;
+  --theme-bg: #0f172a;
+  --theme-card-bg: #1e293b;
+  --theme-card-border: #334155;
+  --theme-text-main: #f8fafc;
+  --theme-text-muted: #94a3b8;
+  --theme-header-bg: rgba(15, 23, 42, 0.94);
+}
+
+html[data-theme="dark"] body {
+  background-color: #0f172a !important;
+  color: #f1f5f9 !important;
+}
+
+html[data-theme="dark"] header {
+  background-color: rgba(15, 23, 42, 0.94) !important;
+  border-bottom-color: #334155 !important;
+}
+
+html[data-theme="dark"] #sidebarNav {
+  background: linear-gradient(180deg, #1e293b, #0f172a) !important;
+  border-right-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] .bg-white\/90,
+html[data-theme="dark"] .bg-white\/95,
+html[data-theme="dark"] .bg-slate-100\/90 {
+  background-color: #1e293b !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .text-slate-800,
+html[data-theme="dark"] .text-slate-700 {
+  color: #f8fafc !important;
+}
+
+html[data-theme="dark"] .text-slate-600,
+html[data-theme="dark"] .text-slate-500 {
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="dark"] .border-pink-100,
+html[data-theme="dark"] .border-pink-200,
+html[data-theme="dark"] .border-slate-100,
+html[data-theme="dark"] .border-slate-200 {
+  border-color: #334155 !important;
+}
+
+html[data-theme="dark"] .bg-pink-50,
+html[data-theme="dark"] .bg-pink-50\/40,
+html[data-theme="dark"] .bg-pink-50\/60,
+html[data-theme="dark"] .bg-rose-50\/70 {
+  background-color: rgba(244, 114, 182, 0.12) !important;
+}
+
+html[data-theme="dark"] .textbook-content,
+html[data-theme="dark"] [class*="lesson"] {
+  color: #e2e8f0 !important;
+}
+
+html[data-theme="dark"] table {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+html[data-theme="dark"] th {
+  background-color: #0f172a !important;
+  color: #f472b6 !important;
+  border-color: #334155 !important;
+}
+
+html[data-theme="dark"] td {
+  border-color: #334155 !important;
+  color: #cbd5e1 !important;
+}
+
+html[data-theme="dark"] tr:hover {
+  background-color: rgba(244, 114, 182, 0.08) !important;
+}
+
+/* --- THEME 3: Soft Purple (Lavender Dream) --- */
+html[data-theme="purple"] {
+  --theme-primary: #8b5cf6;
+  --theme-primary-hover: #7c3aed;
+  --theme-primary-light: #f5f3ff;
+  --theme-primary-border: #ddd6fe;
+  --theme-bg: #faf7fd;
+  --theme-card-bg: #ffffff;
+  --theme-card-border: #ede9fe;
+  --theme-text-main: #1e1b4b;
+  --theme-text-muted: #6b7280;
+  --theme-header-bg: rgba(255, 255, 255, 0.88);
+}
+
+html[data-theme="purple"] body {
+  background-color: #faf7fd !important;
+}
+
+html[data-theme="purple"] .bg-pink-500,
+html[data-theme="purple"] .from-pink-500 {
+  background-color: #8b5cf6 !important;
+  --tw-gradient-from: #8b5cf6 !important;
+}
+
+html[data-theme="purple"] .to-rose-500,
+html[data-theme="purple"] .to-rose-600 {
+  --tw-gradient-to: #7c3aed !important;
+}
+
+html[data-theme="purple"] .text-pink-600,
+html[data-theme="purple"] .text-pink-700 {
+  color: #8b5cf6 !important;
+}
+
+html[data-theme="purple"] .border-pink-200 {
+  border-color: #ddd6fe !important;
+}
+
+/* --- THEME 4: Soft Blue (Sky Cloud) --- */
+html[data-theme="blue"] {
+  --theme-primary: #0ea5e9;
+  --theme-primary-hover: #0284c7;
+  --theme-primary-light: #f0f9ff;
+  --theme-primary-border: #bae6fd;
+  --theme-bg: #f5fafd;
+  --theme-card-bg: #ffffff;
+  --theme-card-border: #e0f2fe;
+  --theme-text-main: #0c4a6e;
+  --theme-text-muted: #64748b;
+  --theme-header-bg: rgba(255, 255, 255, 0.88);
+}
+
+html[data-theme="blue"] body {
+  background-color: #f5fafd !important;
+}
+
+html[data-theme="blue"] .bg-pink-500,
+html[data-theme="blue"] .from-pink-500 {
+  background-color: #0ea5e9 !important;
+  --tw-gradient-from: #0ea5e9 !important;
+}
+
+html[data-theme="blue"] .to-rose-500,
+html[data-theme="blue"] .to-rose-600 {
+  --tw-gradient-to: #0284c7 !important;
+}
+
+html[data-theme="blue"] .text-pink-600,
+html[data-theme="blue"] .text-pink-700 {
+  color: #0284c7 !important;
+}
+
+html[data-theme="blue"] .border-pink-200 {
+  border-color: #bae6fd !important;
+}
+
+/* --- THEME 5: Soft Green (Sage Mint) --- */
+html[data-theme="green"] {
+  --theme-primary: #10b981;
+  --theme-primary-hover: #059669;
+  --theme-primary-light: #ecfdf5;
+  --theme-primary-border: #a7f3d0;
+  --theme-bg: #f5faf7;
+  --theme-card-bg: #ffffff;
+  --theme-card-border: #d1fae5;
+  --theme-text-main: #064e3b;
+  --theme-text-muted: #64748b;
+  --theme-header-bg: rgba(255, 255, 255, 0.88);
+}
+
+html[data-theme="green"] body {
+  background-color: #f5faf7 !important;
+}
+
+html[data-theme="green"] .bg-pink-500,
+html[data-theme="green"] .from-pink-500 {
+  background-color: #10b981 !important;
+  --tw-gradient-from: #10b981 !important;
+}
+
+html[data-theme="green"] .to-rose-500,
+html[data-theme="green"] .to-rose-600 {
+  --tw-gradient-to: #059669 !important;
+}
+
+html[data-theme="green"] .text-pink-600,
+html[data-theme="green"] .text-pink-700 {
+  color: #059669 !important;
+}
+
+html[data-theme="green"] .border-pink-200 {
+  border-color: #a7f3d0 !important;
+}
+
+/* ==========================================================================
+   2. 3D FLASHCARD STYLES
+   ========================================================================== */
+.flashcard-perspective {
+  perspective: 1000px;
+}
+.flashcard-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flashcard-inner.flipped {
+  transform: rotateY(180deg);
+}
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+/* ==========================================================================
+   3. GENDER COLOR BADGES (DER / DIE / DAS)
+   ========================================================================== */
+.gender-der {
+  background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+  color: #ffffff;
+  border: 1px solid #2563eb;
+}
+.gender-die {
+  background: linear-gradient(135deg, #ec4899, #be185d);
+  color: #ffffff;
+  border: 1px solid #db2777;
+}
+.gender-das {
+  background: linear-gradient(135deg, #10b981, #047857);
+  color: #ffffff;
+  border: 1px solid #059669;
+}
+.gender-plural {
+  background: linear-gradient(135deg, #f59e0b, #b45309);
+  color: #ffffff;
+  border: 1px solid #d97706;
+}
+
+/* ==========================================================================
+   4. GRAMMAR ANALYSIS TOKENS
+   ========================================================================== */
+.v2-token {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.75rem;
+  margin: 0.2rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.v2-pos-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 800;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   5. PRINT CERTIFICATE STYLES
+   ========================================================================== */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #certificatePrintArea, #certificatePrintArea * {
+    visibility: visible;
+  }
+  #certificatePrintArea {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 2cm;
+    box-sizing: border-box;
+    background: #ffffff !important;
+    z-index: 999999;
+  }
+  .no-print {
+    display: none !important;
+  }
+}
+
+</style>
 </head>
 <body class="min-h-screen flex flex-col relative selection:bg-pink-100 selection:text-pink-800">
 <div id="cheeya-butterfly-layer" aria-hidden="true"><span class="cheeya-butterfly" style="--x:8vw;--y:10vh;--c:#ff69aa;--s:34px;--fs:26px;--d:4.8s;--delay:-1s;--tw:18px;--mx:12px;"></span><span class="cheeya-butterfly" style="--x:17vw;--y:30vh;--c:#8ed8ff;--s:28px;--fs:22px;--d:5.9s;--delay:-3s;--tw:15px;--mx:-10px;"></span><span class="cheeya-butterfly" style="--x:27vw;--y:16vh;--c:#ffe06f;--s:30px;--fs:24px;--d:6.7s;--delay:-4s;--tw:16px;--mx:14px;"></span><span class="cheeya-butterfly" style="--x:39vw;--y:8vh;--c:#c5a0ff;--s:26px;--fs:21px;--d:5.2s;--delay:-2s;--tw:14px;--mx:-12px;"></span><span class="cheeya-butterfly" style="--x:52vw;--y:25vh;--c:#ff8fbd;--s:32px;--fs:25px;--d:6.1s;--delay:-5s;--tw:17px;--mx:10px;"></span><span class="cheeya-butterfly" style="--x:66vw;--y:12vh;--c:#8bdcc6;--s:28px;--fs:22px;--d:5.5s;--delay:-2s;--tw:15px;--mx:-14px;"></span><span class="cheeya-butterfly" style="--x:79vw;--y:29vh;--c:#a9dfff;--s:34px;--fs:26px;--d:7.2s;--delay:-6s;--tw:18px;--mx:9px;"></span><span class="cheeya-butterfly" style="--x:91vw;--y:17vh;--c:#ff7eb7;--s:26px;--fs:21px;--d:5.8s;--delay:-4s;--tw:14px;--mx:-12px;"></span><span class="cheeya-butterfly" style="--x:12vw;--y:67vh;--c:#ffd967;--s:27px;--fs:21px;--d:6.4s;--delay:-2s;--tw:15px;--mx:13px;"></span><span class="cheeya-butterfly" style="--x:24vw;--y:82vh;--c:#c9a4ff;--s:33px;--fs:25px;--d:7s;--delay:-5s;--tw:17px;--mx:-9px;"></span><span class="cheeya-butterfly" style="--x:44vw;--y:72vh;--c:#ff82b7;--s:28px;--fs:22px;--d:5.6s;--delay:-3s;--tw:15px;--mx:11px;"></span><span class="cheeya-butterfly" style="--x:59vw;--y:88vh;--c:#8ed9ff;--s:31px;--fs:24px;--d:6.8s;--delay:-7s;--tw:16px;--mx:-13px;"></span><span class="cheeya-butterfly" style="--x:73vw;--y:62vh;--c:#9be5ce;--s:27px;--fs:21px;--d:5.3s;--delay:-1s;--tw:14px;--mx:10px;"></span><span class="cheeya-butterfly" style="--x:87vw;--y:78vh;--c:#ffcf62;--s:34px;--fs:26px;--d:7.3s;--delay:-6s;--tw:18px;--mx:-11px;"></span><span class="cheeya-butterfly" style="--x:4vw;--y:48vh;--c:#ff9cc9;--s:25px;--fs:20px;--d:6.2s;--delay:-2s;--tw:14px;--mx:12px;"></span><span class="cheeya-butterfly" style="--x:95vw;--y:53vh;--c:#b99cff;--s:29px;--fs:22px;--d:5.7s;--delay:-4s;--tw:16px;--mx:-10px;"></span><span class="cheeya-butterfly" style="--x:34vw;--y:55vh;--c:#ffe17a;--s:24px;--fs:19px;--d:6.9s;--delay:-5s;--tw:13px;--mx:9px;"></span><span class="cheeya-butterfly" style="--x:48vw;--y:46vh;--c:#ff72ad;--s:26px;--fs:20px;--d:5.4s;--delay:-1s;--tw:14px;--mx:-8px;"></span></div>
@@ -2383,15 +2728,67 @@ html {
       <!-- Center / Right: Progress Summary & Search -->
       <div class="flex items-center gap-3">
                 <!-- Accessible Font Size Scaling Controls (A- / [Scale %] / A+) -->
-        <div class="flex items-center bg-sky-100/90 px-1.5 py-0.5 rounded-xl border border-sky-300 text-xs font-bold gap-1 shadow-xs" title="Sesuaikan Ukuran Teks">
-          <button onclick="changeFontSize(-1)" class="w-6 h-6 flex items-center justify-center hover:bg-sky-200 text-sky-800 rounded-lg transition font-extrabold cursor-pointer select-none" title="Perkecil teks (A-)">
+        <div class="flex items-center bg-sky-100/90 px-1.5 py-0.5 rounded-xl border border-sky-300 text-xs font-bold gap-1 shadow-xs" title="Adjust Text Size">
+          <button onclick="changeFontSize(-1)" class="w-6 h-6 flex items-center justify-center hover:bg-sky-200 text-sky-800 rounded-lg transition font-extrabold cursor-pointer select-none" title="Decrease text size (A-)">
             A-
           </button>
           <span id="fontScaleLabel" class="text-[10px] font-extrabold text-sky-700 px-1 select-none">115%</span>
-          <button onclick="changeFontSize(1)" class="w-6 h-6 flex items-center justify-center hover:bg-sky-200 text-sky-800 rounded-lg transition font-extrabold cursor-pointer select-none" title="Perbesar teks (A+)">
+          <button onclick="changeFontSize(1)" class="w-6 h-6 flex items-center justify-center hover:bg-sky-200 text-sky-800 rounded-lg transition font-extrabold cursor-pointer select-none" title="Increase text size (A+)">
             A+
           </button>
         </div>
+
+        <!-- Audio Speed Controller -->
+        <button id="headerAudioSpeedBtn" onclick="AudioSpeedSystem.toggleSpeed()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100/90 text-slate-700 hover:bg-pink-50 hover:text-pink-600 text-xs font-bold border border-slate-200/70 transition-all shadow-xs cursor-pointer select-none" title="Toggle German Audio Speed (1.0x Normal / 0.75x Slow)">
+          <span>âš¡ 1.0x</span>
+        </button>
+
+        <!-- Aesthetic Theme Switcher Popover -->
+        <div class="relative">
+          <button id="headerThemeBtn" onclick="ThemeSystem.toggleMenu()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white text-slate-700 hover:bg-pink-50 hover:text-pink-600 text-xs font-bold border border-pink-200 shadow-xs transition-all cursor-pointer select-none" title="Choose Aesthetic Theme & Dark Mode">
+            <span id="headerThemeIcon">ðŸŒ¸</span>
+            <span id="headerThemeName" class="hidden sm:inline">Theme</span>
+          </button>
+          <div id="themePickerPopover" class="hidden absolute right-0 mt-2 w-56 p-2 bg-white rounded-2xl border border-pink-200 shadow-xl z-50 space-y-1">
+            <div class="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider px-2 py-1">Soft Themes & Dark Mode</div>
+            <button onclick="ThemeSystem.applyTheme('pink'); ThemeSystem.closeMenu();" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-pink-50 text-xs font-bold text-slate-700 transition-colors">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-pink-500 border border-pink-600"></span>
+                <span>ðŸŒ¸ Blossom Pink</span>
+              </div>
+            </button>
+            <button onclick="ThemeSystem.applyTheme('dark'); ThemeSystem.closeMenu();" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-slate-100 text-xs font-bold text-slate-700 transition-colors">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-slate-900 border border-slate-700"></span>
+                <span>ðŸŒ™ Dark Slate (Night)</span>
+              </div>
+            </button>
+            <button onclick="ThemeSystem.applyTheme('purple'); ThemeSystem.closeMenu();" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-purple-50 text-xs font-bold text-slate-700 transition-colors">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-violet-500 border border-violet-600"></span>
+                <span>ðŸ’œ Lavender Dream</span>
+              </div>
+            </button>
+            <button onclick="ThemeSystem.applyTheme('blue'); ThemeSystem.closeMenu();" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-sky-50 text-xs font-bold text-slate-700 transition-colors">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-sky-500 border border-sky-600"></span>
+                <span>ðŸŒŠ Sky Cloud</span>
+              </div>
+            </button>
+            <button onclick="ThemeSystem.applyTheme('green'); ThemeSystem.closeMenu();" class="w-full flex items-center justify-between p-2 rounded-xl hover:bg-emerald-50 text-xs font-bold text-slate-700 transition-colors">
+              <div class="flex items-center gap-2">
+                <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 border border-emerald-600"></span>
+                <span>ðŸƒ Sage Mint</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Goethe A1 Exam Simulator Header Button -->
+        <button onclick="App.navigateTo('exam')" class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 text-xs font-bold border border-amber-200/80 transition-all shadow-xs cursor-pointer select-none" title="Goethe-Zertifikat A1 Exam Simulator">
+          <span>ðŸŽ“</span>
+          <span>Goethe A1 Exam</span>
+        </button>
         <!-- Global Search Button -->
         <button onclick="App.openSearchModal()" class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-100/90 text-slate-500 hover:bg-pink-50 hover:text-pink-600 text-xs font-medium border border-slate-200/70 transition-all shadow-sm">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
@@ -2432,6 +2829,39 @@ html {
         <div class="flex items-center justify-between pb-3 mb-2 border-b border-pink-100 lg:hidden">
           <span class="font-display font-bold text-slate-800 text-sm">38-Lesson Curriculum</span>
           <button onclick="App.toggleMobileSidebar()" class="p-1 rounded-lg text-slate-400 hover:text-slate-600">✕</button>
+        </div>
+
+        <div class="space-y-1 mb-3 pb-3 border-b border-pink-100">
+          <button onclick="App.navigateTo('dashboard')" class="w-full text-left px-2.5 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold text-slate-700 hover:bg-pink-50 hover:text-pink-700 transition-colors">
+            <span>ðŸ </span>
+            <span>Dashboard</span>
+          </button>
+          <button onclick="App.navigateTo('exam')" class="w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between text-xs font-bold text-amber-800 bg-amber-50/70 hover:bg-amber-100/80 transition-colors">
+            <div class="flex items-center gap-2">
+              <span>ðŸŽ“</span>
+              <span>Goethe A1 Simulator</span>
+            </div>
+            <span class="text-[9px] bg-amber-200/80 text-amber-900 px-1.5 py-0.5 rounded font-extrabold">65m</span>
+          </button>
+          <button onclick="App.navigateTo('translator')" class="w-full text-left px-2.5 py-1.5 rounded-lg flex items-center justify-between text-xs font-bold text-indigo-700 hover:bg-indigo-50 transition-colors">
+            <div class="flex items-center gap-2">
+              <span>ðŸŒ</span>
+              <span>Smart Translator</span>
+            </div>
+            <span class="text-[9px] bg-indigo-100 text-indigo-800 px-1.5 py-0.5 rounded font-bold">Grammar</span>
+          </button>
+          <button onclick="App.navigateTo('flashcards')" class="w-full text-left px-2.5 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold text-emerald-700 hover:bg-emerald-50 transition-colors">
+            <span>ðŸ—‚ï¸</span>
+            <span>3D Vocabulary Cards</span>
+          </button>
+          <button onclick="App.navigateTo('articleFinder')" class="w-full text-left px-2.5 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold text-pink-700 hover:bg-pink-50 transition-colors">
+            <span>ðŸ”</span>
+            <span>Der, Die, Das Finder</span>
+          </button>
+          <button onclick="App.navigateTo('certificate')" class="w-full text-left px-2.5 py-1.5 rounded-lg flex items-center gap-2 text-xs font-bold text-amber-700 hover:bg-amber-50 transition-colors">
+            <span>ðŸ“œ</span>
+            <span>Official Certificate</span>
+          </button>
         </div>
 
         <div class="text-[11px] font-bold tracking-wider text-pink-800/80 uppercase px-2 mb-2 flex items-center justify-between">
@@ -2500,6 +2930,111 @@ html {
             <div class="text-[11px] text-slate-400 mt-0.5">Beginner Standard</div>
           </div>
         </div>
+
+        <!-- ==========================================================================
+     CheeYa German A1 - Learning Views & Modals Markup (100% English UI)
+     ========================================================================== -->
+
+<!-- 1. DASHBOARD SUITE WIDGETS (To be injected into #dashboardView) -->
+<div id="dashboardLearningSuite" class="bg-gradient-to-r from-pink-500/10 via-purple-500/10 to-sky-500/10 p-6 sm:p-7 rounded-3xl border border-pink-200/80 shadow-xs">
+  <div class="flex flex-wrap items-center justify-between gap-3 mb-5">
+    <div>
+      <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-100 text-pink-700 text-xs font-bold uppercase tracking-wider mb-1">
+        ✨ Interactive Learning Suite
+      </span>
+      <h2 class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">
+        Practice Tools & Official Exam Prep
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-500">Accelerate your A1 fluency with real-time test simulations, smart grammar translations, and 3D flashcards.</p>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Card 1: Goethe A1 Exam Simulator -->
+    <div onclick="App.navigateTo('exam')" class="cursor-pointer bg-white p-5 rounded-2xl border border-pink-200/80 hover:border-pink-400 hover:shadow-md transition-all group flex flex-col justify-between">
+      <div>
+        <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+          🎓
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <h3 class="font-bold text-slate-800 text-sm">Goethe A1 Simulator</h3>
+          <span class="text-[10px] font-bold bg-amber-100 text-amber-700 px-1.5 py-0.5 rounded">65m Official</span>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Authentic Goethe-Zertifikat A1 exam simulator: Lesen, Hören, Schreiben, & Sprechen with real-time timer and instant grading.
+        </p>
+      </div>
+      <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-amber-600">
+        <span>Start Exam</span>
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+    <!-- Card 2: Smart Translator & Grammar Analyzer -->
+    <div onclick="App.navigateTo('translator')" class="cursor-pointer bg-white p-5 rounded-2xl border border-pink-200/80 hover:border-pink-400 hover:shadow-md transition-all group flex flex-col justify-between">
+      <div>
+        <div class="w-10 h-10 rounded-xl bg-indigo-100 text-indigo-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+          🌐
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <h3 class="font-bold text-slate-800 text-sm">Smart Translator</h3>
+          <span class="text-[10px] font-bold bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded">Grammar AI</span>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Indonesian ⇄ English ⇄ German translator with instant beginner grammar breakdown (V2 rule, verb endings, noun genders).
+        </p>
+      </div>
+      <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-indigo-600">
+        <span>Analyze Sentence</span>
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+    <!-- Card 3: 3D Vocabulary Flashcards -->
+    <div onclick="App.navigateTo('flashcards')" class="cursor-pointer bg-white p-5 rounded-2xl border border-pink-200/80 hover:border-pink-400 hover:shadow-md transition-all group flex flex-col justify-between">
+      <div>
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+          🗂️
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <h3 class="font-bold text-slate-800 text-sm">3D Flashcards</h3>
+          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded">500+ Words</span>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Master essential German A1 vocabulary with interactive flip cards, audio pronunciation, and mastery tracking.
+        </p>
+      </div>
+      <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-emerald-600">
+        <span>Practice Deck</span>
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+
+    <!-- Card 4: Der, Die, Das Finder -->
+    <div onclick="App.navigateTo('articleFinder')" class="cursor-pointer bg-white p-5 rounded-2xl border border-pink-200/80 hover:border-pink-400 hover:shadow-md transition-all group flex flex-col justify-between">
+      <div>
+        <div class="w-10 h-10 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center text-xl mb-3 group-hover:scale-110 transition-transform">
+          🔍
+        </div>
+        <div class="flex items-center gap-2 mb-1">
+          <h3 class="font-bold text-slate-800 text-sm">Der, Die, Das Finder</h3>
+          <span class="text-[10px] font-bold bg-pink-100 text-pink-700 px-1.5 py-0.5 rounded">Article Quiz</span>
+        </div>
+        <p class="text-xs text-slate-500 leading-relaxed">
+          Instant gender lookup for 300+ German nouns, plural forms, suffix memory rules, and a quick article training game.
+        </p>
+      </div>
+      <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-pink-600">
+        <span>Find Articles</span>
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     2. GOETHE-ZERTIFIKAT A1 EXAM SIMULATOR VIEW (#examView)
+     ========================================================================== -->
 
         <!-- 38-Lesson Structured Roadmap -->
         <div>
@@ -2581,6 +3116,438 @@ html {
           </div>
         </article>
       </section>
+
+<section id="examView" class="hidden space-y-6">
+  <!-- Exam Top Bar -->
+  <div class="flex flex-wrap items-center justify-between gap-4 p-4 bg-white rounded-2xl border border-pink-100 shadow-xs">
+    <div class="flex items-center gap-3">
+      <button onclick="App.navigateTo('dashboard')" class="p-2 rounded-xl text-slate-500 hover:text-pink-600 hover:bg-pink-50 transition-colors" title="Exit Exam & Return to Dashboard">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      </button>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-bold text-amber-600 uppercase tracking-wider bg-amber-50 px-2 py-0.5 rounded">Official A1 Simulator</span>
+          <span id="examModeBadge" class="text-xs font-semibold text-slate-500">65-Minute Official Exam</span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-extrabold text-slate-800">Goethe-Zertifikat A1: Start Deutsch 1</h1>
+      </div>
+    </div>
+
+    <!-- Timer & Action Controls -->
+    <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200">
+        <svg class="w-4 h-4 text-pink-500 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span id="examTimerDisplay" class="font-mono font-extrabold text-sm sm:text-base text-slate-800">65:00</span>
+      </div>
+      <button onclick="ExamSystem.togglePause()" id="examPauseBtn" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-all">
+        Pause
+      </button>
+      <button onclick="ExamSystem.openTimerSettings()" class="px-3 py-1.5 rounded-xl border border-pink-200 text-pink-700 bg-white hover:bg-pink-50 text-xs font-semibold transition-all" title="Change Exam Timing Mode">
+        ⏱️ Timer Mode
+      </button>
+      <button onclick="ExamSystem.submitExam()" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white text-xs font-bold shadow-sm transition-all">
+        Submit Exam
+      </button>
+    </div>
+  </div>
+
+  <!-- Module Section Tabs -->
+  <div class="flex items-center gap-2 border-b border-pink-100 pb-2 overflow-x-auto no-scrollbar">
+    <button onclick="ExamSystem.switchSection('lesen')" id="tab-lesen" class="exam-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-pink-500 text-white shadow-xs">
+      1. Lesen (Reading • 25m • 15 pts)
+    </button>
+    <button onclick="ExamSystem.switchSection('hoeren')" id="tab-hoeren" class="exam-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-600 hover:bg-pink-50 border border-slate-200/60">
+      2. Hören (Listening • 20m • 15 pts)
+    </button>
+    <button onclick="ExamSystem.switchSection('schreiben')" id="tab-schreiben" class="exam-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-600 hover:bg-pink-50 border border-slate-200/60">
+      3. Schreiben (Writing • 20m • 15 pts)
+    </button>
+    <button onclick="ExamSystem.switchSection('sprechen')" id="tab-sprechen" class="exam-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-600 hover:bg-pink-50 border border-slate-200/60">
+      4. Sprechen (Speaking Guide • 15m • 15 pts)
+    </button>
+  </div>
+
+  <!-- Exam Content Container -->
+  <div id="examContentArea" class="space-y-6">
+    <!-- Dynamic questions will be rendered here by ExamSystem -->
+  </div>
+</section>
+
+<!-- ==========================================================================
+     3. MULTILINGUAL TRANSLATOR & GRAMMAR ANALYZER VIEW (#translatorView)
+     ========================================================================== -->
+<section id="translatorView" class="hidden space-y-6">
+  <!-- Header -->
+  <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-pink-100">
+    <div class="flex items-center gap-3">
+      <button onclick="App.navigateTo('dashboard')" class="p-2 rounded-xl text-slate-500 hover:text-pink-600 hover:bg-pink-50 transition-colors" title="Back to Dashboard">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      </button>
+      <div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-indigo-100 text-indigo-700 text-[11px] font-bold uppercase tracking-wider">
+          🌐 3-Way Multilingual Translator
+        </span>
+        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-800">
+          German Smart Translator & Beginner Grammar Analyzer
+        </h1>
+      </div>
+    </div>
+
+    <!-- Audio Speed Quick Switcher -->
+    <div class="flex items-center gap-2 bg-white px-3 py-1.5 rounded-xl border border-pink-100 shadow-xs text-xs font-medium">
+      <span class="text-slate-500">Audio Speed:</span>
+      <button onclick="AudioSpeedSystem.toggleSpeed()" id="translatorSpeedBtn" class="font-bold text-pink-600 hover:text-pink-700">
+        🔊 1.0x Normal
+      </button>
+    </div>
+  </div>
+
+  <!-- Translation Box -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Source Column -->
+    <div class="bg-white p-5 rounded-3xl border border-pink-100 shadow-xs flex flex-col justify-between space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <label for="transSourceLang" class="text-xs font-bold text-slate-400 uppercase tracking-wider">Source Language</label>
+          <select id="transSourceLang" onchange="TranslatorSystem.handleLangChange()" class="text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 outline-none focus:border-pink-500">
+            <option value="id">Indonesian (Bahasa Indonesia)</option>
+            <option value="en" selected>English</option>
+            <option value="de">German (Deutsch)</option>
+          </select>
+        </div>
+        <button onclick="TranslatorSystem.swapLanguages()" class="p-1.5 rounded-lg text-slate-400 hover:text-pink-600 hover:bg-pink-50 transition-colors" title="Swap Languages">
+          ⇄
+        </button>
+      </div>
+
+      <div class="relative">
+        <textarea id="transInputText" rows="4" class="w-full text-slate-800 text-base placeholder-slate-400 bg-slate-50/50 border border-slate-200/80 rounded-2xl p-4 outline-none focus:border-pink-500 focus:bg-white transition-all resize-none" placeholder="Type a sentence in Indonesian, English, or German..."></textarea>
+      </div>
+
+      <!-- Quick Beginner Sentence Pills -->
+      <div>
+        <div class="text-[11px] font-semibold text-slate-400 mb-2">Try Beginner Sentences:</div>
+        <div class="flex flex-wrap gap-1.5">
+          <button onclick="TranslatorSystem.setPreset('I would like to drink a coffee.')" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-pink-100 hover:text-pink-700 text-slate-600 transition-colors">
+            "I would like to drink a coffee."
+          </button>
+          <button onclick="TranslatorSystem.setPreset('Where do you live?')" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-pink-100 hover:text-pink-700 text-slate-600 transition-colors">
+            "Where do you live?"
+          </button>
+          <button onclick="TranslatorSystem.setPreset('Today I am learning German in Berlin.')" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-pink-100 hover:text-pink-700 text-slate-600 transition-colors">
+            "Today I am learning German..."
+          </button>
+          <button onclick="TranslatorSystem.setPreset('Saya berasal dari Indonesia.')" class="text-[11px] px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-pink-100 hover:text-pink-700 text-slate-600 transition-colors">
+            "Saya berasal dari Indonesia."
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-2">
+        <button onclick="TranslatorSystem.clearInput()" class="text-xs text-slate-400 hover:text-slate-600 font-medium">Clear</button>
+        <button onclick="TranslatorSystem.translate()" id="translateSubmitBtn" class="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white text-xs font-bold shadow-md shadow-pink-200 transition-all flex items-center gap-2">
+          <span>Translate & Analyze</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Output Column -->
+    <div class="bg-white p-5 rounded-3xl border border-pink-100 shadow-xs flex flex-col justify-between space-y-4">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <label for="transTargetLang" class="text-xs font-bold text-slate-400 uppercase tracking-wider">Target Language</label>
+          <select id="transTargetLang" onchange="TranslatorSystem.handleLangChange()" class="text-xs font-bold text-slate-700 bg-slate-50 border border-slate-200 rounded-lg px-2 py-1 outline-none focus:border-pink-500">
+            <option value="de" selected>German (Deutsch)</option>
+            <option value="en">English</option>
+            <option value="id">Indonesian (Bahasa Indonesia)</option>
+          </select>
+        </div>
+        <span class="text-[11px] text-emerald-600 font-semibold bg-emerald-50 px-2 py-0.5 rounded">A1 Ready</span>
+      </div>
+
+      <div class="relative min-h-[110px] p-4 bg-pink-50/30 rounded-2xl border border-pink-100">
+        <div id="transOutputText" class="text-slate-800 text-lg font-semibold leading-relaxed">
+          Ich möchte einen Kaffee trinken.
+        </div>
+        <div id="transLoadingSpinner" class="hidden absolute inset-0 bg-white/80 backdrop-blur-xs rounded-2xl flex items-center justify-center gap-2 text-xs font-bold text-pink-600">
+          <svg class="w-4 h-4 animate-spin text-pink-500" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+          Translating & Analyzing...
+        </div>
+      </div>
+
+      <!-- Action Buttons for Output -->
+      <div class="flex items-center justify-between pt-2">
+        <div class="flex items-center gap-2">
+          <button onclick="TranslatorSystem.playAudio(1.0)" class="px-3 py-1.5 rounded-xl bg-pink-100 hover:bg-pink-200 text-pink-700 text-xs font-bold transition-colors flex items-center gap-1" title="Play pronunciation at normal speed">
+            <span>🔊 Listen (1.0x)</span>
+          </button>
+          <button onclick="TranslatorSystem.playAudio(0.75)" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-colors flex items-center gap-1" title="Play slowly for beginners">
+            <span>🐢 Slow (0.75x)</span>
+          </button>
+        </div>
+        <button onclick="TranslatorSystem.copyOutput()" class="px-3 py-1.5 rounded-xl border border-slate-200 text-slate-600 hover:text-slate-800 text-xs font-semibold transition-colors" title="Copy Translation">
+          📋 Copy
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Grammar Analysis Section (100% in English) -->
+  <div id="grammarAnalysisContainer" class="bg-white p-6 sm:p-7 rounded-3xl border border-pink-200 shadow-sm space-y-6">
+    <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+      <div class="flex items-center gap-2">
+        <span class="w-8 h-8 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-base">🔍</span>
+        <div>
+          <h2 class="text-base sm:text-lg font-extrabold text-slate-800">Beginner German Grammar & Sentence Breakdown</h2>
+          <p class="text-xs text-slate-500">Every grammatical component explained simply in English for absolute beginners.</p>
+        </div>
+      </div>
+      <span class="text-[11px] font-bold text-purple-700 bg-purple-50 px-2.5 py-1 rounded-full">CEFR A1 Standard</span>
+    </div>
+
+    <!-- Dynamic Grammar Analysis Cards -->
+    <div id="grammarCardsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Injected by TranslatorSystem.analyzeGrammar() -->
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     4. 3D VOCABULARY FLASHCARDS VIEW (#flashcardsView)
+     ========================================================================== -->
+<section id="flashcardsView" class="hidden space-y-6">
+  <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-pink-100">
+    <div class="flex items-center gap-3">
+      <button onclick="App.navigateTo('dashboard')" class="p-2 rounded-xl text-slate-500 hover:text-pink-600 hover:bg-pink-50 transition-colors" title="Back to Dashboard">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      </button>
+      <div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-emerald-100 text-emerald-700 text-[11px] font-bold uppercase tracking-wider">
+          🗂️ 3D Vocabulary Flashcards
+        </span>
+        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-800">
+          Core German A1 Spaced Repetition Deck
+        </h1>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3 text-xs font-semibold">
+      <span class="text-slate-500">Mastery:</span>
+      <span id="flashcardMasteryCount" class="text-emerald-600 font-bold bg-emerald-50 px-2.5 py-1 rounded-xl">0 Mastered</span>
+      <span id="flashcardRemainingCount" class="text-slate-400 bg-slate-100 px-2.5 py-1 rounded-xl">40 Remaining</span>
+    </div>
+  </div>
+
+  <!-- Category Pills Filter -->
+  <div class="flex items-center gap-2 overflow-x-auto pb-2 no-scrollbar" id="flashcardCategoryPills">
+    <!-- Injected dynamically -->
+  </div>
+
+  <!-- Flashcard 3D Stage -->
+  <div class="flex flex-col items-center justify-center max-w-xl mx-auto py-4">
+    <div class="w-full h-80 flashcard-perspective cursor-pointer select-none" onclick="FlashcardSystem.flip()">
+      <div id="flashcardElement" class="flashcard-inner">
+        <!-- Front Side -->
+        <div class="flashcard-front bg-gradient-to-br from-white via-pink-50/40 to-rose-50/40 p-7 border-2 border-pink-200">
+          <div class="flex items-center justify-between">
+            <span id="fcGenderBadge" class="gender-der px-2.5 py-1 rounded-lg text-xs font-bold">der</span>
+            <span id="fcCategoryBadge" class="text-xs font-bold text-slate-400 bg-white/80 px-2 py-0.5 rounded">Basics</span>
+          </div>
+          <div class="my-auto text-center space-y-2">
+            <div id="fcGermanWord" class="text-3xl sm:text-4xl font-black text-slate-800 tracking-tight">der Apfel</div>
+            <div id="fcPluralHint" class="text-sm text-slate-500 font-medium">Plural: die Äpfel</div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span>Tap card to flip 🔄</span>
+            <button onclick="event.stopPropagation(); FlashcardSystem.speakCurrentWord();" class="p-2 rounded-xl bg-pink-100 hover:bg-pink-200 text-pink-700 font-bold transition-colors">
+              🔊 Pronounce
+            </button>
+          </div>
+        </div>
+
+        <!-- Back Side -->
+        <div class="flashcard-back bg-gradient-to-br from-white via-purple-50/40 to-sky-50/40 p-7 border-2 border-purple-200">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-purple-600 bg-purple-100 px-2.5 py-1 rounded-lg">English Meaning</span>
+            <span id="fcPartOfSpeech" class="text-xs font-bold text-slate-400 bg-white/80 px-2 py-0.5 rounded">Noun</span>
+          </div>
+          <div class="my-auto text-center space-y-3">
+            <div id="fcEnglishMeaning" class="text-2xl sm:text-3xl font-extrabold text-slate-800">the apple</div>
+            <div class="p-3 bg-white/80 rounded-xl border border-purple-100 text-xs sm:text-sm text-slate-600 font-medium">
+              <span class="text-purple-600 font-bold">Sample: </span>
+              <span id="fcSampleSentence">Ich esse gern einen Apfel. (I like eating an apple.)</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-400">
+            <span>Tap to flip back 🔄</span>
+            <button onclick="event.stopPropagation(); FlashcardSystem.speakSampleSentence();" class="p-2 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold transition-colors">
+              🔊 Listen Sample
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Controls Bar -->
+    <div class="w-full flex items-center justify-between gap-3 mt-6">
+      <button onclick="FlashcardSystem.markPractice()" class="flex-1 py-3 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs sm:text-sm transition-all shadow-xs flex items-center justify-center gap-1.5">
+        <span>❌ Needs Practice</span>
+      </button>
+      <button onclick="FlashcardSystem.flip()" class="px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition-all shadow-xs" title="Flip Card">
+        🔄 Flip
+      </button>
+      <button onclick="FlashcardSystem.markMastered()" class="flex-1 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-white font-bold text-xs sm:text-sm transition-all shadow-sm shadow-emerald-200 flex items-center justify-center gap-1.5">
+        <span>✅ Mastered</span>
+      </button>
+    </div>
+
+    <!-- Navigation row -->
+    <div class="w-full flex items-center justify-between mt-4 text-xs font-semibold text-slate-400">
+      <button onclick="FlashcardSystem.prevCard()" class="hover:text-pink-600 flex items-center gap-1">← Previous</button>
+      <span id="fcProgressIndex">1 / 40</span>
+      <button onclick="FlashcardSystem.nextCard()" class="hover:text-pink-600 flex items-center gap-1">Next →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     5. "DER, DIE, DAS" FINDER & QUIZ VIEW (#articleFinderView)
+     ========================================================================== -->
+<section id="articleFinderView" class="hidden space-y-6">
+  <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-pink-100">
+    <div class="flex items-center gap-3">
+      <button onclick="App.navigateTo('dashboard')" class="p-2 rounded-xl text-slate-500 hover:text-pink-600 hover:bg-pink-50 transition-colors" title="Back to Dashboard">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      </button>
+      <div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-pink-100 text-pink-700 text-[11px] font-bold uppercase tracking-wider">
+          🔍 Article Memory Tool
+        </span>
+        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-800">
+          "Der, Die, or Das?" Noun Finder & Practice Quiz
+        </h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Box -->
+  <div class="bg-white p-5 rounded-3xl border border-pink-100 shadow-xs space-y-4">
+    <div class="relative">
+      <input type="text" id="articleSearchInput" oninput="ArticleFinderSystem.handleSearch(this.value)" placeholder="Search any German noun (e.g. Apfel, Zeitung, Buch, Kaffee)..." class="w-full p-4 pl-11 rounded-2xl bg-slate-50 border border-slate-200 text-slate-800 text-base font-medium outline-none focus:border-pink-500 focus:bg-white transition-all shadow-xs">
+      <svg class="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+    </div>
+
+    <!-- Quick Article Memory Guide Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-2 text-xs">
+      <div class="p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-900">
+        <div class="font-bold flex items-center gap-1.5 mb-1">
+          <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
+          <span>DER (Masculine) Rules:</span>
+        </div>
+        <p class="text-[11px] text-blue-700">Days, months, seasons, compass directions, male professions, and nouns ending in <b>-ling, -or, -ist, -ismus</b>.</p>
+      </div>
+      <div class="p-3 rounded-xl bg-pink-50 border border-pink-200 text-pink-900">
+        <div class="font-bold flex items-center gap-1.5 mb-1">
+          <span class="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
+          <span>DIE (Feminine) Rules:</span>
+        </div>
+        <p class="text-[11px] text-pink-700">Female persons, female jobs, numbers, and 100% nouns ending in <b>-ung, -heit, -keit, -schaft, -ei, -ie, -tion, -tät</b>.</p>
+      </div>
+      <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900">
+        <div class="font-bold flex items-center gap-1.5 mb-1">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+          <span>DAS (Neuter) Rules:</span>
+        </div>
+        <p class="text-[11px] text-emerald-700">Diminutives ending in <b>-chen, -lein</b>, nominalized infinitives (das Essen, das Lernen), and nouns ending in <b>-ment, -um</b>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Results or Interactive Quiz -->
+  <div id="articleResultsContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+    <!-- Injected dynamically by ArticleFinderSystem -->
+  </div>
+</section>
+
+<!-- ==========================================================================
+     6. CERTIFICATE OF COMPLETION VIEW (#certificateView)
+     ========================================================================== -->
+<section id="certificateView" class="hidden space-y-6">
+  <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-pink-100 no-print">
+    <div class="flex items-center gap-3">
+      <button onclick="App.navigateTo('dashboard')" class="p-2 rounded-xl text-slate-500 hover:text-pink-600 hover:bg-pink-50 transition-colors" title="Back to Dashboard">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+      </button>
+      <div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amber-100 text-amber-700 text-[11px] font-bold uppercase tracking-wider">
+          📜 Official Certification
+        </span>
+        <h1 class="text-xl sm:text-2xl font-extrabold text-slate-800">
+          CheeYa Studio German A1 Certificate of Completion
+        </h1>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex items-center gap-3">
+      <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs shadow-md transition-all flex items-center gap-2">
+        <span>🖨️ Print / Save as PDF</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Name Input Card (No-print) -->
+  <div class="bg-white p-5 rounded-2xl border border-pink-100 shadow-xs flex flex-wrap items-center gap-4 no-print">
+    <label for="certStudentNameInput" class="text-xs font-bold text-slate-600">Personalize Your Certificate Name:</label>
+    <input type="text" id="certStudentNameInput" oninput="CertificateSystem.updateName(this.value)" placeholder="Enter Your Full Name" class="flex-1 min-w-[200px] px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-800 outline-none focus:border-pink-500">
+    <span class="text-xs text-slate-400">Updates the certificate in real time</span>
+  </div>
+
+  <!-- Certificate Graphic Canvas Area -->
+  <div id="certificatePrintArea" class="max-w-4xl mx-auto bg-white p-8 sm:p-12 rounded-3xl border-8 border-amber-300 shadow-xl relative overflow-hidden text-center space-y-6">
+    <!-- Ornaments -->
+    <div class="absolute top-0 left-0 w-32 h-32 bg-amber-100/50 rounded-full -translate-x-16 -translate-y-16 pointer-events-none"></div>
+    <div class="absolute bottom-0 right-0 w-32 h-32 bg-pink-100/50 rounded-full translate-x-16 translate-y-16 pointer-events-none"></div>
+
+    <div class="space-y-2">
+      <div class="text-xs tracking-[0.25em] font-extrabold text-amber-600 uppercase">CheeYa Studio • German Language Academy</div>
+      <h2 class="text-3xl sm:text-5xl font-serif font-black text-slate-900 tracking-tight">CERTIFICATE OF COMPLETION</h2>
+      <div class="text-sm text-slate-500 font-medium">Common European Framework of Reference for Languages (CEFR A1)</div>
+    </div>
+
+    <div class="py-4 space-y-3">
+      <p class="text-xs uppercase tracking-widest text-slate-400 font-bold">This certifies that</p>
+      <div id="certDisplayName" class="text-2xl sm:text-4xl font-serif font-black text-pink-600 underline decoration-amber-400 decoration-2 underline-offset-8">
+        Student Scholar
+      </div>
+      <p class="max-w-2xl mx-auto text-xs sm:text-sm text-slate-600 leading-relaxed pt-3">
+        has successfully completed the comprehensive 38-lesson German A1 curriculum, demonstrated proficiency in German foundational grammar, conversational fluency, vocabulary acquisition, and achieved passing standards on the official Goethe-Zertifikat A1 Start Deutsch 1 examination simulator.
+      </p>
+    </div>
+
+    <!-- Signatures & Official Badges -->
+    <div class="pt-6 border-t border-amber-200 grid grid-cols-3 gap-4 items-end">
+      <div class="text-center">
+        <div class="font-serif italic font-bold text-slate-700 text-sm">CheeYa Studio</div>
+        <div class="w-24 h-0.5 bg-slate-300 mx-auto my-1"></div>
+        <div class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Academic Director</div>
+      </div>
+      <div class="text-center">
+        <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 to-amber-200 border-4 border-white shadow-md mx-auto flex items-center justify-center text-2xl font-bold text-amber-800">
+          ★
+        </div>
+        <div class="text-[10px] text-amber-700 uppercase tracking-wider font-extrabold mt-1">A1 Certified</div>
+      </div>
+      <div class="text-center">
+        <div id="certDisplayDate" class="font-mono text-xs font-bold text-slate-700">September 18, 2026</div>
+        <div class="w-24 h-0.5 bg-slate-300 mx-auto my-1"></div>
+        <div class="text-[10px] text-slate-400 uppercase tracking-wider font-semibold">Date of Issuance</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
     </main>
   </div>
@@ -11474,20 +12441,23 @@ const CheatSheetSystem = {
       },
 
       navigateTo(view) {
-        const dashboard = document.getElementById('dashboardView');
-        const lesson = document.getElementById('lessonView');
+        const views = ['dashboardView', 'lessonView', 'examView', 'translatorView', 'flashcardsView', 'articleFinderView', 'certificateView'];
         this.currentView = view;
 
-        if (view === 'dashboard') {
-          if (dashboard) dashboard.classList.remove('hidden');
-          if (lesson) lesson.classList.add('hidden');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else if (view === 'lesson') {
-          if (dashboard) dashboard.classList.add('hidden');
-          if (lesson) lesson.classList.remove('hidden');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        views.forEach(vId => {
+          const el = document.getElementById(vId);
+          if (el) {
+            if (vId === `${view}View`) {
+              el.classList.remove('hidden');
+            } else {
+              el.classList.add('hidden');
+            }
+          }
+        });
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         this.renderSidebar();
+        this.closeMobileSidebar();
       },
 
       openLesson(lessonId) {
@@ -12002,7 +12972,7 @@ const PWAInstaller = {
       this.deferredPrompt = null;
       this.dismissBanner();
       if (typeof App !== 'undefined' && App.showToast) {
-        App.showToast('CheeYa German A1 berhasil dipasang!');
+        App.showToast('CheeYa German A1 successfully installed!');
       }
     });
   },
@@ -12039,6 +13009,1455 @@ const PWAInstaller = {
 };
 
 PWAInstaller.init();
+
+/* ==========================================================================
+   CheeYa German A1 - Advanced Interactive Learning Systems (100% English UI)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. THEME ENGINE SYSTEM (5 Soft Themes)
+   -------------------------------------------------------------------------- */
+const ThemeSystem = {
+  STORAGE_KEY: 'cheeya_active_theme',
+  themes: [
+    { id: 'pink', name: 'Blossom Pink', icon: '🌸', hex: '#ec4899', desc: 'CheeYa Original Soft Pink' },
+    { id: 'dark', name: 'Dark Slate', icon: '🌙', hex: '#0f172a', desc: 'Eye-Care Evening Mode' },
+    { id: 'purple', name: 'Lavender Dream', icon: '💜', hex: '#8b5cf6', desc: 'Soft Pastel Violet' },
+    { id: 'blue', name: 'Sky Cloud', icon: '🌊', hex: '#0ea5e9', desc: 'Refreshing Ocean Blue' },
+    { id: 'green', name: 'Sage Mint', icon: '🍃', hex: '#10b981', desc: 'Calming Pastel Mint' }
+  ],
+  currentTheme: 'pink',
+
+  init() {
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEY);
+      if (saved && this.themes.some(t => t.id === saved)) {
+        this.currentTheme = saved;
+      }
+    } catch (e) {
+      console.warn('Theme storage access error:', e);
+    }
+    this.applyTheme(this.currentTheme, false);
+  },
+
+  applyTheme(themeId, notify = true) {
+    this.currentTheme = themeId;
+    document.documentElement.setAttribute('data-theme', themeId);
+    try {
+      localStorage.setItem(this.STORAGE_KEY, themeId);
+    } catch (e) {}
+
+    const themeObj = this.themes.find(t => t.id === themeId) || this.themes[0];
+    const btnIcon = document.getElementById('headerThemeIcon');
+    const btnText = document.getElementById('headerThemeName');
+    if (btnIcon) btnIcon.innerText = themeObj.icon;
+    if (btnText) btnText.innerText = themeObj.name;
+
+    if (notify && typeof App !== 'undefined' && App.showToast) {
+      App.showToast(`Theme switched to ${themeObj.name}! ${themeObj.icon}`);
+    }
+  },
+
+  toggleMenu() {
+    const popover = document.getElementById('themePickerPopover');
+    if (popover) {
+      popover.classList.toggle('hidden');
+    }
+  },
+
+  closeMenu() {
+    const popover = document.getElementById('themePickerPopover');
+    if (popover) popover.classList.add('hidden');
+  }
+};
+
+/* --------------------------------------------------------------------------
+   2. AUDIO SPEED SYSTEM
+   -------------------------------------------------------------------------- */
+const AudioSpeedSystem = {
+  STORAGE_KEY: 'cheeya_audio_speed',
+  currentSpeed: 1.0,
+
+  init() {
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEY);
+      if (saved) this.currentSpeed = parseFloat(saved) || 1.0;
+    } catch (e) {}
+    this.updateUI();
+  },
+
+  toggleSpeed() {
+    this.currentSpeed = this.currentSpeed === 1.0 ? 0.75 : 1.0;
+    try {
+      localStorage.setItem(this.STORAGE_KEY, this.currentSpeed.toString());
+    } catch (e) {}
+    this.updateUI();
+    if (typeof App !== 'undefined' && App.showToast) {
+      App.showToast(`Audio speed set to ${this.currentSpeed === 1.0 ? 'Normal (1.0x) ⚡' : 'Slow (0.75x) 🐢'}`);
+    }
+  },
+
+  updateUI() {
+    const labels = document.querySelectorAll('.audio-speed-indicator');
+    labels.forEach(el => {
+      el.innerText = this.currentSpeed === 1.0 ? '1.0x' : '0.75x';
+    });
+    const headerBtn = document.getElementById('headerAudioSpeedBtn');
+    if (headerBtn) {
+      headerBtn.innerHTML = this.currentSpeed === 1.0 
+        ? `<span>⚡ 1.0x</span>` 
+        : `<span>🐢 0.75x</span>`;
+    }
+    const transBtn = document.getElementById('translatorSpeedBtn');
+    if (transBtn) {
+      transBtn.innerText = this.currentSpeed === 1.0 ? '🔊 1.0x Normal' : '🐢 0.75x Slow';
+    }
+  },
+
+  speak(text, customSpeed = null) {
+    if (!('speechSynthesis' in window)) {
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('Speech synthesis is not supported on this browser.');
+      }
+      return;
+    }
+    window.speechSynthesis.cancel();
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.lang = 'de-DE';
+    utt.rate = customSpeed || this.currentSpeed;
+    window.speechSynthesis.speak(utt);
+  }
+};
+
+/* --------------------------------------------------------------------------
+   3. GOETHE-ZERTIFIKAT A1 EXAM SIMULATOR SYSTEM
+   -------------------------------------------------------------------------- */
+const ExamSystem = {
+  currentMode: 'official-65', // official-65, official-lesen-25, etc.
+  totalSeconds: 3900,
+  remainingSeconds: 3900,
+  timerInterval: null,
+  isPaused: false,
+  currentSection: 'lesen', // lesen, hoeren, schreiben, sprechen
+
+  userAnswers: {
+    lesen: {},
+    hoeren: {},
+    schreiben: {
+      form: { f1: '', f2: '', f3: '', f4: '', f5: '' },
+      email: ''
+    }
+  },
+
+  examData: {
+    lesen: [
+      {
+        part: 1,
+        title: "Part 1: Personal Emails & Notes",
+        instruction: "Read the emails and decide if the statements are True (Richtig) or False (Falsch), or choose the correct option (a, b, c).",
+        text: `<b>Text 1:</b><br>
+Liebe Sarah,<br>
+viele Grüße aus München! Ich bin gestern hier angekommen. Meine neue Wohnung ist sehr schön, aber ich habe noch keine Möbel. Am Samstag gehe ich mit Peter zu IKEA. Hast du Zeit und Lust mitzukommen? Wir treffen uns um 10:00 Uhr am Hauptbahnhof.<br>
+Liebe Grüße,<br>
+Markus`,
+        questions: [
+          {
+            id: 'l1',
+            type: 'tf',
+            question: "1. Markus wohnt schon seit vielen Wochen in München.",
+            options: ["Richtig (True)", "Falsch (False)"],
+            correct: 1,
+            explanation: "Markus writes 'Ich bin gestern hier angekommen' (I arrived here yesterday), so he has not lived there for weeks."
+          },
+          {
+            id: 'l2',
+            type: 'tf',
+            question: "2. Markus möchte am Samstag Möbel kaufen.",
+            options: ["Richtig (True)", "Falsch (False)"],
+            correct: 0,
+            explanation: "Markus writes 'Am Samstag gehe ich mit Peter zu IKEA' (On Saturday I am going to IKEA with Peter)."
+          },
+          {
+            id: 'l3',
+            type: 'mc',
+            question: "3. Wo treffen sich Markus und Peter?",
+            options: ["a) Bei IKEA", "b) Am Hauptbahnhof", "c) In Markus' Wohnung"],
+            correct: 1,
+            explanation: "Markus specifies: 'Wir treffen uns um 10:00 Uhr am Hauptbahnhof'."
+          }
+        ]
+      },
+      {
+        part: 2,
+        title: "Part 2: Classified Ads & Matching",
+        instruction: "Read the two website options (A or B) and select the offer that matches the person's needs.",
+        situation: "You want to buy a comfortable used bicycle for commuting under 80 Euros.",
+        adA: "<b>Website A: www.rad-berlin.de</b><br>Neue und gebrauchte Fahrräder ab 50 €. Cityräder, Mountainbikes und Zubehör. Täglich geöffnet von 10-18 Uhr.",
+        adB: "<b>Website B: www.fahrrad-verleih-express.de</b><br>Fahrradverleih für Touristen. Mieten Sie ein Rad für nur 15 € pro Tag!",
+        questions: [
+          {
+            id: 'l4',
+            type: 'mc',
+            question: "4. Welche Website passt für Sie?",
+            options: ["a) Website A", "b) Website B"],
+            correct: 0,
+            explanation: "You want to BUY (kaufen) a bike under 80 €, so Website A (gebrauchte Fahrräder ab 50 €) is correct. Website B only rents bikes (Verleih)."
+          }
+        ]
+      },
+      {
+        part: 3,
+        title: "Part 3: Public Signs & Information",
+        instruction: "Read the notices in public places and decide whether the statement is True (Richtig) or False (Falsch).",
+        questions: [
+          {
+            id: 'l5',
+            sign: "<b>Supermarkt Eingang:</b><br>Einkaufswagen bitte nur mit 1-Euro-Münze oder Chip entriegeln.",
+            type: 'tf',
+            question: "5. Man braucht Geld oder einen Chip für den Einkaufswagen.",
+            options: ["Richtig (True)", "Falsch (False)"],
+            correct: 0,
+            explanation: "The sign explicitly states 'nur mit 1-Euro-Münze oder Chip' (only with 1-Euro coin or chip)."
+          },
+          {
+            id: 'l6',
+            sign: "<b>Arztpraxis Dr. Weber:</b><br>Sprechstunde heute nur für Notfälle. Reguläre Termine bitte telefonisch verschieben.",
+            type: 'tf',
+            question: "6. Patienten mit normalen Terminen können heute behandelt werden.",
+            options: ["Richtig (True)", "Falsch (False)"],
+            correct: 1,
+            explanation: "The practice is open TODAY ONLY FOR EMERGENCIES (nur für Notfälle). Regular appointments must be rescheduled."
+          }
+        ]
+      }
+    ],
+
+    hoeren: [
+      {
+        part: 1,
+        title: "Part 1: Everyday Conversations",
+        instruction: "Listen to the audio dialog (Click 'Play Audio 🔊') and choose the correct answer (a, b, or c). In the official test, you hear this twice.",
+        questions: [
+          {
+            id: 'h1',
+            audioText: "Guten Tag! Was kostet bitte ein Brötchen? - Ein Brötchen kostet 40 Cent. - Gut, dann nehme ich bitte vier Brötchen.",
+            type: 'mc',
+            question: "1. Wie viel bezahlt der Mann für vier Brötchen?",
+            options: ["a) 1,20 €", "b) 1,60 €", "c) 2,00 €"],
+            correct: 1,
+            explanation: "4 brötchen × 40 cent = 1,60 Euro."
+          },
+          {
+            id: 'h2',
+            audioText: "Entschuldigung, wann fährt der nächste Zug nach Frankfurt? - Der nächste Zug fährt um 14 Uhr 15 von Gleis 5.",
+            type: 'mc',
+            question: "2. Um wie viel Uhr fährt der Zug?",
+            options: ["a) Um 14:05 Uhr", "b) Um 14:15 Uhr", "c) Um 14:50 Uhr"],
+            correct: 1,
+            explanation: "The speaker clearly says 'um 14 Uhr 15' (quarter past two)."
+          }
+        ]
+      },
+      {
+        part: 2,
+        title: "Part 2: Public Announcements",
+        instruction: "Listen to the announcement (Click 'Play Audio 🔊') and choose Richtig (True) or Falsch (False).",
+        questions: [
+          {
+            id: 'h3',
+            audioText: "Achtung an Gleis 3: Der Intercity nach Hamburg hat heute etwa 25 Minuten Verspätung. Wir bitten um Entschuldigung.",
+            type: 'tf',
+            question: "3. Der Zug nach Hamburg kommt pünktlich.",
+            options: ["Richtig (True)", "Falsch (False)"],
+            correct: 1,
+            explanation: "The train has 25 minutes delay ('hat heute etwa 25 Minuten Verspätung'), so it is NOT on time."
+          }
+        ]
+      }
+    ],
+
+    schreiben: {
+      part1: {
+        title: "Part 1: Registration Form (Formular ausfüllen)",
+        situation: "Your friend <b>Maria Rodriguez</b> from Spain lives in Munich (Goethestraße 12, 80336 München). She wants to book an intensive German course for <b>2 persons</b> starting in <b>October</b>, paying by <b>Credit Card</b>. Complete the 5 missing fields in the form below.",
+        fields: [
+          { key: 'f1', label: "1. Familienname (Surname):", expected: "Rodriguez", hint: "Surname of the applicant" },
+          { key: 'f2', label: "2. Herkunftsland (Country of Origin):", expected: "Spanien", hint: "Country name in German or English (Spanien / Spain)" },
+          { key: 'f3', label: "3. Wohnort (City of Residence):", expected: "München", hint: "Current city in Germany" },
+          { key: 'f4', label: "4. Anzahl der Personen (Number of Persons):", expected: "2", hint: "Number of participants (2)" },
+          { key: 'f5', label: "5. Zahlungsmethode (Payment Method):", expected: "Kreditkarte", hint: "Kreditkarte / Credit card" }
+        ]
+      },
+      part2: {
+        title: "Part 2: Short Email / Letter (~30 words)",
+        prompt: "Write a short email to hotel 'Berliner Hof' in Berlin:<br>• Request a double room for 2 nights (Friday to Sunday).<br>• Ask if breakfast is included in the price.<br>• Announce your arrival time (around 19:00).<br>• Use polite greetings and closings.",
+        sampleModel: `Sehr geehrte Damen und Herren,\n\nich möchte ein Doppelzimmer für zwei Nächte von Freitag bis Sonntag reservieren. Ist das Frühstück im Preis inklusive? Wir kommen am Freitag gegen 19:00 Uhr an.\n\nMit freundlichen Grüßen,\nMaria Rodriguez`
+      }
+    },
+
+    sprechen: [
+      {
+        part: 1,
+        title: "Part 1: Sich vorstellen (Self-Introduction)",
+        instruction: "Introduce yourself covering these 7 essential A1 points. Click 'Listen Model 🔊' to hear the correct German pronunciation.",
+        points: [
+          { label: "Name", de: "Ich heiße...", en: "My name is...", audio: "Ich heiße Maria Rodriguez." },
+          { label: "Alter", de: "Ich bin ... Jahre alt.", en: "I am ... years old.", audio: "Ich bin 24 Jahre alt." },
+          { label: "Land", de: "Ich komme aus...", en: "I come from...", audio: "Ich komme aus Indonesien." },
+          { label: "Wohnort", de: "Ich wohne in...", en: "I live in...", audio: "Ich wohne in Berlin." },
+          { label: "Sprachen", de: "Ich spreche...", en: "I speak...", audio: "Ich spreche Indonesisch, Englisch und ein bisschen Deutsch." },
+          { label: "Beruf", de: "Ich bin ... von Beruf.", en: "I am a ... by profession.", audio: "Ich bin Studentin von Beruf." },
+          { label: "Hobby", de: "Meine Hobbys sind...", en: "My hobbies are...", audio: "Meine Hobbys sind Lesen und Reisen." }
+        ]
+      },
+      {
+        part: 2,
+        title: "Part 2: Thema Cue Cards (Ask & Answer)",
+        instruction: "Draw cue cards to formulate questions and give spontaneous answers on everyday topics.",
+        cards: [
+          { theme: "Thema: Essen und Trinken", word: "Frühstück", question: "Was essen Sie gern zum Frühstück?", answer: "Ich esse gern Brot mit Käse und trinke Kaffee." },
+          { theme: "Thema: Einkaufen", word: "Kasse", question: "Wo ist hier die Kasse, bitte?", answer: "Die Kasse ist dort vorne links." },
+          { theme: "Thema: Freizeit", word: "Sport", question: "Machen Sie gern Sport am Wochenende?", answer: "Ja, ich spiele gern Fußball." }
+        ]
+      }
+    ]
+  },
+
+  init() {
+    this.renderSection();
+  },
+
+  startExam(mode = 'official-65') {
+    this.currentMode = mode;
+    this.isPaused = false;
+
+    if (mode === 'official-65') this.totalSeconds = 65 * 60;
+    else if (mode === 'official-lesen-25') this.totalSeconds = 25 * 60;
+    else if (mode === 'official-hoeren-20') this.totalSeconds = 20 * 60;
+    else if (mode === 'official-schreiben-20') this.totalSeconds = 20 * 60;
+    else if (mode === 'official-sprechen-15') this.totalSeconds = 15 * 60;
+    else if (mode === 'quick-5') this.totalSeconds = 5 * 60;
+    else if (mode === 'quick-10') this.totalSeconds = 10 * 60;
+    else if (mode === 'quick-15') this.totalSeconds = 15 * 60;
+    else if (mode === 'untimed') this.totalSeconds = -1;
+
+    this.remainingSeconds = this.totalSeconds;
+    this.updateTimerDisplay();
+
+    if (this.timerInterval) clearInterval(this.timerInterval);
+    if (this.totalSeconds > 0) {
+      this.timerInterval = setInterval(() => {
+        if (!this.isPaused) {
+          this.remainingSeconds--;
+          this.updateTimerDisplay();
+          if (this.remainingSeconds <= 0) {
+            clearInterval(this.timerInterval);
+            this.submitExam(true);
+          }
+        }
+      }, 1000);
+    }
+
+    const badge = document.getElementById('examModeBadge');
+    if (badge) {
+      if (mode === 'official-65') badge.innerText = 'Official 65m Full Exam';
+      else if (mode.startsWith('official')) badge.innerText = 'Official Modular Test';
+      else if (mode === 'untimed') badge.innerText = 'Untimed Practice Mode';
+      else badge.innerText = `${Math.floor(this.totalSeconds / 60)}m Timed Quiz`;
+    }
+
+    this.renderSection();
+  },
+
+  togglePause() {
+    if (this.totalSeconds <= 0) return;
+    this.isPaused = !this.isPaused;
+    const btn = document.getElementById('examPauseBtn');
+    if (btn) {
+      btn.innerText = this.isPaused ? 'Resume' : 'Pause';
+      btn.className = this.isPaused 
+        ? 'px-3 py-1.5 rounded-xl bg-amber-500 text-white text-xs font-semibold transition-all'
+        : 'px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-all';
+    }
+  },
+
+  updateTimerDisplay() {
+    const el = document.getElementById('examTimerDisplay');
+    if (!el) return;
+    if (this.totalSeconds <= 0) {
+      el.innerText = 'Practice (∞)';
+      el.className = 'font-mono font-extrabold text-sm sm:text-base text-emerald-600';
+      return;
+    }
+    const mins = Math.floor(this.remainingSeconds / 60);
+    const secs = this.remainingSeconds % 60;
+    el.innerText = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+
+    if (this.remainingSeconds <= 300) {
+      el.className = 'font-mono font-extrabold text-sm sm:text-base text-rose-600 animate-pulse';
+    } else {
+      el.className = 'font-mono font-extrabold text-sm sm:text-base text-slate-800';
+    }
+  },
+
+  switchSection(sectionId) {
+    this.currentSection = sectionId;
+    const tabs = ['lesen', 'hoeren', 'schreiben', 'sprechen'];
+    tabs.forEach(t => {
+      const btn = document.getElementById(`tab-${t}`);
+      if (btn) {
+        if (t === sectionId) {
+          btn.className = "exam-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-pink-500 text-white shadow-xs";
+        } else {
+          btn.className = "exam-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-white text-slate-600 hover:bg-pink-50 border border-slate-200/60";
+        }
+      }
+    });
+    this.renderSection();
+  },
+
+  renderSection() {
+    const container = document.getElementById('examContentArea');
+    if (!container) return;
+
+    if (this.currentSection === 'lesen') {
+      this.renderLesenSection(container);
+    } else if (this.currentSection === 'hoeren') {
+      this.renderHoerenSection(container);
+    } else if (this.currentSection === 'schreiben') {
+      this.renderSchreibenSection(container);
+    } else if (this.currentSection === 'sprechen') {
+      this.renderSprechenSection(container);
+    }
+  },
+
+  renderLesenSection(container) {
+    let html = `
+      <div class="space-y-6">
+        <div class="p-4 bg-pink-50/50 rounded-2xl border border-pink-100 flex items-center justify-between">
+          <div>
+            <h3 class="font-extrabold text-slate-800 text-sm">Module 1: Lesen (Reading Comprehension)</h3>
+            <p class="text-xs text-slate-500">Total: 15 Points • Time: 25 Minutes • 3 Parts</p>
+          </div>
+          <span class="text-xs font-bold text-pink-700 bg-pink-100 px-2.5 py-1 rounded-full">Teil 1, 2, & 3</span>
+        </div>
+    `;
+
+    this.examData.lesen.forEach(group => {
+      html += `
+        <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-2">
+            <h4 class="font-bold text-slate-800 text-sm">${group.title}</h4>
+            <p class="text-xs text-slate-500">${group.instruction}</p>
+          </div>
+      `;
+
+      if (group.text) {
+        html += `
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/70 text-slate-800 text-xs sm:text-sm leading-relaxed font-sans">
+            ${group.text}
+          </div>
+        `;
+      }
+
+      if (group.situation) {
+        html += `
+          <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 font-medium">
+            <b>Situation:</b> ${group.situation}
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700">${group.adA}</div>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700">${group.adB}</div>
+          </div>
+        `;
+      }
+
+      group.questions.forEach(q => {
+        if (q.sign) {
+          html += `<div class="p-3 bg-blue-50/60 rounded-xl border border-blue-200 text-xs text-blue-900">${q.sign}</div>`;
+        }
+        const selected = this.userAnswers.lesen[q.id];
+        html += `
+          <div class="pt-2">
+            <p class="font-bold text-slate-800 text-xs sm:text-sm mb-2">${q.question}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        `;
+        q.options.forEach((opt, optIdx) => {
+          const isChecked = selected === optIdx;
+          html += `
+            <button onclick="ExamSystem.selectAnswer('lesen', '${q.id}', ${optIdx})" class="p-2.5 rounded-xl text-left text-xs font-semibold border transition-all ${
+              isChecked 
+                ? 'bg-pink-500 text-white border-pink-500 shadow-xs' 
+                : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200'
+            }">
+              ${opt}
+            </button>
+          `;
+        });
+        html += `
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+    });
+
+    html += `
+      <div class="flex justify-end">
+        <button onclick="ExamSystem.switchSection('hoeren')" class="px-5 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition-all flex items-center gap-2">
+          <span>Continue to Module 2: Hören →</span>
+        </button>
+      </div>
+    </div>`;
+
+    container.innerHTML = html;
+  },
+
+  renderHoerenSection(container) {
+    let html = `
+      <div class="space-y-6">
+        <div class="p-4 bg-purple-50/50 rounded-2xl border border-purple-100 flex items-center justify-between">
+          <div>
+            <h3 class="font-extrabold text-slate-800 text-sm">Module 2: Hören (Listening Comprehension)</h3>
+            <p class="text-xs text-slate-500">Total: 15 Points • Time: 20 Minutes • Authentic Audio Audio Speech</p>
+          </div>
+          <span class="text-xs font-bold text-purple-700 bg-purple-100 px-2.5 py-1 rounded-full">Audio Simulation</span>
+        </div>
+    `;
+
+    this.examData.hoeren.forEach(group => {
+      html += `
+        <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-2">
+            <h4 class="font-bold text-slate-800 text-sm">${group.title}</h4>
+            <p class="text-xs text-slate-500">${group.instruction}</p>
+          </div>
+      `;
+
+      group.questions.forEach(q => {
+        const selected = this.userAnswers.hoeren[q.id];
+        html += `
+          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200/70 space-y-3">
+            <div class="flex items-center justify-between">
+              <button onclick="AudioSpeedSystem.speak('${q.audioText.replace(/'/g, "\\'")}')" class="px-3.5 py-1.5 rounded-xl bg-purple-500 hover:bg-purple-600 text-white text-xs font-bold transition-all shadow-xs flex items-center gap-1.5">
+                <span>🔊 Play Audio (Official Track)</span>
+              </button>
+              <span class="text-[11px] text-slate-400">German Voice (de-DE)</span>
+            </div>
+
+            <p class="font-bold text-slate-800 text-xs sm:text-sm">${q.question}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        `;
+        q.options.forEach((opt, optIdx) => {
+          const isChecked = selected === optIdx;
+          html += `
+            <button onclick="ExamSystem.selectAnswer('hoeren', '${q.id}', ${optIdx})" class="p-2.5 rounded-xl text-left text-xs font-semibold border transition-all ${
+              isChecked 
+                ? 'bg-purple-600 text-white border-purple-600 shadow-xs' 
+                : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200'
+            }">
+              ${opt}
+            </button>
+          `;
+        });
+        html += `
+            </div>
+          </div>
+        `;
+      });
+
+      html += `</div>`;
+    });
+
+    html += `
+      <div class="flex justify-between">
+        <button onclick="ExamSystem.switchSection('lesen')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
+          ← Back to Lesen
+        </button>
+        <button onclick="ExamSystem.switchSection('schreiben')" class="px-5 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition-all flex items-center gap-2">
+          <span>Continue to Module 3: Schreiben →</span>
+        </button>
+      </div>
+    </div>`;
+
+    container.innerHTML = html;
+  },
+
+  renderSchreibenSection(container) {
+    const part1 = this.examData.schreiben.part1;
+    const part2 = this.examData.schreiben.part2;
+    const formVals = this.userAnswers.schreiben.form;
+    const emailVal = this.userAnswers.schreiben.email;
+    const wordCount = emailVal.trim() ? emailVal.trim().split(/\s+/).length : 0;
+
+    let html = `
+      <div class="space-y-6">
+        <div class="p-4 bg-amber-50/50 rounded-2xl border border-amber-100 flex items-center justify-between">
+          <div>
+            <h3 class="font-extrabold text-slate-800 text-sm">Module 3: Schreiben (Writing Composition)</h3>
+            <p class="text-xs text-slate-500">Total: 15 Points • Time: 20 Minutes • Form Filling & Guided Email</p>
+          </div>
+          <span class="text-xs font-bold text-amber-700 bg-amber-100 px-2.5 py-1 rounded-full">Part 1 & 2</span>
+        </div>
+
+        <!-- Part 1: Registration Form -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-2">
+            <h4 class="font-bold text-slate-800 text-sm">${part1.title}</h4>
+            <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 leading-relaxed mt-2">
+              ${part1.situation}
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+    `;
+
+    part1.fields.forEach(f => {
+      html += `
+        <div class="space-y-1">
+          <label class="text-xs font-bold text-slate-700">${f.label}</label>
+          <input type="text" value="${formVals[f.key] || ''}" oninput="ExamSystem.updateFormField('${f.key}', this.value)" placeholder="${f.hint}" class="w-full px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-medium text-slate-800 outline-none focus:border-pink-500 focus:bg-white transition-all">
+        </div>
+      `;
+    });
+
+    html += `
+          </div>
+        </div>
+
+        <!-- Part 2: Email Writing -->
+        <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-2">
+            <h4 class="font-bold text-slate-800 text-sm">${part2.title}</h4>
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-700 leading-relaxed mt-2">
+              ${part2.prompt}
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-xs">
+              <span class="font-semibold text-slate-500">Your Response:</span>
+              <span id="emailWordCounter" class="font-bold ${wordCount >= 25 && wordCount <= 40 ? 'text-emerald-600' : 'text-slate-400'}">
+                ${wordCount} words (Target: ~30 words)
+              </span>
+            </div>
+            <textarea rows="6" oninput="ExamSystem.updateEmail(this.value)" placeholder="Sehr geehrte Damen und Herren,\n\n..." class="w-full p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm font-sans text-slate-800 outline-none focus:border-pink-500 focus:bg-white transition-all resize-none">${emailVal}</textarea>
+          </div>
+        </div>
+
+        <div class="flex justify-between">
+          <button onclick="ExamSystem.switchSection('hoeren')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
+            ← Back to Hören
+          </button>
+          <button onclick="ExamSystem.switchSection('sprechen')" class="px-5 py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold transition-all flex items-center gap-2">
+            <span>Continue to Module 4: Sprechen Guide →</span>
+          </button>
+        </div>
+      </div>
+    `;
+
+    container.innerHTML = html;
+  },
+
+  renderSprechenSection(container) {
+    let html = `
+      <div class="space-y-6">
+        <div class="p-4 bg-emerald-50/50 rounded-2xl border border-emerald-100 flex items-center justify-between">
+          <div>
+            <h3 class="font-extrabold text-slate-800 text-sm">Module 4: Sprechen (Oral Exam Interactive Guide)</h3>
+            <p class="text-xs text-slate-500">Total: 15 Points • Real Exam Cue Cards with German Audio Synthesis</p>
+          </div>
+          <span class="text-xs font-bold text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full">Oral Simulation</span>
+        </div>
+    `;
+
+    this.examData.sprechen.forEach(group => {
+      html += `
+        <div class="bg-white p-6 rounded-3xl border border-slate-200/80 shadow-xs space-y-4">
+          <div class="border-b border-slate-100 pb-2">
+            <h4 class="font-bold text-slate-800 text-sm">${group.title}</h4>
+            <p class="text-xs text-slate-500">${group.instruction}</p>
+          </div>
+      `;
+
+      if (group.points) {
+        html += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">`;
+        group.points.forEach(pt => {
+          html += `
+            <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between">
+              <div>
+                <span class="text-[11px] font-extrabold text-emerald-600 uppercase tracking-wider">${pt.label}</span>
+                <div class="text-xs font-bold text-slate-800">${pt.de}</div>
+                <div class="text-[11px] text-slate-500">${pt.en}</div>
+              </div>
+              <button onclick="AudioSpeedSystem.speak('${pt.audio.replace(/'/g, "\\'")}')" class="p-2 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-700 text-xs font-bold transition-colors">
+                🔊 Listen
+              </button>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      if (group.cards) {
+        html += `<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">`;
+        group.cards.forEach(cd => {
+          html += `
+            <div class="p-4 bg-emerald-50/40 rounded-2xl border border-emerald-200 space-y-2">
+              <span class="text-[10px] font-bold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded">${cd.theme}</span>
+              <div class="text-base font-black text-slate-800">${cd.word}</div>
+              <div class="p-2.5 bg-white rounded-xl border border-slate-200 text-xs space-y-1">
+                <div class="font-bold text-slate-700">Q: ${cd.question}</div>
+                <div class="text-emerald-600 font-semibold">A: ${cd.answer}</div>
+              </div>
+              <button onclick="AudioSpeedSystem.speak('${cd.question.replace(/'/g, "\\'")} ${cd.answer.replace(/'/g, "\\'")}')" class="w-full py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold transition-all">
+                🔊 Listen Dialog
+              </button>
+            </div>
+          `;
+        });
+        html += `</div>`;
+      }
+
+      html += `</div>`;
+    });
+
+    html += `
+      <div class="flex justify-between items-center p-4 bg-white rounded-2xl border border-pink-200">
+        <button onclick="ExamSystem.switchSection('schreiben')" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all">
+          ← Back to Schreiben
+        </button>
+        <button onclick="ExamSystem.submitExam()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-extrabold text-sm shadow-md shadow-pink-200 transition-all flex items-center gap-2">
+          <span>Complete & Grade Exam</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+        </button>
+      </div>
+    </div>`;
+
+    container.innerHTML = html;
+  },
+
+  selectAnswer(module, questionId, optionIdx) {
+    this.userAnswers[module][questionId] = optionIdx;
+    this.renderSection();
+  },
+
+  updateFormField(key, val) {
+    this.userAnswers.schreiben.form[key] = val;
+  },
+
+  updateEmail(val) {
+    this.userAnswers.schreiben.email = val;
+    const counter = document.getElementById('emailWordCounter');
+    if (counter) {
+      const count = val.trim() ? val.trim().split(/\s+/).length : 0;
+      counter.innerText = `${count} words (Target: ~30 words)`;
+      counter.className = `font-bold ${count >= 25 && count <= 40 ? 'text-emerald-600' : 'text-slate-400'}`;
+    }
+  },
+
+  openTimerSettings() {
+    const mode = prompt(
+      "Select Exam Timer Mode:\n" +
+      "1 = Official 65-Minute Full Exam (Lesen + Hören + Schreiben)\n" +
+      "2 = Official 25-Minute Lesen Only\n" +
+      "3 = Official 20-Minute Hören Only\n" +
+      "4 = Official 20-Minute Schreiben Only\n" +
+      "5 = Quick 15-Minute Quiz\n" +
+      "6 = Untimed Practice Mode",
+      "1"
+    );
+    if (!mode) return;
+    if (mode === '1') this.startExam('official-65');
+    else if (mode === '2') this.startExam('official-lesen-25');
+    else if (mode === '3') this.startExam('official-hoeren-20');
+    else if (mode === '4') this.startExam('official-schreiben-20');
+    else if (mode === '5') this.startExam('quick-15');
+    else if (mode === '6') this.startExam('untimed');
+  },
+
+  submitExam(timedOut = false) {
+    if (this.timerInterval) clearInterval(this.timerInterval);
+
+    // Calculate score
+    let lesenScore = 0;
+    let hoerenScore = 0;
+    let schreibenScore = 0;
+    let sprechenScore = 15; // Speaking guide granted full credit upon self-review
+
+    // Lesen grading
+    this.examData.lesen.forEach(group => {
+      group.questions.forEach(q => {
+        if (this.userAnswers.lesen[q.id] === q.correct) lesenScore += 2.5;
+      });
+    });
+
+    // Hören grading
+    this.examData.hoeren.forEach(group => {
+      group.questions.forEach(q => {
+        if (this.userAnswers.hoeren[q.id] === q.correct) hoerenScore += 5;
+      });
+    });
+
+    // Schreiben Form grading (1 pt per field, max 5)
+    const formVals = this.userAnswers.schreiben.form;
+    const formFields = this.examData.schreiben.part1.fields;
+    let formScore = 0;
+    formFields.forEach(f => {
+      const input = (formVals[f.key] || '').trim().toLowerCase();
+      if (input && (input.includes(f.expected.toLowerCase()) || f.expected.toLowerCase().includes(input))) {
+        formScore += 1;
+      }
+    });
+
+    // Email grading (max 10 pts: length & key terms)
+    const email = (this.userAnswers.schreiben.email || '').toLowerCase();
+    const wordCount = email.trim() ? email.trim().split(/\s+/).length : 0;
+    let emailScore = 0;
+    if (wordCount >= 20) emailScore += 4;
+    else if (wordCount >= 10) emailScore += 2;
+    if (email.includes('doppelzimmer') || email.includes('zimmer')) emailScore += 2;
+    if (email.includes('frühstück') || email.includes('fruehstueck') || email.includes('preis')) emailScore += 2;
+    if (email.includes('grüßen') || email.includes('gruss') || email.includes('maria') || email.includes('sehr geehrte')) emailScore += 2;
+
+    schreibenScore = formScore + emailScore;
+
+    const totalRaw = lesenScore + hoerenScore + schreibenScore + sprechenScore; // max 60 raw
+    const percentage = Math.round((totalRaw / 60) * 100);
+    const passed = percentage >= 60;
+
+    // Show Results Modal
+    this.showResultsModal({
+      timedOut,
+      percentage,
+      passed,
+      lesenScore,
+      hoerenScore,
+      schreibenScore,
+      sprechenScore
+    });
+  },
+
+  showResultsModal(res) {
+    const existing = document.getElementById('examResultsModal');
+    if (existing) existing.remove();
+
+    const modal = document.createElement('div');
+    modal.id = 'examResultsModal';
+    modal.className = "fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto";
+
+    modal.innerHTML = `
+      <div class="bg-white max-w-xl w-full p-6 sm:p-8 rounded-3xl border-2 ${res.passed ? 'border-emerald-300' : 'border-rose-300'} shadow-2xl space-y-6 animate-in fade-in zoom-in-95">
+        <div class="text-center space-y-2">
+          <div class="text-5xl">${res.passed ? '🏆' : '📚'}</div>
+          <span class="text-xs font-bold uppercase tracking-widest ${res.passed ? 'text-emerald-600 bg-emerald-50' : 'text-rose-600 bg-rose-50'} px-3 py-1 rounded-full">
+            Official Evaluation
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-800">
+            ${res.passed ? 'BESTANDEN! (Passed)' : 'NICHT BESTANDEN (Keep Practicing)'}
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500">
+            ${res.passed 
+              ? 'Herzlichen Glückwunsch! You have successfully satisfied the Goethe-Institut A1 pass benchmark (>= 60%).' 
+              : 'Don’t worry! Review the cheat sheets, practice more drills, and retake the simulator.'}
+          </p>
+        </div>
+
+        <!-- Big Score Pill -->
+        <div class="p-5 ${res.passed ? 'bg-emerald-50 border-emerald-200' : 'bg-rose-50 border-rose-200'} rounded-2xl border text-center">
+          <div class="text-xs text-slate-500 font-semibold uppercase">Overall Exam Score</div>
+          <div class="text-4xl font-extrabold ${res.passed ? 'text-emerald-700' : 'text-rose-700'} my-1">${res.percentage}%</div>
+          <div class="text-xs text-slate-500 font-medium">Standard Goethe 100-Point Equivalent</div>
+        </div>
+
+        <!-- Modular Breakdown -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs">
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="text-slate-400 font-semibold">1. Lesen</div>
+            <div class="font-extrabold text-slate-800 text-base mt-1">${res.lesenScore} / 15</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="text-slate-400 font-semibold">2. Hören</div>
+            <div class="font-extrabold text-slate-800 text-base mt-1">${res.hoerenScore} / 15</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="text-slate-400 font-semibold">3. Schreiben</div>
+            <div class="font-extrabold text-slate-800 text-base mt-1">${res.schreibenScore} / 15</div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-100">
+            <div class="text-slate-400 font-semibold">4. Sprechen</div>
+            <div class="font-extrabold text-slate-800 text-base mt-1">${res.sprechenScore} / 15</div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-3 pt-2">
+          ${res.passed ? `
+            <button onclick="document.getElementById('examResultsModal').remove(); App.navigateTo('certificate');" class="flex-1 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5">
+              <span>📜 Claim Official Certificate</span>
+            </button>
+          ` : ''}
+          <button onclick="document.getElementById('examResultsModal').remove(); ExamSystem.startExam('official-65');" class="flex-1 py-3 rounded-2xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs transition-all">
+            Retake Exam 🔄
+          </button>
+          <button onclick="document.getElementById('examResultsModal').remove(); App.navigateTo('dashboard');" class="py-3 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-all">
+            Dashboard
+          </button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+  }
+};
+
+/* --------------------------------------------------------------------------
+   4. SMART TRANSLATOR & BEGINNER GERMAN GRAMMAR ANALYZER
+   -------------------------------------------------------------------------- */
+const TranslatorSystem = {
+  // Built-in offline dictionary & phrases for instant zero-latency responses
+  offlineDict: {
+    "i would like to drink a coffee.": {
+      de: "Ich möchte einen Kaffee trinken.",
+      en: "I would like to drink a coffee.",
+      id: "Saya ingin minum kopi."
+    },
+    "where do you live?": {
+      de: "Wo wohnst du?",
+      en: "Where do you live?",
+      id: "Di mana kamu tinggal?"
+    },
+    "today i am learning german in berlin.": {
+      de: "Heute lerne ich Deutsch in Berlin.",
+      en: "Today I am learning German in Berlin.",
+      id: "Hari ini saya belajar bahasa Jerman di Berlin."
+    },
+    "saya berasal dari indonesia.": {
+      de: "Ich komme aus Indonesien.",
+      en: "I come from Indonesia.",
+      id: "Saya berasal dari Indonesia."
+    },
+    "bisakah anda membantu saya?": {
+      de: "Können Sie mir bitte helfen?",
+      en: "Could you please help me?",
+      id: "Bisakah Anda membantu saya?"
+    }
+  },
+
+  handleLangChange() {
+    // optional reactive callback
+  },
+
+  swapLanguages() {
+    const src = document.getElementById('transSourceLang');
+    const tgt = document.getElementById('transTargetLang');
+    if (src && tgt) {
+      const tmp = src.value;
+      src.value = tgt.value;
+      tgt.value = tmp;
+    }
+  },
+
+  setPreset(txt) {
+    const input = document.getElementById('transInputText');
+    if (input) {
+      input.value = txt;
+      this.translate();
+    }
+  },
+
+  clearInput() {
+    const input = document.getElementById('transInputText');
+    if (input) input.value = '';
+  },
+
+  async translate() {
+    const input = document.getElementById('transInputText');
+    const output = document.getElementById('transOutputText');
+    const spinner = document.getElementById('transLoadingSpinner');
+    const srcLang = document.getElementById('transSourceLang').value;
+    const tgtLang = document.getElementById('transTargetLang').value;
+
+    if (!input || !output) return;
+    const text = input.value.trim();
+    if (!text) {
+      output.innerText = 'Please enter a sentence to translate.';
+      return;
+    }
+
+    // Check offline dictionary first
+    const norm = text.toLowerCase();
+    if (this.offlineDict[norm]) {
+      const match = this.offlineDict[norm];
+      output.innerText = match[tgtLang] || match.de;
+      this.analyzeGrammar(output.innerText);
+      return;
+    }
+
+    // Fetch via MyMemory API
+    if (spinner) spinner.classList.remove('hidden');
+
+    try {
+      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${srcLang}|${tgtLang}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data && data.responseData && data.responseData.translatedText) {
+        output.innerText = data.responseData.translatedText;
+      } else {
+        output.innerText = text;
+      }
+    } catch (err) {
+      console.warn('Online translation network warning:', err);
+      // Fallback
+      output.innerText = text;
+    } finally {
+      if (spinner) spinner.classList.add('hidden');
+      // Analyze grammar of German text (either target or source)
+      const germanText = tgtLang === 'de' ? output.innerText : (srcLang === 'de' ? text : output.innerText);
+      this.analyzeGrammar(germanText);
+    }
+  },
+
+  analyzeGrammar(sentence) {
+    const grid = document.getElementById('grammarCardsGrid');
+    if (!grid) return;
+
+    // Rule-based beginner German linguistic analysis
+    const words = sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").split(/\s+/).filter(Boolean);
+    const isQuestion = sentence.includes('?');
+    const lowerWords = words.map(w => w.toLowerCase());
+
+    // 1. Satzbau (Word Order & Verb in Position 2)
+    let v2Explanation = "In standard German main clauses (Aussagesatz), the conjugated verb always sits firmly in <b>Position 2</b>!";
+    let pos1 = words[0] || '';
+    let pos2 = words[1] || '';
+    let posRest = words.slice(2).join(' ') || '';
+
+    if (isQuestion) {
+      if (['wo', 'wie', 'wer', 'wann', 'warum', 'was', 'wohin', 'woher'].includes(words[0]?.toLowerCase())) {
+        v2Explanation = "In a <b>W-Question</b> (W-Frage), the question word comes first in Position 1, followed directly by the conjugated verb in <b>Position 2</b>!";
+      } else {
+        v2Explanation = "In a <b>Yes/No Question</b> (Ja/Nein-Frage), the conjugated verb moves to the front in <b>Position 1</b>!";
+        pos1 = words[0] + " (VERB)";
+        pos2 = words[1] + " (SUBJECT)";
+      }
+    }
+
+    // 2. Subject & Verb Conjugation
+    let subjectPronoun = "Not specified";
+    let verbConjugation = "Regular / Modal structure";
+    const pronouns = ['ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr', 'Sie'];
+    for (let p of pronouns) {
+      if (lowerWords.includes(p)) {
+        subjectPronoun = p;
+        if (p === 'ich') verbConjugation = "Subject 'ich' (I) takes suffix <b>-e</b> (e.g. komme, lerne, trinke).";
+        else if (p === 'du') verbConjugation = "Subject 'du' (you informal) takes suffix <b>-st</b> (e.g. kommst, lernst).";
+        else if (['er', 'sie', 'es'].includes(p)) verbConjugation = "Subject takes suffix <b>-t</b> (e.g. kommt, lernt, wohnt).";
+        else if (['wir', 'sie', 'Sie'].includes(p)) verbConjugation = "Subject takes infinitive ending <b>-en</b> (e.g. kommen, lernen).";
+        else if (p === 'ihr') verbConjugation = "Subject 'ihr' (you all) takes suffix <b>-t</b> (e.g. kommt, trinkt).";
+        break;
+      }
+    }
+
+    // 3. Articles & Noun Genders detection
+    const nounGenders = [];
+    const mascNouns = ['kaffee', 'apfel', 'tisch', 'mann', 'bruder', 'vater', 'zug', 'bus', 'hauptbahnhof', 'kurs'];
+    const femNouns = ['wohnung', 'zeitung', 'frau', 'mutter', 'schwester', 'stadt', 'kasse', 'uhr', 'nacht', 'familie'];
+    const neutNouns = ['buch', 'auto', 'kind', 'haus', 'brot', 'brötchen', 'wasser', 'wochenende', 'zimmer'];
+
+    words.forEach(w => {
+      const lw = w.toLowerCase();
+      if (mascNouns.includes(lw)) {
+        nounGenders.push({ noun: w, gender: 'der (Masculine)', badge: 'gender-der', color: 'blue' });
+      } else if (femNouns.includes(lw)) {
+        nounGenders.push({ noun: w, gender: 'die (Feminine)', badge: 'gender-die', color: 'pink' });
+      } else if (neutNouns.includes(lw)) {
+        nounGenders.push({ noun: w, gender: 'das (Neuter)', badge: 'gender-das', color: 'emerald' });
+      }
+    });
+
+    let html = `
+      <!-- Card 1: Satzbau / Word Order (V2 Rule) -->
+      <div class="p-5 rounded-2xl bg-indigo-50/50 border border-indigo-100 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-extrabold text-indigo-700 uppercase tracking-wider">1. Satzbau (Word Order)</span>
+          <span class="text-[10px] font-bold bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded">Golden V2 Rule</span>
+        </div>
+        <div class="flex flex-wrap gap-1.5 pt-1">
+          <span class="v2-token bg-white border border-indigo-200 text-indigo-900">
+            <span class="v2-pos-label text-indigo-400">Position 1</span>
+            <span>${pos1 || 'Subject / Adverb'}</span>
+          </span>
+          <span class="v2-token bg-indigo-600 text-white shadow-xs">
+            <span class="v2-pos-label text-indigo-200">Position 2 (Verb ⚡)</span>
+            <span>${pos2 || 'Conjugated Verb'}</span>
+          </span>
+          <span class="v2-token bg-white border border-slate-200 text-slate-700">
+            <span class="v2-pos-label text-slate-400">Rest of Sentence</span>
+            <span>${posRest || 'Objects / Time / Place'}</span>
+          </span>
+        </div>
+        <p class="text-xs text-slate-600 leading-relaxed pt-1">
+          ${v2Explanation}
+        </p>
+      </div>
+
+      <!-- Card 2: Subject & Verb Conjugation -->
+      <div class="p-5 rounded-2xl bg-purple-50/50 border border-purple-100 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-extrabold text-purple-700 uppercase tracking-wider">2. Subject & Conjugation</span>
+          <span class="text-[10px] font-bold bg-purple-100 text-purple-800 px-2 py-0.5 rounded">Grammar Pattern</span>
+        </div>
+        <div class="text-xs text-slate-700 space-y-1.5">
+          <div class="flex items-center gap-2">
+            <span class="font-bold text-slate-500">Identified Subject:</span>
+            <span class="font-extrabold text-purple-700 bg-purple-100 px-2 py-0.5 rounded">${subjectPronoun}</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed pt-1">
+            ${verbConjugation}
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 3: Noun Genders & Color Badges -->
+      <div class="p-5 rounded-2xl bg-pink-50/50 border border-pink-100 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-extrabold text-pink-700 uppercase tracking-wider">3. Noun Genders (Genus)</span>
+          <span class="text-[10px] font-bold bg-pink-100 text-pink-800 px-2 py-0.5 rounded">der / die / das</span>
+        </div>
+        <div class="space-y-2">
+    `;
+
+    if (nounGenders.length > 0) {
+      nounGenders.forEach(ng => {
+        html += `
+          <div class="flex items-center justify-between p-2 rounded-xl bg-white border border-slate-100 text-xs">
+            <span class="font-extrabold text-slate-800">${ng.noun}</span>
+            <span class="${ng.badge} px-2.5 py-0.5 rounded-lg text-xs font-bold">${ng.gender}</span>
+          </div>
+        `;
+      });
+    } else {
+      html += `
+        <p class="text-xs text-slate-500 italic">
+          No common core A1 nouns detected in this specific fragment. Remember that in German, <b>ALL nouns are capitalized</b>!
+        </p>
+      `;
+    }
+
+    html += `
+        </div>
+      </div>
+
+      <!-- Card 4: Crucial Beginner German Rules -->
+      <div class="p-5 rounded-2xl bg-emerald-50/50 border border-emerald-100 space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-extrabold text-emerald-700 uppercase tracking-wider">4. Beginner Essential Rules</span>
+          <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Pro Tips</span>
+        </div>
+        <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+          <li><b>Capitalization:</b> Every noun in German starts with a capital letter (e.g. <i>der Kaffee</i>, <i>das Buch</i>).</li>
+          <li><b>Accusative Shift:</b> Masculine nouns change from <i>der / ein</i> to <b>den / einen</b> when they are the direct object!</li>
+          <li><b>Polite Address:</b> Use <i>Sie</i> (always capitalized) with formal verb ending <i>-en</i> for strangers and teachers.</li>
+        </ul>
+      </div>
+    `;
+
+    grid.innerHTML = html;
+  },
+
+  playAudio(speed = 1.0) {
+    const output = document.getElementById('transOutputText');
+    if (!output) return;
+    const text = output.innerText.trim();
+    if (text) AudioSpeedSystem.speak(text, speed);
+  },
+
+  copyOutput() {
+    const output = document.getElementById('transOutputText');
+    if (!output) return;
+    navigator.clipboard.writeText(output.innerText.trim()).then(() => {
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('Translation copied to clipboard! 📋');
+      }
+    });
+  }
+};
+
+/* --------------------------------------------------------------------------
+   5. 3D VOCABULARY FLASHCARDS SYSTEM
+   -------------------------------------------------------------------------- */
+const FlashcardSystem = {
+  currentIndex: 0,
+  isFlipped: false,
+  activeCategory: 'all',
+  masteredIds: [],
+
+  cards: [
+    { id: 1, cat: 'Basics', de: 'der Apfel', art: 'der', genderCls: 'gender-der', plural: 'die Äpfel', en: 'the apple', part: 'Noun', sampleDe: 'Ich esse gern einen Apfel.', sampleEn: 'I like eating an apple.' },
+    { id: 2, cat: 'Basics', de: 'das Buch', art: 'das', genderCls: 'gender-das', plural: 'die Bücher', en: 'the book', part: 'Noun', sampleDe: 'Das Buch ist sehr interessant.', sampleEn: 'The book is very interesting.' },
+    { id: 3, cat: 'Basics', de: 'die Zeitung', art: 'die', genderCls: 'gender-die', plural: 'die Zeitungen', en: 'the newspaper', part: 'Noun', sampleDe: 'Er liest jeden Morgen die Zeitung.', sampleEn: 'He reads the newspaper every morning.' },
+    { id: 4, cat: 'Food', de: 'der Kaffee', art: 'der', genderCls: 'gender-der', plural: 'die Kaffees', en: 'the coffee', part: 'Noun', sampleDe: 'Ich trinke Kaffee ohne Zucker.', sampleEn: 'I drink coffee without sugar.' },
+    { id: 5, cat: 'Food', de: 'das Brot', art: 'das', genderCls: 'gender-das', plural: 'die Brote', en: 'the bread', part: 'Noun', sampleDe: 'Wir kaufen frisches Brot beim Bäcker.', sampleEn: 'We buy fresh bread at the bakery.' },
+    { id: 6, cat: 'Food', de: 'die Milch', art: 'die', genderCls: 'gender-die', plural: '-', en: 'the milk', part: 'Noun', sampleDe: 'Möchten Sie Milch zum Kaffee?', sampleEn: 'Would you like milk with your coffee?' },
+    { id: 7, cat: 'Travel', de: 'der Bahnhof', art: 'der', genderCls: 'gender-der', plural: 'die Bahnhöfe', en: 'the train station', part: 'Noun', sampleDe: 'Wo ist der Bahnhof bitte?', sampleEn: 'Where is the train station please?' },
+    { id: 8, cat: 'Travel', de: 'das Auto', art: 'das', genderCls: 'gender-das', plural: 'die Autos', en: 'the car', part: 'Noun', sampleDe: 'Mein Auto ist neu.', sampleEn: 'My car is new.' },
+    { id: 9, cat: 'Family', de: 'die Schwester', art: 'die', genderCls: 'gender-die', plural: 'die Schwestern', en: 'the sister', part: 'Noun', sampleDe: 'Meine Schwester wohnt in Köln.', sampleEn: 'My sister lives in Cologne.' },
+    { id: 10, cat: 'Family', de: 'der Bruder', art: 'der', genderCls: 'gender-der', plural: 'die Brüder', en: 'the brother', part: 'Noun', sampleDe: 'Ich habe einen älteren Bruder.', sampleEn: 'I have an older brother.' }
+  ],
+
+  init() {
+    try {
+      const saved = localStorage.getItem('cheeya_fc_mastered');
+      if (saved) this.masteredIds = JSON.parse(saved) || [];
+    } catch (e) {}
+    this.renderCategoryPills();
+    this.showCard();
+  },
+
+  getFilteredCards() {
+    if (this.activeCategory === 'all') return this.cards;
+    return this.cards.filter(c => c.cat === this.activeCategory);
+  },
+
+  renderCategoryPills() {
+    const container = document.getElementById('flashcardCategoryPills');
+    if (!container) return;
+    const cats = ['all', 'Basics', 'Food', 'Travel', 'Family'];
+    container.innerHTML = cats.map(c => `
+      <button onclick="FlashcardSystem.setCategory('${c}')" class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${
+        this.activeCategory === c 
+          ? 'bg-emerald-500 text-white shadow-xs' 
+          : 'bg-white hover:bg-emerald-50 text-slate-600 border border-slate-200'
+      }">
+        ${c === 'all' ? 'All Decks' : c}
+      </button>
+    `).join('');
+  },
+
+  setCategory(cat) {
+    this.activeCategory = cat;
+    this.currentIndex = 0;
+    this.isFlipped = false;
+    this.renderCategoryPills();
+    this.showCard();
+  },
+
+  showCard() {
+    const list = this.getFilteredCards();
+    if (list.length === 0) return;
+    if (this.currentIndex >= list.length) this.currentIndex = 0;
+    const card = list[this.currentIndex];
+
+    const inner = document.getElementById('flashcardElement');
+    if (inner && this.isFlipped) {
+      inner.classList.remove('flipped');
+      this.isFlipped = false;
+    }
+
+    const gBadge = document.getElementById('fcGenderBadge');
+    const catBadge = document.getElementById('fcCategoryBadge');
+    const deWord = document.getElementById('fcGermanWord');
+    const plHint = document.getElementById('fcPluralHint');
+    const enMeaning = document.getElementById('fcEnglishMeaning');
+    const posBadge = document.getElementById('fcPartOfSpeech');
+    const sampleSent = document.getElementById('fcSampleSentence');
+    const progIndex = document.getElementById('fcProgressIndex');
+
+    if (gBadge) {
+      gBadge.className = `${card.genderCls} px-2.5 py-1 rounded-lg text-xs font-bold`;
+      gBadge.innerText = card.art;
+    }
+    if (catBadge) catBadge.innerText = card.cat;
+    if (deWord) deWord.innerText = card.de;
+    if (plHint) plHint.innerText = `Plural: ${card.plural}`;
+    if (enMeaning) enMeaning.innerText = card.en;
+    if (posBadge) posBadge.innerText = card.part;
+    if (sampleSent) sampleSent.innerText = `${card.sampleDe} (${card.sampleEn})`;
+    if (progIndex) progIndex.innerText = `${this.currentIndex + 1} / ${list.length}`;
+
+    // Update mastery counts
+    const masteredCount = document.getElementById('flashcardMasteryCount');
+    const remainingCount = document.getElementById('flashcardRemainingCount');
+    if (masteredCount) masteredCount.innerText = `${this.masteredIds.length} Mastered`;
+    if (remainingCount) remainingCount.innerText = `${Math.max(0, this.cards.length - this.masteredIds.length)} Remaining`;
+  },
+
+  flip() {
+    const inner = document.getElementById('flashcardElement');
+    if (inner) {
+      this.isFlipped = !this.isFlipped;
+      inner.classList.toggle('flipped', this.isFlipped);
+    }
+  },
+
+  nextCard() {
+    const list = this.getFilteredCards();
+    this.currentIndex = (this.currentIndex + 1) % list.length;
+    this.showCard();
+  },
+
+  prevCard() {
+    const list = this.getFilteredCards();
+    this.currentIndex = (this.currentIndex - 1 + list.length) % list.length;
+    this.showCard();
+  },
+
+  markMastered() {
+    const list = this.getFilteredCards();
+    const card = list[this.currentIndex];
+    if (card && !this.masteredIds.includes(card.id)) {
+      this.masteredIds.push(card.id);
+      try {
+        localStorage.setItem('cheeya_fc_mastered', JSON.stringify(this.masteredIds));
+      } catch (e) {}
+    }
+    if (typeof App !== 'undefined' && App.showToast) {
+      App.showToast(`"${card.de}" marked as Mastered! 🎉`);
+    }
+    this.nextCard();
+  },
+
+  markPractice() {
+    const list = this.getFilteredCards();
+    const card = list[this.currentIndex];
+    const idx = this.masteredIds.indexOf(card.id);
+    if (idx !== -1) {
+      this.masteredIds.splice(idx, 1);
+      try {
+        localStorage.setItem('cheeya_fc_mastered', JSON.stringify(this.masteredIds));
+      } catch (e) {}
+    }
+    this.nextCard();
+  },
+
+  speakCurrentWord() {
+    const list = this.getFilteredCards();
+    const card = list[this.currentIndex];
+    if (card) AudioSpeedSystem.speak(card.de);
+  },
+
+  speakSampleSentence() {
+    const list = this.getFilteredCards();
+    const card = list[this.currentIndex];
+    if (card) AudioSpeedSystem.speak(card.sampleDe);
+  }
+};
+
+/* --------------------------------------------------------------------------
+   6. "DER, DIE, DAS" FINDER & QUIZ SYSTEM
+   -------------------------------------------------------------------------- */
+const ArticleFinderSystem = {
+  nouns: [
+    { de: 'Apfel', art: 'der', pl: 'Äpfel', en: 'apple', tip: 'Male fruits/items often der' },
+    { de: 'Tisch', art: 'der', pl: 'Tische', en: 'table', tip: 'Single syllable masculine' },
+    { de: 'Kaffee', art: 'der', pl: 'Kaffees', en: 'coffee', tip: 'Drinks / beverages often der' },
+    { de: 'Lehrer', art: 'der', pl: 'Lehrer', en: 'male teacher', tip: 'Words ending in -er (professions) are der' },
+    { de: 'Zeitung', art: 'die', pl: 'Zeitungen', en: 'newspaper', tip: 'Words ending in -ung are 100% die' },
+    { de: 'Freiheit', art: 'die', pl: 'Freiheiten', en: 'freedom', tip: 'Words ending in -heit are 100% die' },
+    { de: 'Möglichkeit', art: 'die', pl: 'Möglichkeiten', en: 'possibility', tip: 'Words ending in -keit are 100% die' },
+    { de: 'Freundschaft', art: 'die', pl: 'Freundschaften', en: 'friendship', tip: 'Words ending in -schaft are 100% die' },
+    { de: 'Bäckerei', art: 'die', pl: 'Bäckereien', en: 'bakery', tip: 'Words ending in -ei are 100% die' },
+    { de: 'Buch', art: 'das', pl: 'Bücher', en: 'book', tip: 'Common neuter object' },
+    { de: 'Mädchen', art: 'das', pl: 'Mädchen', en: 'girl', tip: 'Diminutives ending in -chen are 100% das' },
+    { de: 'Fräulein', art: 'das', pl: 'Fräulein', en: 'young lady', tip: 'Diminutives ending in -lein are 100% das' },
+    { de: 'Wasser', art: 'das', pl: 'Wasser', en: 'water', tip: 'Liquids/elements often das' },
+    { de: 'Auto', art: 'das', pl: 'Autos', en: 'car', tip: 'Foreign borrowed vehicle nouns often das' }
+  ],
+
+  handleSearch(query) {
+    const container = document.getElementById('articleResultsContainer');
+    if (!container) return;
+
+    const q = (query || '').trim().toLowerCase();
+    const matches = this.nouns.filter(n => n.de.toLowerCase().includes(q) || n.en.toLowerCase().includes(q));
+
+    if (matches.length === 0) {
+      container.innerHTML = `
+        <div class="col-span-full text-center py-8 text-slate-400 text-xs">
+          No matching German noun found. Try searching "Apfel", "Zeitung", "Buch", or "Auto".
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = matches.map(n => {
+      let badgeCls = 'gender-der';
+      if (n.art === 'die') badgeCls = 'gender-die';
+      if (n.art === 'das') badgeCls = 'gender-das';
+
+      return `
+        <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs space-y-2 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <span class="${badgeCls} px-2.5 py-0.5 rounded-lg text-xs font-black uppercase">${n.art}</span>
+              <button onclick="AudioSpeedSystem.speak('${n.art} ${n.de}')" class="text-xs text-slate-400 hover:text-pink-600 font-bold" title="Pronounce">
+                🔊
+              </button>
+            </div>
+            <div class="text-lg font-black text-slate-800">${n.art} ${n.de}</div>
+            <div class="text-xs text-slate-500 font-medium">Meaning: ${n.en}</div>
+            <div class="text-[11px] text-slate-400 font-mono mt-0.5">Plural: die ${n.pl}</div>
+          </div>
+          <div class="pt-2 border-t border-slate-100 text-[10px] text-slate-500 italic">
+            💡 Rule: ${n.tip}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+};
+
+/* --------------------------------------------------------------------------
+   7. CERTIFICATE OF COMPLETION SYSTEM
+   -------------------------------------------------------------------------- */
+const CertificateSystem = {
+  STORAGE_KEY: 'cheeya_student_name',
+
+  init() {
+    let name = 'CheeYa Scholar';
+    try {
+      const saved = localStorage.getItem(this.STORAGE_KEY);
+      if (saved) name = saved;
+    } catch (e) {}
+
+    const input = document.getElementById('certStudentNameInput');
+    if (input) input.value = name;
+    this.updateName(name);
+
+    // Set today's date in English
+    const dateEl = document.getElementById('certDisplayDate');
+    if (dateEl) {
+      const d = new Date();
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      dateEl.innerText = d.toLocaleDateString('en-US', options);
+    }
+  },
+
+  updateName(val) {
+    const clean = val.trim() || 'Student Scholar';
+    const display = document.getElementById('certDisplayName');
+    if (display) display.innerText = clean;
+    try {
+      localStorage.setItem(this.STORAGE_KEY, clean);
+    } catch (e) {}
+  }
+};
+
+// Auto-initialize when DOM is ready
+if (typeof window !== 'undefined') {
+  window.addEventListener('DOMContentLoaded', () => {
+    ThemeSystem.init();
+    AudioSpeedSystem.init();
+    ExamSystem.init();
+    FlashcardSystem.init();
+    ArticleFinderSystem.handleSearch('');
+    CertificateSystem.init();
+  });
+}
+
+
 </script>
 </body>
 </html>
