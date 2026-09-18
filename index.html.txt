@@ -1,4 +1,4 @@
-﻿
+
 
 
 
@@ -11705,7 +11705,23 @@ html[data-theme="dark"] select {
           localStorage.setItem(this.KEY_ACTIVE, id.toString());
         } catch(e) {}
       },
-
+      KEY_MUSIC_VOL: 'cheeya_study_music_volume',
+      KEY_MUSIC_ENABLED: 'cheeya_study_music_enabled',
+      getMusicVolume() {
+        try {
+          const v = localStorage.getItem(this.KEY_MUSIC_VOL);
+          return v ? parseFloat(v) : 0.22;
+        } catch(e) { return 0.22; }
+      },
+      setMusicVolume(vol) {
+        try { localStorage.setItem(this.KEY_MUSIC_VOL, vol.toString()); } catch(e) {}
+      },
+      getMusicEnabled() {
+        try { return localStorage.getItem(this.KEY_MUSIC_ENABLED) === 'true'; } catch(e) { return false; }
+      },
+      setMusicEnabled(val) {
+        try { localStorage.setItem(this.KEY_MUSIC_ENABLED, val ? 'true' : 'false'); } catch(e) {}
+      },
     };
   </script>
 
@@ -17764,6 +17780,7 @@ const DualFlashcardSystem = {
   activeCategory: 'all',
   searchQuery: '',
   currentIndex: 0,
+  currentWordId: null,
   isFlipped: false,
   viewMode: 'card', // 'card' or 'grid'
   studyMode: 'toLearn', // 'toLearn' (hide memorized) or 'all' (show all)
@@ -17781,8 +17798,8 @@ const DualFlashcardSystem = {
         const parsed = JSON.parse(savedM);
         if (parsed && typeof parsed === 'object') {
           this.masteredIds = {
-            nouns: Array.isArray(parsed.nouns) ? parsed.nouns : [],
-            verbs: Array.isArray(parsed.verbs) ? parsed.verbs : []
+            nouns: Array.isArray(parsed.nouns) ? parsed.nouns.map(Number) : [],
+            verbs: Array.isArray(parsed.verbs) ? parsed.verbs.map(Number) : []
           };
         }
       }
@@ -17791,16 +17808,37 @@ const DualFlashcardSystem = {
       if (savedOrder) {
         const parsedOrder = JSON.parse(savedOrder);
         if (Array.isArray(parsedOrder)) {
-          this.masteredOrder = parsedOrder;
+          this.masteredOrder = parsedOrder.map(e => ({
+            id: Number(e.id),
+            deck: e.deck === 'verbs' ? 'verbs' : 'nouns',
+            timestamp: Number(e.timestamp || 0)
+          }));
         }
       }
 
-      // If masteredOrder not yet initialized, build it with newest-first logic
-      if (!this.masteredOrder || this.masteredOrder.length === 0) {
-        this.masteredOrder = [];
-        (this.masteredIds.verbs || []).forEach(id => this.masteredOrder.push({ id, deck: 'verbs' }));
-        (this.masteredIds.nouns || []).forEach(id => this.masteredOrder.push({ id, deck: 'nouns' }));
-      }
+      if (!this.masteredOrder) this.masteredOrder = [];
+
+      // Reconcile: ensure all words in masteredIds exist in masteredOrder
+      const orderSet = new Set(this.masteredOrder.map(e => `${e.deck}_${e.id}`));
+      (this.masteredIds.verbs || []).forEach(id => {
+        const numId = Number(id);
+        const key = `verbs_${numId}`;
+        if (!orderSet.has(key)) {
+          this.masteredOrder.push({ id: numId, deck: 'verbs', timestamp: 0 });
+          orderSet.add(key);
+        }
+      });
+      (this.masteredIds.nouns || []).forEach(id => {
+        const numId = Number(id);
+        const key = `nouns_${numId}`;
+        if (!orderSet.has(key)) {
+          this.masteredOrder.push({ id: numId, deck: 'nouns', timestamp: 0 });
+          orderSet.add(key);
+        }
+      });
+
+      // Filter masteredOrder to only items that are actually still in masteredIds
+      this.masteredOrder = this.masteredOrder.filter(e => this.isMastered(e.id, e.deck));
 
       const savedDeck = localStorage.getItem('cheeya_fc_deck');
       if (savedDeck && (savedDeck === 'nouns' || savedDeck === 'verbs')) {
@@ -17957,8 +17995,9 @@ const DualFlashcardSystem = {
         ? 'bg-pink-500 text-white shadow-xs' 
         : 'bg-purple-500 text-white shadow-xs';
       
+      const safeCat = c.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
       return `
-        <button onclick="DualFlashcardSystem.setCategory('${c}')" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
+        <button data-cat="${safeCat}" onclick="DualFlashcardSystem.setCategory(this.getAttribute('data-cat'))" class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all whitespace-nowrap cursor-pointer ${
           isAct ? activeCls : 'bg-white hover:bg-slate-100 text-slate-600 border border-slate-200'
         }">
           ${c === 'all' ? '✨ All Categories' : c} <span class="opacity-75 font-mono text-[10px]">(${count})</span>
@@ -17972,6 +18011,8 @@ const DualFlashcardSystem = {
     this.currentIndex = 0;
     this.gridPage = 1;
     this.isFlipped = false;
+    const cardEl = document.getElementById('flashcardElement');
+    if (cardEl) cardEl.classList.remove('flipped');
     this.renderCategoryPills();
     if (this.viewMode === 'card') {
       this.showCard();
@@ -18044,6 +18085,10 @@ const DualFlashcardSystem = {
     const cardEl = document.getElementById('flashcardElement');
     const controls = document.getElementById('fcControlsBar');
 
+    // Always reset flip state whenever a new card is shown
+    this.isFlipped = false;
+    if (cardEl) cardEl.classList.remove('flipped');
+
     if (list.length === 0) {
       if (emptyNotice) {
         emptyNotice.classList.remove('hidden');
@@ -18056,10 +18101,10 @@ const DualFlashcardSystem = {
 
         if (this.studyMode === 'toLearn' && totalMasteredInDeck > 0) {
           if (iconEl) iconEl.innerText = '🎉';
-          if (titleEl) titleEl.innerText = 'All Words Memorized in this View!';
+          if (titleEl) titleEl.innerText = 'All Words Memorized in this Category!';
           if (descEl) {
             descEl.classList.remove('hidden');
-            descEl.innerText = 'You have memorized all words in this category. Click "Show All" to review them or switch categories!';
+            descEl.innerText = 'You have memorized all words in this view! Click "Review All Words" to review them or switch categories above.';
           }
           if (actionsEl) {
             actionsEl.innerHTML = `
@@ -18097,12 +18142,7 @@ const DualFlashcardSystem = {
     if (this.currentIndex < 0) this.currentIndex = list.length - 1;
 
     const item = list[this.currentIndex];
-
-    // Reset flip
-    if (this.isFlipped && cardEl) {
-      cardEl.classList.remove('flipped');
-      this.isFlipped = false;
-    }
+    this.currentWordId = item.id;
 
     const progEl = document.getElementById('fcProgressIndex');
     if (progEl) {
@@ -18213,11 +18253,30 @@ const DualFlashcardSystem = {
   },
 
   nextCard() {
-    this.currentIndex++;
+    const list = this.getFilteredList();
+    if (list.length === 0) {
+      this.showCard();
+      return;
+    }
+    // If the currently displayed card was marked as memorized while in 'toLearn' mode,
+    // it was already removed from getFilteredList().
+    // So the next unmemorized card is already at this.currentIndex!
+    if (this.currentWordId != null && this.studyMode === 'toLearn' && this.isMastered(this.currentWordId, this.currentDeck)) {
+      if (this.currentIndex >= list.length) {
+        this.currentIndex = 0;
+      }
+    } else {
+      this.currentIndex++;
+    }
     this.showCard();
   },
 
   prevCard() {
+    const list = this.getFilteredList();
+    if (list.length === 0) {
+      this.showCard();
+      return;
+    }
     this.currentIndex--;
     this.showCard();
   },
@@ -18251,29 +18310,32 @@ const DualFlashcardSystem = {
   },
 
   isMastered(id, deck = this.currentDeck) {
-    const d = deck || this.currentDeck;
-    return Array.isArray(this.masteredIds[d]) && this.masteredIds[d].includes(id);
+    const numId = Number(id);
+    const d = (deck || this.currentDeck) === 'verbs' ? 'verbs' : 'nouns';
+    if (!this.masteredIds[d] || !Array.isArray(this.masteredIds[d])) return false;
+    return this.masteredIds[d].some(x => Number(x) === numId);
   },
 
   toggleMastered(id, deck = this.currentDeck) {
-    const d = deck || this.currentDeck;
+    const numId = Number(id);
+    const d = (deck || this.currentDeck) === 'verbs' ? 'verbs' : 'nouns';
     if (!this.masteredIds[d]) this.masteredIds[d] = [];
-    const arr = this.masteredIds[d];
-    const idx = arr.indexOf(id);
+
+    const existingIdx = this.masteredIds[d].findIndex(x => Number(x) === numId);
     let isNowMastered = false;
 
-    if (idx >= 0) {
-      // Unmark / remove
-      arr.splice(idx, 1);
+    if (existingIdx >= 0) {
+      // Unmark / remove from memorized
+      this.masteredIds[d].splice(existingIdx, 1);
+      this.masteredOrder = (this.masteredOrder || []).filter(e => !(Number(e.id) === numId && e.deck === d));
       isNowMastered = false;
-      this.masteredOrder = (this.masteredOrder || []).filter(entry => !(entry.id === id && entry.deck === d));
     } else {
-      // Mark as mastered: insert at the very front (newest first!)
-      arr.unshift(id);
-      isNowMastered = true;
+      // Mark as memorized: insert at very front of masteredIds AND masteredOrder (strictly newest first at row #1!)
+      this.masteredIds[d].unshift(numId);
       if (!this.masteredOrder) this.masteredOrder = [];
-      this.masteredOrder = this.masteredOrder.filter(entry => !(entry.id === id && entry.deck === d));
-      this.masteredOrder.unshift({ id, deck: d, timestamp: Date.now() });
+      this.masteredOrder = this.masteredOrder.filter(e => !(Number(e.id) === numId && e.deck === d));
+      this.masteredOrder.unshift({ id: numId, deck: d, timestamp: Date.now() });
+      isNowMastered = true;
     }
 
     try {
@@ -18287,20 +18349,18 @@ const DualFlashcardSystem = {
     this.renderStudyModeButtons();
     this.renderCategoryPills();
 
+    // Immediately update button visual state on current card:
+    // Turns GOLD "⭐ Memorized (Done ✓)" so the user gets instant visual confirmation!
+    this.updateMasteredButtons();
+
     if (this.viewMode === 'grid') {
       this.renderGrid();
-    } else {
-      // In Card mode: if we are in 'toLearn' mode and the card was just memorized,
-      // it is now filtered out, so show the next unmemorized card immediately!
-      if (this.studyMode === 'toLearn' && isNowMastered) {
-        this.showCard();
-      } else {
-        this.updateMasteredButtons();
-      }
     }
 
     if (typeof App !== 'undefined' && App.showToast) {
-      App.showToast(isNowMastered ? '⭐ Word memorized! Next card shown.' : 'Word returned to practice deck.');
+      App.showToast(isNowMastered 
+        ? '⭐ Word memorized! Placed at top of PDF list.' 
+        : 'Word returned to practice deck.');
     }
     return isNowMastered;
   },
@@ -18308,15 +18368,17 @@ const DualFlashcardSystem = {
   toggleMasteredCurrent() {
     const list = this.getFilteredList();
     if (list.length === 0) return;
-    const item = list[this.currentIndex];
+    const item = (this.currentWordId != null)
+      ? (list.find(x => Number(x.id) === Number(this.currentWordId)) || list[this.currentIndex])
+      : list[this.currentIndex];
+    if (!item) return;
     this.toggleMastered(item.id, this.currentDeck);
   },
 
   updateMasteredButtons() {
-    const list = this.getFilteredList();
-    if (list.length === 0 || this.currentIndex >= list.length) return;
-    const item = list[this.currentIndex];
-    const isM = this.isMastered(item.id, this.currentDeck);
+    const currentId = this.currentWordId;
+    if (currentId == null) return;
+    const isM = this.isMastered(currentId, this.currentDeck);
 
     // Front button
     const frontBtn = document.getElementById('fcFrontMasteredBtn');
@@ -18324,7 +18386,7 @@ const DualFlashcardSystem = {
     const frontText = document.getElementById('fcFrontMasteredText');
     if (frontBtn) {
       if (isM) {
-        frontBtn.className = "px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-amber-300 bg-amber-100 text-amber-900 shadow-2xs cursor-pointer";
+        frontBtn.className = "px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-amber-400 bg-amber-200 text-amber-950 shadow-xs cursor-pointer";
         if (frontStar) frontStar.innerText = "⭐";
         if (frontText) frontText.innerText = "Memorized ✓";
       } else {
@@ -18340,7 +18402,7 @@ const DualFlashcardSystem = {
     const backText = document.getElementById('fcBackMasteredText');
     if (backBtn) {
       if (isM) {
-        backBtn.className = "px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-amber-300 bg-amber-100 text-amber-900 shadow-2xs cursor-pointer";
+        backBtn.className = "px-2.5 py-1 rounded-xl text-xs font-bold transition-all flex items-center gap-1 border border-amber-400 bg-amber-200 text-amber-950 shadow-xs cursor-pointer";
         if (backStar) backStar.innerText = "⭐";
         if (backText) backText.innerText = "Memorized ✓";
       } else {
@@ -18356,7 +18418,7 @@ const DualFlashcardSystem = {
     const cText = document.getElementById('fcControlsMasteredText');
     if (cBtn) {
       if (isM) {
-        cBtn.className = "px-4 py-2 rounded-xl font-extrabold text-xs shadow-xs transition-all flex items-center gap-1.5 border border-amber-400 bg-amber-400 text-amber-950 cursor-pointer";
+        cBtn.className = "px-4 py-2 rounded-xl font-extrabold text-xs shadow-md transition-all flex items-center gap-1.5 border border-amber-400 bg-amber-400 text-amber-950 cursor-pointer";
         if (cStar) cStar.innerText = "⭐";
         if (cText) cText.innerText = "Memorized (Done ✓)";
       } else {
@@ -18400,27 +18462,29 @@ const DualFlashcardSystem = {
 
     const allNouns = window.GERMAN_VOCAB_DB.nouns || [];
     const nounMap = new Map();
-    allNouns.forEach(n => nounMap.set(n.id, n));
+    allNouns.forEach(n => nounMap.set(Number(n.id), n));
 
     const allVerbs = window.GERMAN_VOCAB_DB.verbs || [];
     const verbMap = new Map();
-    allVerbs.forEach(v => verbMap.set(v.id, v));
+    allVerbs.forEach(v => verbMap.set(Number(v.id), v));
 
     // When masteredOrder exists, it gives the exact newest-first sequence!
     if (Array.isArray(this.masteredOrder) && this.masteredOrder.length > 0) {
       const seen = new Set();
       this.masteredOrder.forEach(entry => {
-        const key = `${entry.deck}_${entry.id}`;
+        const idNum = Number(entry.id);
+        const deckName = entry.deck === 'verbs' ? 'verbs' : 'nouns';
+        const key = `${deckName}_${idNum}`;
         if (seen.has(key)) return;
         seen.add(key);
 
-        if (deckFilter === 'all' || deckFilter === entry.deck) {
-          if (entry.deck === 'nouns' && this.isMastered(entry.id, 'nouns')) {
-            const item = nounMap.get(entry.id);
-            if (item) result.push({ ...item, deckType: 'nouns' });
-          } else if (entry.deck === 'verbs' && this.isMastered(entry.id, 'verbs')) {
-            const item = verbMap.get(entry.id);
-            if (item) result.push({ ...item, deckType: 'verbs' });
+        if (deckFilter === 'all' || deckFilter === deckName) {
+          if (deckName === 'nouns' && this.isMastered(idNum, 'nouns')) {
+            const item = nounMap.get(idNum);
+            if (item) result.push({ ...item, deckType: 'nouns', memorizedAt: entry.timestamp || 0 });
+          } else if (deckName === 'verbs' && this.isMastered(idNum, 'verbs')) {
+            const item = verbMap.get(idNum);
+            if (item) result.push({ ...item, deckType: 'verbs', memorizedAt: entry.timestamp || 0 });
           }
         }
       });
@@ -18428,21 +18492,22 @@ const DualFlashcardSystem = {
     }
 
     // Fallback if masteredOrder is not available
+    const fallbackList = [];
     if (deckFilter === 'all' || deckFilter === 'nouns') {
       (this.masteredIds.nouns || []).forEach(id => {
-        const item = nounMap.get(id);
-        if (item) result.push({ ...item, deckType: 'nouns' });
+        const item = nounMap.get(Number(id));
+        if (item) fallbackList.push({ ...item, deckType: 'nouns' });
       });
     }
 
     if (deckFilter === 'all' || deckFilter === 'verbs') {
       (this.masteredIds.verbs || []).forEach(id => {
-        const item = verbMap.get(id);
-        if (item) result.push({ ...item, deckType: 'verbs' });
+        const item = verbMap.get(Number(id));
+        if (item) fallbackList.push({ ...item, deckType: 'verbs' });
       });
     }
 
-    return result;
+    return fallbackList;
   },
 
   openHistoryModal() {
@@ -19015,6 +19080,8 @@ const DualFlashcardSystem = {
   }
 };
 
+window.DualFlashcardSystem = DualFlashcardSystem;
+
 
 /* CheeYa German A1 - Intelligent "Der, Die, Das" Finder with Morphological & Compound Engine */
 
@@ -19303,6 +19370,8 @@ const CompleteArticleFinder = {
   }
 };
 
+window.CompleteArticleFinder = CompleteArticleFinder;
+
 
 
 /* CheeYa German A1 - Original Study Music Player System */
@@ -19584,6 +19653,8 @@ const CertificateSystem = {
     } catch (e) {}
   }
 };
+
+window.StudyMusicPlayer = StudyMusicPlayer;
 
 function bootCheeYa() {
   try { ThemeSystem.init(); } catch (e) { console.error('ThemeSystem error:', e); }
