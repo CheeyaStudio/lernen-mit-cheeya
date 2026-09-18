@@ -1,4 +1,4 @@
-﻿
+
 
 
 
@@ -2699,7 +2699,7 @@ html[data-theme="dark"] select {
 
 /* Gender Badges */
 .gender-der { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: #fff; }
-.gender-die { background: linear-gradient(135deg, #ec4899, #be185d); color: #fff; }
+.gender-die { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
 .gender-das { background: linear-gradient(135deg, #10b981, #047857); color: #fff; }
 </style>
 </head>
@@ -3532,7 +3532,7 @@ html[data-theme="dark"] select {
         <div class="flex items-center gap-2">
           <button onclick="DualFlashcardSystem.downloadHistoryPDF()" id="fcDownloadPdfBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-rose-500 via-pink-500 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-extrabold text-xs shadow-md shadow-pink-200 flex items-center gap-2 transition-all cursor-pointer">
             <span>📥</span>
-            <span>Download PDF (Unduh Semua)</span>
+            <span>Download PDF</span>
           </button>
         </div>
       </div>
@@ -3562,10 +3562,7 @@ html[data-theme="dark"] select {
       <div class="p-3.5 bg-slate-50 border-t border-slate-200 flex items-center justify-between">
         <span id="fcHistoryFooterSummary" class="text-slate-500 text-xs">0 words shown</span>
         <div class="flex items-center gap-2">
-          <button onclick="DualFlashcardSystem.downloadHistoryPDF()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer">
-            <span>📥</span><span>Download PDF</span>
-          </button>
-          <button onclick="DualFlashcardSystem.closeHistoryModal()" class="px-4 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 font-bold text-xs transition-all cursor-pointer">
+          <button onclick="DualFlashcardSystem.closeHistoryModal()" class="px-5 py-1.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs transition-all cursor-pointer shadow-2xs">
             Close
           </button>
         </div>
@@ -17757,6 +17754,7 @@ const DualFlashcardSystem = {
   gridPage: 1,
   pageSize: 40,
   masteredIds: { nouns: [], verbs: [] },
+  masteredOrder: [], // [{ id, deck, timestamp }] - strictly newest first!
   historyFilter: 'all', // 'all', 'nouns', 'verbs'
   historySearchQuery: '',
 
@@ -17772,6 +17770,23 @@ const DualFlashcardSystem = {
           };
         }
       }
+
+      const savedOrder = localStorage.getItem('cheeya_fc_mastered_order');
+      if (savedOrder) {
+        const parsedOrder = JSON.parse(savedOrder);
+        if (Array.isArray(parsedOrder)) {
+          this.masteredOrder = parsedOrder;
+        }
+      }
+
+      // If masteredOrder not yet initialized, build it with newest-first logic
+      if (!this.masteredOrder || this.masteredOrder.length === 0) {
+        this.masteredOrder = [];
+        // Populate existing IDs (most recently added/stored preserved)
+        (this.masteredIds.verbs || []).forEach(id => this.masteredOrder.push({ id, deck: 'verbs' }));
+        (this.masteredIds.nouns || []).forEach(id => this.masteredOrder.push({ id, deck: 'nouns' }));
+      }
+
       const savedDeck = localStorage.getItem('cheeya_fc_deck');
       if (savedDeck && (savedDeck === 'nouns' || savedDeck === 'verbs')) {
         this.currentDeck = savedDeck;
@@ -18001,7 +18016,7 @@ const DualFlashcardSystem = {
 
     const gBadge = document.getElementById('fcGenderBadge');
     if (gBadge) {
-      gBadge.className = `${badgeCls} px-3 py-1 rounded-xl text-xs font-black uppercase`;
+      gBadge.className = `${badgeCls} px-3 py-1 rounded-xl text-xs font-black uppercase shadow-2xs`;
       gBadge.innerText = n.art;
     }
 
@@ -18009,7 +18024,13 @@ const DualFlashcardSystem = {
     if (catBadge) catBadge.innerText = n.cat;
 
     const deWord = document.getElementById('fcGermanWord');
-    if (deWord) deWord.innerText = `${n.art} ${n.de}`;
+    if (deWord) {
+      let wordColor = 'text-blue-700';
+      if (n.art === 'die') wordColor = 'text-red-600';
+      if (n.art === 'das') wordColor = 'text-emerald-700';
+      deWord.className = `text-4xl sm:text-5xl font-black ${wordColor} tracking-tight mb-2 select-all`;
+      deWord.innerText = `${n.art} ${n.de}`;
+    }
 
     const plHint = document.getElementById('fcPluralHint');
     if (plHint) plHint.innerText = `Plural: ${n.pl}`;
@@ -18040,7 +18061,7 @@ const DualFlashcardSystem = {
       if (v.typ === 'Separable') typCls = "bg-emerald-100 text-emerald-800 border border-emerald-300";
       if (v.typ === 'Modal') typCls = "bg-blue-100 text-blue-800 border border-blue-300";
 
-      gBadge.className = `${typCls} px-3 py-1 rounded-xl text-xs font-black uppercase`;
+      gBadge.className = `${typCls} px-3 py-1 rounded-xl text-xs font-black uppercase shadow-2xs`;
       gBadge.innerText = v.typ || 'Verb';
     }
 
@@ -18048,7 +18069,10 @@ const DualFlashcardSystem = {
     if (catBadge) catBadge.innerText = v.cat;
 
     const deWord = document.getElementById('fcGermanWord');
-    if (deWord) deWord.innerText = v.de;
+    if (deWord) {
+      deWord.className = "text-4xl sm:text-5xl font-black text-slate-800 tracking-tight mb-2 select-all";
+      deWord.innerText = v.de;
+    }
 
     const plHint = document.getElementById('fcPluralHint');
     if (plHint) plHint.innerText = `Perfekt: ${v.perfekt || '-'}`;
@@ -18126,15 +18150,24 @@ const DualFlashcardSystem = {
     const arr = this.masteredIds[d];
     const idx = arr.indexOf(id);
     let isNowMastered = false;
+
     if (idx >= 0) {
+      // Unmark / remove
       arr.splice(idx, 1);
       isNowMastered = false;
+      this.masteredOrder = (this.masteredOrder || []).filter(entry => !(entry.id === id && entry.deck === d));
     } else {
-      arr.push(id);
+      // Mark as mastered: insert at the very front (newest first!)
+      arr.unshift(id);
       isNowMastered = true;
+      if (!this.masteredOrder) this.masteredOrder = [];
+      this.masteredOrder = this.masteredOrder.filter(entry => !(entry.id === id && entry.deck === d));
+      this.masteredOrder.unshift({ id, deck: d, timestamp: Date.now() });
     }
+
     try {
       localStorage.setItem('cheeya_fc_mastered_dual', JSON.stringify(this.masteredIds));
+      localStorage.setItem('cheeya_fc_mastered_order', JSON.stringify(this.masteredOrder));
     } catch (e) {
       console.error('Error saving mastered cards:', e);
     }
@@ -18240,10 +18273,37 @@ const DualFlashcardSystem = {
     const result = [];
     if (!window.GERMAN_VOCAB_DB) return result;
 
+    const allNouns = window.GERMAN_VOCAB_DB.nouns || [];
+    const nounMap = new Map();
+    allNouns.forEach(n => nounMap.set(n.id, n));
+
+    const allVerbs = window.GERMAN_VOCAB_DB.verbs || [];
+    const verbMap = new Map();
+    allVerbs.forEach(v => verbMap.set(v.id, v));
+
+    // When masteredOrder exists, it gives the exact newest-first sequence!
+    if (Array.isArray(this.masteredOrder) && this.masteredOrder.length > 0) {
+      const seen = new Set();
+      this.masteredOrder.forEach(entry => {
+        const key = `${entry.deck}_${entry.id}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+
+        if (deckFilter === 'all' || deckFilter === entry.deck) {
+          if (entry.deck === 'nouns' && this.isMastered(entry.id, 'nouns')) {
+            const item = nounMap.get(entry.id);
+            if (item) result.push({ ...item, deckType: 'nouns' });
+          } else if (entry.deck === 'verbs' && this.isMastered(entry.id, 'verbs')) {
+            const item = verbMap.get(entry.id);
+            if (item) result.push({ ...item, deckType: 'verbs' });
+          }
+        }
+      });
+      return result;
+    }
+
+    // Fallback if masteredOrder is not available
     if (deckFilter === 'all' || deckFilter === 'nouns') {
-      const allNouns = window.GERMAN_VOCAB_DB.nouns || [];
-      const nounMap = new Map();
-      allNouns.forEach(n => nounMap.set(n.id, n));
       (this.masteredIds.nouns || []).forEach(id => {
         const item = nounMap.get(id);
         if (item) result.push({ ...item, deckType: 'nouns' });
@@ -18251,9 +18311,6 @@ const DualFlashcardSystem = {
     }
 
     if (deckFilter === 'all' || deckFilter === 'verbs') {
-      const allVerbs = window.GERMAN_VOCAB_DB.verbs || [];
-      const verbMap = new Map();
-      allVerbs.forEach(v => verbMap.set(v.id, v));
       (this.masteredIds.verbs || []).forEach(id => {
         const item = verbMap.get(id);
         if (item) result.push({ ...item, deckType: 'verbs' });
@@ -18327,7 +18384,7 @@ const DualFlashcardSystem = {
     }
 
     if (footerSummary) {
-      footerSummary.innerText = `${words.length} memorized words shown`;
+      footerSummary.innerText = `${words.length} memorized words shown (newest at top)`;
     }
 
     if (words.length === 0) {
@@ -18338,7 +18395,7 @@ const DualFlashcardSystem = {
             <div class="text-4xl">🌟</div>
             <div class="text-base font-extrabold text-slate-800">No Memorized Words Yet</div>
             <p class="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
-              When studying vocabulary, click the <b>"⭐ Mark as Memorized"</b> button on any flashcard. All your memorized words will be recorded here and can be exported as a PDF file anytime!
+              When studying vocabulary, click the <b>"⭐ Mark as Memorized"</b> button on any flashcard. All your memorized words will be recorded here with the latest words at the top, and can be exported as a PDF file anytime!
             </p>
           </div>
         `;
@@ -18352,6 +18409,7 @@ const DualFlashcardSystem = {
       return;
     }
 
+    // Render with color system: Blue for der, Red for die, Green for das
     container.innerHTML = `
       <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-2xs">
         <table class="w-full text-left border-collapse text-xs">
@@ -18369,20 +18427,45 @@ const DualFlashcardSystem = {
           <tbody class="divide-y divide-slate-100 bg-white">
             ${words.map((w, idx) => {
               const isNoun = w.deckType === 'nouns';
-              let badgeCls = isNoun
-                ? (w.art === 'der' ? 'gender-der' : (w.art === 'die' ? 'gender-die' : 'gender-das'))
-                : 'bg-purple-100 text-purple-700 border border-purple-200';
+              let badgeCls = '';
+              let wordColorCls = '';
+              let rowHoverBg = '';
+
+              if (isNoun) {
+                if (w.art === 'der') {
+                  badgeCls = 'bg-blue-600 text-white';
+                  wordColorCls = 'text-blue-700';
+                  rowHoverBg = 'hover:bg-blue-50/40';
+                } else if (w.art === 'die') {
+                  badgeCls = 'bg-red-600 text-white';
+                  wordColorCls = 'text-red-600';
+                  rowHoverBg = 'hover:bg-red-50/40';
+                } else if (w.art === 'das') {
+                  badgeCls = 'bg-emerald-600 text-white';
+                  wordColorCls = 'text-emerald-700';
+                  rowHoverBg = 'hover:bg-emerald-50/40';
+                } else {
+                  badgeCls = 'bg-slate-600 text-white';
+                  wordColorCls = 'text-slate-800';
+                  rowHoverBg = 'hover:bg-slate-50';
+                }
+              } else {
+                badgeCls = 'bg-purple-100 text-purple-700 border border-purple-200';
+                wordColorCls = 'text-purple-900';
+                rowHoverBg = 'hover:bg-purple-50/40';
+              }
+
               const typeText = isNoun ? w.art : (w.typ || 'Verb');
               const details = isNoun ? `Plural: ${w.pl || '-'}` : `Perfekt: ${w.perfekt || '-'}`;
               const speakText = isNoun ? `${w.art} ${w.de}` : w.de;
 
               return `
-                <tr class="hover:bg-amber-50/40 transition-colors">
+                <tr class="${rowHoverBg} transition-colors">
                   <td class="p-3 text-center text-slate-400 font-mono text-[11px]">${idx + 1}</td>
-                  <td class="p-3 font-extrabold text-slate-800">
-                    <div class="flex items-center gap-1.5">
-                      <span class="${badgeCls} px-2 py-0.5 rounded text-[10px] font-black uppercase">${typeText}</span>
-                      <span>${isNoun ? `${w.art} ${w.de}` : w.de}</span>
+                  <td class="p-3 font-extrabold ${wordColorCls}">
+                    <div class="flex items-center gap-2">
+                      <span class="${badgeCls} px-2 py-0.5 rounded text-[10px] font-black uppercase tracking-wider shadow-2xs">${typeText}</span>
+                      <span class="text-xs font-black">${isNoun ? `${w.art} ${w.de}` : w.de}</span>
                     </div>
                   </td>
                   <td class="p-3 text-slate-600 font-mono text-[11px]">${details}</td>
@@ -18438,12 +18521,6 @@ const DualFlashcardSystem = {
       const { jsPDF } = window.jspdf;
       const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true });
 
-      let studentName = 'German A1 Learner';
-      try {
-        const savedName = localStorage.getItem('cheeya_student_name');
-        if (savedName && savedName.trim()) studentName = savedName.trim();
-      } catch (e) {}
-
       const now = new Date();
       const dateStr = now.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 
@@ -18455,6 +18532,9 @@ const DualFlashcardSystem = {
           .replace(/[\u2014\u2013]/g, ' - ')
           .replace(/\u2022/g, '- ');
       }
+
+      const totalNouns = (this.masteredIds.nouns || []).length;
+      const totalVerbs = (this.masteredIds.verbs || []).length;
 
       // 1. Header Banner
       doc.setFillColor(190, 24, 93); // CheeYa Rose Pink
@@ -18469,20 +18549,33 @@ const DualFlashcardSystem = {
       doc.setFontSize(8.5);
       doc.text('Official Flashcard Mastery Record - Standard German A1 Curriculum', 20, 30);
 
-      // 2. Info Card
-      doc.setFillColor(253, 242, 248); // Soft pink bg
-      doc.setDrawColor(244, 114, 182); // Pink border
-      doc.roundedRect(14, 40, 182, 16, 2, 2, 'FD');
+      // 2. Info Card with Summary & Color Legend (Student name removed!)
+      doc.setFillColor(248, 250, 252); // Slate-50 bg
+      doc.setDrawColor(203, 213, 225); // Slate-300 border
+      doc.roundedRect(14, 40, 182, 17, 2, 2, 'FD');
 
       doc.setTextColor(30, 41, 59);
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(8.5);
-      doc.text(`Student: ${cleanText(studentName)}`, 18, 46);
-      doc.text(`Total Words: ${words.length} (${(this.masteredIds.nouns || []).length} Nouns, ${(this.masteredIds.verbs || []).length} Verbs)`, 18, 52);
+      doc.text(`Total Memorized Words: ${words.length} (${totalNouns} Nouns, ${totalVerbs} Verbs)`, 18, 46);
 
       doc.setFont('helvetica', 'normal');
-      doc.text(`Date Exported: ${dateStr}`, 125, 46);
-      doc.text(`Progress: Flashcards Mastered`, 125, 52);
+      doc.text(`Date Exported: ${dateStr}`, 130, 46);
+
+      // Color Legend Subline
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(71, 85, 105);
+      doc.text('Article Color System:', 18, 52.5);
+
+      doc.setTextColor(29, 78, 216); // Blue
+      doc.text('Blue = der (Masculine)', 52, 52.5);
+
+      doc.setTextColor(220, 38, 38); // Red
+      doc.text('Red = die (Feminine)', 92, 52.5);
+
+      doc.setTextColor(22, 101, 52); // Green
+      doc.text('Green = das (Neutral)', 128, 52.5);
 
       // 3. Table Rows
       const tableRows = words.map((w, idx) => {
@@ -18501,7 +18594,7 @@ const DualFlashcardSystem = {
       });
 
       doc.autoTable({
-        startY: 60,
+        startY: 61,
         head: [['#', 'German Word', 'Type / Details', 'English Meaning', 'Category', 'Example Sentence']],
         body: tableRows,
         theme: 'grid',
@@ -18516,36 +18609,69 @@ const DualFlashcardSystem = {
         bodyStyles: {
           fontSize: 7.5,
           textColor: [30, 41, 59],
-          cellPadding: 2.2,
-          valign: 'middle'
+          cellPadding: 2
+        },
+        columnStyles: {
+          0: { cellWidth: 10, halign: 'center', textColor: [100, 116, 139] },
+          1: { cellWidth: 38, fontStyle: 'bold' },
+          2: { cellWidth: 32, fontStyle: 'normal' },
+          3: { cellWidth: 34 },
+          4: { cellWidth: 26 },
+          5: { cellWidth: 'auto' }
+        },
+        didParseCell: function(data) {
+          if (data.section === 'body') {
+            const w = words[data.row.index];
+            if (w) {
+              if (w.deckType === 'nouns') {
+                if (data.column.index === 1) { // German Word column
+                  if (w.art === 'der') {
+                    data.cell.styles.textColor = [29, 78, 216]; // Vivid Blue for der
+                    data.cell.styles.fontStyle = 'bold';
+                  } else if (w.art === 'die') {
+                    data.cell.styles.textColor = [220, 38, 38]; // Vivid Red for die
+                    data.cell.styles.fontStyle = 'bold';
+                  } else if (w.art === 'das') {
+                    data.cell.styles.textColor = [22, 101, 52]; // Vivid Green for das
+                    data.cell.styles.fontStyle = 'bold';
+                  }
+                } else if (data.column.index === 2) {
+                  if (w.art === 'der') {
+                    data.cell.styles.textColor = [37, 99, 235];
+                  } else if (w.art === 'die') {
+                    data.cell.styles.textColor = [220, 38, 38];
+                  } else if (w.art === 'das') {
+                    data.cell.styles.textColor = [22, 101, 52];
+                  }
+                }
+              } else if (w.deckType === 'verbs') {
+                if (data.column.index === 1) {
+                  data.cell.styles.textColor = [109, 40, 217]; // Purple for Verbs
+                  data.cell.styles.fontStyle = 'bold';
+                }
+              }
+            }
+          }
         },
         alternateRowStyles: {
           fillColor: [253, 248, 251]
         },
-        columnStyles: {
-          0: { cellWidth: 8, halign: 'center' },
-          1: { cellWidth: 32, fontStyle: 'bold' },
-          2: { cellWidth: 28 },
-          3: { cellWidth: 32 },
-          4: { cellWidth: 24 },
-          5: { cellWidth: 'auto' }
-        },
-        margin: { left: 14, right: 14, bottom: 16 },
+        margin: { left: 14, right: 14, top: 14, bottom: 14 },
         didDrawPage: function(data) {
           const pageCount = doc.internal.getNumberOfPages();
-          doc.setFont('helvetica', 'italic');
           doc.setFontSize(7.5);
           doc.setTextColor(148, 163, 184);
           doc.text(
-            `Page ${data.pageNumber} of ${pageCount} - CheeYa Studio German A1 Flashcard Vocabulary`,
+            `CheeYa German A1 | Page ${data.pageNumber} of ${pageCount} | Blue: der, Red: die, Green: das`,
             14,
             doc.internal.pageSize.height - 8
           );
         }
       });
 
-      const safeName = studentName.replace(/[^a-zA-Z0-9]/g, '_');
-      doc.save(`German_A1_Memorized_Vocabulary_${safeName}.pdf`);
+      const fileName = `CheeYa_German_A1_Memorized_Vocabulary.pdf`;
+      doc.save(fileName);
+
       if (typeof App !== 'undefined' && App.showToast) {
         App.showToast(`✅ Successfully downloaded ${words.length} memorized words as PDF!`);
       }
@@ -18567,13 +18693,9 @@ const DualFlashcardSystem = {
       return;
     }
 
-    let studentName = 'German A1 Learner';
-    try {
-      const savedName = localStorage.getItem('cheeya_student_name');
-      if (savedName && savedName.trim()) studentName = savedName.trim();
-    } catch (e) {}
-
     const dateStr = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    const totalNouns = (this.masteredIds.nouns || []).length;
+    const totalVerbs = (this.masteredIds.verbs || []).length;
 
     printWin.document.write(`
       <!DOCTYPE html>
@@ -18586,15 +18708,21 @@ const DualFlashcardSystem = {
           .header { background: #be185d; color: white; padding: 14px 20px; border-radius: 8px; margin-bottom: 15px; }
           .header h1 { margin: 0; font-size: 16px; }
           .header p { margin: 4px 0 0 0; font-size: 11px; opacity: 0.9; }
-          .info { background: #fdf2f8; border: 1px solid #f472b6; padding: 10px 15px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; font-size: 10px; }
+          .info { background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px 15px; border-radius: 6px; margin-bottom: 15px; font-size: 10px; }
+          .legend { margin-top: 5px; font-weight: bold; }
           table { width: 100%; border-collapse: collapse; margin-top: 10px; }
           th { background: #be185d; color: white; text-align: left; padding: 6px 8px; font-size: 10px; }
           td { border-bottom: 1px solid #e2e8f0; padding: 6px 8px; font-size: 10px; vertical-align: top; }
           tr:nth-child(even) { background: #fdf8fb; }
-          .tag { font-weight: bold; font-size: 9px; padding: 1px 4px; border-radius: 3px; background: #e2e8f0; }
-          .der { background: #dbeafe; color: #1e40af; }
-          .die { background: #fce7f3; color: #9d174d; }
-          .das { background: #dcfce7; color: #166534; }
+          .tag { font-weight: bold; font-size: 9px; padding: 1px 5px; border-radius: 3px; }
+          .der { background: #dbeafe; color: #1d4ed8; border: 1px solid #93c5fd; }
+          .die { background: #fee2e2; color: #dc2626; border: 1px solid #fca5a5; }
+          .das { background: #dcfce7; color: #166534; border: 1px solid #86efac; }
+          .verb { background: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
+          .word-der { color: #1d4ed8; font-weight: bold; }
+          .word-die { color: #dc2626; font-weight: bold; }
+          .word-das { color: #166534; font-weight: bold; }
+          .word-verb { color: #6b21a8; font-weight: bold; }
           @media print {
             body { padding: 0; }
             .no-print { display: none; }
@@ -18610,8 +18738,13 @@ const DualFlashcardSystem = {
           <p>Official Flashcard Mastery Record - Standard German A1 Curriculum</p>
         </div>
         <div class="info">
-          <div><b>Student:</b> ${studentName} &bull; <b>Total Words:</b> ${words.length}</div>
-          <div><b>Date:</b> ${dateStr}</div>
+          <div style="display: flex; justify-content: space-between;">
+            <div><b>Total Memorized Words:</b> ${words.length} (${totalNouns} Nouns, ${totalVerbs} Verbs)</div>
+            <div><b>Date Exported:</b> ${dateStr}</div>
+          </div>
+          <div class="legend">
+            Article Color System: <span class="tag der">der (Blue)</span> &bull; <span class="tag die">die (Red)</span> &bull; <span class="tag das">das (Green)</span>
+          </div>
         </div>
         <table>
           <thead>
@@ -18629,11 +18762,16 @@ const DualFlashcardSystem = {
               const isNoun = w.deckType === 'nouns';
               const deWord = isNoun ? `${w.art} ${w.de}` : w.de;
               const details = isNoun ? `Plural: ${w.pl || '-'}` : `Perfekt: ${w.perfekt || '-'}`;
-              const tagCls = isNoun ? (w.art || '') : 'tag';
+              let tagCls = 'verb';
+              let wordCls = 'word-verb';
+              if (isNoun) {
+                tagCls = w.art || 'der';
+                wordCls = `word-${w.art || 'der'}`;
+              }
               return `
                 <tr>
                   <td>${idx + 1}</td>
-                  <td><b><span class="tag ${tagCls}">${isNoun ? w.art : 'verb'}</span> ${deWord}</b></td>
+                  <td><span class="${wordCls}"><span class="tag ${tagCls}">${isNoun ? w.art : (w.typ || 'verb')}</span> ${deWord}</span></td>
                   <td>${details}</td>
                   <td>${w.en || '-'}</td>
                   <td>${w.cat || '-'}</td>
@@ -18677,14 +18815,15 @@ const DualFlashcardSystem = {
       const isM = this.isMastered(item.id, this.currentDeck);
       if (this.currentDeck === 'nouns') {
         let badgeCls = 'gender-der';
-        if (item.art === 'die') badgeCls = 'gender-die';
-        if (item.art === 'das') badgeCls = 'gender-das';
+        let wordColor = 'text-blue-700';
+        if (item.art === 'die') { badgeCls = 'gender-die'; wordColor = 'text-red-600'; }
+        if (item.art === 'das') { badgeCls = 'gender-das'; wordColor = 'text-emerald-700'; }
 
         return `
           <div class="p-4 rounded-2xl bg-white border ${isM ? 'border-amber-300 bg-amber-50/20' : 'border-slate-200/80'} shadow-xs hover:border-pink-300 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-1.5">
-                <span class="${badgeCls} px-2.5 py-0.5 rounded-lg text-xs font-black uppercase">${item.art}</span>
+                <span class="${badgeCls} px-2.5 py-0.5 rounded-lg text-xs font-black uppercase shadow-2xs">${item.art}</span>
                 <div class="flex items-center gap-1.5">
                   <button onclick="DualFlashcardSystem.toggleMastered(${item.id}); event.stopPropagation();" class="p-1 rounded-lg ${isM ? 'text-amber-500 bg-amber-100/80 hover:bg-amber-200' : 'text-slate-300 hover:text-amber-400 hover:bg-slate-100'} font-bold text-xs transition-colors cursor-pointer" title="${isM ? 'Memorized (Click to unmark)' : 'Mark as Memorized'}">
                     ${isM ? '⭐' : '☆'}
@@ -18694,7 +18833,7 @@ const DualFlashcardSystem = {
                   </button>
                 </div>
               </div>
-              <div class="text-base font-extrabold text-slate-800">${item.art} ${item.de}</div>
+              <div class="text-base font-extrabold ${wordColor}">${item.art} ${item.de}</div>
               <div class="text-xs text-slate-500 font-medium">${item.en}</div>
               <div class="text-[11px] text-slate-400 font-mono mt-0.5">Plural: ${item.pl}</div>
             </div>
@@ -18708,7 +18847,7 @@ const DualFlashcardSystem = {
           <div class="p-4 rounded-2xl bg-white border ${isM ? 'border-amber-300 bg-amber-50/20' : 'border-slate-200/80'} shadow-xs hover:border-purple-300 hover:shadow-md transition-all flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-1.5">
-                <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-black uppercase bg-purple-100 text-purple-700">${item.typ || 'Verb'}</span>
+                <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-black uppercase bg-purple-100 text-purple-700 shadow-2xs">${item.typ || 'Verb'}</span>
                 <div class="flex items-center gap-1.5">
                   <button onclick="DualFlashcardSystem.toggleMastered(${item.id}); event.stopPropagation();" class="p-1 rounded-lg ${isM ? 'text-amber-500 bg-amber-100/80 hover:bg-amber-200' : 'text-slate-300 hover:text-amber-400 hover:bg-slate-100'} font-bold text-xs transition-colors cursor-pointer" title="${isM ? 'Memorized (Click to unmark)' : 'Mark as Memorized'}">
                     ${isM ? '⭐' : '☆'}
