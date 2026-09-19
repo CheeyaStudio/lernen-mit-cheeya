@@ -1,4 +1,4 @@
-﻿
+
 
 
 
@@ -3528,7 +3528,7 @@ html[data-theme="dark"] select {
           </div>
           <div class="flex items-center justify-between text-xs text-slate-400">
             <span>Tap card to flip &#8635;</span>
-            <button onclick="event.stopPropagation(); AudioSpeedSystem.speak(document.getElementById('fcGermanWord').innerText);" class="p-2 rounded-xl bg-pink-100 hover:bg-pink-200 text-pink-700 font-bold transition-colors flex items-center gap-1">
+            <button onclick="event.stopPropagation(); DualFlashcardSystem.speakCurrent();" class="p-2 rounded-xl bg-pink-100 hover:bg-pink-200 text-pink-700 font-bold transition-colors flex items-center gap-1 cursor-pointer">
               <span>🔊</span>
               <span>Pronounce</span>
             </button>
@@ -3581,7 +3581,7 @@ html[data-theme="dark"] select {
 
           <div class="flex items-center justify-between text-xs text-slate-400 pt-2 border-t border-purple-100">
             <span>Tap to flip back &#8635;</span>
-            <button onclick="event.stopPropagation(); AudioSpeedSystem.speak(document.getElementById('fcSampleSentence').innerText);" class="p-2 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold transition-colors flex items-center gap-1">
+            <button onclick="event.stopPropagation(); DualFlashcardSystem.speakSample();" class="p-2 rounded-xl bg-purple-100 hover:bg-purple-200 text-purple-700 font-bold transition-colors flex items-center gap-1 cursor-pointer">
               <span>🔊</span>
               <span>Listen Sentence</span>
             </button>
@@ -14610,15 +14610,37 @@ const CheatSheetSystem = {
     };
 
     window.TranslatorSystem = TranslatorSystem;
+    window.ExactGrammarEngine = ExactGrammarEngine;
+    if (typeof App !== 'undefined') window.App = App;
+    if (typeof StudyMusic !== 'undefined') window.StudyMusic = StudyMusic;
 
-    // Initialize application on window load
+    // Initialize application on window load safely
     window.addEventListener('DOMContentLoaded', () => {
-      if (typeof TranslatorSystem !== 'undefined') {
-        TranslatorSystem.resetToEmptyState();
-      }
-      App.init();
-      StudyMusic.init();
-      App.navigateTo('dashboard');
+      try {
+        if (typeof TranslatorSystem !== 'undefined' && TranslatorSystem.resetToEmptyState) {
+          TranslatorSystem.resetToEmptyState();
+        }
+      } catch (e) { console.error('TranslatorSystem init error:', e); }
+
+      try {
+        if (typeof App !== 'undefined' && App.init) {
+          App.init();
+        }
+      } catch (e) { console.error('App init error:', e); }
+
+      try {
+        if (typeof StudyMusic !== 'undefined' && StudyMusic.init) {
+          StudyMusic.init();
+        } else if (typeof StudyMusicPlayer !== 'undefined' && StudyMusicPlayer.init) {
+          StudyMusicPlayer.init();
+        }
+      } catch (e) { console.error('StudyMusic init error:', e); }
+
+      try {
+        if (typeof App !== 'undefined' && App.navigateTo) {
+          App.navigateTo('dashboard');
+        }
+      } catch (e) { console.error('App navigateTo error:', e); }
     });
   </script>
 <div class="cheeya-cursor-layer" id="cheeyaCursorLayer" aria-hidden="true"></div>
@@ -18049,7 +18071,11 @@ const ExamSystem = {
         </div>
     `;
 
-    this.examData.hoeren.forEach(part => {
+    const hoerenParts = Array.isArray(this.examData.hoeren) 
+      ? this.examData.hoeren 
+      : (this.examData.hoeren ? [this.examData.hoeren.part1, this.examData.hoeren.part2, this.examData.hoeren.part3].filter(Boolean) : []);
+
+    hoerenParts.forEach(part => {
       html += `
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
           <div class="border-b border-slate-100 pb-2">
@@ -18435,9 +18461,12 @@ const ExamSystem = {
       if (this.userAnswers.lesen[item.id] === item.correct) lesenScore += 1;
     });
 
-    // 2. Hören grading: 15 questions x 1 point each = 15 points
+    // 2. Hören grading: 15 questions x 1 point each = 15 points    // 2. Hoeren Review
     let hoerenScore = 0;
-    this.examData.hoeren.forEach(part => {
+    const hoerenPartsReview = Array.isArray(this.examData.hoeren) 
+      ? this.examData.hoeren 
+      : (this.examData.hoeren ? [this.examData.hoeren.part1, this.examData.hoeren.part2, this.examData.hoeren.part3].filter(Boolean) : []);
+    hoerenPartsReview.forEach(part => {
       part.items.forEach(q => {
         if (this.userAnswers.hoeren[q.id] === q.correct) hoerenScore += 1;
       });
@@ -18659,7 +18688,8 @@ const ExamSystem = {
 
     // 2. Hoeren Review
     let hoerenHtml = '';
-    this.examData.hoeren.forEach(part => {
+    const hoerenParts = Array.isArray(this.examData.hoeren) ? this.examData.hoeren : (this.examData.hoeren ? [this.examData.hoeren.part1, this.examData.hoeren.part2, this.examData.hoeren.part3].filter(Boolean) : []);
+    hoerenParts.forEach(part => {
       hoerenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-purple-700 mt-3 mb-2">${part.title}</div>`;
       part.items.forEach(q => {
         const uAns = this.userAnswers.hoeren[q.id];
@@ -19409,9 +19439,12 @@ const DualFlashcardSystem = {
     const list = this.getFilteredList();
     if (list.length === 0) return;
     const item = list[this.currentIndex];
+    if (!item) return;
     const text = this.currentDeck === 'nouns' ? `${item.art} ${item.de}` : item.de;
     if (typeof AudioSpeedSystem !== 'undefined' && AudioSpeedSystem.speak) {
       AudioSpeedSystem.speak(text);
+    } else if (typeof window.speechSynthesis !== 'undefined') {
+      try { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'de-DE'; window.speechSynthesis.speak(u); } catch(e) {}
     }
   },
 
@@ -19419,12 +19452,16 @@ const DualFlashcardSystem = {
     const list = this.getFilteredList();
     if (list.length === 0) return;
     const item = list[this.currentIndex];
+    if (!item) return;
     const text = item.sDe || '';
-    if (text && typeof AudioSpeedSystem !== 'undefined' && AudioSpeedSystem.speak) {
-      AudioSpeedSystem.speak(text);
+    if (text) {
+      if (typeof AudioSpeedSystem !== 'undefined' && AudioSpeedSystem.speak) {
+        AudioSpeedSystem.speak(text);
+      } else if (typeof window.speechSynthesis !== 'undefined') {
+        try { window.speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(text); u.lang = 'de-DE'; window.speechSynthesis.speak(u); } catch(e) {}
+      }
     }
   },
-
   isMastered(id, deck = this.currentDeck) {
     const numId = Number(id);
     const d = (deck || this.currentDeck) === 'verbs' ? 'verbs' : 'nouns';
@@ -20060,72 +20097,6 @@ const DualFlashcardSystem = {
       <!DOCTYPE html>
       <html>
       <head>
-  <!-- CheeYa Studio â€¢ Anti-Theft Domain & License Guard -->
-  <script id="cheeya-domain-guard-js">
-  (function() {
-    try {
-      var loc = window.location;
-      var host = (loc.hostname || '').toLowerCase();
-      var href = (loc.href || '').toLowerCase();
-      var proto = (loc.protocol || '').toLowerCase();
-
-      // Authorized domains and development environments
-      var isOfficialDomain = host === 'cheeyastudio.my.id' || 
-                             host.endsWith('.cheeyastudio.my.id') || 
-                             host === 'cheeyastudio.github.io' ||
-                             host.endsWith('.github.io');
-
-      var isLocalDev = host === 'localhost' || 
-                       host === '127.0.0.1' || 
-                       host.startsWith('192.168.') ||
-                       host.startsWith('10.');
-
-      var isAuthorWorkstationOrApp = proto === 'file:' && (
-        href.indexOf('android_asset') !== -1 ||
-        href.indexOf('cheeya') !== -1 ||
-        href.indexOf('mayat') !== -1 ||
-        href.indexOf('myapp') !== -1
-      );
-
-      // If opening in legitimate author / official environment, proceed normally
-      if (isOfficialDomain || isLocalDev || isAuthorWorkstationOrApp) {
-        return;
-      }
-
-      // Unauthorized stolen or downloaded copy detected!
-      window.stop && window.stop();
-      var target = 'https://cheeyastudio.my.id/';
-
-      // Render security screen to protect curriculum and UI assets
-      if (document.documentElement) {
-        document.documentElement.innerHTML = 
-          '<head><title>Access Restricted â€¢ CheeYa Studio</title>' +
-          '<meta name="viewport" content="width=device-width, initial-scale=1.0">' +
-          '<style>' +
-          'body{margin:0;padding:24px;font-family:system-ui,-apple-system,sans-serif;background:#0f172a;color:#f8fafc;display:flex;align-items:center;justify-content:center;min-height:100vh;box-sizing:border-box;text-align:center}' +
-          '.box{max-width:480px;background:#1e293b;padding:36px 28px;border-radius:24px;border:1px solid #334155;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5)}' +
-          '.icon{font-size:48px;margin-bottom:16px}' +
-          'h1{font-size:22px;font-weight:800;color:#f472b6;margin:0 0 12px}' +
-          'p{font-size:14px;color:#94a3b8;line-height:1.6;margin:0 0 24px}' +
-          '.btn{display:inline-block;padding:12px 28px;border-radius:12px;background:linear-gradient(135deg,#f472b6,#ec4899);color:#fff;text-decoration:none;font-weight:700;font-size:14px;box-shadow:0 10px 15px -3px rgba(244,114,182,0.3)}' +
-          '</style></head>' +
-          '<body><div class="box">' +
-          '<div class="icon">\uD83D\uDEE1\uFE0F</div>' +
-          '<h1>Proprietary Content Protected</h1>' +
-          '<p>This German A1 learning platform and its contents are the copyrighted property of <b>CheeYa Studio</b>. Unauthorized offline distribution or re-hosting is strictly prohibited.</p>' +
-          '<a href="' + target + '" class="btn">Visit Official Website</a>' +
-          '</div></body>';
-      }
-
-      // Automatically redirect after 2.5 seconds
-      setTimeout(function() {
-        window.location.replace(target);
-      }, 2500);
-    } catch (e) {
-      console.warn('Security guard check:', e);
-    }
-  })();
-  </script>
         <title>CheeYa German A1 - Memorized Vocabulary</title>
         <meta charset="utf-8">
         <style>
@@ -20876,9 +20847,17 @@ const StudyMusicPlayer = {
 };
 
 
+window.DualFlashcardSystem = DualFlashcardSystem;
 window.FlashcardSystem = DualFlashcardSystem;
+window.AudioSpeedSystem = AudioSpeedSystem;
+window.ExamSystem = ExamSystem;
+window.GoetheExamSystem = ExamSystem;
+window.GERMAN_VOCAB_DB = GERMAN_VOCAB_DB;
+window.CompleteArticleFinder = CompleteArticleFinder;
 window.ArticleFinderSystem = CompleteArticleFinder;
+window.StudyMusicPlayer = StudyMusicPlayer;
 window.CheeYaMusicPlayer = StudyMusicPlayer;
+window.ThemeSystem = ThemeSystem;
 
 const CertificateSystem = {
   STORAGE_KEY: 'cheeya_student_name',
@@ -20914,6 +20893,7 @@ const CertificateSystem = {
 };
 
 window.StudyMusicPlayer = StudyMusicPlayer;
+window.CertificateSystem = CertificateSystem;
 
 function bootCheeYa() {
   try { ThemeSystem.init(); } catch (e) { console.error('ThemeSystem error:', e); }
