@@ -14880,6 +14880,7 @@ const AudioSpeedSystem = {
   STORAGE_KEY: 'cheeya_audio_speed',
   currentSpeed: 1.0,
   cachedGermanVoice: null,
+  currentAudio: null,
 
   init() {
     try {
@@ -14899,7 +14900,8 @@ const AudioSpeedSystem = {
       };
     }
     setTimeout(() => this.loadVoices(), 300);
-    setTimeout(() => this.loadVoices(), 1200);
+    setTimeout(() => this.loadVoices(), 1000);
+    setTimeout(() => this.loadVoices(), 3000);
   },
 
   loadVoices() {
@@ -14926,16 +14928,19 @@ const AudioSpeedSystem = {
       if (lang === 'de-de') score += 60;
       else if (lang.startsWith('de')) score += 30;
 
-      // Google Deutsch is the gold standard on Android & Chrome
-      if (name.includes('google deutsch') || name.includes('google german')) score += 150;
-      // High-quality neural / natural voices on Edge and Windows
-      if (name.includes('natural') || name.includes('neural')) score += 120;
-      if (name.includes('premium') || name.includes('enhanced')) score += 110;
-      if (name.includes('online')) score += 90;
-      // Quality native German voices on Apple (Anna, Helena, Marlene) & Windows (Katja, Stefan, Hedda)
-      if (name.includes('katja') || name.includes('stefan') || name.includes('hedda')) score += 80;
-      if (name.includes('anna') || name.includes('helena') || name.includes('marlene')) score += 80;
-      if (name.includes('deutsch') || name.includes('german')) score += 40;
+      // Google Deutsch / German Neural (Android, ChromeOS, Chrome)
+      if (name.includes('google deutsch') || name.includes('google german')) score += 180;
+      // Microsoft Natural / Neural Voices (Edge, Windows)
+      if (name.includes('natural') || name.includes('neural')) score += 150;
+      if (name.includes('katja') || name.includes('conrad') || name.includes('amala')) score += 140;
+      if (name.includes('premium') || name.includes('enhanced')) score += 120;
+      if (name.includes('online')) score += 100;
+      // Native Apple German Voices (iOS, iPadOS, macOS)
+      if (name.includes('siri') && lang.startsWith('de')) score += 130;
+      if (name.includes('anna') || name.includes('helena') || name.includes('marlene')) score += 110;
+      if (name.includes('martin') || name.includes('viktor') || name.includes('katrin')) score += 110;
+      if (name.includes('stefan') || name.includes('hedda')) score += 90;
+      if (name.includes('deutsch') || name.includes('german')) score += 50;
       if (v.default) score += 15;
       if (v.localService) score += 10;
       return score;
@@ -14947,8 +14952,7 @@ const AudioSpeedSystem = {
   },
 
   getBestGermanVoice() {
-    if (this.cachedGermanVoice) return this.cachedGermanVoice;
-    return this.loadVoices();
+    return this.loadVoices() || this.cachedGermanVoice;
   },
 
   toggleSpeed() {
@@ -14975,20 +14979,93 @@ const AudioSpeedSystem = {
     }
   },
 
+  cleanTextForAudio(text) {
+    if (!text) return '';
+    let clean = text.replace(/<[^>]*>/g, ' ');
+    clean = clean.replace(/\s*\([^)]*\)\s*/g, ' ');
+    return clean.replace(/\s+/g, ' ').trim();
+  },
+
   speak(text, customSpeed = null) {
+    const clean = this.cleanTextForAudio(text);
+    if (!clean) return;
+
+    if (this.currentAudio) {
+      try {
+        this.currentAudio.pause();
+        this.currentAudio.currentTime = 0;
+      } catch (e) {}
+      this.currentAudio = null;
+    }
+    if ('speechSynthesis' in window) {
+      try {
+        window.speechSynthesis.cancel();
+      } catch (e) {}
+    }
+
+    const speed = customSpeed || this.currentSpeed;
+
+    // Tier 1: Try Native German Studio Audio Stream (Google Neural TTS via audio/mpeg)
+    // Ensures consistent, studio-quality native Hochdeutsch pronunciation on ALL devices (iPhone, Android, Windows, Mac)
+    if (navigator.onLine !== false && clean.length < 250) {
+      try {
+        const audioUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&tl=de&client=tw-ob&q=' + encodeURIComponent(clean);
+        const audio = new Audio();
+        audio.preload = 'auto';
+        audio.playbackRate = speed;
+        this.currentAudio = audio;
+
+        let hasFallenBack = false;
+        const triggerFallback = () => {
+          if (hasFallenBack) return;
+          hasFallenBack = true;
+          if (this.currentAudio === audio) this.currentAudio = null;
+          this.speakViaSpeechSynthesis(clean, speed);
+        };
+
+        audio.onerror = () => triggerFallback();
+
+        const timeoutId = setTimeout(() => {
+          if (audio.readyState < 2) triggerFallback();
+        }, 1500);
+
+        audio.onplay = () => clearTimeout(timeoutId);
+        audio.onended = () => {
+          if (this.currentAudio === audio) this.currentAudio = null;
+        };
+
+        audio.src = audioUrl;
+        const playPromise = audio.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {
+            clearTimeout(timeoutId);
+            triggerFallback();
+          });
+        }
+        return;
+      } catch (err) {
+        // Fall through to SpeechSynthesis
+      }
+    }
+
+    this.speakViaSpeechSynthesis(clean, speed);
+  },
+
+  speakViaSpeechSynthesis(clean, speed) {
     if (!('speechSynthesis' in window)) {
       if (typeof App !== 'undefined' && App.showToast) {
         App.showToast('Speech synthesis is not supported on this browser.');
       }
       return;
     }
+
     try {
       window.speechSynthesis.cancel();
       if (window.speechSynthesis.paused) {
         window.speechSynthesis.resume();
       }
 
-      const utt = new SpeechSynthesisUtterance(text);
+      const utt = new SpeechSynthesisUtterance(clean);
       const voice = this.getBestGermanVoice();
       if (voice) {
         utt.voice = voice;
@@ -14997,7 +15074,7 @@ const AudioSpeedSystem = {
         utt.lang = 'de-DE';
       }
       utt.pitch = 1.0;
-      utt.rate = customSpeed || this.currentSpeed;
+      utt.rate = speed === 1.0 ? 0.92 : 0.72;
       window.speechSynthesis.speak(utt);
     } catch (err) {
       console.warn('Speech synthesis failed:', err);
