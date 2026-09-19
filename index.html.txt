@@ -3169,7 +3169,7 @@ html[data-theme="dark"] select {
             <span class="text-[10px] font-extrabold text-sky-700 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-full">A1-C1 Deep Analysis</span>
           </div>
           <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">
-            Translate between English, Indonesian & German with in-depth grammatical breakdown (verb conjugations, noun articles der/die/das, Nominativ/Akkusativ/Dativ cases & V2 word order) and native audio pronunciation.
+            Translate between English, Indonesian & German with in-depth grammatical breakdown (verb conjugations, noun articles der/die/das, Nominativ, Akkusativ, Dativ & Genitiv cases, and V2 word order) and native audio pronunciation.
           </p>
         </div>
       </div>
@@ -3210,6 +3210,7 @@ html[data-theme="dark"] select {
         <button onclick="TranslatorSystem.setPreset('Where do you come from?')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors">Where do you come from? (EN)</button>
         <button onclick="TranslatorSystem.setPreset('I give you book')" class="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold transition-colors">I give you book</button>
         <button onclick="TranslatorSystem.setPreset('I love you')" class="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold transition-colors">I love you</button>
+        <button onclick="TranslatorSystem.setPreset('Das ist das Auto meines Vaters')" class="px-2.5 py-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition-all">Das ist das Auto meines Vaters (Genitiv)</button>
       </div>
     </div>
 
@@ -13249,776 +13250,884 @@ const CheatSheetSystem = {
        Matching User Screenshot UI (Step-by-step transformation, V2, valency, phonetic guide)
        ========================================================================== */
     const ExactGrammarEngine = {
-      // Phonetic transcription generator for common German words
-      getPhonetic(words) {
-        const map = {
-          'ich': 'IKH',
-          'liebe': 'LEE-buh',
-          'dich': 'DEEKH',
-          'gebe': 'GAY-buh',
-          'dir': 'DEER',
-          'ein': 'EYE-n',
-          'eine': 'EYE-nuh',
-          'einen': 'EYE-nuhn',
-          'einem': 'EYE-nuhm',
-          'einer': 'EYE-nuhr',
-          'buch': 'BOOKH',
-          'lerne': 'LAIR-nuh',
-          'deutsch': 'DOY-tsh',
-          'wir': 'VEER',
-          'fahren': 'FAH-ruhn',
-          'mit': 'MIT',
-          'dem': 'DAYM',
-          'der': 'DAIR',
-          'die': 'DEE',
-          'das': 'DAHS',
-          'den': 'DAYN',
-          'zug': 'TSOOK',
-          'wo': 'VOH',
-          'woher': 'voh-HAIR',
-          'wohin': 'voh-HIN',
-          'wohnst': 'VOHNST',
-          'wohne': 'VOH-nuh',
-          'wohnen': 'VOH-nuhn',
-          'du': 'DOO',
-          'trinke': 'TRING-kuh',
-          'trinken': 'TRING-kuhn',
-          'kaffee': 'KAH-fay',
-          'tee': 'TAY',
-          'brot': 'BROHT',
-          'wasser': 'VAH-suhr',
-          'helfen': 'HELL-fuhn',
-          'helfe': 'HELL-fuh',
-          'hilfst': 'HILFST',
-          'hilft': 'HILFT',
-          'danke': 'DAHN-kuh',
-          'kommen': 'KOH-muhn',
-          'komme': 'KOH-muh',
-          'kommst': 'KOMST',
-          'kommt': 'KOMT',
-          'aus': 'OWS',
-          'in': 'IN',
-          'nach': 'NAHKH',
-          'berlin': 'bair-LEEN',
-          'indonesien': 'in-doh-NAY-zee-uhn',
-          'deutschland': 'DOYT-shlahnt',
-          'können': 'KURN-uhn',
-          'kann': 'KAHN',
-          'sie': 'ZEE',
-          'bitte': 'BIT-tuh',
-          'gut': 'GOOT',
-          'guten': 'GOO-tuhn',
-          'tag': 'TAHK',
-          'morgen': 'MOR-guhn',
-          'abend': 'AH-buhnt',
-          'nacht': 'NAHKHT'
-        };
+  getPhonetic(words) {
+    const map = {
+      'ich': 'IKH', 'liebe': 'LEE-buh', 'dich': 'DEEKH', 'gebe': 'GAY-buh', 'dir': 'DEER',
+      'ein': 'EYE-n', 'eine': 'EYE-nuh', 'einen': 'EYE-nuhn', 'einem': 'EYE-nuhm', 'einer': 'EYE-nuhr',
+      'buch': 'BOOKH', 'lerne': 'LAIR-nuh', 'deutsch': 'DOY-tsh', 'wir': 'VEER', 'fahren': 'FAH-ruhn',
+      'mit': 'MIT', 'dem': 'DAYM', 'der': 'DAIR', 'die': 'DEE', 'das': 'DAHS', 'den': 'DAYN',
+      'des': 'DEHS', 'eines': 'EYE-nuhs', 'meines': 'MY-nuhs', 'meiner': 'MY-nuhr', 'deines': 'DY-nuhs',
+      'deiner': 'DY-nuhr', 'seines': 'ZY-nuhs', 'seiner': 'ZY-nuhr', 'ihres': 'EER-uhs', 'ihrer': 'EER-uhr',
+      'unseres': 'OON-zuh-ruhs', 'unserer': 'OON-zuh-ruhr', 'vaters': 'FAH-tuhrs', 'vater': 'FAH-tuhr',
+      'mutter': 'MOO-tuhr', 'schwester': 'SHVES-tuhr', 'bruder': 'BROO-duhr', 'bruders': 'BROO-duhrs',
+      'kind': 'KINT', 'kindes': 'KIN-duhs', 'mann': 'MAHN', 'mannes': 'MAHN-nuhs', 'frau': 'FROW',
+      'auto': 'OW-toh', 'autos': 'OW-tohs', 'haus': 'HOWS', 'hauses': 'HOW-zuhs', 'wetter': 'VET-tuhr',
+      'wetters': 'VET-tuhrs', 'regen': 'RAY-guhn', 'regens': 'RAY-guhns', 'lehrer': 'LAY-ruhr',
+      'lehrers': 'LAY-ruhrs', 'chef': 'SHEF', 'chefs': 'SHEFS', 'freund': 'FROYNT', 'freundes': 'FROYN-duhs',
+      'wegen': 'VAY-guhn', 'wÃ¤hrend': 'VAIR-uhnt', 'trotz': 'TROTS', 'anstatt': 'AHN-shtaht',
+      'ist': 'IST', 'sind': 'ZINT', 'war': 'VAHR', 'hat': 'HAHT', 'haben': 'HAH-buhn',
+      'zug': 'TSOOK', 'wo': 'VOH', 'woher': 'voh-HAIR', 'wohin': 'voh-HIN', 'wohnst': 'VOHNST',
+      'wohne': 'VOH-nuh', 'wohnen': 'VOH-nuhn', 'du': 'DOO', 'trinke': 'TRING-kuh', 'trinken': 'TRING-kuhn',
+      'kaffee': 'KAH-fay', 'tee': 'TAY', 'brot': 'BROHT', 'wasser': 'VAH-suhr', 'helfen': 'HELL-fuhn',
+      'helfe': 'HELL-fuh', 'hilfst': 'HILFST', 'hilft': 'HILFT', 'danke': 'DAHN-kuh',
+      'kommen': 'KOH-muhn', 'komme': 'KOH-muh', 'kommst': 'KOMST', 'kommt': 'KOMT',
+      'aus': 'OWS', 'in': 'IN', 'nach': 'NAHKH', 'berlin': 'bair-LEEN', 'deutschland': 'DOYT-shlahnt'
+    };
+    const parts = words.map(w => {
+      const clean = w.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
+      return map[clean] || clean.toUpperCase();
+    });
+    return `[ ${parts.join(' + ')} ]`;
+  },
 
-        const parts = words.map(w => {
-          const clean = w.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
-          return map[clean] || clean.toUpperCase();
-        });
+  getTransformation(objWord, baseWord, targetCase, isArticle = false) {
+    const low = objWord.toLowerCase();
 
-        return `[ ${parts.join(' + ')} ]`;
-      },
-
-      // Generates step-by-step case transformation pills
-      getTransformation(objWord, baseWord, targetCase, isArticle = false) {
-        const low = objWord.toLowerCase();
-        if (low === 'dich') {
-          return [
-            { label: '1. Base: du (you informal)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
-            { label: '2. Akkusativ Object (Direct Object)', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
-            { label: '3. Shifts: du ➔ dich', cls: 'bg-indigo-50 text-indigo-800 border-indigo-300' },
-            { label: '4. Result: dich ✅', cls: 'bg-emerald-500 text-white border-emerald-600 font-bold' }
-          ];
-        } else if (low === 'dir') {
-          return [
-            { label: '1. Base: du (you informal)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
-            { label: '2. Dativ Recipient (Indirect Object)', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
-            { label: '3. Shifts: du ➔ dir', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
-            { label: '4. Result: dir ✅', cls: 'bg-purple-600 text-white border-purple-700 font-bold' }
-          ];
-        } else if (low === 'mich') {
-          return [
-            { label: '1. Base: ich (I)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
-            { label: '2. Akkusativ Object (Direct Object)', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
-            { label: '3. Shifts: ich ➔ mich', cls: 'bg-indigo-50 text-indigo-800 border-indigo-300' },
-            { label: '4. Result: mich ✅', cls: 'bg-blue-600 text-white border-blue-700 font-bold' }
-          ];
-        } else if (low === 'mir') {
-          return [
-            { label: '1. Base: ich (I)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
-            { label: '2. Dativ Recipient', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
-            { label: '3. Shifts: ich ➔ mir', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
-            { label: '4. Result: mir ✅', cls: 'bg-purple-600 text-white border-purple-700 font-bold' }
-          ];
-        } else if (low === 'ihn') {
-          return [
-            { label: '1. Base: er (he)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
-            { label: '2. Akkusativ Object', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
-            { label: '3. Shifts: er ➔ ihn', cls: 'bg-indigo-50 text-indigo-800 border-indigo-300' },
-            { label: '4. Result: ihn ✅', cls: 'bg-blue-600 text-white border-blue-700 font-bold' }
-          ];
-        } else if (low === 'ihm') {
-          return [
-            { label: '1. Base: er / es (he/it)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
-            { label: '2. Dativ Recipient', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
-            { label: '3. Shifts: er/es ➔ ihm', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
-            { label: '4. Result: ihm ✅', cls: 'bg-purple-600 text-white border-purple-700 font-bold' }
-          ];
-        } else if (low.includes('buch')) {
-          return [
-            { label: '1. Base: das Buch (Neuter)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
-            { label: '2. Akkusativ Object (Direct Object)', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
-            { label: '3. Neuter Stays: ein ➔ ein', cls: 'bg-slate-50 text-slate-700 border-slate-300' },
-            { label: '4. Result: ein Buch ✅', cls: 'bg-emerald-500 text-white border-emerald-600 font-bold' }
-          ];
-        } else if (low.includes('kaffee') || low.includes('apfel') || low.includes('tee')) {
-          const nounClean = objWord.replace(/einen|ein|den|der/gi, '').trim();
-          return [
-            { label: `1. Base: der ${nounClean} (Masculine)`, cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
-            { label: '2. Akkusativ Direct Object', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
-            { label: '3. Masculine Shift: ein ➔ einen', cls: 'bg-amber-50 text-amber-800 border-amber-300' },
-            { label: `4. Result: einen ${nounClean} ✅`, cls: 'bg-blue-600 text-white border-blue-700 font-bold' }
-          ];
-        } else if (low.includes('zug')) {
-          return [
-            { label: '1. Base: der Zug (Masculine)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
-            { label: '2. Dativ with Preposition "mit"', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
-            { label: '3. Masculine Dativ Shift: der ➔ dem', cls: 'bg-indigo-50 text-indigo-800 border-indigo-300' },
-            { label: '4. Result: mit dem Zug ✅', cls: 'bg-purple-600 text-white border-purple-700 font-bold' }
-          ];
-        } else if (low.includes('deutsch')) {
-          return [
-            { label: '1. Base: das Deutsch (Language / Neuter)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
-            { label: '2. Akkusativ Direct Object', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
-            { label: '3. Zero Article for Languages', cls: 'bg-slate-50 text-slate-700 border-slate-300' },
-            { label: '4. Result: Deutsch ✅', cls: 'bg-emerald-500 text-white border-emerald-600 font-bold' }
-          ];
-        }
-
+    // Genitive transformations
+    if (targetCase === 'Genitiv' || low.includes('des ') || low.includes('meines ') || low.includes('meiner ') || low.includes('eines ') || low.includes('einer ') || low.startsWith('wegen ') || low.startsWith('wÃ¤hrend ') || low.startsWith('trotz ')) {
+      if (low.includes('vater')) {
         return [
-          { label: `1. Base: ${baseWord || objWord}`, cls: 'bg-slate-50 text-slate-700 border-slate-300' },
-          { label: `2. Case: ${targetCase || 'Akkusativ'}`, cls: 'bg-blue-50 text-blue-800 border-blue-300' },
-          { label: `3. Result: ${objWord} ✅`, cls: 'bg-emerald-500 text-white border-emerald-600 font-bold' }
+          { label: '1. Base: der Vater (Masculine / Nom)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+          { label: '2. Wessen Auto? (Whose? âž” Genitiv)', cls: 'bg-amber-50 text-amber-800 border-amber-300' },
+          { label: '3. Shifts: mein âž” meines & Vater âž” Vaters (+s)', cls: 'bg-amber-100 text-amber-900 border-amber-400 font-bold' },
+          { label: '4. Result: meines Vaters âœ…', cls: 'bg-amber-600 text-white border-amber-700 font-bold' }
         ];
-      },
+      } else if (low.includes('lehrer')) {
+        return [
+          { label: '1. Base: der Lehrer (Masculine / Nom)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+          { label: '2. Possession: Wessen? (Genitiv)', cls: 'bg-amber-50 text-amber-800 border-amber-300' },
+          { label: '3. Shifts: der âž” des & Lehrer âž” Lehrers (+s)', cls: 'bg-amber-100 text-amber-900 border-amber-400 font-bold' },
+          { label: '4. Result: des Lehrers âœ…', cls: 'bg-amber-600 text-white border-amber-700 font-bold' }
+        ];
+      } else if (low.includes('mutter') || low.includes('schwester') || low.includes('frau')) {
+        const nounName = low.includes('mutter') ? 'die Mutter' : (low.includes('schwester') ? 'die Schwester' : 'die Frau');
+        return [
+          { label: `1. Base: ${nounName} (Feminine / Nom)`, cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+          { label: '2. Possession: Wessen? (Genitiv)', cls: 'bg-amber-50 text-amber-800 border-amber-300' },
+          { label: '3. Article Shift: die âž” der / meine âž” meiner (no -s on noun)', cls: 'bg-amber-100 text-amber-900 border-amber-400 font-bold' },
+          { label: `4. Result: ${objWord} âœ…`, cls: 'bg-amber-600 text-white border-amber-700 font-bold' }
+        ];
+      } else if (low.includes('kind')) {
+        return [
+          { label: '1. Base: das Kind (Neuter / Nom)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+          { label: '2. Possession: Wessen? (Genitiv)', cls: 'bg-amber-50 text-amber-800 border-amber-300' },
+          { label: '3. Shifts: das âž” des & Kind âž” Kindes (+es)', cls: 'bg-amber-100 text-amber-900 border-amber-400 font-bold' },
+          { label: '4. Result: des Kindes âœ…', cls: 'bg-amber-600 text-white border-amber-700 font-bold' }
+        ];
+      } else if (low.includes('wetter')) {
+        return [
+          { label: '1. Base: das Wetter (Neuter)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+          { label: '2. Genitive Preposition (wegen / trotz)', cls: 'bg-amber-50 text-amber-800 border-amber-300' },
+          { label: '3. Shifts: das âž” des & Wetter âž” Wetters (+s)', cls: 'bg-amber-100 text-amber-900 border-amber-400 font-bold' },
+          { label: '4. Result: des Wetters âœ…', cls: 'bg-amber-600 text-white border-amber-700 font-bold' }
+        ];
+      } else if (low.includes('regen')) {
+        return [
+          { label: '1. Base: der Regen (Masculine)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+          { label: '2. Genitive Preposition (wegen / trotz)', cls: 'bg-amber-50 text-amber-800 border-amber-300' },
+          { label: '3. Shifts: der âž” des & Regen âž” Regens (+s)', cls: 'bg-amber-100 text-amber-900 border-amber-400 font-bold' },
+          { label: '4. Result: des Regens âœ…', cls: 'bg-amber-600 text-white border-amber-700 font-bold' }
+        ];
+      } else if (low.endsWith('s')) {
+        return [
+          { label: `1. Base Name: ${baseWord || objWord.replace(/s$/, '')}`, cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+          { label: '2. Proper Noun Possession: Wessen? (Genitiv)', cls: 'bg-amber-50 text-amber-800 border-amber-300' },
+          { label: '3. Suffix: Add "-s" (No apostrophe in German)', cls: 'bg-amber-100 text-amber-900 border-amber-400 font-bold' },
+          { label: `4. Result: ${objWord} âœ…`, cls: 'bg-amber-600 text-white border-amber-700 font-bold' }
+        ];
+      }
+      return [
+        { label: `1. Base Form: ${baseWord || objWord}`, cls: 'bg-slate-50 text-slate-700 border-slate-300' },
+        { label: '2. Genitiv Case Trigger (Possession / Preposition)', cls: 'bg-amber-50 text-amber-800 border-amber-300' },
+        { label: `3. Result: ${objWord} âœ…`, cls: 'bg-amber-600 text-white border-amber-700 font-bold' }
+      ];
+    }
 
-      // Generates the exact HTML markup for the grammar breakdown container
-      renderDetailedBreakdown(sentence) {
-        const cleanTokens = sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").split(/\s+/).filter(Boolean);
-        const lowerTokens = cleanTokens.map(w => w.toLowerCase());
-        const isQuestion = sentence.includes('?');
+    if (low === 'dich') {
+      return [
+        { label: '1. Base: du (you informal)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+        { label: '2. Akkusativ Object (Direct Object)', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
+        { label: '3. Shifts: du âž” dich', cls: 'bg-indigo-50 text-indigo-800 border-indigo-300' },
+        { label: '4. Result: dich âœ…', cls: 'bg-emerald-500 text-white border-emerald-600 font-bold' }
+      ];
+    } else if (low === 'dir') {
+      return [
+        { label: '1. Base: du (you informal)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+        { label: '2. Dativ Recipient (Indirect Object)', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
+        { label: '3. Shifts: du âž” dir', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
+        { label: '4. Result: dir âœ…', cls: 'bg-purple-600 text-white border-purple-700 font-bold' }
+      ];
+    } else if (low === 'mich') {
+      return [
+        { label: '1. Base: ich (I)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+        { label: '2. Akkusativ Object (Direct Object)', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
+        { label: '3. Shifts: ich âž” mich', cls: 'bg-indigo-50 text-indigo-800 border-indigo-300' },
+        { label: '4. Result: mich âœ…', cls: 'bg-blue-600 text-white border-blue-700 font-bold' }
+      ];
+    } else if (low === 'mir') {
+      return [
+        { label: '1. Base: ich (I)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+        { label: '2. Dativ Recipient', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
+        { label: '3. Shifts: ich âž” mir', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
+        { label: '4. Result: mir âœ…', cls: 'bg-purple-600 text-white border-purple-700 font-bold' }
+      ];
+    } else if (low === 'ihn') {
+      return [
+        { label: '1. Base: er (he)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+        { label: '2. Akkusativ Object', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
+        { label: '3. Shifts: er âž” ihn', cls: 'bg-indigo-50 text-indigo-800 border-indigo-300' },
+        { label: '4. Result: ihn âœ…', cls: 'bg-blue-600 text-white border-blue-700 font-bold' }
+      ];
+    } else if (low === 'ihm') {
+      return [
+        { label: '1. Base: er / es (he/it)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+        { label: '2. Dativ Recipient', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
+        { label: '3. Shifts: er/es âž” ihm', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
+        { label: '4. Result: ihm âœ…', cls: 'bg-purple-600 text-white border-purple-700 font-bold' }
+      ];
+    } else if (low.includes('buch')) {
+      return [
+        { label: '1. Base: das Buch (Neuter)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+        { label: '2. Akkusativ Object (Direct Object)', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
+        { label: '3. Neuter Stays: ein âž” ein', cls: 'bg-slate-50 text-slate-700 border-slate-300' },
+        { label: '4. Result: ein Buch âœ…', cls: 'bg-emerald-500 text-white border-emerald-600 font-bold' }
+      ];
+    } else if (low.includes('kaffee') || low.includes('apfel') || low.includes('tee')) {
+      const nounClean = objWord.replace(/einen|ein|den|der/gi, '').trim();
+      return [
+        { label: `1. Base: der ${nounClean} (Masculine)`, cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+        { label: '2. Akkusativ Direct Object', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
+        { label: '3. Masculine Shift: ein âž” einen', cls: 'bg-amber-50 text-amber-800 border-amber-300' },
+        { label: `4. Result: einen ${nounClean} âœ…`, cls: 'bg-blue-600 text-white border-blue-700 font-bold' }
+      ];
+    } else if (low.includes('zug')) {
+      return [
+        { label: '1. Base: der Zug (Masculine)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+        { label: '2. Dativ with Preposition "mit"', cls: 'bg-purple-50 text-purple-800 border-purple-300' },
+        { label: '3. Masculine Dativ Shift: der âž” dem', cls: 'bg-indigo-50 text-indigo-800 border-indigo-300' },
+        { label: '4. Result: mit dem Zug âœ…', cls: 'bg-purple-600 text-white border-purple-700 font-bold' }
+      ];
+    } else if (low.includes('deutsch')) {
+      return [
+        { label: '1. Base: das Deutsch (Language / Neuter)', cls: 'bg-emerald-50 text-emerald-800 border-emerald-300' },
+        { label: '2. Akkusativ Direct Object', cls: 'bg-blue-50 text-blue-800 border-blue-300' },
+        { label: '3. Zero Article for Languages', cls: 'bg-slate-50 text-slate-700 border-slate-300' },
+        { label: '4. Result: Deutsch âœ…', cls: 'bg-emerald-500 text-white border-emerald-600 font-bold' }
+      ];
+    }
 
-        // Detect Subject
-        let subjectWord = 'Ich';
-        let subjectPerson = '1st Sing. (ich)';
-        let subjectMeaning = 'I';
-        let subjectIdx = 0;
+    return [
+      { label: `1. Base: ${baseWord || objWord}`, cls: 'bg-slate-50 text-slate-700 border-slate-300' },
+      { label: `2. Case: ${targetCase || 'Akkusativ'}`, cls: 'bg-blue-50 text-blue-800 border-blue-300' },
+      { label: `3. Result: ${objWord} âœ…`, cls: 'bg-emerald-500 text-white border-emerald-600 font-bold' }
+    ];
+  },
 
-        const pronounMap = {
-          'ich': { word: 'Ich', person: '1st Sing. (ich)', en: 'I', ending: '-e' },
-          'du': { word: 'du', person: '2nd Sing. (du)', en: 'you (informal)', ending: '-st' },
-          'er': { word: 'er', person: '3rd Sing. (er)', en: 'he', ending: '-t' },
-          'sie': { word: 'sie', person: '3rd Sing. fem (sie)', en: 'she', ending: '-t' },
-          'es': { word: 'es', person: '3rd Sing. neut (es)', en: 'it', ending: '-t' },
-          'wir': { word: 'wir', person: '1st Plural (wir)', en: 'we', ending: '-en' },
-          'ihr': { word: 'ihr', person: '2nd Plural (ihr)', en: 'you all', ending: '-t' },
-          'sie/sie': { word: 'Sie', person: 'Formal (Sie)', en: 'You (formal)', ending: '-en' }
-        };
+  renderDetailedBreakdown(sentence) {
+    const cleanTokens = sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").split(/\s+/).filter(Boolean);
+    const lowerTokens = cleanTokens.map(w => w.toLowerCase());
+    const isQuestion = sentence.includes('?');
 
-        cleanTokens.forEach((w, i) => {
-          const lw = w.toLowerCase();
-          if (pronounMap[lw]) {
-            subjectWord = w;
-            subjectPerson = pronounMap[lw].person;
-            subjectMeaning = pronounMap[lw].en;
-            subjectIdx = i;
-          }
+    // Detect Subject
+    let subjectWord = cleanTokens[0] || 'Ich';
+    let subjectPerson = '1st Sing. (ich)';
+    let subjectMeaning = 'I';
+    let subjectIdx = 0;
+
+    const pronounMap = {
+      'ich': { word: 'Ich', person: '1st Sing. (ich)', en: 'I', ending: '-e' },
+      'du': { word: 'du', person: '2nd Sing. (du)', en: 'you (informal)', ending: '-st' },
+      'er': { word: 'er', person: '3rd Sing. (er)', en: 'he', ending: '-t' },
+      'sie': { word: 'sie', person: '3rd Sing. fem (sie)', en: 'she', ending: '-t' },
+      'es': { word: 'es', person: '3rd Sing. neut (es)', en: 'it', ending: '-t' },
+      'wir': { word: 'wir', person: '1st Plural (wir)', en: 'we', ending: '-en' },
+      'ihr': { word: 'ihr', person: '2nd Plural (ihr)', en: 'you all', ending: '-t' },
+      'sie/sie': { word: 'Sie', person: 'Formal (Sie)', en: 'You (formal)', ending: '-en' }
+    };
+
+    cleanTokens.forEach((w, i) => {
+      const lw = w.toLowerCase();
+      if (pronounMap[lw]) {
+        subjectWord = w;
+        subjectPerson = pronounMap[lw].person;
+        subjectMeaning = pronounMap[lw].en;
+        subjectIdx = i;
+      }
+    });
+
+    // If first token is demonstrative pronoun 'Das' or 'Dies'
+    if (lowerTokens[0] === 'das' || lowerTokens[0] === 'dies') {
+      subjectWord = cleanTokens[0];
+      subjectPerson = 'Demonstrative Pronoun';
+      subjectMeaning = 'That / This';
+      subjectIdx = 0;
+    }
+
+    // Detect Verb
+    let verbToken = cleanTokens[1] || 'liebe';
+    let verbInf = 'lieben';
+    let verbMeaning = 'love';
+    let verbValency = 'Akkusativ';
+    let verbValencyText = 'lieben is an Accusative verb! The direct object receiving the action takes the Akkusativ case (e.g. ich liebe dich, ich trinke einen Kaffee).';
+    let verbTip = 'Takes an Accusative direct object (e.g. Ich liebe dich)';
+    let verbCheatSheet = {
+      'ich': 'ich: liebe (-e)',
+      'du': 'du: liebst (-st)',
+      'er/sie/es': 'er/sie/es: liebt (-t)',
+      'wir': 'wir: lieben (-en)',
+      'ihr': 'ihr: liebt (-t)',
+      'sie/Sie': 'sie/Sie: lieben (-en)'
+    };
+
+    if (lowerTokens.some(w => ['ist', 'sind', 'bin', 'bist', 'seid', 'war', 'waren'].includes(w))) {
+      verbToken = cleanTokens.find(w => ['ist', 'sind', 'bin', 'bist', 'seid', 'war', 'waren'].includes(w.toLowerCase())) || 'ist';
+      verbInf = 'sein';
+      verbMeaning = 'to be';
+      verbValency = 'Nominativ (Copula Verb)';
+      verbValencyText = 'sein is a linking/copula verb! It does NOT take an Accusative object. Nouns connected by "sein" refer back to the subject and remain in the Nominativ case.';
+      verbTip = 'Copula verb rule: Subject (Nominativ) + sein + Predicate Noun (Nominativ) (e.g. "Das ist mein Vater")!';
+      verbCheatSheet = {
+        'ich': 'ich: bin',
+        'du': 'du: bist',
+        'er/sie/es': 'er/sie/es: ist',
+        'wir': 'wir: sind',
+        'ihr': 'ihr: seid',
+        'sie/Sie': 'sie/Sie: sind'
+      };
+    } else if (lowerTokens.some(w => ['hat', 'habe', 'hast', 'haben', 'habt', 'hatte'].includes(w))) {
+      verbToken = cleanTokens.find(w => ['hat', 'habe', 'hast', 'haben', 'habt', 'hatte'].includes(w.toLowerCase())) || 'hat';
+      verbInf = 'haben';
+      verbMeaning = 'have';
+      verbValency = 'Akkusativ';
+      verbValencyText = 'haben requires an Accusative direct object (e.g. Ich habe einen Hund, Er hat das Auto seines Vaters).';
+      verbTip = 'Direct object takes Akkusativ (der âž” den, ein âž” einen).';
+      verbCheatSheet = {
+        'ich': 'ich: habe (-e)',
+        'du': 'du: hast (b drops)',
+        'er/sie/es': 'er/sie/es: hat (b drops)',
+        'wir': 'wir: haben (-en)',
+        'ihr': 'ihr: habt (-t)',
+        'sie/Sie': 'sie/Sie: haben (-en)'
+      };
+    } else if (lowerTokens.some(w => ['gebe', 'gibst', 'gibt', 'geben', 'gebt'].includes(w))) {
+      verbToken = cleanTokens.find(w => ['gebe', 'gibst', 'gibt', 'geben', 'gebt'].includes(w.toLowerCase())) || 'gebe';
+      verbInf = 'geben';
+      verbMeaning = 'give';
+      verbValency = 'Dativ + Akkusativ';
+      verbValencyText = 'geben is a dual-object verb! The person receiving takes the Dativ case (dir = to you), and the item given takes the Akkusativ case (ein Buch).';
+      verbTip = 'When using pronouns, Dative comes before Accusative (Dativ vor Akkusativ: "Ich gebe dir ein Buch")!';
+      verbCheatSheet = {
+        'ich': 'ich: gebe (-e)',
+        'du': 'du: gibst (e âž” i!)',
+        'er/sie/es': 'er/sie/es: gibt (e âž” i!)',
+        'wir': 'wir: geben (-en)',
+        'ihr': 'ihr: gebt (-t)',
+        'sie/Sie': 'sie/Sie: geben (-en)'
+      };
+    } else if (lowerTokens.some(w => ['helfe', 'hilfst', 'hilft', 'helfen', 'helft'].includes(w))) {
+      verbToken = cleanTokens.find(w => ['helfe', 'hilfst', 'hilft', 'helfen', 'helft'].includes(w.toLowerCase())) || 'helfe';
+      verbInf = 'helfen';
+      verbMeaning = 'help';
+      verbValency = 'Dativ';
+      verbValencyText = 'helfen is strictly a Dative verb! You must always say "Ich helfe dir" (never "dich").';
+      verbTip = 'Dative object required: Wem hilfst du? âž” dir!';
+      verbCheatSheet = {
+        'ich': 'ich: helfe (-e)',
+        'du': 'du: hilfst (e âž” i!)',
+        'er/sie/es': 'er/sie/es: hilft (e âž” i!)',
+        'wir': 'wir: helfen (-en)',
+        'ihr': 'ihr: helft (-t)',
+        'sie/Sie': 'sie/Sie: helfen (-en)'
+      };
+    } else if (lowerTokens.some(w => ['lerne', 'lernst', 'lernt', 'lernen'].includes(w))) {
+      verbToken = cleanTokens.find(w => ['lerne', 'lernst', 'lernt', 'lernen'].includes(w.toLowerCase())) || 'lerne';
+      verbInf = 'lernen';
+      verbMeaning = 'learn / study';
+      verbValency = 'Akkusativ';
+      verbValencyText = 'lernen takes the subject of study as a direct object in the Accusative case (e.g. Deutsch, eine Sprache).';
+      verbTip = 'Regular weak verb: add -e, -st, -t, -en, -t, -en to stem "lern-".';
+      verbCheatSheet = {
+        'ich': 'ich: lerne (-e)',
+        'du': 'du: lernst (-st)',
+        'er/sie/es': 'er/sie/es: lernt (-t)',
+        'wir': 'wir: lernen (-en)',
+        'ihr': 'ihr: lernt (-t)',
+        'sie/Sie': 'sie/Sie: lernen (-en)'
+      };
+    } else if (lowerTokens.some(w => ['trinke', 'trinkst', 'trinkt', 'trinken'].includes(w))) {
+      verbToken = cleanTokens.find(w => ['trinke', 'trinkst', 'trinkt', 'trinken'].includes(w.toLowerCase())) || 'trinke';
+      verbInf = 'trinken';
+      verbMeaning = 'drink';
+      verbValency = 'Akkusativ';
+      verbValencyText = 'trinken takes the beverage consumed as a direct object in the Accusative case (e.g. einen Kaffee, ein Wasser).';
+      verbTip = 'Remember: Masculine drinks like der Kaffee become "einen Kaffee" in Akkusativ!';
+      verbCheatSheet = {
+        'ich': 'ich: trinke (-e)',
+        'du': 'du: trinkst (-st)',
+        'er/sie/es': 'er/sie/es: trinkt (-t)',
+        'wir': 'wir: trinken (-en)',
+        'ihr': 'ihr: trinkt (-t)',
+        'sie/Sie': 'sie/Sie: trinken (-en)'
+      };
+    } else if (lowerTokens.some(w => ['wohne', 'wohnst', 'wohnt', 'wohnen'].includes(w))) {
+      verbToken = cleanTokens.find(w => ['wohne', 'wohnst', 'wohnt', 'wohnen'].includes(w.toLowerCase())) || 'wohne';
+      verbInf = 'wohnen';
+      verbMeaning = 'live / reside';
+      verbValency = 'Prepositional (in + Dativ)';
+      verbValencyText = 'wohnen describes stationary location and connects with the preposition "in" (+ Dativ).';
+      verbTip = 'Wo wohnst du? âž” In Berlin (in + city name).';
+      verbCheatSheet = {
+        'ich': 'ich: wohne (-e)',
+        'du': 'du: wohnst (-st)',
+        'er/sie/es': 'er/sie/es: wohnt (-t)',
+        'wir': 'wir: wohnen (-en)',
+        'ihr': 'ihr: wohnt (-t)',
+        'sie/Sie': 'sie/Sie: wohnen (-en)'
+      };
+    } else if (lowerTokens.some(w => ['komme', 'kommst', 'kommt', 'kommen'].includes(w))) {
+      verbToken = cleanTokens.find(w => ['komme', 'kommst', 'kommt', 'kommen'].includes(w.toLowerCase())) || 'komme';
+      verbInf = 'kommen';
+      verbMeaning = 'come / originate';
+      verbValency = 'Prepositional (aus + Dativ)';
+      verbValencyText = 'kommen expresses geographic origin and connects with the preposition "aus" (+ Dativ).';
+      verbTip = 'Woher kommst du? âž” Ich komme aus Indonesien / aus Deutschland.';
+      verbCheatSheet = {
+        'ich': 'ich: komme (-e)',
+        'du': 'du: kommst (-st)',
+        'er/sie/es': 'er/sie/es: kommt (-t)',
+        'wir': 'wir: kommen (-en)',
+        'ihr': 'ihr: kommt (-t)',
+        'sie/Sie': 'sie/Sie: kommen (-en)'
+      };
+    } else if (lowerTokens.some(w => ['fahre', 'fÃ¤hrst', 'fÃ¤hrt', 'fahren'].includes(w))) {
+      verbToken = cleanTokens.find(w => ['fahre', 'fÃ¤hrst', 'fÃ¤hrt', 'fahren'].includes(w.toLowerCase())) || 'fahre';
+      verbInf = 'fahren';
+      verbMeaning = 'drive / travel';
+      verbValency = 'Prepositional (mit + Dativ)';
+      verbValencyText = 'fahren uses "mit" (+ Dativ) for modes of transport (e.g. mit dem Zug, mit dem Bus).';
+      verbTip = '"mit" is an absolute Dativ preposition: der Zug âž” dem Zug!';
+      verbCheatSheet = {
+        'ich': 'ich: fahre (-e)',
+        'du': 'du: fÃ¤hrst (a âž” Ã¤!)',
+        'er/sie/es': 'er/sie/es: fÃ¤hrt (a âž” Ã¤!)',
+        'wir': 'wir: fahren (-en)',
+        'ihr': 'ihr: fahrt (-t)',
+        'sie/Sie': 'sie/Sie: fahren (-en)'
+      };
+    }
+
+    // Comprehensive Case & Object Detection (Nominativ, Akkusativ, Dativ, Genitiv)
+    const objects = [];
+    const consumedIndices = new Set();
+
+    // 1. GENITIVE DETECTION: Prepositions (wegen, wÃ¤hrend, trotz, anstatt)
+    const genPreps = ['wegen', 'wÃ¤hrend', 'trotz', 'anstatt', 'statt', 'innerhalb', 'auÃŸerhalb'];
+    genPreps.forEach(prep => {
+      const pIdx = lowerTokens.indexOf(prep);
+      if (pIdx >= 0 && pIdx < cleanTokens.length - 1) {
+        consumedIndices.add(pIdx);
+        consumedIndices.add(pIdx + 1);
+        if (pIdx + 2 < cleanTokens.length) consumedIndices.add(pIdx + 2);
+
+        const genTokens = cleanTokens.slice(pIdx + 1, Math.min(cleanTokens.length, pIdx + 3));
+        const genPhrase = genTokens.join(' ');
+        const fullPhrase = `${cleanTokens[pIdx]} ${genPhrase}`;
+
+        objects.push({
+          token: fullPhrase,
+          case: 'Genitiv',
+          caseType: 'PREPOSITIONAL GENITIVE (GENITIV-OBJEKT)',
+          question: `${cleanTokens[pIdx]} welcher Sache? (Genitiv-PrÃ¤position) âž” ${fullPhrase}`,
+          trigger: `The preposition "${cleanTokens[pIdx]}" strictly governs the Genitiv case! The following article and noun must take the Genitiv form.`,
+          basePronoun: genTokens[1] || genTokens[0] || 'Noun',
+          pronounForm: `"${fullPhrase}"`,
+          ruleTitle: 'Genitive Preposition Rule (PrÃ¤position mit Genitiv):',
+          ruleText: `The preposition <b>${cleanTokens[pIdx]}</b> requires the <b>Genitiv</b> case. Masculine and neuter nouns change their article from <i>der/das âž” des</i> and add an <b>-(e)s</b> ending (e.g. <i>wegen des Wetters</i>). Feminine and plural nouns change to <b>der</b> (e.g. <i>wÃ¤hrend der Reise</i>).`
         });
+      }
+    });
 
-        // Detect Verb
-        let verbToken = cleanTokens[1] || 'liebe';
-        let verbInf = 'lieben';
-        let verbMeaning = 'love';
-        let verbValency = 'Akkusativ';
-        let verbValencyText = 'lieben is an Accusative verb! The direct object receiving the action takes the Akkusativ case (e.g. ich liebe dich, ich trinke einen Kaffee).';
-        let verbTip = 'Takes an Accusative direct object (e.g. Ich liebe dich)';
-        let verbCheatSheet = {
-          'ich': 'ich: liebe (-e)',
-          'du': 'du: liebst (-st)',
-          'er/sie/es': 'er/sie/es: liebt (-t)',
-          'wir': 'wir: lieben (-en)',
-          'ihr': 'ihr: liebt (-t)',
-          'sie/Sie': 'sie/Sie: lieben (-en)'
-        };
+    // 2. GENITIVE DETECTION: Possessive Attribute / Determiners (des, eines, meines, meiner, etc.)
+    const genDeterminersMascNeut = ['des', 'eines', 'keines', 'meines', 'deines', 'seines', 'ihres', 'unseres', 'eures', 'ihres'];
+    const genDeterminersFemPlur = ['meiner', 'deiner', 'seiner', 'ihrer', 'unserer', 'eurer'];
 
-        if (lowerTokens.some(w => ['gebe', 'gibst', 'gibt', 'geben', 'gebt'].includes(w))) {
-          verbToken = cleanTokens.find(w => ['gebe', 'gibst', 'gibt', 'geben', 'gebt'].includes(w.toLowerCase())) || 'gebe';
-          verbInf = 'geben';
-          verbMeaning = 'give';
-          verbValency = 'Dativ + Akkusativ';
-          verbValencyText = 'geben is a dual-object verb! The person receiving takes the Dativ case (dir = to you), and the item given takes the Akkusativ case (ein Buch).';
-          verbTip = 'When using pronouns, Dative comes before Accusative (Dativ vor Akkusativ: "Ich gebe dir ein Buch")!';
-          verbCheatSheet = {
-            'ich': 'ich: gebe (-e)',
-            'du': 'du: gibst (e ➔ i!)',
-            'er/sie/es': 'er/sie/es: gibt (e ➔ i!)',
-            'wir': 'wir: geben (-en)',
-            'ihr': 'ihr: gebt (-t)',
-            'sie/Sie': 'sie/Sie: geben (-en)'
-          };
-        } else if (lowerTokens.some(w => ['helfe', 'hilfst', 'hilft', 'helfen', 'helft'].includes(w))) {
-          verbToken = cleanTokens.find(w => ['helfe', 'hilfst', 'hilft', 'helfen', 'helft'].includes(w.toLowerCase())) || 'helfe';
-          verbInf = 'helfen';
-          verbMeaning = 'help';
-          verbValency = 'Dativ';
-          verbValencyText = 'helfen is strictly a Dative verb! You must always say "Ich helfe dir" (never "dich").';
-          verbTip = 'Dative object required: Wem hilfst du? ➔ dir!';
-          verbCheatSheet = {
-            'ich': 'ich: helfe (-e)',
-            'du': 'du: hilfst (e ➔ i!)',
-            'er/sie/es': 'er/sie/es: hilft (e ➔ i!)',
-            'wir': 'wir: helfen (-en)',
-            'ihr': 'ihr: helft (-t)',
-            'sie/Sie': 'sie/Sie: helfen (-en)'
-          };
-        } else if (lowerTokens.some(w => ['lerne', 'lernst', 'lernt', 'lernen'].includes(w))) {
-          verbToken = cleanTokens.find(w => ['lerne', 'lernst', 'lernt', 'lernen'].includes(w.toLowerCase())) || 'lerne';
-          verbInf = 'lernen';
-          verbMeaning = 'learn / study';
-          verbValency = 'Akkusativ';
-          verbValencyText = 'lernen takes the subject of study as a direct object in the Accusative case (e.g. Deutsch, eine Sprache).';
-          verbTip = 'Regular weak verb: add -e, -st, -t, -en, -t, -en to stem "lern-".';
-          verbCheatSheet = {
-            'ich': 'ich: lerne (-e)',
-            'du': 'du: lernst (-st)',
-            'er/sie/es': 'er/sie/es: lernt (-t)',
-            'wir': 'wir: lernen (-en)',
-            'ihr': 'ihr: lernt (-t)',
-            'sie/Sie': 'sie/Sie: lernen (-en)'
-          };
-        } else if (lowerTokens.some(w => ['trinke', 'trinkst', 'trinkt', 'trinken'].includes(w))) {
-          verbToken = cleanTokens.find(w => ['trinke', 'trinkst', 'trinkt', 'trinken'].includes(w.toLowerCase())) || 'trinke';
-          verbInf = 'trinken';
-          verbMeaning = 'drink';
-          verbValency = 'Akkusativ';
-          verbValencyText = 'trinken takes the beverage consumed as a direct object in the Accusative case (e.g. einen Kaffee, ein Wasser).';
-          verbTip = 'Remember: Masculine drinks like der Kaffee become "einen Kaffee" in Akkusativ!';
-          verbCheatSheet = {
-            'ich': 'ich: trinke (-e)',
-            'du': 'du: trinkst (-st)',
-            'er/sie/es': 'er/sie/es: trinkt (-t)',
-            'wir': 'wir: trinken (-en)',
-            'ihr': 'ihr: trinkt (-t)',
-            'sie/Sie': 'sie/Sie: trinken (-en)'
-          };
-        } else if (lowerTokens.some(w => ['wohne', 'wohnst', 'wohnt', 'wohnen'].includes(w))) {
-          verbToken = cleanTokens.find(w => ['wohne', 'wohnst', 'wohnt', 'wohnen'].includes(w.toLowerCase())) || 'wohne';
-          verbInf = 'wohnen';
-          verbMeaning = 'live / reside';
-          verbValency = 'Prepositional (in + Dativ)';
-          verbValencyText = 'wohnen describes stationary location and connects with the preposition "in" (+ Dativ).';
-          verbTip = 'Wo wohnst du? ➔ In Berlin (in + city name).';
-          verbCheatSheet = {
-            'ich': 'ich: wohne (-e)',
-            'du': 'du: wohnst (-st)',
-            'er/sie/es': 'er/sie/es: wohnt (-t)',
-            'wir': 'wir: wohnen (-en)',
-            'ihr': 'ihr: wohnt (-t)',
-            'sie/Sie': 'sie/Sie: wohnen (-en)'
-          };
-        } else if (lowerTokens.some(w => ['komme', 'kommst', 'kommt', 'kommen'].includes(w))) {
-          verbToken = cleanTokens.find(w => ['komme', 'kommst', 'kommt', 'kommen'].includes(w.toLowerCase())) || 'komme';
-          verbInf = 'kommen';
-          verbMeaning = 'come / originate';
-          verbValency = 'Prepositional (aus + Dativ)';
-          verbValencyText = 'kommen expresses geographic origin and connects with the preposition "aus" (+ Dativ).';
-          verbTip = 'Woher kommst du? ➔ Ich komme aus Indonesien / aus Deutschland.';
-          verbCheatSheet = {
-            'ich': 'ich: komme (-e)',
-            'du': 'du: kommst (-st)',
-            'er/sie/es': 'er/sie/es: kommt (-t)',
-            'wir': 'wir: kommen (-en)',
-            'ihr': 'ihr: kommt (-t)',
-            'sie/Sie': 'sie/Sie: kommen (-en)'
-          };
-        } else if (lowerTokens.some(w => ['fahre', 'fährst', 'fährt', 'fahren'].includes(w))) {
-          verbToken = cleanTokens.find(w => ['fahre', 'fährst', 'fährt', 'fahren'].includes(w.toLowerCase())) || 'fahre';
-          verbInf = 'fahren';
-          verbMeaning = 'drive / travel';
-          verbValency = 'Prepositional (mit + Dativ)';
-          verbValencyText = 'fahren uses "mit" (+ Dativ) for modes of transport (e.g. mit dem Zug, mit dem Bus).';
-          verbTip = '"mit" is an absolute Dativ preposition: der Zug ➔ dem Zug!';
-          verbCheatSheet = {
-            'ich': 'ich: fahre (-e)',
-            'du': 'du: fährst (a ➔ ä!)',
-            'er/sie/es': 'er/sie/es: fährt (a ➔ ä!)',
-            'wir': 'wir: fahren (-en)',
-            'ihr': 'ihr: fahrt (-t)',
-            'sie/Sie': 'sie/Sie: fahren (-en)'
-          };
-        }
+    lowerTokens.forEach((tok, idx) => {
+      if (consumedIndices.has(idx)) return;
 
-        // Detect Objects (Akkusativ & Dativ)
-        const objects = [];
-        if (lowerTokens.includes('dich')) {
+      const isMascNeut = genDeterminersMascNeut.includes(tok);
+      const isFemPlur = genDeterminersFemPlur.includes(tok) || (tok === 'der' && idx > 1 && !['mit', 'zu', 'von', 'bei', 'aus', 'nach'].includes(lowerTokens[idx - 1]));
+
+      if (isMascNeut || isFemPlur) {
+        const nounIdx = idx + 1;
+        const nounWord = cleanTokens[nounIdx] || '';
+        const genPhrase = `${cleanTokens[idx]} ${nounWord}`.trim();
+        const precedingNoun = idx > 0 ? cleanTokens[idx - 1] : 'Sache';
+
+        consumedIndices.add(idx);
+        if (nounIdx < cleanTokens.length) consumedIndices.add(nounIdx);
+
+        objects.push({
+          token: genPhrase,
+          case: 'Genitiv',
+          caseType: 'POSSESSIVE ATTRIBUTE (GENITIVATTRIBUT)',
+          question: `Wessen ${precedingNoun}? (Whose ${precedingNoun}?) âž” ${genPhrase}`,
+          trigger: `The phrase "${genPhrase}" shows possession or belonging attached to "${precedingNoun}". In German, possession is expressed through the Genitiv case.`,
+          basePronoun: nounWord || 'Noun',
+          pronounForm: `"${genPhrase}"`,
+          ruleTitle: 'Genitive Possession Rule (Genitivattribut):',
+          ruleText: isMascNeut 
+            ? `Masculine & Neuter Genitive Rule: The article changes from <i>der/das âž” des</i> (or <i>mein âž” meines</i>) AND the noun adds an <b>-(e)s</b> ending (e.g. <i>der Vater âž” meines Vaters</i>, <i>das Kind âž” des Kindes</i>)!`
+            : `Feminine & Plural Genitive Rule: The article changes from <i>die âž” der</i> (or <i>meine âž” meiner</i>). The noun itself does not add an -s ending (e.g. <i>die Mutter âž” meiner Mutter</i>, <i>die Schwester âž” meiner Schwester</i>).`
+        });
+      }
+    });
+
+    // 3. GENITIVE DETECTION: Proper Name Genitive (Peters Auto, Marias Buch)
+    lowerTokens.forEach((tok, idx) => {
+      if (consumedIndices.has(idx)) return;
+      if (tok.endsWith('s') && idx < cleanTokens.length - 1 && /^[A-Z]/.test(cleanTokens[idx])) {
+        const nextWord = cleanTokens[idx + 1];
+        if (/^[A-Z]/.test(nextWord) && !['ist', 'sind', 'hat', 'haben', 'war'].includes(nextWord.toLowerCase())) {
+          consumedIndices.add(idx);
+          consumedIndices.add(idx + 1);
+          const nameGen = cleanTokens[idx];
           objects.push({
-            token: 'dich',
-            case: 'Akkusativ',
-            caseType: 'DIRECT OBJECT (AKKUSATIV-OBJEKT)',
-            question: `Wen oder was ${verbToken} ...? (Whom or what?) ➔ dich`,
-            trigger: `The verb "${verbToken}" (base: ${verbInf}) is an action verb directing its action onto a recipient. The direct object receiving the action takes the Akkusativ case.`,
-            basePronoun: '"du" (you (informal))',
-            pronounForm: '"dich"',
-            ruleTitle: 'Pronoun Declension Rule:',
-            ruleText: 'In German, personal pronouns have special object forms. Just like English switches from "he" ➔ "him" or "I" ➔ "me", German switches from "du" ➔ "dich" in the Akkusativ case. (e.g. <i>ich liebe dich</i>, NEVER <i>ich liebe du</i>).'
+            token: nameGen,
+            case: 'Genitiv',
+            caseType: 'PROPER NAME GENITIVE (NAMEN-GENITIV)',
+            question: `Wessen ${nextWord}? (Whose ${nextWord}?) âž” ${nameGen}`,
+            trigger: `The proper name "${nameGen}" indicates ownership of "${nextWord}".`,
+            basePronoun: nameGen.replace(/s$/, ''),
+            pronounForm: `"${nameGen}"`,
+            ruleTitle: 'Proper Name Genitive Rule:',
+            ruleText: `In German, proper names express the Genitive by adding <b>-s</b> directly without an apostrophe (e.g. <b>Peters Auto</b>, <b>Marias Buch</b>).`
           });
         }
+      }
+    });
 
-        if (lowerTokens.includes('dir')) {
-          objects.push({
-            token: 'dir',
-            case: 'Dativ',
-            caseType: 'INDIRECT OBJECT (DATIV-OBJEKT)',
-            question: `Wem ${verbToken} ...? (To whom?) ➔ dir`,
-            trigger: `The verb "${verbToken}" (base: ${verbInf}) directs its action towards an indirect recipient. The person receiving the benefit/item takes the Dativ case.`,
-            basePronoun: '"du" (you (informal))',
-            pronounForm: '"dir"',
-            ruleTitle: 'Dative Recipient Rule:',
-            ruleText: 'When giving, sending, or offering something to someone, that recipient must be in the <b>Dativ</b> case. The informal pronoun "du" strictly changes to <b>"dir"</b> (e.g. <i>Ich gebe dir ein Buch</i>, NEVER <i>Ich gebe du</i>).'
-          });
-        }
+    // 4. Copula Predicate Noun (Nominativ after sein)
+    if (verbInf === 'sein' && lowerTokens.includes('das') && lowerTokens.includes('auto') && !consumedIndices.has(lowerTokens.indexOf('auto'))) {
+      const aIdx = lowerTokens.indexOf('auto');
+      const artIdx = aIdx > 0 ? aIdx - 1 : -1;
+      const predPhrase = artIdx >= 0 ? `${cleanTokens[artIdx]} ${cleanTokens[aIdx]}` : cleanTokens[aIdx];
+      consumedIndices.add(aIdx);
+      if (artIdx >= 0) consumedIndices.add(artIdx);
 
-        if (lowerTokens.includes('mich')) {
-          objects.push({
-            token: 'mich',
-            case: 'Akkusativ',
-            caseType: 'DIRECT OBJECT (AKKUSATIV-OBJEKT)',
-            question: `Wen ${verbToken} ...? (Whom?) ➔ mich`,
-            trigger: `The subject directs the action upon "me" as the direct object in the Akkusativ case.`,
-            basePronoun: '"ich" (I)',
-            pronounForm: '"mich"',
-            ruleTitle: 'Accusative Pronoun Rule:',
-            ruleText: 'Personal pronoun "ich" switches to <b>mich</b> in Akkusativ (e.g. <i>Er liebt mich</i>, <i>Siehst du mich?</i>).'
-          });
-        }
+      objects.unshift({
+        token: predPhrase,
+        case: 'Nominativ',
+        caseType: 'PREDICATE NOUN (PRÃ„DIKATIVUM)',
+        question: `Was ist das? (What is that?) âž” ${predPhrase}`,
+        trigger: `The verb "sein" is a copula/linking verb. The predicate noun refers to the subject and stays in the Nominativ case.`,
+        basePronoun: 'das Auto (Neuter Noun)',
+        pronounForm: `"${predPhrase}"`,
+        ruleTitle: 'Copula Verb Rule (sein + Nominativ):',
+        ruleText: `The verb <i>sein</i> links two Nominative elements. The noun does not take Akkusativ because no physical action is directed onto an object!`
+      });
+    }
 
-        if (lowerTokens.includes('mir')) {
-          objects.push({
-            token: 'mir',
-            case: 'Dativ',
-            caseType: 'INDIRECT OBJECT (DATIV-OBJEKT)',
-            question: `Wem ${verbToken} ...? (To whom?) ➔ mir`,
-            trigger: `The verb requires the Dativ recipient form of "ich".`,
-            basePronoun: '"ich" (I)',
-            pronounForm: '"mir"',
-            ruleTitle: 'Dative Recipient Rule:',
-            ruleText: '"ich" becomes <b>mir</b> when you are the recipient (e.g. <i>Können Sie mir helfen?</i>, <i>Gib mir das Buch</i>).'
-          });
-        }
+    // 5. Traditional A1 Pronouns and Nouns (Dativ / Akkusativ)
+    if (lowerTokens.includes('dich')) {
+      objects.push({
+        token: 'dich',
+        case: 'Akkusativ',
+        caseType: 'DIRECT OBJECT (AKKUSATIV-OBJEKT)',
+        question: `Wen oder was ${verbToken} ...? (Whom or what?) âž” dich`,
+        trigger: `The verb "${verbToken}" directs its action onto a recipient in the Akkusativ case.`,
+        basePronoun: '"du" (you (informal))',
+        pronounForm: '"dich"',
+        ruleTitle: 'Pronoun Declension Rule:',
+        ruleText: 'Personal pronoun "du" switches to <b>dich</b> in the Akkusativ case (e.g. <i>ich liebe dich</i>).'
+      });
+    }
 
-        if (lowerTokens.includes('buch')) {
-          objects.push({
-            token: 'ein Buch',
-            case: 'Akkusativ',
-            caseType: 'DIRECT OBJECT (AKKUSATIV-OBJEKT)',
-            question: `Was ${verbToken} ...? (What?) ➔ ein Buch`,
-            trigger: `The thing being given or possessed is the direct object of "${verbToken}". In German, direct objects take the Akkusativ case.`,
-            basePronoun: 'das Buch (Neuter Noun)',
-            pronounForm: '"ein Buch"',
-            ruleTitle: 'Neuter Accusative Rule:',
-            ruleText: 'Because <b>das Buch</b> is a neuter noun, its indefinite article remains <b>"ein"</b> in both Nominative and Accusative cases. Only masculine nouns change from <i>ein</i> to <i>einen</i>!'
-          });
-        }
+    if (lowerTokens.includes('dir')) {
+      objects.push({
+        token: 'dir',
+        case: 'Dativ',
+        caseType: 'INDIRECT OBJECT (DATIV-OBJEKT)',
+        question: `Wem ${verbToken} ...? (To whom?) âž” dir`,
+        trigger: `The verb "${verbToken}" directs its action towards an indirect recipient in the Dativ case.`,
+        basePronoun: '"du" (you (informal))',
+        pronounForm: '"dir"',
+        ruleTitle: 'Dative Recipient Rule:',
+        ruleText: 'The informal pronoun "du" strictly changes to <b>"dir"</b> in Dativ (e.g. <i>Ich gebe dir ein Buch</i>).'
+      });
+    }
 
-        if (lowerTokens.includes('kaffee')) {
-          objects.push({
-            token: 'einen Kaffee',
-            case: 'Akkusativ',
-            caseType: 'DIRECT OBJECT (AKKUSATIV-OBJEKT)',
-            question: `Was ${verbToken} ...? (What?) ➔ einen Kaffee`,
-            trigger: `Coffee is a masculine noun (der Kaffee) receiving the direct action of drinking/ordering.`,
-            basePronoun: 'der Kaffee (Masculine Noun)',
-            pronounForm: '"einen Kaffee"',
-            ruleTitle: 'Masculine Accusative Shift:',
-            ruleText: 'Masculine nouns change their article from <i>ein ➔ einen</i> and <i>der ➔ den</i> when they are the direct object in Akkusativ!'
-          });
-        }
+    if (lowerTokens.includes('mich')) {
+      objects.push({
+        token: 'mich',
+        case: 'Akkusativ',
+        caseType: 'DIRECT OBJECT (AKKUSATIV-OBJEKT)',
+        question: `Wen ${verbToken} ...? (Whom?) âž” mich`,
+        trigger: `The subject directs the action upon "me" as the direct object in the Akkusativ case.`,
+        basePronoun: '"ich" (I)',
+        pronounForm: '"mich"',
+        ruleTitle: 'Accusative Pronoun Rule:',
+        ruleText: 'Personal pronoun "ich" switches to <b>mich</b> in Akkusativ.'
+      });
+    }
 
-        if (lowerTokens.includes('deutsch')) {
-          objects.push({
-            token: 'Deutsch',
-            case: 'Akkusativ',
-            caseType: 'DIRECT OBJECT (AKKUSATIV-OBJEKT)',
-            question: `Was ${verbToken} ...? (What?) ➔ Deutsch`,
-            trigger: `The German language is the direct object of the verb "${verbToken}".`,
-            basePronoun: 'das Deutsch (Neuter)',
-            pronounForm: '"Deutsch"',
-            ruleTitle: 'Language Zero-Article Rule:',
-            ruleText: 'Names of languages are neuter in German but are usually used without an article after verbs like <i>lernen</i> or <i>sprechen</i>.'
-          });
-        }
+    if (lowerTokens.includes('mir')) {
+      objects.push({
+        token: 'mir',
+        case: 'Dativ',
+        caseType: 'INDIRECT OBJECT (DATIV-OBJEKT)',
+        question: `Wem ${verbToken} ...? (To whom?) âž” mir`,
+        trigger: `The verb requires the Dativ recipient form of "ich".`,
+        basePronoun: '"ich" (I)',
+        pronounForm: '"mir"',
+        ruleTitle: 'Dative Recipient Rule:',
+        ruleText: '"ich" becomes <b>mir</b> when you are the recipient (e.g. <i>KÃ¶nnen Sie mir helfen?</i>).'
+      });
+    }
 
-        if (lowerTokens.includes('zug')) {
-          objects.push({
-            token: 'dem Zug',
-            case: 'Dativ',
-            caseType: 'PREPOSITIONAL OBJECT (DATIV)',
-            question: `Womit fahren wir? (With what?) ➔ mit dem Zug`,
-            trigger: `The preposition "mit" is a dative preposition and forces "der Zug" into the Dativ case.`,
-            basePronoun: 'der Zug (Masculine Noun)',
-            pronounForm: '"mit dem Zug"',
-            ruleTitle: 'Dative Preposition Rule:',
-            ruleText: 'The preposition <b>mit</b> ALWAYS requires Dativ! Masculine "der Zug" changes to <b>dem Zug</b>.'
-          });
-        }
+    if (lowerTokens.includes('buch') && !consumedIndices.has(lowerTokens.indexOf('buch'))) {
+      objects.push({
+        token: 'ein Buch',
+        case: 'Akkusativ',
+        caseType: 'DIRECT OBJECT (AKKUSATIV-OBJEKT)',
+        question: `Was ${verbToken} ...? (What?) âž” ein Buch`,
+        trigger: `The thing given or possessed is the direct object in Akkusativ.`,
+        basePronoun: 'das Buch (Neuter Noun)',
+        pronounForm: '"ein Buch"',
+        ruleTitle: 'Neuter Accusative Rule:',
+        ruleText: 'Neuter nouns keep <b>ein</b> in both Nominative and Accusative cases.'
+      });
+    }
 
-        // Default object if none detected
-        if (objects.length === 0 && cleanTokens.length > 2) {
-          const remainingObj = cleanTokens.slice(2).join(' ');
-          objects.push({
-            token: remainingObj,
-            case: 'Akkusativ',
-            caseType: 'SENTENCE COMPLEMENT / OBJECT',
-            question: `Wen oder was ${verbToken} ...? ➔ ${remainingObj}`,
-            trigger: `Direct or prepositional complement following the conjugated verb in Position 2.`,
-            basePronoun: remainingObj,
-            pronounForm: `"${remainingObj}"`,
-            ruleTitle: 'Word Order & Case Rule:',
-            ruleText: 'Elements following the finite verb provide critical predicate detail answering who, what, where, or how.'
-          });
-        }
+    if (lowerTokens.includes('kaffee') && !consumedIndices.has(lowerTokens.indexOf('kaffee'))) {
+      objects.push({
+        token: 'einen Kaffee',
+        case: 'Akkusativ',
+        caseType: 'DIRECT OBJECT (AKKUSATIV-OBJEKT)',
+        question: `Was ${verbToken} ...? (What?) âž” einen Kaffee`,
+        trigger: `Coffee is a masculine noun receiving direct action in Akkusativ.`,
+        basePronoun: 'der Kaffee (Masculine Noun)',
+        pronounForm: '"einen Kaffee"',
+        ruleTitle: 'Masculine Accusative Shift:',
+        ruleText: 'Masculine nouns change article from <i>ein âž” einen</i> in Akkusativ!'
+      });
+    }
 
-        // Interactive Word breakdown items
-        const wordBreakdownCards = cleanTokens.map((w, idx) => {
-          const lw = w.toLowerCase();
-          let badgeText = 'COMPLEMENT';
-          let badgeCls = 'bg-slate-100 text-slate-700 border-slate-200';
-          let subText = 'Sentence Element';
+    if (lowerTokens.includes('zug') && !consumedIndices.has(lowerTokens.indexOf('zug'))) {
+      objects.push({
+        token: 'dem Zug',
+        case: 'Dativ',
+        caseType: 'PREPOSITIONAL OBJECT (DATIV)',
+        question: `Womit fahren wir? (With what?) âž” mit dem Zug`,
+        trigger: `The preposition "mit" forces "der Zug" into the Dativ case.`,
+        basePronoun: 'der Zug (Masculine Noun)',
+        pronounForm: '"mit dem Zug"',
+        ruleTitle: 'Dative Preposition Rule:',
+        ruleText: 'The preposition <b>mit</b> ALWAYS requires Dativ! Masculine "der Zug" changes to <b>dem Zug</b>.'
+      });
+    }
 
-          if (idx === 0 || ['ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr'].includes(lw)) {
-            badgeText = 'SUBJECT (NOM)';
-            badgeCls = 'bg-emerald-100 text-emerald-800 border-emerald-300';
-            subText = `Pronoun: ${w} • The Doer`;
-          }
-          if (idx === 1 || ['gebe', 'liebe', 'lerne', 'trinke', 'wohne', 'komme', 'helfe', 'fahren', 'fahre'].includes(lw)) {
-            badgeText = 'VERB (POS 2)';
-            badgeCls = 'bg-emerald-100 text-emerald-800 border-emerald-300';
-            subText = `${subjectPerson} • Base: ${verbInf}`;
-          }
-          if (lw === 'dich' || lw === 'mich' || lw === 'ihn') {
-            badgeText = 'OBJECT (AKK)';
-            badgeCls = 'bg-sky-100 text-sky-800 border-sky-300';
-            subText = `Pronoun: ${lw} • The Receiver`;
-          }
-          if (lw === 'dir' || lw === 'mir' || lw === 'ihm' || lw === 'ihnen') {
-            badgeText = 'OBJECT (DAT)';
-            badgeCls = 'bg-purple-100 text-purple-800 border-purple-300';
-            subText = `Pronoun: ${lw} • Indirect Recipient`;
-          }
-          if (lw === 'ein' || lw === 'eine' || lw === 'einen' || lw === 'dem' || lw === 'der' || lw === 'die' || lw === 'das') {
-            badgeText = 'ARTICLE';
-            badgeCls = 'bg-amber-100 text-amber-800 border-amber-300';
-            subText = `Article`;
-          }
-          if (['buch', 'kaffee', 'deutsch', 'zug', 'apfel', 'tee', 'brot', 'wasser'].includes(lw)) {
-            badgeText = 'NOUN';
-            badgeCls = 'bg-pink-100 text-pink-800 border-pink-300';
-            subText = `Noun (Capitalized)`;
-          }
+    // Default object fallback if nothing detected
+    if (objects.length === 0 && cleanTokens.length > 2) {
+      const remainingObj = cleanTokens.slice(2).join(' ');
+      objects.push({
+        token: remainingObj,
+        case: 'Akkusativ',
+        caseType: 'SENTENCE COMPLEMENT / OBJECT',
+        question: `Wen oder was ${verbToken} ...? âž” ${remainingObj}`,
+        trigger: `Direct or prepositional complement following the conjugated verb in Position 2.`,
+        basePronoun: remainingObj,
+        pronounForm: `"${remainingObj}"`,
+        ruleTitle: 'Word Order & Case Rule:',
+        ruleText: 'Elements following the finite verb provide critical predicate detail.'
+      });
+    }
 
-          return `
-            <div class="p-3.5 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="px-2 py-0.5 rounded-md text-[10px] font-black tracking-wider ${badgeCls}">${badgeText}</span>
-                <button onclick="AudioSpeedSystem.speak('${w}')" class="text-xs text-slate-400 hover:text-pink-600 transition-colors" title="Listen Word">🔊</button>
-              </div>
+    // Word Breakdown Cards
+    const wordBreakdownCards = cleanTokens.map((w, idx) => {
+      const lw = w.toLowerCase();
+      let badgeText = 'COMPLEMENT';
+      let badgeCls = 'bg-slate-100 text-slate-700 border-slate-200';
+      let subText = 'Sentence Element';
+
+      // Genitive articles & prepositions
+      if (genPreps.includes(lw)) {
+        badgeText = 'PREP (GEN)';
+        badgeCls = 'bg-amber-100 text-amber-900 border-amber-300 font-bold';
+        subText = 'Genitive Preposition';
+      } else if (genDeterminersMascNeut.includes(lw) || genDeterminersFemPlur.includes(lw)) {
+        badgeText = 'GENITIVE (GEN)';
+        badgeCls = 'bg-amber-100 text-amber-900 border-amber-300 font-bold';
+        subText = 'Genitive Determiner â€¢ Wessen?';
+      } else if (['vaters', 'kindes', 'mannes', 'lehrers', 'chefs', 'hauses', 'autos', 'wetters', 'regens', 'freundes'].includes(lw)) {
+        badgeText = 'NOUN (GEN)';
+        badgeCls = 'bg-amber-100 text-amber-900 border-amber-300 font-bold';
+        subText = 'Genitive Noun (+s / -es)';
+      } else if (idx === 0 || ['ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr', 'das', 'dies'].includes(lw)) {
+        badgeText = 'SUBJECT (NOM)';
+        badgeCls = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+        subText = `Subject â€¢ Nominativ`;
+      } else if (idx === 1 || ['ist', 'sind', 'war', 'hat', 'haben', 'gebe', 'liebe', 'lerne', 'trinke', 'wohne', 'komme', 'helfe', 'fahren', 'fahre'].includes(lw)) {
+        badgeText = 'VERB (POS 2)';
+        badgeCls = 'bg-emerald-100 text-emerald-800 border-emerald-300';
+        subText = `Verb â€¢ Base: ${verbInf}`;
+      } else if (['dich', 'mich', 'ihn'].includes(lw)) {
+        badgeText = 'OBJECT (AKK)';
+        badgeCls = 'bg-sky-100 text-sky-800 border-sky-300';
+        subText = `Pronoun: ${lw} â€¢ Direct Object`;
+      } else if (['dir', 'mir', 'ihm', 'ihnen'].includes(lw)) {
+        badgeText = 'OBJECT (DAT)';
+        badgeCls = 'bg-purple-100 text-purple-800 border-purple-300';
+        subText = `Pronoun: ${lw} â€¢ Indirect Recipient`;
+      } else if (['ein', 'eine', 'einen', 'dem', 'der', 'die', 'das'].includes(lw)) {
+        badgeText = 'ARTICLE';
+        badgeCls = 'bg-amber-100 text-amber-800 border-amber-300';
+        subText = `Article`;
+      } else if (['buch', 'kaffee', 'deutsch', 'zug', 'apfel', 'tee', 'brot', 'wasser', 'auto', 'haus', 'vater', 'mutter', 'schwester', 'kind'].includes(lw)) {
+        badgeText = 'NOUN';
+        badgeCls = 'bg-pink-100 text-pink-800 border-pink-300';
+        subText = `Noun (Capitalized)`;
+      }
+
+      return `
+        <div class="p-3.5 bg-white rounded-2xl border border-slate-200/80 shadow-xs flex flex-col justify-between space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="px-2 py-0.5 rounded-md text-[10px] font-black tracking-wider ${badgeCls}">${badgeText}</span>
+            <button onclick="AudioSpeedSystem.speak('${w}')" class="text-xs text-slate-400 hover:text-pink-600 transition-colors" title="Listen Word">ðŸ”Š</button>
+          </div>
+          <div>
+            <div class="text-xl font-black text-slate-800 tracking-tight">${w}</div>
+            <div class="text-[11px] text-slate-500 font-medium mt-0.5">${subText}</div>
+          </div>
+        </div>
+      `;
+    });
+
+    // Render HTML Output
+    return `
+      <div class="col-span-full space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">ðŸ“–</span>
+            <h3 class="text-base sm:text-lg font-extrabold text-slate-800">Comprehensive German Grammar Breakdown (Nominativ â€¢ Akkusativ â€¢ Dativ â€¢ Genitiv)</h3>
+          </div>
+          <span class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">A1-C1 Deep Analysis</span>
+        </div>
+
+        <!-- SECTION 1: Sentence Structure -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-base">ðŸ§©</span>
+              <h4 class="font-extrabold text-slate-800 text-sm">Sentence Structure & Word Positions:</h4>
+            </div>
+            <span class="text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full">Verb in Position 2 Rule</span>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <div class="px-4 py-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-center min-w-[90px]">
+              <span class="text-[9px] font-black text-emerald-600 uppercase tracking-widest block">POS 1</span>
+              <span class="font-black text-emerald-900 text-sm block">${cleanTokens[0] || 'Ich'}</span>
+              <span class="text-[9px] text-emerald-700 font-semibold block">Subject (Nom)</span>
+            </div>
+
+            <div class="px-4 py-2.5 rounded-xl bg-rose-50 border border-rose-300 text-center min-w-[90px]">
+              <span class="text-[9px] font-black text-rose-600 uppercase tracking-widest block">POS 2</span>
+              <span class="font-black text-rose-900 text-sm block">${verbToken}</span>
+              <span class="text-[9px] text-rose-700 font-semibold block">Verb âš¡</span>
+            </div>
+
+            ${cleanTokens.slice(2).map((token, tIdx) => {
+              const lt = token.toLowerCase();
+              const isGen = genPreps.includes(lt) || genDeterminersMascNeut.includes(lt) || genDeterminersFemPlur.includes(lt) || ['vaters', 'kindes', 'mannes', 'lehrers', 'chefs', 'autos', 'hauses', 'wetters', 'regens'].includes(lt);
+              const isDat = ['dir', 'mir', 'ihm', 'dem', 'einem'].includes(lt);
+              const colorBg = isGen ? 'bg-amber-50 border-amber-300' : (isDat ? 'bg-purple-50 border-purple-300' : 'bg-sky-50 border-sky-300');
+              const colorTxt = isGen ? 'text-amber-900' : (isDat ? 'text-purple-900' : 'text-sky-900');
+              const colorSub = isGen ? 'text-amber-700' : (isDat ? 'text-purple-700' : 'text-sky-700');
+              const label = isGen ? 'Genitiv (Gen)' : (isDat ? 'Object (Dat)' : 'Object (Akk)');
+
+              return `
+                <div class="px-4 py-2.5 rounded-xl ${colorBg} border text-center min-w-[90px]">
+                  <span class="text-[9px] font-black uppercase tracking-widest block opacity-70">POS ${tIdx + 3}</span>
+                  <span class="font-black ${colorTxt} text-sm block">${token}</span>
+                  <span class="text-[9px] ${colorSub} font-semibold block">${label}</span>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+        <!-- SECTION 2: Verb Conjugation -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-base text-amber-500">âš¡</span>
+              <h4 class="font-extrabold text-slate-800 text-sm">Verb & Conjugation:</h4>
+            </div>
+            <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Position #2</span>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-emerald-50/40 border border-emerald-200 space-y-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-amber-500 font-bold">âš¡</span>
+              <span class="font-black text-slate-800 text-sm">Conjugated Verb: "${verbToken}"</span>
+              <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">Base: ${verbInf} (${verbMeaning})</span>
+            </div>
+            <p class="text-xs text-slate-700 leading-relaxed">
+              â€¢ <b>Subject-Verb Agreement:</b> The verb "${verbToken}" conjugates to agree with the subject (<b>${subjectPerson}</b>).
+            </p>
+            <div class="p-3 rounded-xl bg-white border-2 border-rose-200 text-xs text-rose-900 leading-relaxed flex items-start gap-2">
+              <span class="text-sm">ðŸŽ¯</span>
               <div>
-                <div class="text-xl font-black text-slate-800 tracking-tight">${w}</div>
-                <div class="text-[11px] text-slate-500 font-medium mt-0.5">${subText}</div>
+                <b>Case Requirement & Valency:</b> <i>${verbInf}</i> requires <b>${verbValency}</b>! ${verbValencyText}
               </div>
             </div>
-          `;
-        });
+          </div>
+        </div>
 
-        // START RENDERING HTML
-        let html = `
-          <div class="col-span-full space-y-6">
-
-            <!-- Header: A1 Beginner-Friendly German Grammar Breakdown -->
-            <div class="flex items-center justify-between border-b border-slate-200 pb-3">
-              <div class="flex items-center gap-2">
-                <span class="text-xl">📖</span>
-                <h3 class="text-base sm:text-lg font-extrabold text-slate-800">A1 Beginner-Friendly German Grammar Breakdown</h3>
-              </div>
-              <span class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">A1 Level Guide</span>
+        <!-- SECTION 3: Object & Article Analysis (Nominativ / Akkusativ / Dativ / Genitiv) -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-base text-rose-500">ðŸŽ¯</span>
+              <h4 class="font-extrabold text-slate-800 text-sm">Case, Object & Article Analysis (Why Did the Article & Ending Change?):</h4>
             </div>
+            <span class="text-[10px] font-bold text-slate-400">${objects.length} element(s) analyzed</span>
+          </div>
 
-            <!-- SECTION 1: 🧩 Sentence Structure & Word Positions -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="text-base">🧩</span>
-                  <h4 class="font-extrabold text-slate-800 text-sm">Sentence Structure & Word Positions:</h4>
+          ${objects.map(obj => {
+            const stepPills = ExactGrammarEngine.getTransformation(obj.token, obj.basePronoun, obj.case);
+            const isGen = obj.case === 'Genitiv';
+            const cardBg = isGen ? 'from-amber-50/50 via-yellow-50/30 to-orange-50/20 border-amber-200' : 'from-blue-50/40 via-indigo-50/20 to-purple-50/30 border-blue-200';
+            const badgeCls = isGen ? 'bg-amber-100 text-amber-900 border-amber-300' : 'bg-blue-100 text-blue-900 border-blue-300';
+            const qTxtCls = isGen ? 'text-amber-900' : 'text-blue-900';
+
+            return `
+              <div class="p-5 rounded-2xl bg-gradient-to-br ${cardBg} border space-y-4">
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200/60 pb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="text-rose-500">ðŸŽ¯</span>
+                    <span class="font-black text-slate-800 text-base">${isGen ? 'Genitive Element' : 'Object'}: "${obj.token}"</span>
+                    <button onclick="AudioSpeedSystem.speak('${obj.token}')" class="px-2.5 py-0.5 rounded-lg bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold border border-slate-200 transition-colors">
+                      ðŸ”Š Listen
+                    </button>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider ${badgeCls}">${obj.caseType}</span>
+                    <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-black bg-white text-slate-800 border border-slate-300">Case: ${obj.case}</span>
+                  </div>
                 </div>
-                <span class="text-[11px] font-bold text-slate-600 bg-slate-100 px-2.5 py-0.5 rounded-full">Standard Sentence (Subject First)</span>
-              </div>
 
-              <!-- Position Pills -->
-              <div class="flex flex-wrap items-center gap-2.5">
-                <div class="px-4 py-2.5 rounded-xl bg-emerald-50 border border-emerald-300 text-center min-w-[90px]">
-                  <span class="text-[9px] font-black text-emerald-600 uppercase tracking-widest block">POS 1</span>
-                  <span class="font-black text-emerald-900 text-sm block">${cleanTokens[0] || 'Ich'}</span>
-                  <span class="text-[9px] text-emerald-700 font-semibold block">Subject (Nom)</span>
-                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                  <div class="p-3.5 bg-white rounded-xl border border-slate-200 space-y-1">
+                    <div class="text-[10px] font-black text-slate-400 uppercase tracking-wider">â“ QUESTION ANSWERED IN GERMAN:</div>
+                    <div class="font-bold ${qTxtCls} text-xs">${obj.question}</div>
+                  </div>
 
-                <div class="px-4 py-2.5 rounded-xl bg-rose-50 border border-rose-300 text-center min-w-[90px]">
-                  <span class="text-[9px] font-black text-rose-600 uppercase tracking-widest block">POS 2</span>
-                  <span class="font-black text-rose-900 text-sm block">${cleanTokens[1] || 'liebe'}</span>
-                  <span class="text-[9px] text-rose-700 font-semibold block">Verb ⚡</span>
-                </div>
-
-                ${cleanTokens.slice(2).map((token, tIdx) => {
-                  const lt = token.toLowerCase();
-                  const isDat = ['dir', 'mir', 'ihm', 'dem'].includes(lt);
-                  const colorBg = isDat ? 'bg-purple-50 border-purple-300' : 'bg-sky-50 border-sky-300';
-                  const colorTxt = isDat ? 'text-purple-900' : 'text-sky-900';
-                  const colorSub = isDat ? 'text-purple-700' : 'text-sky-700';
-                  const label = isDat ? 'Object (Dat)' : 'Object (Akk)';
-
-                  return `
-                    <div class="px-4 py-2.5 rounded-xl ${colorBg} border text-center min-w-[90px]">
-                      <span class="text-[9px] font-black uppercase tracking-widest block opacity-70">POS ${tIdx + 3}</span>
-                      <span class="font-black ${colorTxt} text-sm block">${token}</span>
-                      <span class="text-[9px] ${colorSub} font-semibold block">${label}</span>
+                  <div class="p-3.5 bg-white rounded-xl border border-slate-200 space-y-1">
+                    <div class="text-[10px] font-black text-amber-600 uppercase tracking-wider flex items-center gap-1">
+                      <span>âš¡</span>
+                      <span>CASE TRIGGER (WHY THIS CASE?):</span>
                     </div>
-                  `;
-                }).join('')}
-              </div>
-
-              <!-- Explanatory Box -->
-              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 text-xs text-slate-700 leading-relaxed space-y-1.5">
-                <p>A classic German sentence starting with the person or thing doing the action.</p>
-                <p class="font-medium">
-                  💡 <b>The Golden German Rule (Verb in Position 2):</b> In normal German sentences, the conjugated verb (action word) ALWAYS occupies <b>Position 2</b>. The subject ("${cleanTokens[0] || 'Ich'}") takes <b>Position 1</b>, followed immediately by the verb in <b>Position 2</b>.
-                </p>
-              </div>
-            </div>
-
-            <!-- SECTION 2: ⚡ Verb & Conjugation (Why does the verb end this way?) -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="text-base text-amber-500">⚡</span>
-                  <h4 class="font-extrabold text-slate-800 text-sm">Verb & Conjugation (Why does the verb end this way?):</h4>
-                </div>
-                <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">Position #2</span>
-              </div>
-
-              <!-- Verb Header Banner -->
-              <div class="p-4 rounded-2xl bg-emerald-50/40 border border-emerald-200 space-y-3">
-                <div class="flex flex-wrap items-center gap-2">
-                  <span class="text-amber-500 font-bold">⚡</span>
-                  <span class="font-black text-slate-800 text-sm">Conjugated Verb: "${verbToken}"</span>
-                  <span class="text-xs font-bold text-emerald-800 bg-emerald-100 px-2.5 py-0.5 rounded-full">Base: ${verbInf} (${verbMeaning})</span>
-                </div>
-
-                <p class="text-xs text-slate-700 leading-relaxed">
-                  • <b>Why does it end this way?</b> In German, verbs change their endings like a uniform to match WHO is doing the action. Because the subject is <b>${subjectPerson}</b>, the verb takes the ending for that person (e.g. <i>ich ${verbToken}</i>).
-                </p>
-
-                <!-- Red outline requirement box -->
-                <div class="p-3 rounded-xl bg-white border-2 border-rose-200 text-xs text-rose-900 leading-relaxed flex items-start gap-2">
-                  <span class="text-sm">🎯</span>
-                  <div>
-                    <b>A1 Object Requirement:</b> <i>${verbInf}</i> is an <b>${verbValency}</b> verb! ${verbValencyText}
+                    <p class="text-slate-600 leading-relaxed text-[11px]">${obj.trigger}</p>
                   </div>
                 </div>
 
-                <!-- Green/Yellow tip box -->
-                <div class="p-3 rounded-xl bg-white border border-emerald-200 text-xs text-emerald-900 leading-relaxed flex items-start gap-2">
-                  <span class="text-sm">💡</span>
-                  <div>
-                    <b>Helpful Tip:</b> ${verbTip}
+                <div class="p-3.5 bg-white rounded-xl border border-slate-200 space-y-2">
+                  <div class="text-[10px] font-black text-slate-400 uppercase tracking-wider flex items-center gap-1">
+                    <span>ðŸ”¢</span>
+                    <span>STEP-BY-STEP TRANSFORMATION:</span>
+                  </div>
+                  <div class="flex flex-wrap items-center gap-2">
+                    ${stepPills.map((pill, pIdx) => `
+                      <span class="px-3 py-1.5 rounded-xl border text-xs font-semibold ${pill.cls}">
+                        ${pill.label}
+                      </span>
+                      ${pIdx < stepPills.length - 1 ? '<span class="text-slate-300 font-bold">âž”</span>' : ''}
+                    `).join('')}
                   </div>
                 </div>
-              </div>
 
-              <!-- A1 Verb Endings Cheat-Sheet Grid -->
-              <div class="space-y-1.5 pt-1">
-                <span class="text-[10px] font-black uppercase tracking-wider text-slate-400">A1 VERB ENDINGS CHEAT-SHEET:</span>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 text-center text-xs">
-                  <div class="p-2 rounded-xl bg-slate-50 border border-slate-200 ${subjectWord.toLowerCase() === 'ich' ? 'ring-2 ring-emerald-400 font-bold bg-emerald-50/40' : ''}">
-                    <span class="font-mono text-slate-700">${verbCheatSheet.ich}</span>
+                <div class="p-3.5 bg-white rounded-xl border border-amber-200/80 text-xs space-y-1 text-slate-700">
+                  <div class="font-bold text-amber-900 flex items-center gap-1">
+                    <span>ðŸ’¡</span>
+                    <span>Why did the article / noun ending change this way? (Rule Breakdown):</span>
                   </div>
-                  <div class="p-2 rounded-xl bg-slate-50 border border-slate-200 ${subjectWord.toLowerCase() === 'du' ? 'ring-2 ring-emerald-400 font-bold bg-emerald-50/40' : ''}">
-                    <span class="font-mono text-slate-700">${verbCheatSheet.du}</span>
-                  </div>
-                  <div class="p-2 rounded-xl bg-slate-50 border border-slate-200 ${['er', 'sie', 'es'].includes(subjectWord.toLowerCase()) ? 'ring-2 ring-emerald-400 font-bold bg-emerald-50/40' : ''}">
-                    <span class="font-mono text-slate-700">${verbCheatSheet['er/sie/es']}</span>
-                  </div>
-                  <div class="p-2 rounded-xl bg-slate-50 border border-slate-200 ${subjectWord.toLowerCase() === 'wir' ? 'ring-2 ring-emerald-400 font-bold bg-emerald-50/40' : ''}">
-                    <span class="font-mono text-slate-700">${verbCheatSheet.wir}</span>
-                  </div>
-                  <div class="p-2 rounded-xl bg-slate-50 border border-slate-200 ${subjectWord.toLowerCase() === 'ihr' ? 'ring-2 ring-emerald-400 font-bold bg-emerald-50/40' : ''}">
-                    <span class="font-mono text-slate-700">${verbCheatSheet.ihr}</span>
-                  </div>
-                  <div class="p-2 rounded-xl bg-slate-50 border border-slate-200 ${['sie', 'sie/sie'].includes(subjectWord.toLowerCase()) ? 'ring-2 ring-emerald-400 font-bold bg-emerald-50/40' : ''}">
-                    <span class="font-mono text-slate-700">${verbCheatSheet['sie/Sie']}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- SECTION 3: 🎯 Object & Article Analysis (What Case is the Object and Why Did the Article Change?) -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="text-base text-rose-500">🎯</span>
-                  <h4 class="font-extrabold text-slate-800 text-sm">Object & Article Analysis (What Case is the Object and Why Did the Article Change?):</h4>
-                </div>
-                <span class="text-[10px] font-bold text-slate-400">${objects.length} object(s) analyzed</span>
-              </div>
-
-              ${objects.map(obj => {
-                const stepPills = ExactGrammarEngine.getTransformation(obj.token, obj.basePronoun, obj.case);
-
-                return `
-                  <div class="p-5 rounded-2xl bg-gradient-to-br from-blue-50/40 via-indigo-50/20 to-purple-50/30 border border-blue-200 space-y-4">
-                    <!-- Object Title Bar -->
-                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-blue-100 pb-3">
-                      <div class="flex items-center gap-2">
-                        <span class="text-rose-500">🎯</span>
-                        <span class="font-black text-slate-800 text-base">Object: "${obj.token}"</span>
-                        <button onclick="AudioSpeedSystem.speak('${obj.token}')" class="px-2.5 py-0.5 rounded-lg bg-blue-100 hover:bg-blue-200 text-blue-700 text-xs font-bold transition-colors">
-                          🔊 Listen
-                        </button>
-                      </div>
-                      <div class="flex items-center gap-2">
-                        <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-wider bg-blue-100 text-blue-900 border border-blue-300">${obj.caseType}</span>
-                        <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-bold bg-white text-slate-600 border border-slate-200">Case: ${obj.case}</span>
-                      </div>
-                    </div>
-
-                    <!-- Two Column Question & Trigger -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-                      <div class="p-3.5 bg-white rounded-xl border border-blue-100 space-y-1">
-                        <div class="text-[10px] font-black text-slate-400 uppercase tracking-wider">❓ QUESTION ANSWERED IN GERMAN:</div>
-                        <div class="font-bold text-blue-900 text-xs">${obj.question}</div>
-                      </div>
-
-                      <div class="p-3.5 bg-white rounded-xl border border-blue-100 space-y-1">
-                        <div class="text-[10px] font-black text-amber-600 uppercase tracking-wider flex items-center gap-1">
-                          <span>⚡</span>
-                          <span>CASE TRIGGER (WHY THIS CASE?):</span>
-                        </div>
-                        <p class="text-slate-600 leading-relaxed text-[11px]">${obj.trigger}</p>
-                      </div>
-                    </div>
-
-                    <!-- Pronoun / Article Form Row -->
-                    <div class="flex items-center justify-between text-xs px-1 text-slate-500 font-mono">
-                      <span>PRONOUN FORM: <b>${obj.pronounForm}</b></span>
-                      <span>BASE FORM (NOMINATIV): <b>${obj.basePronoun}</b></span>
-                    </div>
-
-                    <!-- Step by Step Transformation -->
-                    <div class="p-3.5 bg-white rounded-xl border border-slate-200 space-y-2">
-                      <div class="text-[10px] font-black text-slate-400 uppercase tracking-wider flex items-center gap-1">
-                        <span>🔢</span>
-                        <span>STEP-BY-STEP TRANSFORMATION:</span>
-                      </div>
-                      <div class="flex flex-wrap items-center gap-2">
-                        ${stepPills.map((pill, pIdx) => `
-                          <span class="px-3 py-1.5 rounded-xl border text-xs font-semibold ${pill.cls}">
-                            ${pill.label}
-                          </span>
-                          ${pIdx < stepPills.length - 1 ? '<span class="text-slate-300 font-bold">➔</span>' : ''}
-                        `).join('')}
-                      </div>
-                    </div>
-
-                    <!-- Detailed Rule Breakdown -->
-                    <div class="p-3.5 bg-white rounded-xl border border-amber-200/80 text-xs space-y-1 text-slate-700">
-                      <div class="font-bold text-amber-900 flex items-center gap-1">
-                        <span>💡</span>
-                        <span>Why did the article / pronoun change this way? (A1 Rule Breakdown):</span>
-                      </div>
-                      <p class="text-[11px] leading-relaxed pt-1">
-                        <b>${obj.ruleTitle}</b> ${obj.ruleText}
-                      </p>
-                    </div>
-                  </div>
-                `;
-              }).join('')}
-            </div>
-
-            <!-- SECTION 4: 📦 Sentence Roles Overview (Who Does What?) -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="text-base text-amber-600">📦</span>
-                  <h4 class="font-extrabold text-slate-800 text-sm">Sentence Roles Overview (Who Does What?):</h4>
-                </div>
-                <span class="text-[10px] font-bold text-slate-400">${objects.length + 1} Items Identified</span>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Subject Card -->
-                <div class="p-4 rounded-2xl bg-emerald-50/40 border border-emerald-200 space-y-2">
-                  <div class="flex items-center justify-between">
-                    <span class="text-base font-black text-slate-800">${cleanTokens[0] || 'Ich'}</span>
-                    <div class="flex items-center gap-1.5">
-                      <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">Subject (The Doer)</span>
-                      <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-white text-emerald-800 border border-emerald-300">Nominativ</span>
-                    </div>
-                  </div>
-                  <p class="text-xs text-slate-600 leading-relaxed">
-                    <b>Who is doing the action?</b> "${cleanTokens[0] || 'Ich'}" (${subjectMeaning}) is the <b>Subject</b> ("Wer oder was?"). In German, the subject is ALWAYS in the <b>Nominative (Nominativ)</b> case.
+                  <p class="text-[11px] leading-relaxed pt-1">
+                    <b>${obj.ruleTitle}</b> ${obj.ruleText}
                   </p>
                 </div>
-
-                <!-- Object Cards -->
-                ${objects.map(obj => `
-                  <div class="p-4 rounded-2xl bg-blue-50/40 border border-blue-200 space-y-2">
-                    <div class="flex items-center justify-between">
-                      <span class="text-base font-black text-slate-800">${obj.token}</span>
-                      <div class="flex items-center gap-1.5">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-900">${obj.caseType.split(' ')[0]} (The Receiver)</span>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-white text-blue-800 border border-blue-300">${obj.case}</span>
-                      </div>
-                    </div>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                      <b>Who is receiving the action?</b> "${obj.token}". In German, the base word changes in the <b>${obj.case}</b> case because the verb "${verbToken}" directs its action onto it!
-                    </p>
-                  </div>
-                `).join('')}
               </div>
+            `;
+          }).join('')}
+        </div>
+
+        <!-- SECTION 4: Sentence Roles Overview -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-base text-amber-600">ðŸ“¦</span>
+              <h4 class="font-extrabold text-slate-800 text-sm">Sentence Roles Overview (Who Does What?):</h4>
             </div>
-
-            <!-- SECTION 5: 🔍 Interactive Word-by-Word Breakdown (Click 🔊 to listen to each word) -->
-            <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
-              <div class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="text-base text-indigo-600">🔍</span>
-                  <h4 class="font-extrabold text-slate-800 text-sm">Interactive Word-by-Word Breakdown (Click 🔊 to listen to each word):</h4>
-                </div>
-                <span class="text-[10px] font-bold text-slate-400">${cleanTokens.length} words analyzed</span>
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                ${wordBreakdownCards.join('')}
-              </div>
-            </div>
-
+            <span class="text-[10px] font-bold text-slate-400">${objects.length + 1} Items Identified</span>
           </div>
-        `;
 
-        return html;
-      }
-    };
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-2xl bg-emerald-50/40 border border-emerald-200 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="text-base font-black text-slate-800">${cleanTokens[0] || 'Ich'}</span>
+                <div class="flex items-center gap-1.5">
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-900">Subject (The Doer)</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-white text-emerald-800 border border-emerald-300">Nominativ</span>
+                </div>
+              </div>
+              <p class="text-xs text-slate-600 leading-relaxed">
+                <b>Who is doing the action?</b> "${cleanTokens[0] || 'Ich'}" (${subjectMeaning}) is the <b>Subject</b> ("Wer oder was?"). In German, the subject is ALWAYS in the <b>Nominative (Nominativ)</b> case.
+              </p>
+            </div>
+
+            ${objects.map(obj => {
+              const isGen = obj.case === 'Genitiv';
+              const cardBg = isGen ? 'bg-amber-50/40 border-amber-200' : 'bg-blue-50/40 border-blue-200';
+              const badgeCls = isGen ? 'bg-amber-100 text-amber-900' : 'bg-blue-100 text-blue-900';
+              const roleDesc = isGen 
+                ? `<b>What is the role of this element?</b> "${obj.token}" is in the <b>Genitiv (Genitive)</b> case, indicating possession or relationship. It answers the question <b>"Wessen?" (Whose?)</b>.`
+                : `<b>Who/what is receiving the action?</b> "${obj.token}" is in the <b>${obj.case}</b> case, determined by the verb or preposition!`;
+
+              return `
+                <div class="p-4 rounded-2xl ${cardBg} border space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-base font-black text-slate-800">${obj.token}</span>
+                    <div class="flex items-center gap-1.5">
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold ${badgeCls}">${isGen ? 'Possession' : 'Receiver'}</span>
+                      <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-white text-slate-800 border border-slate-300">${obj.case}</span>
+                    </div>
+                  </div>
+                  <p class="text-xs text-slate-600 leading-relaxed">${roleDesc}</p>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+        <!-- SECTION 5: Word-by-Word Breakdown -->
+        <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs space-y-4">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <span class="text-base text-indigo-600">ðŸ”</span>
+              <h4 class="font-extrabold text-slate-800 text-sm">Interactive Word-by-Word Breakdown (Click ðŸ”Š to listen to each word):</h4>
+            </div>
+            <span class="text-[10px] font-bold text-slate-400">${cleanTokens.length} words analyzed</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            ${wordBreakdownCards.join('')}
+          </div>
+        </div>
+
+      </div>
+    `;
+  }
+};
 
     const TranslatorSystem = {
       // Built-in high accuracy offline dictionary & common sentences
@@ -14028,6 +14137,13 @@ const CheatSheetSystem = {
         "today i am learning german in berlin.": { de: "Heute lerne ich Deutsch in Berlin.", en: "Today I am learning German in Berlin.", id: "Hari ini saya belajar bahasa Jerman di Berlin." },
         "saya berasal dari indonesia.": { de: "Ich komme aus Indonesien.", en: "I come from Indonesia.", id: "Saya berasal dari Indonesia." },
         "bisakah anda membantu saya?": { de: "Können Sie mir bitte helfen?", en: "Could you please help me?", id: "Bisakah Anda membantu saya?" },
+        "das ist das auto meines vaters": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
+        "das ist das auto meines vaters.": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
+        "that is my father's car": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
+        "that is my father's car.": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
+        "itu adalah mobil ayah saya": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
+        "das buch des lehrers ist neu": { de: "Das Buch des Lehrers ist neu.", en: "The teacher's book is new.", id: "Buku guru itu baru." },
+        "wegen des wetters bleiben wir zu hause": { de: "Wegen des Wetters bleiben wir zu Hause.", en: "Because of the weather we stay at home.", id: "Karena cuaca kami tinggal di rumah." },
         "i give you book": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
         "i give you a book": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
         "i love you": { de: "Ich liebe dich.", en: "I love you.", id: "Aku mencintaimu." },
@@ -14201,7 +14317,7 @@ const CheatSheetSystem = {
         }
 
         // If user typed German into source, use it directly!
-        const germanKeywords = ['ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr', 'Sie', 'gebe', 'liebe', 'komme', 'wohne', 'lerne', 'trinke', 'der', 'die', 'das', 'ein', 'eine', 'dich', 'dir', 'mich', 'mir'];
+        const germanKeywords = ['ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr', 'Sie', 'gebe', 'liebe', 'komme', 'wohne', 'lerne', 'trinke', 'der', 'die', 'das', 'ein', 'eine', 'dich', 'dir', 'mich', 'mir', 'des', 'meines', 'meiner', 'vaters', 'autos', 'lehrers', 'wetters', 'wegen', 'wÃ¤hrend', 'trotz', 'ist', 'sind'];
         const inputWords = norm.split(/\s+/);
         const hasGermanWords = inputWords.some(w => germanKeywords.includes(w));
 
