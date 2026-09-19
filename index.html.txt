@@ -3256,8 +3256,8 @@ html[data-theme="dark"] select {
             <button onclick="TranslatorSystem.playAudio()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600" title="Listen Audio">
               <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
             </button>
-            <button onclick="TranslatorSystem.copyOutput()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600" title="Copy Translation">
-              <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <button onclick="TranslatorSystem.copyOutput(this)" id="transQuickCopyBtn" class="p-1.5 rounded-lg text-slate-400 hover:text-sky-600 transition-colors" title="Salin Kalimat Terjemahan">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
             </button>
           </div>
         </div>
@@ -3285,6 +3285,18 @@ html[data-theme="dark"] select {
             <div>&bull; <b>'ch':</b> Soft hissing sound after e/i (<i>Ich</i>), or guttural after a/o/u (<i>Buch</i>)</div>
             <div>&bull; <b>Vowel pairs:</b> <i>ie</i> = long 'ee' (<i>nie</i>), while <i>ei</i> = 'aye' (<i>mein</i>)</div>
           </div>
+        </div>
+
+        <!-- Translation Card Bottom Action Bar: Audio & Prominent Copy Button -->
+        <div class="flex items-center justify-between pt-2 border-t border-slate-100">
+          <button onclick="TranslatorSystem.playAudio()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer active:scale-95">
+            <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
+            <span>Dengarkan</span>
+          </button>
+          <button onclick="TranslatorSystem.copyOutput(this)" id="transCopyBtn" class="px-5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white text-xs font-extrabold shadow-md shadow-sky-200 transition-all flex items-center gap-2 cursor-pointer active:scale-95" title="Salin kalimat terjemahan">
+            <svg id="transCopyBtnIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            <span id="transCopyBtnLabel">Salin Terjemahan</span>
+          </button>
         </div>
       </div>
     </div>
@@ -13905,12 +13917,18 @@ const CheatSheetSystem = {
     // Render HTML Output
     return `
       <div class="col-span-full space-y-6">
-        <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-3 flex-wrap gap-2">
           <div class="flex items-center gap-2">
             <span class="text-xl">&#128214;</span>
             <h3 class="text-base sm:text-lg font-extrabold text-slate-800">Comprehensive German Grammar Breakdown (Nominativ • Akkusativ • Dativ • Genitiv)</h3>
           </div>
-          <span class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">A1-C1 Deep Analysis</span>
+          <div class="flex items-center gap-2">
+            <button onclick="TranslatorSystem.copyOutput(this)" class="px-3.5 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 text-xs font-extrabold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs active:scale-95" title="Salin kalimat terjemahan">
+              <span>&#128203;</span>
+              <span>Salin Kalimat</span>
+            </button>
+            <span class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">A1-C1 Deep Analysis</span>
+          </div>
         </div>
 
         <!-- SECTION 1: Sentence Structure -->
@@ -14408,21 +14426,97 @@ const CheatSheetSystem = {
         }
       },
 
-      copyOutput() {
+      copyOutput(btnEl) {
         const output = document.getElementById('transOutputText');
         if (!output) return;
         const text = output.innerText.trim();
         if (!text || text === 'Translation will appear here...' || text.startsWith('Please enter')) {
           if (typeof App !== 'undefined' && App.showToast) {
-            App.showToast('No translation available to copy.');
+            App.showToast('Belum ada kalimat terjemahan untuk disalin 📋');
           }
           return;
         }
-        navigator.clipboard.writeText(text).then(() => {
+
+        const handleSuccess = () => {
           if (typeof App !== 'undefined' && App.showToast) {
-            App.showToast('Translation copied to clipboard! 📋');
+            App.showToast('Kalimat terjemahan berhasil disalin ke clipboard! 📋');
           }
-        });
+
+          // Visual feedback on prominent bottom copy button if present
+          const mainBtn = document.getElementById('transCopyBtn');
+          const mainLabel = document.getElementById('transCopyBtnLabel');
+          const mainIcon = document.getElementById('transCopyBtnIcon');
+          if (mainBtn && mainLabel) {
+            const origLabel = mainLabel.innerHTML;
+            const origClasses = mainBtn.className;
+            mainBtn.className = "px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-extrabold shadow-md shadow-emerald-200 transition-all flex items-center gap-2 cursor-pointer active:scale-95";
+            mainLabel.innerHTML = 'Tersalin! &#9989;';
+            if (mainIcon) {
+              mainIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>';
+            }
+            setTimeout(() => {
+              mainBtn.className = origClasses;
+              mainLabel.innerHTML = origLabel;
+              if (mainIcon) {
+                mainIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>';
+              }
+            }, 2000);
+          }
+
+          // Visual feedback on triggering button if distinct
+          if (btnEl && btnEl !== mainBtn) {
+            const origHTML = btnEl.innerHTML;
+            const origClasses = btnEl.className;
+            if (btnEl.id === 'transQuickCopyBtn' || !btnEl.innerText.trim()) {
+              btnEl.classList.add('text-emerald-600', 'bg-emerald-50');
+              btnEl.innerHTML = '<svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>';
+            } else {
+              btnEl.innerHTML = '<span>&#9989;</span><span>Tersalin!</span>';
+            }
+            setTimeout(() => {
+              btnEl.className = origClasses;
+              btnEl.innerHTML = origHTML;
+            }, 2000);
+          }
+        };
+
+        // Dual-mode clipboard support (Clipboard API + fallback textarea for Android WebView)
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(handleSuccess).catch(() => {
+            TranslatorSystem.fallbackCopy(text, handleSuccess);
+          });
+        } else {
+          TranslatorSystem.fallbackCopy(text, handleSuccess);
+        }
+      },
+
+      fallbackCopy(text, onSuccess) {
+        try {
+          const ta = document.createElement('textarea');
+          ta.value = text;
+          ta.setAttribute('readonly', '');
+          ta.style.position = 'fixed';
+          ta.style.left = '-9999px';
+          ta.style.top = '0';
+          document.body.appendChild(ta);
+          ta.focus();
+          ta.select();
+          ta.setSelectionRange(0, 99999);
+          const successful = document.execCommand('copy');
+          document.body.removeChild(ta);
+          if (successful) {
+            if (onSuccess) onSuccess();
+          } else {
+            if (typeof App !== 'undefined' && App.showToast) {
+              App.showToast('Gagal menyalin otomatis. Silakan salin teks secara manual.');
+            }
+          }
+        } catch (err) {
+          console.warn('Fallback copy failed:', err);
+          if (typeof App !== 'undefined' && App.showToast) {
+            App.showToast('Gagal menyalin teks.');
+          }
+        }
       }
     };
 
