@@ -3206,7 +3206,7 @@ html[data-theme="dark"] select {
         <span class="text-slate-400 font-bold mr-1">Examples:</span>
         <button onclick="TranslatorSystem.setPreset('Ich lerne Deutsch')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors">Ich lerne Deutsch</button>
         <button onclick="TranslatorSystem.setPreset('Wir fahren mit dem Zug')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors">Wir fahren mit dem Zug</button>
-        <button onclick="TranslatorSystem.setPreset('Saya ingin belajar')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors">Saya ingin belajar (ID)</button>
+        <button onclick="TranslatorSystem.setPreset('Guten Tag, wie geht es Ihnen?')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors">Guten Tag, wie geht es Ihnen?</button>
         <button onclick="TranslatorSystem.setPreset('Where do you come from?')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors">Where do you come from? (EN)</button>
         <button onclick="TranslatorSystem.setPreset('I give you book')" class="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold transition-colors">I give you book</button>
         <button onclick="TranslatorSystem.setPreset('I love you')" class="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold transition-colors">I love you</button>
@@ -3230,7 +3230,7 @@ html[data-theme="dark"] select {
           </div>
         </div>
 
-        <textarea id="transInputText" rows="4" oninput="TranslatorSystem.updateCharCount(this.value)" class="w-full text-slate-800 text-lg font-medium placeholder-slate-400 bg-transparent border-none outline-none resize-none" placeholder="Type a sentence in English, Indonesian, or German..."></textarea>
+        <textarea id="transInputText" rows="4" oninput="TranslatorSystem.updateCharCount(this.value)" class="w-full text-slate-800 text-lg font-medium placeholder-slate-400 bg-transparent border-none outline-none resize-none" placeholder="Type a sentence in English or German..."></textarea>
 
         <div class="flex items-center justify-between pt-2 border-t border-slate-100">
           <span id="transCharCounter" class="text-xs text-slate-400 font-mono">0 / 500</span>
@@ -3294,9 +3294,9 @@ html[data-theme="dark"] select {
         <div class="w-14 h-14 mx-auto rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl shadow-2xs">
           🔍
         </div>
-        <h3 class="font-black text-slate-800 text-base sm:text-lg">Belum Ada Analisa Tata Bahasa</h3>
+        <h3 class="font-black text-slate-800 text-base sm:text-lg">No Grammar Analysis Yet</h3>
         <p class="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto leading-relaxed">
-          Ketik kalimat di kolom atas atau pilih salah satu preset contoh, lalu tekan tombol <span class="font-bold text-sky-600">⚡ Translate & Analyze</span> untuk melihat terjemahan dan bedah tata bahasa lengkap (aturan posisi V2, konjugasi kata kerja, Akkusativ/Dativ, serta tips aturan A1).
+          Type a sentence in the box above or choose a preset example, then click <span class="font-bold text-sky-600">⚡ Translate & Analyze</span> to view translation and detailed grammatical breakdown (V2 word order, verb conjugations, Akkusativ/Dativ cases, and A1 rules).
         </p>
       </div>
     </div>
@@ -13936,7 +13936,7 @@ const CheatSheetSystem = {
         }
         this.resetToEmptyState();
         if (typeof App !== 'undefined' && App.showToast) {
-          App.showToast('🧹 Translator & analisa grammar berhasil dibersihkan.');
+          App.showToast('🧹 Translator and grammar analysis cleared.');
         }
       },
 
@@ -13964,9 +13964,9 @@ const CheatSheetSystem = {
               <div class="w-14 h-14 mx-auto rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl shadow-2xs">
                 🔍
               </div>
-              <h3 class="font-black text-slate-800 text-base sm:text-lg">Belum Ada Analisa Tata Bahasa</h3>
+              <h3 class="font-black text-slate-800 text-base sm:text-lg">No Grammar Analysis Yet</h3>
               <p class="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto leading-relaxed">
-                Ketik kalimat di kolom atas atau pilih salah satu preset contoh, lalu tekan tombol <span class="font-bold text-sky-600">⚡ Translate & Analyze</span> untuk melihat terjemahan dan bedah tata bahasa lengkap (aturan posisi V2, konjugasi kata kerja, Akkusativ/Dativ, serta tips aturan A1).
+                Type a sentence in the box above or choose a preset example, then click <span class="font-bold text-sky-600">⚡ Translate & Analyze</span> to view translation and detailed grammatical breakdown (V2 word order, verb conjugations, Akkusativ/Dativ cases, and A1 rules).
               </p>
             </div>
           `;
@@ -14039,7 +14039,7 @@ const CheatSheetSystem = {
         const text = input.value.trim();
         if (!text) {
           if (typeof App !== 'undefined' && App.showToast) {
-            App.showToast('Silakan ketik kalimat yang ingin diterjemahkan.');
+            App.showToast('Please enter a sentence to translate.');
           }
           this.resetToEmptyState();
           return;
@@ -14138,7 +14138,7 @@ const CheatSheetSystem = {
         const text = output.innerText.trim();
         if (!text || text === 'Translation will appear here...' || text.startsWith('Please enter')) {
           if (typeof App !== 'undefined' && App.showToast) {
-            App.showToast('Belum ada terjemahan untuk didengarkan.');
+            App.showToast('No translation available to play audio.');
           }
           return;
         }
@@ -14153,7 +14153,7 @@ const CheatSheetSystem = {
         const text = output.innerText.trim();
         if (!text || text === 'Translation will appear here...' || text.startsWith('Please enter')) {
           if (typeof App !== 'undefined' && App.showToast) {
-            App.showToast('Belum ada terjemahan untuk disalin.');
+            App.showToast('No translation available to copy.');
           }
           return;
         }
