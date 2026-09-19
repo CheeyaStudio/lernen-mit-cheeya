@@ -73,7 +73,7 @@
 :root{--cg-pink:#ff5ca8;--cg-blue:#8ed8ff;--cg-yellow:#ffe58a;--cg-lilac:#c9a6ff;--cg-mint:#9be7cf}
 #cheeya-butterfly-layer{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden;isolation:isolate}
 /* Animation is dashboard-only: never cover lesson text/content. */
-body:has(#lessonView:not(.hidden)) #cheeya-butterfly-layer{display:none!important}
+/* Bubbles remain visible on lessonView */
 #dashboardView{z-index:10}
 #lessonView{position:relative;z-index:20;background:transparent}
 #lessonMainContent{position:relative;z-index:21}
@@ -1679,7 +1679,7 @@ body:has(#lessonView:not(.hidden)) #cheeya-butterfly-layer{display:none!importan
 #dashboardView > *{z-index:2}
 #lessonView{position:relative;z-index:20}
 #lessonMainContent{position:relative;z-index:21;background:transparent}
-body:has(#lessonView:not(.hidden)) #cheeya-butterfly-layer{display:none!important}
+/* Bubbles remain visible on lessonView */
 @media (prefers-reduced-motion:reduce){
   #cheeya-butterfly-layer *,#dashboardView *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
@@ -2009,7 +2009,7 @@ header a.group .bg-pink-100{background:linear-gradient(135deg,#fff0f7,#ffe2ef)!i
 
 /* Lesson view: keep decorative motion, but ONLY at far left/right edges */
 body:has(#lessonView:not(.hidden)) #cheeya-butterfly-layer{display:block!important;left:0;right:0;top:64px;bottom:0;z-index:18;overflow:hidden;clip-path:inset(0 0 0 0)}
-body:has(#lessonView:not(.hidden)) #cheeya-butterfly-layer .cheeya-butterfly{opacity:0!important}
+/* Bubbles remain visible on lessonView */
 body:has(#lessonView:not(.hidden)) #lessonView::before,
 body:has(#lessonView:not(.hidden)) #lessonView::after{content:"✦\A  ˚\A ✧\A  ·\A ✦";white-space:pre;position:fixed;top:105px;bottom:35px;width:34px;z-index:0;pointer-events:none;font-family:var(--cheeya-display);font-size:13px;line-height:5.2;color:rgba(242,103,166,.42);text-align:center;animation:cheeyaSideTwinkle 4.2s ease-in-out infinite}
 body:has(#lessonView:not(.hidden)) #lessonView::before{left:4px;text-shadow:0 90px 0 rgba(142,216,255,.7),0 220px 0 rgba(255,221,119,.72),0 360px 0 rgba(203,176,255,.62)}
@@ -2177,15 +2177,177 @@ body > div.flex-1.flex.max-w-7xl > main{
 @media(max-width:640px){.cheeya-brand-logo{width:38px;height:38px;flex-basis:38px}.cheeya-brand-script{font-size:22px}.cheeya-brand-studio{font-size:9px}.cheeya-brand-tagline{display:none}}
 </style>
 <style id="cheeya-cursor-effects">
-/* CheeYa Studio — soft cursor/click magic, intentionally tiny so content stays readable */
-.cheeya-cursor-layer{position:fixed;inset:0;z-index:99999;pointer-events:none;overflow:hidden}
-.cheeya-click-ring{position:fixed;width:22px;height:22px;border:2px solid rgba(244,91,151,.65);border-radius:50%;transform:translate(-50%,-50%) scale(.35);animation:cheeyaRing .55s ease-out forwards;pointer-events:none}
-.cheeya-click-spark{position:fixed;left:0;top:0;width:7px;height:7px;border-radius:50%;transform:translate(-50%,-50%);animation:cheeyaSpark .72s cubic-bezier(.2,.75,.3,1) forwards;pointer-events:none;box-shadow:0 0 8px currentColor}
-.cheeya-click-heart{position:fixed;left:0;top:0;font-size:13px;line-height:1;transform:translate(-50%,-50%) scale(.7);animation:cheeyaHeart .8s cubic-bezier(.2,.8,.25,1) forwards;pointer-events:none;filter:drop-shadow(0 2px 4px rgba(120,80,120,.16))}
-@keyframes cheeyaRing{0%{opacity:.85;transform:translate(-50%,-50%) scale(.35)}70%{opacity:.28}100%{opacity:0;transform:translate(-50%,-50%) scale(2.2)}}
-@keyframes cheeyaSpark{0%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.15)}}
-@keyframes cheeyaHeart{0%{opacity:0;transform:translate(-50%,-50%) scale(.45) rotate(-8deg)}18%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1) rotate(var(--rot))}}
-@media (prefers-reduced-motion:reduce){.cheeya-click-ring,.cheeya-click-spark,.cheeya-click-heart{animation-duration:.25s}}
+/* ========================================================
+   CheeYa Dreamy Floating Bubbles Animation
+   ACTIVE ACROSS ALL VIEWS: Dashboard, Lessons, Exam, Translator, Flashcards
+   ======================================================== */
+#cheeya-bubble-layer,
+#cheeya-butterfly-layer {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  isolation: isolate;
+}
+
+/* User requirement: When opening lessons/materials, bubbles MUST still be active & visible! */
+body:has(#lessonView:not(.hidden)) #cheeya-bubble-layer,
+body:has(#lessonView:not(.hidden)) #cheeya-butterfly-layer,
+body:has(#lessonView:not(.hidden)) .cheeya-bubble,
+body:has(#dashboardView:not(.hidden)) #cheeya-bubble-layer,
+body:has(#examView:not(.hidden)) #cheeya-bubble-layer,
+body:has(#translatorView:not(.hidden)) #cheeya-bubble-layer,
+body:has(#flashcardsView:not(.hidden)) #cheeya-bubble-layer {
+  display: block !important;
+  opacity: 0.88 !important;
+  visibility: visible !important;
+}
+
+/* Ensure lesson content cards and dashboard elements stay clearly above bubbles */
+#dashboardView, #lessonView, #examView, #translatorView, #flashcardsView, #articleFinderView,
+#lessonMainContent, #lessonContainer, header, #sidebarNav, .cheeya-card-elevated {
+  position: relative;
+  z-index: 10 !important;
+}
+
+/* Bubble aesthetic: Translucent, iridescent, glossy highlights, 3D sphere depth */
+.cheeya-bubble {
+  position: absolute !important;
+  border-radius: 50% !important;
+  pointer-events: none !important;
+  display: block !important;
+  visibility: visible !important;
+  background: radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.32) 18%, rgba(244, 114, 182, 0.22) 42%, rgba(56, 189, 248, 0.24) 68%, rgba(192, 132, 252, 0.3) 88%, rgba(255, 255, 255, 0.5) 100%) !important;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.6),
+              inset -2px -3px 8px rgba(167, 139, 250, 0.35),
+              inset 2px 2px 7px rgba(244, 114, 182, 0.3),
+              0 6px 20px rgba(236, 72, 153, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.65) !important;
+  backdrop-filter: blur(1.5px) !important;
+  will-change: transform, opacity !important;
+  animation: cheeyaBubbleRise var(--dur, 11s) var(--del, 0s) linear infinite,
+             cheeyaBubbleWobble var(--wob, 3.5s) ease-in-out infinite alternate !important;
+}
+
+/* Bubble primary reflection (crescent/oval gleam) */
+.cheeya-bubble::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 14% !important;
+  left: 18% !important;
+  width: 26% !important;
+  height: 18% !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.9) !important;
+  transform: rotate(-35deg) !important;
+  filter: blur(0.3px) !important;
+  border: none !important;
+}
+
+/* Bubble secondary reflective bounce */
+.cheeya-bubble::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: 15% !important;
+  right: 20% !important;
+  width: 14% !important;
+  height: 10% !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.58) !important;
+  filter: blur(0.4px) !important;
+  border: none !important;
+}
+
+@keyframes cheeyaBubbleRise {
+  0% {
+    transform: translateY(108vh) translateX(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.82;
+  }
+  85% {
+    opacity: 0.82;
+  }
+  100% {
+    transform: translateY(-18vh) translateX(var(--drift, 30px));
+    opacity: 0;
+  }
+}
+
+@keyframes cheeyaBubbleWobble {
+  0% {
+    border-radius: 50% 50% 50% 50%;
+    scale: 1 1;
+  }
+  50% {
+    border-radius: 53% 47% 54% 46% / 47% 53% 47% 53%;
+    scale: 1.05 0.95;
+  }
+  100% {
+    border-radius: 47% 53% 46% 54% / 53% 47% 53% 47%;
+    scale: 0.96 1.04;
+  }
+}
+
+/* Cursor click-pop mini bubbles */
+.cheeya-cursor-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  pointer-events: none;
+  overflow: hidden;
+}
+.cheeya-click-ring {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(244, 114, 182, 0.65);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0.3);
+  animation: cheeyaRing 0.55s ease-out forwards;
+  pointer-events: none;
+}
+.cheeya-click-bubble {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle at 35% 28%, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.32) 25%, rgba(244, 114, 182, 0.35) 55%, rgba(56, 189, 248, 0.32) 80%, rgba(216, 180, 254, 0.42) 100%);
+  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.75), 0 2px 10px rgba(244, 114, 182, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  transform: translate(-50%, -50%);
+  animation: cheeyaClickBubblePop var(--life, 0.75s) cubic-bezier(0.15, 0.85, 0.35, 1) forwards;
+  will-change: transform, opacity;
+}
+@keyframes cheeyaRing {
+  0% { opacity: 0.85; transform: translate(-50%, -50%) scale(0.3); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2.4); }
+}
+@keyframes cheeyaClickBubblePop {
+  0% {
+    transform: translate(-50%, -50%) scale(0.2);
+    opacity: 0.95;
+  }
+  70% {
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, -20px))) scale(1.1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, -35px))) scale(1.4);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cheeya-bubble, .cheeya-click-bubble, .cheeya-click-ring {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    display: none !important;
+  }
+}
 </style>
 
 <style id="cheeya-brand-large-final">
@@ -2728,7 +2890,7 @@ html[data-theme="dark"] select {
 </style>
 </head>
 <body class="min-h-screen flex flex-col relative selection:bg-pink-100 selection:text-pink-800">
-<div id="cheeya-butterfly-layer" aria-hidden="true"><span class="cheeya-butterfly" style="--x:8vw;--y:10vh;--c:#ff69aa;--s:34px;--fs:26px;--d:4.8s;--delay:-1s;--tw:18px;--mx:12px;"></span><span class="cheeya-butterfly" style="--x:17vw;--y:30vh;--c:#8ed8ff;--s:28px;--fs:22px;--d:5.9s;--delay:-3s;--tw:15px;--mx:-10px;"></span><span class="cheeya-butterfly" style="--x:27vw;--y:16vh;--c:#ffe06f;--s:30px;--fs:24px;--d:6.7s;--delay:-4s;--tw:16px;--mx:14px;"></span><span class="cheeya-butterfly" style="--x:39vw;--y:8vh;--c:#c5a0ff;--s:26px;--fs:21px;--d:5.2s;--delay:-2s;--tw:14px;--mx:-12px;"></span><span class="cheeya-butterfly" style="--x:52vw;--y:25vh;--c:#ff8fbd;--s:32px;--fs:25px;--d:6.1s;--delay:-5s;--tw:17px;--mx:10px;"></span><span class="cheeya-butterfly" style="--x:66vw;--y:12vh;--c:#8bdcc6;--s:28px;--fs:22px;--d:5.5s;--delay:-2s;--tw:15px;--mx:-14px;"></span><span class="cheeya-butterfly" style="--x:79vw;--y:29vh;--c:#a9dfff;--s:34px;--fs:26px;--d:7.2s;--delay:-6s;--tw:18px;--mx:9px;"></span><span class="cheeya-butterfly" style="--x:91vw;--y:17vh;--c:#ff7eb7;--s:26px;--fs:21px;--d:5.8s;--delay:-4s;--tw:14px;--mx:-12px;"></span><span class="cheeya-butterfly" style="--x:12vw;--y:67vh;--c:#ffd967;--s:27px;--fs:21px;--d:6.4s;--delay:-2s;--tw:15px;--mx:13px;"></span><span class="cheeya-butterfly" style="--x:24vw;--y:82vh;--c:#c9a4ff;--s:33px;--fs:25px;--d:7s;--delay:-5s;--tw:17px;--mx:-9px;"></span><span class="cheeya-butterfly" style="--x:44vw;--y:72vh;--c:#ff82b7;--s:28px;--fs:22px;--d:5.6s;--delay:-3s;--tw:15px;--mx:11px;"></span><span class="cheeya-butterfly" style="--x:59vw;--y:88vh;--c:#8ed9ff;--s:31px;--fs:24px;--d:6.8s;--delay:-7s;--tw:16px;--mx:-13px;"></span><span class="cheeya-butterfly" style="--x:73vw;--y:62vh;--c:#9be5ce;--s:27px;--fs:21px;--d:5.3s;--delay:-1s;--tw:14px;--mx:10px;"></span><span class="cheeya-butterfly" style="--x:87vw;--y:78vh;--c:#ffcf62;--s:34px;--fs:26px;--d:7.3s;--delay:-6s;--tw:18px;--mx:-11px;"></span><span class="cheeya-butterfly" style="--x:4vw;--y:48vh;--c:#ff9cc9;--s:25px;--fs:20px;--d:6.2s;--delay:-2s;--tw:14px;--mx:12px;"></span><span class="cheeya-butterfly" style="--x:95vw;--y:53vh;--c:#b99cff;--s:29px;--fs:22px;--d:5.7s;--delay:-4s;--tw:16px;--mx:-10px;"></span><span class="cheeya-butterfly" style="--x:34vw;--y:55vh;--c:#ffe17a;--s:24px;--fs:19px;--d:6.9s;--delay:-5s;--tw:13px;--mx:9px;"></span><span class="cheeya-butterfly" style="--x:48vw;--y:46vh;--c:#ff72ad;--s:26px;--fs:20px;--d:5.4s;--delay:-1s;--tw:14px;--mx:-8px;"></span></div>
+<div id="cheeya-bubble-layer" class="cheeya-bubble-layer" aria-hidden="true"></div>
 
 
   <div id="ambientBackgroundLayer" class="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
@@ -14559,40 +14721,89 @@ const CheatSheetSystem = {
 <div class="cheeya-cursor-layer" id="cheeyaCursorLayer" aria-hidden="true"></div>
 
 <script id="cheeya-cursor-effects-js">
-(function(){
-  const layer=document.getElementById('cheeyaCursorLayer');
-  if(!layer) return;
-  const colors=['#ff6fae','#b76cff','#5ed8e8','#ffd45c','#75dca8','#ff9a8b'];
-  const hearts=['♥','♡','✦','✧','⋆'];
-  let last=0;
-  function burst(x,y){
-    const now=performance.now();
-    if(now-last<55) return;
-    last=now;
-    const ring=document.createElement('span');
-    ring.className='cheeya-click-ring'; ring.style.left=x+'px'; ring.style.top=y+'px'; layer.appendChild(ring);
-    for(let i=0;i<7;i++){
-      const el=document.createElement('span');
-      el.className='cheeya-click-spark';
-      const a=(Math.PI*2*i/7)+(.15*Math.random());
-      const d=18+Math.random()*20;
-      el.style.left=x+'px'; el.style.top=y+'px'; el.style.color=colors[i%colors.length];
-      el.style.background='currentColor';
-      el.style.setProperty('--dx',(Math.cos(a)*d).toFixed(1)+'px');
-      el.style.setProperty('--dy',(Math.sin(a)*d).toFixed(1)+'px');
-      el.style.animationDelay=(Math.random()*35)+'ms';
-      layer.appendChild(el);
+(function() {
+  const container = document.getElementById('cheeya-bubble-layer');
+  if (!container) return;
+
+  const BUBBLE_COUNT = 24;
+
+  function createBubble(initialSpread) {
+    const b = document.createElement('div');
+    b.className = 'cheeya-bubble';
+    
+    // Varied natural bubble sizes (18px to 52px)
+    const size = Math.floor(Math.random() * 34 + 18);
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    
+    // Horizontal distribution across viewport (1% - 97%)
+    const left = (Math.random() * 96 + 1).toFixed(2);
+    b.style.left = left + 'vw';
+    
+    // Float duration (8s to 16s)
+    const dur = (Math.random() * 8 + 8).toFixed(1);
+    b.style.setProperty('--dur', dur + 's');
+    
+    // Gentle drift left or right (-35px to +35px)
+    const drift = ((Math.random() - 0.5) * 70).toFixed(1);
+    b.style.setProperty('--drift', drift + 'px');
+
+    // Soft wobble period
+    const wob = (Math.random() * 2 + 2.5).toFixed(1);
+    b.style.setProperty('--wob', wob + 's');
+
+    // When starting, spread vertically across screen so screen is immediately lively
+    if (initialSpread) {
+      const startY = Math.random() * 110;
+      b.style.bottom = startY + 'vh';
+      b.style.animationDelay = (-Math.random() * dur).toFixed(1) + 's';
+    } else {
+      b.style.bottom = '-60px';
+      b.style.animationDelay = (Math.random() * 2).toFixed(1) + 's';
     }
-    const heart=document.createElement('span');
-    heart.className='cheeya-click-heart'; heart.textContent=hearts[Math.floor(Math.random()*hearts.length)];
-    heart.style.left=x+'px'; heart.style.top=y+'px'; heart.style.color=colors[Math.floor(Math.random()*colors.length)];
-    heart.style.setProperty('--dx',(Math.random()*24-12).toFixed(1)+'px');
-    heart.style.setProperty('--dy',(-22-Math.random()*18).toFixed(1)+'px');
-    heart.style.setProperty('--rot',((Math.random()*30)-15).toFixed(1)+'deg');
-    layer.appendChild(heart);
-    setTimeout(()=>{ring.remove();heart.remove();layer.querySelectorAll('.cheeya-click-spark').forEach(e=>{if(e.getAnimations().length===0)e.remove()})},900);
+
+    container.appendChild(b);
+    return b;
   }
-  document.addEventListener('pointerdown',e=>{ if(e.button===0) burst(e.clientX,e.clientY); },{passive:true});
+
+  // Populate floating bubbles initially
+  for (let i = 0; i < BUBBLE_COUNT; i++) {
+    createBubble(true);
+  }
+
+  // Click & tap pop effect: spawns 5 delicate iridescent mini-bubbles that drift and pop
+  const clickLayer = document.getElementById('cheeyaCursorLayer');
+  if (clickLayer) {
+    document.addEventListener('pointerdown', function(e) {
+      // Don't burst on rapid drag
+      const x = e.clientX;
+      const y = e.clientY;
+      const ring = document.createElement('span');
+      ring.className = 'cheeya-click-ring';
+      ring.style.left = x + 'px';
+      ring.style.top = y + 'px';
+      clickLayer.appendChild(ring);
+
+      const count = 5;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'cheeya-click-bubble';
+        const s = Math.floor(Math.random() * 14 + 10);
+        p.style.width = s + 'px';
+        p.style.height = s + 'px';
+        p.style.left = x + 'px';
+        p.style.top = y + 'px';
+        const angle = (Math.PI * 2 * i / count) + (Math.random() * 0.4 - 0.2);
+        const dist = Math.random() * 28 + 16;
+        p.style.setProperty('--dx', (Math.cos(angle) * dist).toFixed(1) + 'px');
+        p.style.setProperty('--dy', (Math.sin(angle) * dist - 14).toFixed(1) + 'px');
+        p.style.setProperty('--life', (0.55 + Math.random() * 0.25).toFixed(2) + 's');
+        clickLayer.appendChild(p);
+        setTimeout(() => p.remove(), 850);
+      }
+      setTimeout(() => ring.remove(), 600);
+    }, { passive: true });
+  }
 })();
 </script>
 <script id="cheeya-font-scale-js">
