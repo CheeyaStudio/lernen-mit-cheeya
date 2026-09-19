@@ -2702,6 +2702,30 @@ html[data-theme="dark"] select {
 .gender-die { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
 .gender-das { background: linear-gradient(135deg, #10b981, #047857); color: #fff; }
 </style>
+<style id="cheeya-content-protection-css">
+  /* CheeYa Smart Content Protection */
+  *, *::before, *::after {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+  }
+  /* Allow typing, text selection, and context menu inside inputs and textareas */
+  input, textarea, [contenteditable="true"], .allow-select, .allow-select * {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+    -webkit-touch-callout: default !important;
+  }
+  /* Disable dragging on images and media */
+  img, audio, video {
+    -webkit-user-drag: none !important;
+    user-drag: none !important;
+    pointer-events: auto;
+  }
+</style>
 </head>
 <body class="min-h-screen flex flex-col relative selection:bg-pink-100 selection:text-pink-800">
 <div id="cheeya-butterfly-layer" aria-hidden="true"><span class="cheeya-butterfly" style="--x:8vw;--y:10vh;--c:#ff69aa;--s:34px;--fs:26px;--d:4.8s;--delay:-1s;--tw:18px;--mx:12px;"></span><span class="cheeya-butterfly" style="--x:17vw;--y:30vh;--c:#8ed8ff;--s:28px;--fs:22px;--d:5.9s;--delay:-3s;--tw:15px;--mx:-10px;"></span><span class="cheeya-butterfly" style="--x:27vw;--y:16vh;--c:#ffe06f;--s:30px;--fs:24px;--d:6.7s;--delay:-4s;--tw:16px;--mx:14px;"></span><span class="cheeya-butterfly" style="--x:39vw;--y:8vh;--c:#c5a0ff;--s:26px;--fs:21px;--d:5.2s;--delay:-2s;--tw:14px;--mx:-12px;"></span><span class="cheeya-butterfly" style="--x:52vw;--y:25vh;--c:#ff8fbd;--s:32px;--fs:25px;--d:6.1s;--delay:-5s;--tw:17px;--mx:10px;"></span><span class="cheeya-butterfly" style="--x:66vw;--y:12vh;--c:#8bdcc6;--s:28px;--fs:22px;--d:5.5s;--delay:-2s;--tw:15px;--mx:-14px;"></span><span class="cheeya-butterfly" style="--x:79vw;--y:29vh;--c:#a9dfff;--s:34px;--fs:26px;--d:7.2s;--delay:-6s;--tw:18px;--mx:9px;"></span><span class="cheeya-butterfly" style="--x:91vw;--y:17vh;--c:#ff7eb7;--s:26px;--fs:21px;--d:5.8s;--delay:-4s;--tw:14px;--mx:-12px;"></span><span class="cheeya-butterfly" style="--x:12vw;--y:67vh;--c:#ffd967;--s:27px;--fs:21px;--d:6.4s;--delay:-2s;--tw:15px;--mx:13px;"></span><span class="cheeya-butterfly" style="--x:24vw;--y:82vh;--c:#c9a4ff;--s:33px;--fs:25px;--d:7s;--delay:-5s;--tw:17px;--mx:-9px;"></span><span class="cheeya-butterfly" style="--x:44vw;--y:72vh;--c:#ff82b7;--s:28px;--fs:22px;--d:5.6s;--delay:-3s;--tw:15px;--mx:11px;"></span><span class="cheeya-butterfly" style="--x:59vw;--y:88vh;--c:#8ed9ff;--s:31px;--fs:24px;--d:6.8s;--delay:-7s;--tw:16px;--mx:-13px;"></span><span class="cheeya-butterfly" style="--x:73vw;--y:62vh;--c:#9be5ce;--s:27px;--fs:21px;--d:5.3s;--delay:-1s;--tw:14px;--mx:10px;"></span><span class="cheeya-butterfly" style="--x:87vw;--y:78vh;--c:#ffcf62;--s:34px;--fs:26px;--d:7.3s;--delay:-6s;--tw:18px;--mx:-11px;"></span><span class="cheeya-butterfly" style="--x:4vw;--y:48vh;--c:#ff9cc9;--s:25px;--fs:20px;--d:6.2s;--delay:-2s;--tw:14px;--mx:12px;"></span><span class="cheeya-butterfly" style="--x:95vw;--y:53vh;--c:#b99cff;--s:29px;--fs:22px;--d:5.7s;--delay:-4s;--tw:16px;--mx:-10px;"></span><span class="cheeya-butterfly" style="--x:34vw;--y:55vh;--c:#ffe17a;--s:24px;--fs:19px;--d:6.9s;--delay:-5s;--tw:13px;--mx:9px;"></span><span class="cheeya-butterfly" style="--x:48vw;--y:46vh;--c:#ff72ad;--s:26px;--fs:20px;--d:5.4s;--delay:-1s;--tw:14px;--mx:-8px;"></span></div>
@@ -19998,7 +20022,31 @@ const DualFlashcardSystem = {
             .no-print { display: none; }
           }
         </style>
-      </head>
+      <style id="cheeya-content-protection-css">
+  /* CheeYa Smart Content Protection */
+  *, *::before, *::after {
+    -webkit-user-select: none !important;
+    -moz-user-select: none !important;
+    -ms-user-select: none !important;
+    user-select: none !important;
+    -webkit-touch-callout: none !important;
+  }
+  /* Allow typing, text selection, and context menu inside inputs and textareas */
+  input, textarea, [contenteditable="true"], .allow-select, .allow-select * {
+    -webkit-user-select: text !important;
+    -moz-user-select: text !important;
+    -ms-user-select: text !important;
+    user-select: text !important;
+    -webkit-touch-callout: default !important;
+  }
+  /* Disable dragging on images and media */
+  img, audio, video {
+    -webkit-user-drag: none !important;
+    user-drag: none !important;
+    pointer-events: auto;
+  }
+</style>
+</head>
       <body>
         <div class="no-print" style="margin-bottom: 15px;">
           <button onclick="window.print()" style="padding: 8px 16px; background: #be185d; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Print / Save as PDF</button>
@@ -20849,5 +20897,98 @@ if (document.readyState === 'loading') {
     </select>
   </div>
 </div>
+<script id="cheeya-content-protection-js">
+(function() {
+  // 1. Disable Right Click Context Menu (except inside input / textarea)
+  document.addEventListener('contextmenu', function(e) {
+    var tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+    if (tag === 'input' || tag === 'textarea' || (e.target && e.target.isContentEditable)) {
+      return true;
+    }
+    e.preventDefault();
+    if (typeof App !== 'undefined' && App.showToast) {
+      App.showToast('\uD83D\uDEE1\uFE0F Content is protected by CheeYa Studio.');
+    }
+    return false;
+  }, { capture: true });
+
+  // 2. Prevent Keyboard shortcuts for DevTools, View Source, Save Page, and Copying
+  document.addEventListener('keydown', function(e) {
+    var key = (e.key || '').toLowerCase();
+    var isCtrlOrMeta = e.ctrlKey || e.metaKey;
+    var isShift = e.shiftKey;
+
+    var activeEl = document.activeElement;
+    var activeTag = (activeEl && activeEl.tagName) ? activeEl.tagName.toLowerCase() : '';
+    var isInsideInput = activeTag === 'input' || activeTag === 'textarea' || (activeEl && activeEl.isContentEditable);
+
+    // Block F12 (DevTools)
+    if (e.keyCode === 123 || key === 'f12') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('\uD83D\uDEE1\uFE0F Developer inspection is restricted.');
+      }
+      return false;
+    }
+
+    // Block Ctrl+Shift+I / J / C (DevTools / Inspect Element)
+    if (isCtrlOrMeta && isShift && (key === 'i' || key === 'j' || key === 'c')) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('\uD83D\uDEE1\uFE0F Inspect element is restricted.');
+      }
+      return false;
+    }
+
+    // Block Ctrl+U (View Page Source)
+    if (isCtrlOrMeta && key === 'u') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('\uD83D\uDEE1\uFE0F Page source is protected.');
+      }
+      return false;
+    }
+
+    // Block Ctrl+S (Save Web Page)
+    if (isCtrlOrMeta && key === 's') {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('\uD83D\uDEE1\uFE0F Saving page is disabled.');
+      }
+      return false;
+    }
+
+    // Block Ctrl+C when outside input/textarea
+    if (isCtrlOrMeta && key === 'c' && !isInsideInput) {
+      e.preventDefault();
+      e.stopPropagation();
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('\uD83D\uDEE1\uFE0F Content copying is disabled. Use the official copy button in translator.');
+      }
+      return false;
+    }
+
+    // Block Ctrl+A when outside input/textarea
+    if (isCtrlOrMeta && key === 'a' && !isInsideInput) {
+      e.preventDefault();
+      e.stopPropagation();
+      return false;
+    }
+  }, { capture: true });
+
+  // 3. Disable Dragging images and content
+  document.addEventListener('dragstart', function(e) {
+    var tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : '';
+    if (tag !== 'input' && tag !== 'textarea') {
+      e.preventDefault();
+      return false;
+    }
+  }, { capture: true });
+})();
+</script>
 </body>
 </html>
