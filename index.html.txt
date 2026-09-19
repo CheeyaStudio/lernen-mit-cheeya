@@ -16937,6 +16937,303 @@ Auf den Spielpl\u00e4tzen sind Hunde verboten.`,
 };
 
 
+/* ==========================================================================
+   CheeYa German A1 - Interactive Speech Recognition & Evaluation Engine
+   ========================================================================== */
+
+const SpeechEvaluationEngine = {
+  currentRecordingId: null,
+  recognition: null,
+  mediaRecorder: null,
+  audioChunks: [],
+  recordings: {}, // [promptId] => { audioBlobUrl, transcript, percent, grade, stars, color, feedback, targetText }
+
+  normalizeText(str) {
+    if (!str) return '';
+    return str
+      .toLowerCase()
+      .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"]/g, '')
+      .replace(/ä/g, 'ae').replace(/ö/g, 'oe').replace(/ü/g, 'ue').replace(/ß/g, 'ss')
+      .replace(/\s+/g, ' ')
+      .trim();
+  },
+
+  evaluate(transcript, target) {
+    const normTrans = this.normalizeText(transcript);
+    const normTarget = this.normalizeText(target);
+
+    if (!normTrans) {
+      return {
+        percent: 0,
+        grade: 'No speech detected',
+        stars: '☆☆☆☆☆',
+        color: 'rose',
+        feedback: 'No German speech was detected. Please check your microphone and speak clearly.'
+      };
+    }
+
+    const transTokens = normTrans.split(' ').filter(Boolean);
+    const targetTokens = normTarget.split(' ').filter(t => t !== '...' && Boolean(t));
+
+    if (targetTokens.length === 0) {
+      return {
+        percent: 100,
+        grade: 'Ausgezeichnet! (Excellent)',
+        stars: '⭐⭐⭐⭐⭐',
+        color: 'emerald',
+        feedback: 'Authentic speaking and pronunciation!'
+      };
+    }
+
+    let matchedCount = 0;
+    const transPool = [...transTokens];
+
+    targetTokens.forEach(t => {
+      const idx = transPool.findIndex(w => w === t || w.startsWith(t) || t.startsWith(w));
+      if (idx !== -1) {
+        matchedCount++;
+        transPool.splice(idx, 1);
+      }
+    });
+
+    let percent = Math.round((matchedCount / targetTokens.length) * 100);
+    if (percent > 100) percent = 100;
+    if (matchedCount === targetTokens.length && transTokens.length >= targetTokens.length) {
+      percent = 100;
+    }
+
+    let grade = 'Noch üben (Needs Practice)';
+    let stars = '⭐⭐';
+    let color = 'rose';
+    let feedback = 'Practice pronunciation and speak with a steady rhythm.';
+
+    if (percent >= 90) {
+      grade = 'Ausgezeichnet! (Excellent)';
+      stars = '⭐⭐⭐⭐⭐';
+      color = 'emerald';
+      feedback = 'Outstanding pronunciation, clear and authentic!';
+    } else if (percent >= 75) {
+      grade = 'Sehr gut! (Very Good)';
+      stars = '⭐⭐⭐⭐';
+      color = 'sky';
+      feedback = 'Well articulated with good German rhythm.';
+    } else if (percent >= 60) {
+      grade = 'Befriedigend (Acceptable)';
+      stars = '⭐⭐⭐';
+      color = 'amber';
+      feedback = 'Understandable, but focus on vowel clarity and endings.';
+    }
+
+    return { percent, grade, stars, color, feedback };
+  },
+
+  async startRecording(promptId, targetText) {
+    if (this.currentRecordingId) {
+      this.stopRecording(this.currentRecordingId);
+    }
+
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRec && !navigator.mediaDevices?.getUserMedia) {
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('Microphone / Speech recognition is not supported in this browser 🎤');
+      }
+      return;
+    }
+
+    this.currentRecordingId = promptId;
+    this.updateCardUI(promptId, 'recording', { targetText });
+
+    // Audio stream recording
+    this.audioChunks = [];
+    try {
+      if (navigator.mediaDevices?.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        this.mediaRecorder = new MediaRecorder(stream);
+        this.mediaRecorder.ondataavailable = (e) => {
+          if (e.data && e.data.size > 0) {
+            this.audioChunks.push(e.data);
+          }
+        };
+        this.mediaRecorder.onstop = () => {
+          if (this.audioChunks.length > 0) {
+            const blob = new Blob(this.audioChunks, { type: 'audio/webm' });
+            const url = URL.createObjectURL(blob);
+            if (this.recordings[promptId]) {
+              this.recordings[promptId].audioBlobUrl = url;
+            }
+          }
+          stream.getTracks().forEach(t => t.stop());
+        };
+        this.mediaRecorder.start();
+      }
+    } catch (err) {
+      console.warn('MediaRecorder notice:', err);
+    }
+
+    // Speech recognition in German (de-DE)
+    if (SpeechRec) {
+      try {
+        this.recognition = new SpeechRec();
+        this.recognition.lang = 'de-DE';
+        this.recognition.interimResults = false;
+        this.recognition.maxAlternatives = 1;
+
+        this.recognition.onresult = (e) => {
+          const transcript = e.results[0][0].transcript;
+          this.handleResult(promptId, transcript, targetText);
+        };
+
+        this.recognition.onerror = (e) => {
+          console.warn('SpeechRec error:', e);
+          this.handleError(promptId, e.error, targetText);
+        };
+
+        this.recognition.onend = () => {
+          if (this.currentRecordingId === promptId) {
+            this.stopRecording(promptId);
+          }
+        };
+
+        this.recognition.start();
+        if (typeof App !== 'undefined' && App.showToast) {
+          App.showToast('🎙️ Listening in German (de-DE)... Speak now!');
+        }
+      } catch (err) {
+        console.warn('SpeechRec start error:', err);
+      }
+    }
+  },
+
+  stopRecording(promptId) {
+    if (this.mediaRecorder && this.mediaRecorder.state !== 'inactive') {
+      try { this.mediaRecorder.stop(); } catch(e) {}
+    }
+    if (this.recognition) {
+      try { this.recognition.stop(); } catch(e) {}
+    }
+    this.currentRecordingId = null;
+  },
+
+  handleResult(promptId, transcript, targetText) {
+    this.stopRecording(promptId);
+    const evalResult = this.evaluate(transcript, targetText);
+
+    const recordObj = {
+      promptId,
+      targetText,
+      transcript,
+      percent: evalResult.percent,
+      grade: evalResult.grade,
+      stars: evalResult.stars,
+      color: evalResult.color,
+      feedback: evalResult.feedback,
+      timestamp: Date.now()
+    };
+
+    this.recordings[promptId] = Object.assign(this.recordings[promptId] || {}, recordObj);
+    if (typeof ExamSystem !== 'undefined' && ExamSystem.userAnswers) {
+      if (!ExamSystem.userAnswers.sprechen) ExamSystem.userAnswers.sprechen = {};
+      ExamSystem.userAnswers.sprechen[promptId] = recordObj;
+    }
+
+    this.updateCardUI(promptId, 'evaluated', recordObj);
+
+    if (typeof App !== 'undefined' && App.showToast) {
+      App.showToast(`🎯 Result: ${evalResult.percent}% - ${evalResult.grade}`);
+    }
+  },
+
+  handleError(promptId, error, targetText) {
+    this.stopRecording(promptId);
+    const errText = error === 'no-speech' ? 'No speech detected. Please speak louder.' : `Microphone notice: ${error}`;
+    this.updateCardUI(promptId, 'error', { errorMsg: errText, targetText });
+  },
+
+  playRecording(promptId) {
+    const rec = this.recordings[promptId];
+    if (rec && rec.audioBlobUrl) {
+      const audio = new Audio(rec.audioBlobUrl);
+      audio.play().catch(e => console.warn('Audio play notice:', e));
+    } else if (rec && rec.transcript) {
+      if (typeof AudioSpeedSystem !== 'undefined' && AudioSpeedSystem.speak) {
+        AudioSpeedSystem.speak(rec.transcript);
+      }
+    }
+  },
+
+  getEvaluatedHtml(promptId, data) {
+    const colorBg = data.color === 'emerald' ? 'bg-emerald-50 border-emerald-300 text-emerald-900' :
+                    data.color === 'sky' ? 'bg-sky-50 border-sky-300 text-sky-900' :
+                    data.color === 'amber' ? 'bg-amber-50 border-amber-300 text-amber-900' :
+                    'bg-rose-50 border-rose-300 text-rose-900';
+    const badgeBg = data.color === 'emerald' ? 'bg-emerald-200 text-emerald-950' :
+                    data.color === 'sky' ? 'bg-sky-200 text-sky-950' :
+                    data.color === 'amber' ? 'bg-amber-200 text-amber-950' :
+                    'bg-rose-200 text-rose-950';
+
+    const safeTarget = (data.targetText || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+    return `
+      <div class="p-3 rounded-xl border ${colorBg} space-y-2 mt-2">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <div class="flex items-center gap-1.5">
+            <span class="px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider ${badgeBg}">
+              ${data.stars} ${data.percent}%
+            </span>
+            <span class="text-xs font-extrabold">${data.grade}</span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button onclick="SpeechEvaluationEngine.playRecording('${promptId}')" class="px-2.5 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 text-[11px] font-bold hover:bg-slate-100 flex items-center gap-1 transition-colors shadow-2xs" title="Play My Voice">
+              <span>▶️</span><span>Play Voice</span>
+            </button>
+            <button onclick="SpeechEvaluationEngine.startRecording('${promptId}', '${safeTarget}')" class="px-2 py-1 rounded-lg bg-white border border-slate-200 text-slate-700 text-[11px] font-bold hover:bg-slate-100 flex items-center gap-1 transition-colors shadow-2xs" title="Record Again">
+              <span>🔄</span><span>Retry</span>
+            </button>
+          </div>
+        </div>
+        <div class="text-xs">
+          <span class="font-bold text-slate-500">Detected:</span>
+          <span class="font-medium italic">"${data.transcript}"</span>
+        </div>
+        <div class="text-[11px] opacity-80">${data.feedback}</div>
+      </div>
+    `;
+  },
+
+  updateCardUI(promptId, state, data = {}) {
+    const box = document.getElementById(`spBox_${promptId}`);
+    if (!box) return;
+
+    if (state === 'recording') {
+      box.innerHTML = `
+        <div class="p-2.5 rounded-xl bg-rose-50 border border-rose-200 flex items-center justify-between gap-2 animate-pulse mt-2">
+          <div class="flex items-center gap-2 text-xs font-extrabold text-rose-700">
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-600 animate-ping"></span>
+            <span>Listening... Speak German now 🎙️</span>
+          </div>
+          <button onclick="SpeechEvaluationEngine.stopRecording('${promptId}')" class="px-2.5 py-1 rounded-lg bg-rose-600 text-white font-extrabold text-[11px] hover:bg-rose-700 transition-colors shadow-2xs">
+            ⏹️ Stop
+          </button>
+        </div>
+      `;
+    } else if (state === 'evaluated') {
+      box.innerHTML = this.getEvaluatedHtml(promptId, data);
+    } else if (state === 'error') {
+      const safeTarget = (data.targetText || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      box.innerHTML = `
+        <div class="p-2.5 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-800 flex items-center justify-between gap-2 mt-2">
+          <span>⚠️ ${data.errorMsg}</span>
+          <button onclick="SpeechEvaluationEngine.startRecording('${promptId}', '${safeTarget}')" class="px-2.5 py-1 rounded-lg bg-rose-600 text-white font-bold text-[11px] hover:bg-rose-700">
+            Retry 🎙️
+          </button>
+        </div>
+      `;
+    }
+  }
+};
+
+window.SpeechEvaluationEngine = SpeechEvaluationEngine;
+
 /* CheeYa German A1 - Full German A1 Practice Exam Simulator */
 
 const ExamSystem = {
@@ -16953,7 +17250,8 @@ const ExamSystem = {
     schreiben: {
       form: { f1: '', f2: '', f3: '', f4: '', f5: '' },
       email: ''
-    }
+    },
+    sprechen: {}
   },
 
   // Full Exam Data from A1ExamModel
@@ -16972,8 +17270,13 @@ const ExamSystem = {
       schreiben: {
         form: { f1: '', f2: '', f3: '', f4: '', f5: '' },
         email: ''
-      }
+      },
+      sprechen: {}
     };
+    if (typeof SpeechEvaluationEngine !== 'undefined') {
+      SpeechEvaluationEngine.recordings = {};
+      SpeechEvaluationEngine.currentRecordingId = null;
+    }
 
     if (mode === 'official-65') this.totalSeconds = 65 * 60;
     else if (mode === 'official-lesen-25') this.totalSeconds = 25 * 60;
@@ -17377,34 +17680,51 @@ const ExamSystem = {
       <div class="space-y-6">
         <div class="p-4 bg-teal-50/60 rounded-2xl border border-teal-200 flex flex-wrap items-center justify-between gap-2">
           <div>
-            <h3 class="font-extrabold text-slate-800 text-sm">Module 4: Sprechen (Oral Exam Guide & Interactive Drills)</h3>
-            <p class="text-xs text-slate-500">Standard German A1 Structure \u2022 15 Points Total \u2022 15 Minutes</p>
+            <h3 class="font-extrabold text-slate-800 text-sm">Module 4: Sprechen (Oral Exam & Interactive Speech Evaluation)</h3>
+            <p class="text-xs text-slate-500">Standard German A1 Structure &bull; 15 Points Total &bull; Real-Time Voice Recording & Scoring</p>
           </div>
-          <span class="text-xs font-bold text-teal-700 bg-teal-100 px-3 py-1 rounded-full">Teil 1, 2, 3 Audio Models</span>
+          <span class="text-xs font-bold text-teal-700 bg-teal-100 px-3 py-1 rounded-full">Teil 1, 2, 3 Interactive Drills</span>
         </div>
 
         <!-- Teil 1 -->
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div class="border-b border-slate-100 pb-2">
-            <span class="text-[10px] font-black uppercase text-teal-600 bg-teal-50 px-2 py-0.5 rounded">Part 1</span>
-            <h4 class="font-bold text-slate-800 text-sm mt-1">${p1.title}</h4>
-            <p class="text-xs text-slate-500">Click \ud83d\udd0a Listen Model to hear authentic German pronunciation for each line.</p>
+          <div class="border-b border-slate-100 pb-2 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-black uppercase text-teal-600 bg-teal-50 px-2 py-0.5 rounded">Part 1</span>
+              <h4 class="font-bold text-slate-800 text-sm mt-1">${p1.title}</h4>
+              <p class="text-xs text-slate-500">Click 🔊 to hear the native model, or click 🎙️ Record to speak and receive instant pronunciation scoring.</p>
+            </div>
+            <span class="text-[11px] font-bold text-teal-700 bg-teal-50 border border-teal-200 px-2.5 py-1 rounded-xl">7 Prompts</span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
     `;
 
-    p1.prompts.forEach(p => {
+    p1.prompts.forEach((p, idx) => {
+      const pid = `p1_${idx}`;
+      const rec = (typeof SpeechEvaluationEngine !== 'undefined' && SpeechEvaluationEngine.recordings) ? SpeechEvaluationEngine.recordings[pid] : null;
+      const safeDe = p.de.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
       html += `
-        <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex items-center justify-between gap-2">
-          <div>
-            <span class="text-[10px] font-black uppercase text-teal-700 bg-teal-100 px-2 py-0.5 rounded">${p.label}</span>
-            <div class="text-xs font-bold text-slate-800 mt-1">${p.de}</div>
-            <div class="text-[11px] text-slate-400">${p.en}</div>
+        <div class="p-3.5 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-black uppercase text-teal-700 bg-teal-100 px-2 py-0.5 rounded">${p.label}</span>
+              <div class="text-xs font-bold text-slate-800 mt-1">${p.de}</div>
+              <div class="text-[11px] text-slate-400">${p.en}</div>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button onclick="AudioSpeedSystem.speak('${safeDe}')" class="p-2 rounded-xl bg-teal-100 hover:bg-teal-200 text-teal-800 text-xs font-bold transition-colors shadow-2xs" title="Listen Native Model">
+                🔊
+              </button>
+              <button onclick="SpeechEvaluationEngine.startRecording('${pid}', '${safeDe}')" class="px-2.5 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold flex items-center gap-1 transition-colors shadow-2xs cursor-pointer" title="Record & Test My Speaking">
+                <span>🎙️</span><span class="hidden sm:inline">Record</span>
+              </button>
+            </div>
           </div>
-          <button onclick="AudioSpeedSystem.speak('${p.de}')" class="p-2 rounded-xl bg-teal-100 hover:bg-teal-200 text-teal-800 text-xs font-bold" title="Listen">
-            \ud83d\udd0a
-          </button>
+          <div id="spBox_${pid}">
+            ${rec ? SpeechEvaluationEngine.getEvaluatedHtml(pid, rec) : ''}
+          </div>
         </div>
       `;
     });
@@ -17418,33 +17738,67 @@ const ExamSystem = {
 
         <!-- Teil 2 -->
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div class="border-b border-slate-100 pb-2">
-            <span class="text-[10px] font-black uppercase text-teal-600 bg-teal-50 px-2 py-0.5 rounded">Part 2</span>
-            <h4 class="font-bold text-slate-800 text-sm mt-1">${p2.title}</h4>
-            <p class="text-xs text-slate-500">Formulate questions and answers based on cue cards.</p>
+          <div class="border-b border-slate-100 pb-2 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-black uppercase text-teal-600 bg-teal-50 px-2 py-0.5 rounded">Part 2</span>
+              <h4 class="font-bold text-slate-800 text-sm mt-1">${p2.title}</h4>
+              <p class="text-xs text-slate-500">Ask questions and provide answers based on cue cards. Test your speaking with 🎙️ Record.</p>
+            </div>
+            <span class="text-[11px] font-bold text-teal-700 bg-teal-50 border border-teal-200 px-2.5 py-1 rounded-xl">4 Cue Cards</span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     `;
 
-    p2.cards.forEach(c => {
+    p2.cards.forEach((c, idx) => {
+      const qId = `p2_${idx}_q`;
+      const aId = `p2_${idx}_a`;
+      const qRec = (typeof SpeechEvaluationEngine !== 'undefined' && SpeechEvaluationEngine.recordings) ? SpeechEvaluationEngine.recordings[qId] : null;
+      const aRec = (typeof SpeechEvaluationEngine !== 'undefined' && SpeechEvaluationEngine.recordings) ? SpeechEvaluationEngine.recordings[aId] : null;
+      const safeQ = c.qDe.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      const safeA = c.aDe.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
       html += `
-        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
           <div class="flex items-center justify-between">
             <span class="text-xs font-extrabold text-teal-700 bg-teal-100 px-2.5 py-0.5 rounded-lg">${c.theme}</span>
-            <span class="text-xs font-mono font-bold text-slate-600">Word: ${c.word}</span>
+            <span class="text-xs font-mono font-bold text-slate-600">Cue: ${c.word}</span>
           </div>
-          <div class="p-2.5 bg-white rounded-xl border border-slate-100 text-xs space-y-1">
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-slate-800">Q: ${c.qDe}</span>
-              <button onclick="AudioSpeedSystem.speak('${c.qDe}')" class="text-teal-600 font-bold">\ud83d\udd0a</button>
+
+          <!-- Question Drill -->
+          <div class="p-3 bg-white rounded-xl border border-slate-100 space-y-2">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span class="text-[10px] font-black uppercase text-slate-400">Question</span>
+                <div class="font-bold text-slate-800 text-xs">${c.qDe}</div>
+                <div class="text-[11px] text-slate-400 italic">${c.qEn}</div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button onclick="AudioSpeedSystem.speak('${safeQ}')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" title="Listen">🔊</button>
+                <button onclick="SpeechEvaluationEngine.startRecording('${qId}', '${safeQ}')" class="px-2 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold flex items-center gap-1 cursor-pointer">🎙️ <span>Record</span></button>
+              </div>
             </div>
-            <div class="text-[11px] text-slate-400 italic">${c.qEn}</div>
-            <div class="flex items-center justify-between pt-1 border-t border-slate-100">
-              <span class="font-bold text-emerald-700">A: ${c.aDe}</span>
-              <button onclick="AudioSpeedSystem.speak('${c.aDe}')" class="text-teal-600 font-bold">\ud83d\udd0a</button>
+            <div id="spBox_${qId}">
+              ${qRec ? SpeechEvaluationEngine.getEvaluatedHtml(qId, qRec) : ''}
             </div>
-            <div class="text-[11px] text-slate-400 italic">${c.aEn}</div>
+          </div>
+
+          <!-- Answer Drill -->
+          <div class="p-3 bg-white rounded-xl border border-slate-100 space-y-2">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span class="text-[10px] font-black uppercase text-slate-400">Answer</span>
+                <div class="font-bold text-emerald-800 text-xs">${c.aDe}</div>
+                <div class="text-[11px] text-slate-400 italic">${c.aEn}</div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button onclick="AudioSpeedSystem.speak('${safeA}')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" title="Listen">🔊</button>
+                <button onclick="SpeechEvaluationEngine.startRecording('${aId}', '${safeA}')" class="px-2 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold flex items-center gap-1 cursor-pointer">🎙️ <span>Record</span></button>
+              </div>
+            </div>
+            <div id="spBox_${aId}">
+              ${aRec ? SpeechEvaluationEngine.getEvaluatedHtml(aId, aRec) : ''}
+            </div>
           </div>
         </div>
       `;
@@ -17456,32 +17810,66 @@ const ExamSystem = {
 
         <!-- Teil 3 -->
         <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div class="border-b border-slate-100 pb-2">
-            <span class="text-[10px] font-black uppercase text-teal-600 bg-teal-50 px-2 py-0.5 rounded">Part 3</span>
-            <h4 class="font-bold text-slate-800 text-sm mt-1">${p3.title}</h4>
-            <p class="text-xs text-slate-500">Polite requests with 'K\u00f6nnen Sie bitte...' and spontaneous everyday responses.</p>
+          <div class="border-b border-slate-100 pb-2 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <span class="text-[10px] font-black uppercase text-teal-600 bg-teal-50 px-2 py-0.5 rounded">Part 3</span>
+              <h4 class="font-bold text-slate-800 text-sm mt-1">${p3.title}</h4>
+              <p class="text-xs text-slate-500">Formulate polite requests with 'Können Sie bitte...' and spontaneous everyday responses. Test your speaking with 🎙️ Record.</p>
+            </div>
+            <span class="text-[11px] font-bold text-teal-700 bg-teal-50 border border-teal-200 px-2.5 py-1 rounded-xl">4 Card Scenarios</span>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
     `;
 
-    p3.cards.forEach(c => {
+    p3.cards.forEach((c, idx) => {
+      const bId = `p3_${idx}_b`;
+      const rId = `p3_${idx}_r`;
+      const bRec = (typeof SpeechEvaluationEngine !== 'undefined' && SpeechEvaluationEngine.recordings) ? SpeechEvaluationEngine.recordings[bId] : null;
+      const rRec = (typeof SpeechEvaluationEngine !== 'undefined' && SpeechEvaluationEngine.recordings) ? SpeechEvaluationEngine.recordings[rId] : null;
+      const safeB = c.bDe.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      const safeR = c.rDe.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
       html += `
-        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+        <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-3">
           <div class="text-xs font-black text-slate-800 flex items-center justify-between">
-            <span>\ud83d\udcc4 Card: ${c.item}</span>
+            <span>📄 Card: ${c.item}</span>
           </div>
-          <div class="p-2.5 bg-white rounded-xl border border-slate-100 text-xs space-y-1">
-            <div class="flex items-center justify-between">
-              <span class="font-bold text-slate-800">Bitte: ${c.bDe}</span>
-              <button onclick="AudioSpeedSystem.speak('${c.bDe}')" class="text-teal-600 font-bold">\ud83d\udd0a</button>
+
+          <!-- Request Drill -->
+          <div class="p-3 bg-white rounded-xl border border-slate-100 space-y-2">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span class="text-[10px] font-black uppercase text-slate-400">Request (Bitte)</span>
+                <div class="font-bold text-slate-800 text-xs">${c.bDe}</div>
+                <div class="text-[11px] text-slate-400 italic">${c.bEn}</div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button onclick="AudioSpeedSystem.speak('${safeB}')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" title="Listen">🔊</button>
+                <button onclick="SpeechEvaluationEngine.startRecording('${bId}', '${safeB}')" class="px-2 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold flex items-center gap-1 cursor-pointer">🎙️ <span>Record</span></button>
+              </div>
             </div>
-            <div class="text-[11px] text-slate-400 italic">${c.bEn}</div>
-            <div class="flex items-center justify-between pt-1 border-t border-slate-100">
-              <span class="font-bold text-emerald-700">Reaktion: ${c.rDe}</span>
-              <button onclick="AudioSpeedSystem.speak('${c.rDe}')" class="text-teal-600 font-bold">\ud83d\udd0a</button>
+            <div id="spBox_${bId}">
+              ${bRec ? SpeechEvaluationEngine.getEvaluatedHtml(bId, bRec) : ''}
             </div>
-            <div class="text-[11px] text-slate-400 italic">${c.rEn}</div>
+          </div>
+
+          <!-- Reaction Drill -->
+          <div class="p-3 bg-white rounded-xl border border-slate-100 space-y-2">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <span class="text-[10px] font-black uppercase text-slate-400">Reaction (Reaktion)</span>
+                <div class="font-bold text-emerald-800 text-xs">${c.rDe}</div>
+                <div class="text-[11px] text-slate-400 italic">${c.rEn}</div>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <button onclick="AudioSpeedSystem.speak('${safeR}')" class="p-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold" title="Listen">🔊</button>
+                <button onclick="SpeechEvaluationEngine.startRecording('${rId}', '${safeR}')" class="px-2 py-1.5 rounded-lg bg-teal-600 hover:bg-teal-700 text-white text-xs font-bold flex items-center gap-1 cursor-pointer">🎙️ <span>Record</span></button>
+              </div>
+            </div>
+            <div id="spBox_${rId}">
+              ${rRec ? SpeechEvaluationEngine.getEvaluatedHtml(rId, rRec) : ''}
+            </div>
           </div>
         </div>
       `;
@@ -17492,11 +17880,11 @@ const ExamSystem = {
         </div>
 
         <div class="flex justify-between pt-2">
-          <button onclick="ExamSystem.switchSection('schreiben')" class="px-5 py-2.5 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all">
-            \u2190 Back to Schreiben
+          <button onclick="ExamSystem.switchSection('schreiben')" class="px-5 py-2.5 rounded-2xl bg-white border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs font-bold transition-all cursor-pointer">
+            ← Back to Schreiben
           </button>
-          <button onclick="ExamSystem.submitExam()" class="px-7 py-3 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 text-white font-extrabold text-xs shadow-lg shadow-pink-200 hover:scale-105 transition-all flex items-center gap-2">
-            <span>\u2728 Submit German A1 Exam</span>
+          <button onclick="ExamSystem.submitExam()" class="px-7 py-3 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-500 to-amber-500 text-white font-extrabold text-xs shadow-lg shadow-pink-200 hover:scale-105 transition-all flex items-center gap-2 cursor-pointer">
+            <span>✨ Submit German A1 Exam</span>
           </button>
         </div>
       </div>
@@ -17525,7 +17913,7 @@ const ExamSystem = {
       if (this.userAnswers.lesen[item.id] === item.correct) lesenScore += 1;
     });
 
-    // 2. H\u00f6ren grading: 15 questions x 1 point each = 15 points
+    // 2. Hören grading: 15 questions x 1 point each = 15 points
     let hoerenScore = 0;
     this.examData.hoeren.forEach(part => {
       part.items.forEach(q => {
@@ -17553,20 +17941,37 @@ const ExamSystem = {
     const words = email.trim() ? email.trim().split(/\s+/).length : 0;
     if (words >= 25) emailScore += 4;
     else if (words >= 15) emailScore += 2;
-    if (email.includes('weimar') || email.includes('reise') || email.includes('n\u00e4chsten')) emailScore += 2;
-    if (email.includes('hotel') || email.includes('g\u00fcnstig') || email.includes('zimmer')) emailScore += 2;
-    if (email.includes('programm') || email.includes('sehensw\u00fcrdig') || email.includes('stadtrundfahrt')) emailScore += 2;
+    if (email.includes('weimar') || email.includes('reise') || email.includes('nächsten')) emailScore += 2;
+    if (email.includes('hotel') || email.includes('günstig') || email.includes('zimmer')) emailScore += 2;
+    if (email.includes('programm') || email.includes('sehenswürdig') || email.includes('stadtrundfahrt')) emailScore += 2;
 
     const schreibenScore = formScore + emailScore;
 
-    // 4. Sprechen: 15 points granted for review completion
-    const sprechenScore = 15;
+    // 4. Sprechen: Interactive audio drills grading (15 points max)
+    const recs = (typeof SpeechEvaluationEngine !== 'undefined' && SpeechEvaluationEngine.recordings) ? SpeechEvaluationEngine.recordings : {};
+    const promptKeys = Object.keys(recs);
+    let sprechenScore = 0;
+    let sprechenLabel = 'Oral Exam';
+
+    if (promptKeys.length > 0) {
+      let sumPct = 0;
+      promptKeys.forEach(k => {
+        sumPct += (recs[k].percent || 0);
+      });
+      const avgAccuracy = Math.round(sumPct / promptKeys.length);
+      sprechenScore = Math.max(1, Math.round((avgAccuracy / 100) * 15));
+      sprechenLabel = `${promptKeys.length} Drills (${avgAccuracy}%)`;
+    } else {
+      // Baseline credit for full exam completion if user practiced orally without recording
+      sprechenScore = 15;
+      sprechenLabel = 'Practice Credit';
+    }
 
     const totalRaw = lesenScore + hoerenScore + schreibenScore + sprechenScore; // Max 60
     const percentage = Math.round((totalRaw / 60) * 100);
     const passed = percentage >= 60;
 
-    // A1 Grade determination
+    // A1 Grade determination (Official Goethe/telc scale)
     let grade = "Nicht bestanden";
     if (percentage >= 90) grade = "Sehr gut";
     else if (percentage >= 80) grade = "Gut";
@@ -17582,6 +17987,7 @@ const ExamSystem = {
       hoerenScore,
       schreibenScore,
       sprechenScore,
+      sprechenLabel,
       totalRaw
     });
   },
@@ -17621,18 +18027,22 @@ const ExamSystem = {
           <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
             <div class="text-slate-400 font-bold">1. Lesen</div>
             <div class="font-extrabold text-slate-800 text-sm mt-0.5">${res.lesenScore} / 15</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Reading</div>
           </div>
           <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
             <div class="text-slate-400 font-bold">2. Hören</div>
             <div class="font-extrabold text-slate-800 text-sm mt-0.5">${res.hoerenScore} / 15</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Listening</div>
           </div>
           <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
             <div class="text-slate-400 font-bold">3. Schreiben</div>
             <div class="font-extrabold text-slate-800 text-sm mt-0.5">${res.schreibenScore} / 15</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">Writing</div>
           </div>
           <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
             <div class="text-slate-400 font-bold">4. Sprechen</div>
             <div class="font-extrabold text-slate-800 text-sm mt-0.5">${res.sprechenScore} / 15</div>
+            <div class="text-[10px] text-teal-600 font-bold mt-0.5">${res.sprechenLabel || 'Oral Exam'}</div>
           </div>
         </div>
 
@@ -17690,7 +18100,7 @@ const ExamSystem = {
     });
 
     // Part 2
-    lesenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-pink-700 mt-4 mb-2">Teil 2: Informasi Web (Pilihan a atau b)</div>`;
+    lesenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-pink-700 mt-4 mb-2">Teil 2: Web Information (Option a or b)</div>`;
     this.examData.lesen[1].items.forEach(item => {
       const uAns = this.userAnswers.lesen[item.id];
       const isCorrect = uAns === item.correct;
@@ -17708,7 +18118,7 @@ const ExamSystem = {
     });
 
     // Part 3
-    lesenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-pink-700 mt-4 mb-2">Teil 3: Papan Informasi & Rambu (Richtig / Falsch)</div>`;
+    lesenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-pink-700 mt-4 mb-2">Teil 3: Information Boards & Signs (Richtig / Falsch)</div>`;
     this.examData.lesen[2].items.forEach(item => {
       const uAns = this.userAnswers.lesen[item.id];
       const isCorrect = uAns === item.correct;
@@ -17769,6 +18179,92 @@ const ExamSystem = {
     const userEmail = this.userAnswers.schreiben.email || '(No email provided)';
     const modelAnswer = this.examData.schreiben.part2.modelAnswer;
 
+    // 4. Sprechen Review
+    let sprechenHtml = '';
+    const recs = (typeof SpeechEvaluationEngine !== 'undefined' && SpeechEvaluationEngine.recordings) ? SpeechEvaluationEngine.recordings : {};
+
+    const renderSprechenReviewItem = (id, label, targetDe, targetEn) => {
+      const rec = recs[id] || (this.userAnswers.sprechen ? this.userAnswers.sprechen[id] : null);
+      const safeTarget = targetDe.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+      const recorded = !!rec;
+      const pct = recorded ? (rec.percent || 0) : 0;
+      const grade = recorded ? rec.grade : 'Oral Practice (Untracked)';
+      const transcript = recorded && rec.transcript ? rec.transcript : '(No audio recording submitted)';
+      const stars = recorded ? (rec.stars || '') : '';
+      const hasAudio = recorded && !!rec.audioBlobUrl;
+
+      return `
+        <div class="p-3.5 rounded-2xl border ${recorded ? (pct >= 60 ? 'bg-emerald-50/60 border-emerald-200' : 'bg-rose-50/60 border-rose-200') : 'bg-slate-50 border-slate-200'} space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-extrabold text-slate-800 text-xs">${label}</span>
+            <span class="text-xs font-bold px-2 py-0.5 rounded-lg ${recorded ? (pct >= 60 ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800') : 'bg-slate-200 text-slate-600'}">
+              ${recorded ? `${pct}% &bull; ${grade}` : 'Oral Practice'}
+            </span>
+          </div>
+
+          <div class="p-2.5 bg-white rounded-xl border border-slate-200 text-xs space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Target Sentence (Standard Model)</span>
+              <button onclick="AudioSpeedSystem.speak('${safeTarget}')" class="px-2 py-0.5 rounded-md bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] font-bold cursor-pointer" title="Listen Native TTS">
+                🔊 Model
+              </button>
+            </div>
+            <div class="font-bold text-slate-800">${targetDe}</div>
+            <div class="text-[11px] text-slate-500 italic">${targetEn}</div>
+          </div>
+
+          <div class="p-2.5 bg-white rounded-xl border border-slate-200 text-xs space-y-1.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold text-slate-400 uppercase">Your Spoken Recognition</span>
+              ${hasAudio ? `
+                <button onclick="SpeechEvaluationEngine.playRecording('${id}')" class="px-2 py-0.5 rounded-md bg-teal-100 hover:bg-teal-200 text-teal-800 text-[11px] font-bold flex items-center gap-1 cursor-pointer" title="Play user voice">
+                  ▶️ Play Voice
+                </button>
+              ` : ''}
+            </div>
+            <div class="font-mono text-slate-700 ${recorded ? 'font-bold' : 'italic text-slate-400'}">
+              "${transcript}"
+            </div>
+            ${recorded ? `
+              <div class="flex items-center justify-between text-[11px] pt-1 border-t border-slate-100">
+                <span class="text-slate-600">${stars} ${rec.feedback || ''}</span>
+              </div>
+            ` : `
+              <div class="text-[11px] text-slate-400 italic pt-1 border-t border-slate-100">
+                Practice tip: Click 🎙️ Record in the exam to evaluate pronunciation and save voice playback!
+              </div>
+            `}
+          </div>
+        </div>
+      `;
+    };
+
+    // Teil 1
+    sprechenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-teal-700 mt-2 mb-2">Part 1: Sich vorstellen (Self-Introduction)</div>`;
+    sprechenHtml += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">`;
+    this.examData.sprechen.part1.prompts.forEach((p, idx) => {
+      sprechenHtml += renderSprechenReviewItem(`p1_${idx}`, `Prompt ${idx+1}: ${p.label}`, p.de, p.en);
+    });
+    sprechenHtml += `</div>`;
+
+    // Teil 2
+    sprechenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-teal-700 mt-4 mb-2">Part 2: Um Informationen bitten & geben (Information Cards)</div>`;
+    sprechenHtml += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">`;
+    this.examData.sprechen.part2.cards.forEach((c, idx) => {
+      sprechenHtml += renderSprechenReviewItem(`p2_${idx}_q`, `${c.theme} - Question`, c.qDe, c.qEn);
+      sprechenHtml += renderSprechenReviewItem(`p2_${idx}_a`, `${c.theme} - Answer`, c.aDe, c.aEn);
+    });
+    sprechenHtml += `</div>`;
+
+    // Teil 3
+    sprechenHtml += `<div class="font-bold text-xs uppercase tracking-wider text-teal-700 mt-4 mb-2">Part 3: Bitten formulieren & reagieren (Requests & Reactions)</div>`;
+    sprechenHtml += `<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">`;
+    this.examData.sprechen.part3.cards.forEach((c, idx) => {
+      sprechenHtml += renderSprechenReviewItem(`p3_${idx}_b`, `Request: ${c.item}`, c.bDe, c.bEn);
+      sprechenHtml += renderSprechenReviewItem(`p3_${idx}_r`, `Reaction: ${c.item}`, c.rDe, c.rEn);
+    });
+    sprechenHtml += `</div>`;
+
     const modal = document.createElement('div');
     modal.id = 'examReviewModal';
     modal.className = "fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4";
@@ -17800,6 +18296,9 @@ const ExamSystem = {
           </button>
           <button onclick="document.getElementById('reviewSecSchreiben').scrollIntoView({behavior:'smooth'})" class="px-3 py-1.5 rounded-xl bg-white hover:bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs shrink-0 cursor-pointer">
             ✍️ 3. Schreiben (Writing)
+          </button>
+          <button onclick="document.getElementById('reviewSecSprechen').scrollIntoView({behavior:'smooth'})" class="px-3 py-1.5 rounded-xl bg-white hover:bg-teal-50 text-teal-700 border border-teal-200 shadow-2xs shrink-0 cursor-pointer">
+            🗣️ 4. Sprechen (Speaking)
           </button>
         </div>
 
@@ -17840,6 +18339,15 @@ const ExamSystem = {
                 <div class="p-2.5 bg-white rounded-lg border border-emerald-200 font-mono text-[11px] whitespace-pre-wrap text-emerald-900 min-h-[100px]">${modelAnswer}</div>
               </div>
             </div>
+          </div>
+
+          <!-- 4. Sprechen -->
+          <div id="reviewSecSprechen" class="space-y-3 pt-4 border-t border-slate-200">
+            <h3 class="text-sm font-black text-slate-900 border-b border-teal-100 pb-1.5 flex items-center gap-2">
+              <span>🗣️ Module 4: Sprechen (Speaking & Pronunciation Evaluation)</span>
+            </h3>
+            <p class="text-xs text-slate-500">Review your spoken answers, speech recognition transcripts, pronunciation accuracy scores, and replay recorded audio.</p>
+            ${sprechenHtml}
           </div>
         </div>
 
