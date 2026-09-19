@@ -1,4 +1,4 @@
-
+﻿
 
 
 
@@ -2771,7 +2771,7 @@ html[data-theme="dark"] select {
         </button>
 
         <!-- Live Progress Interactive Button (Click to view completed modules) -->
-        <button onclick="App.openProgressModal()" class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/95 border border-pink-200 hover:border-pink-400 hover:bg-pink-50/60 shadow-xs text-xs cursor-pointer transition-all select-none group" title="Klik untuk melihat modul & pelajaran yang sudah selesai">
+        <button onclick="App.openProgressModal()" class="hidden sm:flex items-center gap-2.5 px-3 py-1.5 rounded-xl bg-white/95 border border-pink-200 hover:border-pink-400 hover:bg-pink-50/60 shadow-xs text-xs cursor-pointer transition-all select-none group" title="Click to view learning progress and completed modules">
           <span class="text-slate-500 font-medium group-hover:text-pink-600">Progress:</span>
           <div class="w-20 sm:w-24 bg-slate-100 h-2 rounded-full overflow-hidden border border-pink-100">
             <div id="headerProgressBar" class="h-full bg-gradient-to-r from-pink-400 to-rose-400 rounded-full transition-all duration-500" style="width: 0%"></div>
@@ -3256,7 +3256,7 @@ html[data-theme="dark"] select {
             <button onclick="TranslatorSystem.playAudio()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600" title="Listen Audio">
               <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
             </button>
-            <button onclick="TranslatorSystem.copyOutput(this)" id="transQuickCopyBtn" class="p-1.5 rounded-lg text-slate-400 hover:text-sky-600 transition-colors" title="Salin Kalimat Terjemahan">
+            <button onclick="TranslatorSystem.copyOutput(this)" id="transQuickCopyBtn" class="p-1.5 rounded-lg text-slate-400 hover:text-sky-600 transition-colors" title="Copy Translated Sentence">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
             </button>
           </div>
@@ -3291,11 +3291,11 @@ html[data-theme="dark"] select {
         <div class="flex items-center justify-between pt-2 border-t border-slate-100">
           <button onclick="TranslatorSystem.playAudio()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer active:scale-95">
             <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
-            <span>Dengarkan</span>
+            <span>Listen</span>
           </button>
-          <button onclick="TranslatorSystem.copyOutput(this)" id="transCopyBtn" class="px-5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white text-xs font-extrabold shadow-md shadow-sky-200 transition-all flex items-center gap-2 cursor-pointer active:scale-95" title="Salin kalimat terjemahan">
+          <button onclick="TranslatorSystem.copyOutput(this)" id="transCopyBtn" class="px-5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white text-xs font-extrabold shadow-md shadow-sky-200 transition-all flex items-center gap-2 cursor-pointer active:scale-95" title="Copy translated sentence">
             <svg id="transCopyBtnIcon" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-            <span id="transCopyBtnLabel">Salin Terjemahan</span>
+            <span id="transCopyBtnLabel">Copy Translation</span>
           </button>
         </div>
       </div>
@@ -12916,11 +12916,11 @@ const CheatSheetSystem = {
 
           let badgeHtml = '';
           if (isDone) {
-            badgeHtml = `<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1.5"><span class="font-black text-emerald-600">&#10003;</span> Selesai (${doneInMod}/${modLessons.length})</span>`;
+            badgeHtml = `<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200 flex items-center gap-1.5"><span class="font-black text-emerald-600">&#10003;</span> Completed (${doneInMod}/${modLessons.length})</span>`;
           } else if (isInProgress) {
-            badgeHtml = `<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-pink-100 text-pink-800 border border-pink-200 flex items-center gap-1.5"><svg class="w-3 h-3 text-pink-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Berjalan (${doneInMod}/${modLessons.length})</span>`;
+            badgeHtml = `<span class="px-2.5 py-1 rounded-full text-[11px] font-extrabold bg-pink-100 text-pink-800 border border-pink-200 flex items-center gap-1.5"><svg class="w-3 h-3 text-pink-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> In Progress (${doneInMod}/${modLessons.length})</span>`;
           } else {
-            badgeHtml = `<span class="px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-100 text-slate-500 border border-slate-200">Belum (${doneInMod}/${modLessons.length})</span>`;
+            badgeHtml = `<span class="px-2.5 py-1 rounded-full text-[11px] font-medium bg-slate-100 text-slate-500 border border-slate-200">Not Started (${doneInMod}/${modLessons.length})</span>`;
           }
 
           let lessonsHtml = '';
@@ -12935,7 +12935,7 @@ const CheatSheetSystem = {
                   <span class="font-bold truncate ${lessonDone ? 'text-emerald-950 font-semibold' : 'text-slate-700 group-hover:text-pink-700'}">${l.title}</span>
                 </div>
                 <span class="text-[10px] font-bold shrink-0 ${lessonDone ? 'text-emerald-600' : 'text-slate-400 group-hover:text-pink-600 flex items-center gap-0.5'}">
-                  ${lessonDone ? 'Selesai' : 'Buka &rarr;'}
+                  ${lessonDone ? 'Completed' : 'Open &rarr;'}
                 </span>
               </div>
             `;
@@ -12948,7 +12948,7 @@ const CheatSheetSystem = {
                   <span class="text-lg">${mod.icon || '&#128218;'}</span>
                   <div>
                     <h3 class="font-extrabold text-slate-800 text-sm">${mod.name}</h3>
-                    <p class="text-[11px] text-slate-400">Pelajaran ${mod.range[0]} - ${mod.range[1]}</p>
+                    <p class="text-[11px] text-slate-400">Lessons ${mod.range[0]} - ${mod.range[1]}</p>
                   </div>
                 </div>
                 <div>${badgeHtml}</div>
@@ -12972,8 +12972,8 @@ const CheatSheetSystem = {
                   <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
                 </div>
                 <div>
-                  <h2 class="text-base sm:text-lg font-black text-slate-800">Progres Belajar & Modul Selesai</h2>
-                  <p class="text-xs text-slate-500">Daftar lengkap 9 modul & pelajaran German A1 yang telah selesai</p>
+                  <h2 class="text-base sm:text-lg font-black text-slate-800">Learning Progress & Completed Modules</h2>
+                  <p class="text-xs text-slate-500">Complete overview of 9 modules & German A1 lessons completed</p>
                 </div>
               </div>
               <button onclick="document.getElementById('progressModal').remove()" class="w-8 h-8 rounded-full bg-white hover:bg-slate-100 border border-slate-200 text-slate-500 hover:text-slate-700 flex items-center justify-center text-lg font-bold transition-colors" title="Close">
@@ -12984,11 +12984,11 @@ const CheatSheetSystem = {
             <!-- Summary Banner -->
             <div class="p-4 bg-slate-50/80 border-b border-slate-100 grid grid-cols-2 sm:grid-cols-3 gap-3">
               <div class="bg-white p-3 rounded-2xl border border-pink-100 shadow-xs">
-                <div class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Pelajaran Selesai</div>
+                <div class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Completed Lessons</div>
                 <div class="text-lg font-black text-pink-600 mt-0.5">${doneCount} <span class="text-xs text-slate-400 font-normal">/ 38 (${pct}%)</span></div>
               </div>
               <div class="bg-white p-3 rounded-2xl border border-pink-100 shadow-xs">
-                <div class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Modul Selesai</div>
+                <div class="text-[10px] uppercase tracking-wider font-bold text-slate-400">Completed Modules</div>
                 <div class="text-lg font-black text-emerald-600 mt-0.5">${completedModulesCount} <span class="text-xs text-slate-400 font-normal">/ 9 Modul</span></div>
               </div>
               <div class="col-span-2 sm:col-span-1 bg-white p-3 rounded-2xl border border-pink-100 shadow-xs flex flex-col justify-center">
@@ -13007,7 +13007,7 @@ const CheatSheetSystem = {
             <!-- Footer -->
             <div class="p-3.5 bg-slate-50 border-t border-slate-100 flex items-center justify-end">
               <button onclick="document.getElementById('progressModal').remove()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs shadow-sm transition-all">
-                Tutup
+                Close
               </button>
             </div>
           </div>
@@ -13088,7 +13088,7 @@ const CheatSheetSystem = {
                   ${numBadge}
                   <span class="text-xs truncate ${isCurrent ? 'font-black text-pink-950' : 'font-medium text-slate-700 group-hover:text-pink-900'}">${l.title}</span>
                 </div>
-                ${isDone ? '<span class="text-[9px] font-black text-emerald-700 bg-emerald-100/90 px-1.5 py-0.5 rounded-md border border-emerald-200/60 shrink-0 ml-1">Selesai</span>' : isCurrent ? '<span class="text-xs text-pink-500 font-bold shrink-0 ml-1">&#10022;</span>' : ''}
+                ${isDone ? '<span class="text-[9px] font-black text-emerald-700 bg-emerald-100/90 px-1.5 py-0.5 rounded-md border border-emerald-200/60 shrink-0 ml-1">Done</span>' : isCurrent ? '<span class="text-xs text-pink-500 font-bold shrink-0 ml-1">&#10022;</span>' : ''}
               </button>
             `;
           });
@@ -13923,9 +13923,9 @@ const CheatSheetSystem = {
             <h3 class="text-base sm:text-lg font-extrabold text-slate-800">Comprehensive German Grammar Breakdown (Nominativ • Akkusativ • Dativ • Genitiv)</h3>
           </div>
           <div class="flex items-center gap-2">
-            <button onclick="TranslatorSystem.copyOutput(this)" class="px-3.5 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 text-xs font-extrabold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs active:scale-95" title="Salin kalimat terjemahan">
+            <button onclick="TranslatorSystem.copyOutput(this)" class="px-3.5 py-1.5 rounded-xl bg-sky-50 hover:bg-sky-100 text-sky-700 border border-sky-200 text-xs font-extrabold transition-all flex items-center gap-1.5 cursor-pointer shadow-2xs active:scale-95" title="Copy translated sentence">
               <span>&#128203;</span>
-              <span>Salin Kalimat</span>
+              <span>Copy Sentence</span>
             </button>
             <span class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-200 px-3 py-1 rounded-full">A1-C1 Deep Analysis</span>
           </div>
@@ -14432,14 +14432,14 @@ const CheatSheetSystem = {
         const text = output.innerText.trim();
         if (!text || text === 'Translation will appear here...' || text.startsWith('Please enter')) {
           if (typeof App !== 'undefined' && App.showToast) {
-            App.showToast('Belum ada kalimat terjemahan untuk disalin 📋');
+            App.showToast('No translated sentence to copy yet \uD83D\uDCCB');
           }
           return;
         }
 
         const handleSuccess = () => {
           if (typeof App !== 'undefined' && App.showToast) {
-            App.showToast('Kalimat terjemahan berhasil disalin ke clipboard! 📋');
+            App.showToast('Translation copied to clipboard! \uD83C\uDF89');
           }
 
           // Visual feedback on prominent bottom copy button if present
@@ -14450,7 +14450,7 @@ const CheatSheetSystem = {
             const origLabel = mainLabel.innerHTML;
             const origClasses = mainBtn.className;
             mainBtn.className = "px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white text-xs font-extrabold shadow-md shadow-emerald-200 transition-all flex items-center gap-2 cursor-pointer active:scale-95";
-            mainLabel.innerHTML = 'Tersalin! &#9989;';
+            mainLabel.innerHTML = 'Copied! &#9989;';
             if (mainIcon) {
               mainIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>';
             }
@@ -14471,7 +14471,7 @@ const CheatSheetSystem = {
               btnEl.classList.add('text-emerald-600', 'bg-emerald-50');
               btnEl.innerHTML = '<svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>';
             } else {
-              btnEl.innerHTML = '<span>&#9989;</span><span>Tersalin!</span>';
+              btnEl.innerHTML = '<span>&#9989;</span><span>Copied!</span>';
             }
             setTimeout(() => {
               btnEl.className = origClasses;
@@ -14508,13 +14508,13 @@ const CheatSheetSystem = {
             if (onSuccess) onSuccess();
           } else {
             if (typeof App !== 'undefined' && App.showToast) {
-              App.showToast('Gagal menyalin otomatis. Silakan salin teks secara manual.');
+              App.showToast('Automatic copy failed. Please copy text manually.');
             }
           }
         } catch (err) {
           console.warn('Fallback copy failed:', err);
           if (typeof App !== 'undefined' && App.showToast) {
-            App.showToast('Gagal menyalin teks.');
+            App.showToast('Failed to copy text.');
           }
         }
       }
@@ -14529,7 +14529,7 @@ const CheatSheetSystem = {
       }
       App.init();
       StudyMusic.init();
-      App.openLesson(18);
+      App.navigateTo('dashboard');
     });
   </script>
 <div class="cheeya-cursor-layer" id="cheeyaCursorLayer" aria-hidden="true"></div>
@@ -14768,6 +14768,7 @@ const ThemeSystem = {
 const AudioSpeedSystem = {
   STORAGE_KEY: 'cheeya_audio_speed',
   currentSpeed: 1.0,
+  cachedGermanVoice: null,
 
   init() {
     try {
@@ -14775,6 +14776,68 @@ const AudioSpeedSystem = {
       if (saved) this.currentSpeed = parseFloat(saved) || 1.0;
     } catch (e) {}
     this.updateUI();
+    this.initVoiceSystem();
+  },
+
+  initVoiceSystem() {
+    if (!('speechSynthesis' in window)) return;
+    this.loadVoices();
+    if (typeof window.speechSynthesis.onvoiceschanged !== 'undefined') {
+      window.speechSynthesis.onvoiceschanged = () => {
+        this.loadVoices();
+      };
+    }
+    setTimeout(() => this.loadVoices(), 300);
+    setTimeout(() => this.loadVoices(), 1200);
+  },
+
+  loadVoices() {
+    if (!('speechSynthesis' in window)) return null;
+    const voices = window.speechSynthesis.getVoices() || [];
+    if (!voices.length) return null;
+
+    const deVoices = voices.filter(v => {
+      const lang = (v.lang || '').toLowerCase().replace(/_/g, '-');
+      return lang.startsWith('de');
+    });
+
+    if (deVoices.length === 0) {
+      this.cachedGermanVoice = null;
+      return null;
+    }
+
+    // Rank German voices to pick the most natural, authentic native voice
+    const scoreVoice = (v) => {
+      let score = 0;
+      const name = (v.name || '').toLowerCase();
+      const lang = (v.lang || '').toLowerCase().replace(/_/g, '-');
+
+      if (lang === 'de-de') score += 60;
+      else if (lang.startsWith('de')) score += 30;
+
+      // Google Deutsch is the gold standard on Android & Chrome
+      if (name.includes('google deutsch') || name.includes('google german')) score += 150;
+      // High-quality neural / natural voices on Edge and Windows
+      if (name.includes('natural') || name.includes('neural')) score += 120;
+      if (name.includes('premium') || name.includes('enhanced')) score += 110;
+      if (name.includes('online')) score += 90;
+      // Quality native German voices on Apple (Anna, Helena, Marlene) & Windows (Katja, Stefan, Hedda)
+      if (name.includes('katja') || name.includes('stefan') || name.includes('hedda')) score += 80;
+      if (name.includes('anna') || name.includes('helena') || name.includes('marlene')) score += 80;
+      if (name.includes('deutsch') || name.includes('german')) score += 40;
+      if (v.default) score += 15;
+      if (v.localService) score += 10;
+      return score;
+    };
+
+    deVoices.sort((a, b) => scoreVoice(b) - scoreVoice(a));
+    this.cachedGermanVoice = deVoices[0];
+    return this.cachedGermanVoice;
+  },
+
+  getBestGermanVoice() {
+    if (this.cachedGermanVoice) return this.cachedGermanVoice;
+    return this.loadVoices();
   },
 
   toggleSpeed() {
@@ -14784,7 +14847,7 @@ const AudioSpeedSystem = {
     } catch (e) {}
     this.updateUI();
     if (typeof App !== 'undefined' && App.showToast) {
-      App.showToast('Audio speed set to ' + (this.currentSpeed === 1.0 ? 'Normal (1.0x) ⚡' : 'Slow (0.75x) 🐢'));
+      App.showToast('Audio speed set to ' + (this.currentSpeed === 1.0 ? 'Normal (1.0x) \u26A1' : 'Slow (0.75x) \uD83D\uDC22'));
     }
   },
 
@@ -14796,8 +14859,8 @@ const AudioSpeedSystem = {
     const headerBtn = document.getElementById('headerAudioSpeedBtn');
     if (headerBtn) {
       headerBtn.innerHTML = this.currentSpeed === 1.0 
-        ? '<span>⚡ 1.0x</span>' 
-        : '<span>🐢 0.75x</span>';
+        ? '<span>\u26A1 1.0x</span>' 
+        : '<span>\uD83D\uDC22 0.75x</span>';
     }
   },
 
@@ -14808,11 +14871,26 @@ const AudioSpeedSystem = {
       }
       return;
     }
-    window.speechSynthesis.cancel();
-    const utt = new SpeechSynthesisUtterance(text);
-    utt.lang = 'de-DE';
-    utt.rate = customSpeed || this.currentSpeed;
-    window.speechSynthesis.speak(utt);
+    try {
+      window.speechSynthesis.cancel();
+      if (window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+      }
+
+      const utt = new SpeechSynthesisUtterance(text);
+      const voice = this.getBestGermanVoice();
+      if (voice) {
+        utt.voice = voice;
+        utt.lang = voice.lang || 'de-DE';
+      } else {
+        utt.lang = 'de-DE';
+      }
+      utt.pitch = 1.0;
+      utt.rate = customSpeed || this.currentSpeed;
+      window.speechSynthesis.speak(utt);
+    } catch (err) {
+      console.warn('Speech synthesis failed:', err);
+    }
   }
 };
 
@@ -19331,18 +19409,18 @@ const DualFlashcardSystem = {
 
     if (totalCount === 0) {
       if (typeof App !== 'undefined' && App.showToast) {
-        App.showToast('ℹ️ Belum ada kata yang dihafal untuk direset.');
+        App.showToast('\u2139\uFE0F No memorized words to reset yet.');
       } else {
-        alert('Belum ada kata yang dihafal untuk direset.');
+        alert('No memorized words to reset yet.');
       }
       return;
     }
 
     const deckLabel = deck === 'all' 
-      ? `semua ${totalCount} kata yang sudah dihafal` 
-      : `semua kata ${deck} yang sudah dihafal`;
+      ? `all ${totalCount} memorized words` 
+      : `all memorized ${deck}`;
 
-    if (!confirm(`Apakah Anda yakin ingin mereset ${deckLabel}?\n\nSemua kata yang telah dihafal akan dikembalikan ke daftar belajar.`)) return;
+    if (!confirm(`Are you sure you want to reset ${deckLabel}?\n\nAll memorized words will be returned to the practice deck.`)) return;
 
     if (deck === 'all') {
       this.masteredIds = { nouns: [], verbs: [] };
@@ -19373,7 +19451,7 @@ const DualFlashcardSystem = {
     }
 
     if (typeof App !== 'undefined' && App.showToast) {
-      App.showToast('🔄 Semua kata hafalan berhasil direset ke practice deck!');
+      App.showToast('\uD83C\uDF89 All memorized words have been reset to the practice deck!');
     }
   },
 
