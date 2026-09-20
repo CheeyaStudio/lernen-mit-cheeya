@@ -1,5 +1,5 @@
-﻿// Service Worker for CheeYa Studio • German A1 PWA
-const CACHE_NAME = 'cheeya-german-a1-v9';
+// Service Worker for CheeYa Studio • German A1 PWA
+const CACHE_NAME = 'cheeya-german-a1-v10';
 const PRECACHE_ASSETS = [
   './',
   './index.html',
