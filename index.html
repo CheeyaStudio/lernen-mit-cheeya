@@ -14730,24 +14730,8 @@ const CheatSheetSystem = {
 })();
 </script>
 
-<!-- Floating PWA Install Notification Banner -->
-<div id="pwaInstallBanner" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-white/95 backdrop-blur-md p-4 rounded-2xl border border-pink-200 shadow-xl flex items-center justify-between gap-3 transition-all duration-300" style="display: none;">
-  <div class="flex items-center gap-3 min-w-0">
-    <img src="logo_app_icon.png" class="w-10 h-10 rounded-xl flex-shrink-0 object-cover border border-pink-200 shadow-xs" alt="CheeYa Logo">
-    <div class="min-w-0">
-      <h4 class="text-xs font-bold text-slate-800 truncate">Install CheeYa Studio</h4>
-      <p class="text-[11px] text-slate-500 leading-tight">Install on mobile or desktop for fast & offline study!</p>
-    </div>
-  </div>
-  <div class="flex items-center gap-1.5 flex-shrink-0">
-    <button onclick="PWAInstaller.promptInstall()" class="px-3 py-1.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl text-xs font-bold shadow-xs hover:from-pink-600 hover:to-rose-600 transition-all cursor-pointer">
-      Install
-    </button>
-    <button onclick="PWAInstaller.dismissBanner()" class="p-1.5 text-slate-400 hover:text-slate-600 rounded-lg transition-colors cursor-pointer" title="Close">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-    </button>
-  </div>
-</div>
+<!-- Floating PWA Install Notification Banner disabled per user request -->
+<div id="pwaInstallBanner" style="display: none !important;"></div>
 
 <!-- PWA Manual Install Guide Modal (for iOS / desktop / browsers without native prompt) -->
 <div id="pwaGuideModal" class="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 transition-all" style="display: none;">
@@ -14799,19 +14783,10 @@ const PWAInstaller = {
       });
     }
 
-    // 2. Capture beforeinstallprompt
+    // 2. Capture beforeinstallprompt (automatic popup notification disabled)
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       this.deferredPrompt = e;
-      
-      // Show install banner if not dismissed in this session
-      const dismissed = sessionStorage.getItem('cheeya_pwa_banner_dismissed');
-      if (!dismissed) {
-        const banner = document.getElementById('pwaInstallBanner');
-        if (banner) {
-          setTimeout(() => { banner.style.display = 'flex'; }, 2000);
-        }
-      }
     });
 
     // 3. Listen when successfully installed
