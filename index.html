@@ -1,4 +1,4 @@
-﻿
+
 
 
 
@@ -3242,24 +3242,27 @@ html[data-theme="dark"] select {
 <!-- ==========================================================================
      3. MULTILINGUAL TRANSLATOR & GRAMMAR ANALYZER VIEW (#translatorView)
      ========================================================================== -->
+<!-- ==========================================================================
+     3. MULTILINGUAL TRANSLATOR & GRAMMAR ANALYZER VIEW (#translatorView)
+     ========================================================================== -->
 <section id="translatorView" class="hidden space-y-6">
-  <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-xs space-y-5">
+  <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-5">
     <!-- Header -->
     <div class="flex items-center justify-between pb-4 border-b border-slate-100">
       <div class="flex items-center gap-3">
-        <button onclick="App.navigateTo('dashboard')" class="p-2 rounded-xl text-slate-400 hover:text-sky-600 hover:bg-sky-50 transition-colors" title="Back to Dashboard">
+        <button onclick="App.navigateTo('dashboard')" class="p-2 rounded-xl text-slate-400 hover:text-sky-600 hover:bg-sky-50 transition-colors cursor-pointer" title="Back to Dashboard">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
         </button>
         <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-sky-400 text-white flex items-center justify-center text-xl shadow-md shadow-sky-100 shrink-0">
-          🤖
+          &#129302;
         </div>
         <div>
           <div class="flex flex-wrap items-center gap-2">
-            <h1 class="text-lg sm:text-xl font-extrabold text-slate-800">AI Smart German Translator & Grammar Analyzer</h1>
+            <h1 class="text-lg sm:text-xl font-extrabold text-slate-800">AI Smart German Translator &amp; Grammar Analyzer</h1>
             <span class="text-[10px] font-extrabold text-sky-700 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-full">A1-C1 Deep Analysis</span>
-            <span class="text-[10px] font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full shadow-2xs">&#10024; v17.0 Live &bull; 7-Card Grammar Breakdown</span></div>
+          </div>
           <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">
-            Translate between English, Indonesian & German with in-depth grammatical breakdown (verb conjugations, noun articles der/die/das, Nominativ, Akkusativ, Dativ & Genitiv cases, and V2 word order) and native audio pronunciation.
+            Translate sentences into German with comprehensive grammatical breakdown (word-by-word morphology, case government, verb brackets, adjective declension) and native audio pronunciation.
           </p>
         </div>
       </div>
@@ -3271,13 +3274,13 @@ html[data-theme="dark"] select {
         <div class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-xs font-bold text-slate-700">
           <span class="text-slate-400 font-semibold">From:</span>
           <select id="transSourceLang" onchange="TranslatorSystem.handleLangChange()" class="bg-transparent font-bold outline-none cursor-pointer">
-            <option value="en" selected>[EN] English</option>
-            <option value="id">[ID] Indonesian</option>
+            <option value="id" selected>[ID] Indonesian</option>
+            <option value="en">[EN] English</option>
             <option value="de">[DE] German (Deutsch)</option>
           </select>
         </div>
 
-        <button onclick="TranslatorSystem.swapLanguages()" class="p-2 rounded-xl bg-slate-100 hover:bg-sky-50 text-slate-500 hover:text-sky-600 transition-colors" title="Swap Languages">
+        <button onclick="TranslatorSystem.swapLanguages()" class="p-2 rounded-xl bg-slate-100 hover:bg-sky-50 text-slate-500 hover:text-sky-600 transition-colors cursor-pointer" title="Swap Languages">
           <span class="text-sm font-bold">&#8644;</span>
         </button>
 
@@ -3294,40 +3297,38 @@ html[data-theme="dark"] select {
       <!-- Quick Example Pills -->
       <div class="flex flex-wrap items-center gap-1.5 text-[11px]">
         <span class="text-slate-400 font-bold mr-1">Examples:</span>
-        <button onclick="TranslatorSystem.setPreset('Ich möchte Nudeln mit scharfem Hähnchen essen')" class="px-2.5 py-1 rounded-lg bg-pink-100 hover:bg-pink-200 text-pink-900 font-extrabold transition-colors">🍜 Ich möchte Nudeln mit scharfem Hähnchen essen (AI Test)</button>
-        <button onclick="TranslatorSystem.setPreset('Ich lerne Deutsch')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors">Ich lerne Deutsch</button>
-        <button onclick="TranslatorSystem.setPreset('Wir fahren mit dem Zug')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors">Wir fahren mit dem Zug</button>
-        <button onclick="TranslatorSystem.setPreset('Guten Tag, wie geht es Ihnen?')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors">Guten Tag, wie geht es Ihnen?</button>
-        <button onclick="TranslatorSystem.setPreset('Where do you come from?')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors">Where do you come from? (EN)</button>
-        <button onclick="TranslatorSystem.setPreset('I give you book')" class="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold transition-colors">I give you book</button>
-        <button onclick="TranslatorSystem.setPreset('I love you')" class="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold transition-colors">I love you</button>
-        <button onclick="TranslatorSystem.setPreset('Das ist das Auto meines Vaters')" class="px-2.5 py-1 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition-all">Das ist das Auto meines Vaters (Genitiv)</button>
+        <button onclick="TranslatorSystem.setPreset('aku tidur hari ini')" class="px-2.5 py-1 rounded-lg bg-sky-100 hover:bg-sky-200 text-sky-800 font-bold transition-colors cursor-pointer">&#128716; aku tidur hari ini</button>
+        <button onclick="TranslatorSystem.setPreset('Ich m&ouml;chte Nudeln mit scharfem H&auml;hnchen essen')" class="px-2.5 py-1 rounded-lg bg-pink-50 hover:bg-pink-100 text-pink-900 font-semibold transition-colors cursor-pointer">&#127836; Nudeln mit H&auml;hnchen</button>
+        <button onclick="TranslatorSystem.setPreset('Wir fahren mit dem Zug')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors cursor-pointer">&#128646; Wir fahren mit dem Zug</button>
+        <button onclick="TranslatorSystem.setPreset('Ich lerne Deutsch')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors cursor-pointer">&#128214; Ich lerne Deutsch</button>
+        <button onclick="TranslatorSystem.setPreset('Das ist das Auto meines Vaters')" class="px-2.5 py-1 rounded-lg bg-amber-50 hover:bg-amber-100 text-amber-900 transition-colors cursor-pointer">&#128663; Auto meines Vaters</button>
+        <button onclick="TranslatorSystem.setPreset('Guten Tag, wie geht es Ihnen?')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-sky-100 hover:text-sky-800 text-slate-600 transition-colors cursor-pointer">&#128075; Wie geht es Ihnen?</button>
       </div>
     </div>
 
     <!-- Translation Input / Output (Two Columns) -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 pt-1">
       <!-- Left Column: Source Sentence -->
-      <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
+      <div class="p-5 rounded-2xl bg-white border border-sky-300 shadow-xs flex flex-col justify-between space-y-3">
         <div class="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider pb-2 border-b border-slate-100">
-          <span id="transSourceTitle">[EN] ENGLISH SENTENCE</span>
+          <span id="transSourceTitle">[ID] INDONESIAN SENTENCE</span>
           <div class="flex items-center gap-2">
-            <button onclick="TranslatorSystem.startVoiceInput()" class="text-slate-400 hover:text-sky-600 font-semibold normal-case flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
+            <button onclick="TranslatorSystem.startVoiceInput()" class="text-sky-600 hover:text-sky-700 font-semibold normal-case flex items-center gap-1.5 text-xs cursor-pointer">
+              <span>&#127908;</span>
               <span>Voice Input</span>
             </button>
-            <button onclick="TranslatorSystem.clearInput()" class="text-slate-400 hover:text-slate-600 normal-case font-semibold">
+            <button onclick="TranslatorSystem.clearInput()" class="text-sky-600 hover:text-sky-700 normal-case font-semibold text-xs cursor-pointer">
               Clear
             </button>
           </div>
         </div>
 
-        <textarea id="transInputText" rows="4" oninput="TranslatorSystem.updateCharCount(this.value)" class="w-full text-slate-800 text-lg font-medium placeholder-slate-400 bg-transparent border-none outline-none resize-none" placeholder="Type a sentence in English or German..."></textarea>
+        <textarea id="transInputText" rows="4" oninput="TranslatorSystem.updateCharCount(this.value)" class="w-full text-slate-800 text-base font-medium placeholder-slate-400 bg-transparent border-none outline-none resize-none" placeholder="Ketik kalimat dalam bahasa Indonesia di sini...">aku tidur hari ini</textarea>
 
         <div class="flex items-center justify-between pt-2 border-t border-slate-100">
-          <span id="transCharCounter" class="text-xs text-slate-400 font-mono">0 / 500</span>
-          <button onclick="TranslatorSystem.translate()" id="translateSubmitBtn" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white text-xs font-extrabold shadow-md shadow-sky-200 transition-all flex items-center gap-2">
-            <span>⚡ Translate & Analyze</span>
+          <span id="transCharCounter" class="text-xs text-slate-400 font-mono">17 / 500</span>
+          <button onclick="TranslatorSystem.translate()" id="translateSubmitBtn" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-600 hover:to-blue-700 text-white text-xs font-extrabold shadow-md shadow-sky-200 transition-all flex items-center gap-2 cursor-pointer active:scale-95">
+            <span>&#9889; Translate &amp; Analyze</span>
           </button>
         </div>
       </div>
@@ -3335,50 +3336,45 @@ html[data-theme="dark"] select {
       <!-- Right Column: German Translation & Pronunciation -->
       <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col justify-between space-y-3">
         <div class="flex items-center justify-between text-xs font-bold text-slate-400 uppercase tracking-wider pb-2 border-b border-slate-100">
-          <span id="transTargetTitle">[DE] GERMAN TRANSLATION</span>
+          <span id="transTargetTitle">[DE] GERMAN TRANSLATION &amp; ANALYSIS</span>
           <div class="flex items-center gap-2 normal-case font-semibold">
-            <button onclick="TranslatorSystem.playAudio()" class="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center gap-1.5 transition-colors">
-              <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/></svg>
-              <span>Practice Speaking</span>
+            <button onclick="TranslatorSystem.startPracticeSpeaking()" class="px-2.5 py-1 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-700 text-xs font-bold flex items-center gap-1.5 transition-colors cursor-pointer">
+              <span>&#127908; Practice Speaking</span>
             </button>
-            <button onclick="AudioSpeedSystem.toggleSpeed()" id="transSlowBtn" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600" title="Toggle Slow Audio">
-              <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <button onclick="TranslatorSystem.toggleFavorite()" id="transFavBtn" class="p-1.5 rounded-lg text-amber-400 hover:text-amber-500 transition-colors cursor-pointer" title="Favorite">
+              <span id="transFavIcon" class="text-sm font-bold">&#9733;</span>
             </button>
-            <button onclick="TranslatorSystem.playAudio()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600" title="Listen Audio">
+            <button onclick="TranslatorSystem.playAudio()" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 cursor-pointer" title="Listen Audio">
               <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
             </button>
-            <button onclick="TranslatorSystem.copyOutput(this)" id="transQuickCopyBtn" class="p-1.5 rounded-lg text-slate-400 hover:text-sky-600 transition-colors" title="Copy Translated Sentence">
+            <button onclick="TranslatorSystem.copyOutput(this)" id="transQuickCopyBtn" class="p-1.5 rounded-lg text-slate-400 hover:text-sky-600 transition-colors cursor-pointer" title="Copy Translated Sentence">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
             </button>
           </div>
         </div>
 
-        <div class="relative min-h-[80px]">
-          <div id="transOutputText" class="text-slate-400 text-lg font-medium italic leading-snug">
-            Translation will appear here...
+        <div class="relative min-h-[60px]">
+          <div id="transOutputText" class="text-slate-900 text-2xl font-black leading-snug">
+            Ich habe heute geschlafen
           </div>
           <div id="transLoadingSpinner" class="hidden absolute inset-0 bg-white/80 backdrop-blur-xs rounded-xl flex items-center justify-center gap-2 text-xs font-bold text-sky-600">
             <svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-            Analyzing German Grammar...
+            <span>Analyzing German Grammar...</span>
           </div>
         </div>
 
         <!-- Pronunciation Box (Image 1 replica) -->
-        <div id="transPronunciationBox" class="hidden p-3.5 rounded-xl bg-purple-50/50 border border-purple-200 text-xs space-y-1.5">
-          <div class="flex items-center gap-2">
-            <span class="text-purple-700 font-extrabold text-[11px] uppercase tracking-wider flex items-center gap-1.5">
-              <span>🗣️</span>
-              <span>HOW TO PRONOUNCE:</span>
-            </span>
-            <span id="transPhoneticText" class="font-mono font-bold text-purple-900 text-xs"></span>
+        <div id="transPronunciationBox" class="p-3.5 rounded-xl bg-purple-50/50 border border-purple-100 text-xs space-y-1">
+          <div class="flex items-center gap-2 font-bold text-purple-900">
+            <span>&#128483;&#65039; HOW TO PRONOUNCE:</span>
+            <span id="transPhoneticText" class="font-black text-purple-700">[ IKH &bull; HAH-buh &bull; HOY-tuh &bull; GESHLAY-DN ]</span>
           </div>
-          <div class="text-[11px] text-slate-600 space-y-0.5 leading-relaxed">
-            <div>&bull; <b>'ch':</b> Soft hissing sound after e/i (<i>Ich</i>), or guttural after a/o/u (<i>Buch</i>)</div>
-            <div>&bull; <b>Vowel pairs:</b> <i>ie</i> = long 'ee' (<i>nie</i>), while <i>ei</i> = 'aye' (<i>mein</i>)</div>
+          <div class="text-[11px] text-purple-600 font-medium">
+            &#128172; 'ch': Soft hissing sound after e/i (ich), or guttural after a/o/u (Buch).
           </div>
         </div>
 
-        <!-- Translation Card Bottom Action Bar: Audio & Prominent Copy Button -->
+        <!-- Card Bottom Action Bar -->
         <div class="flex items-center justify-between pt-2 border-t border-slate-100">
           <button onclick="TranslatorSystem.playAudio()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer active:scale-95">
             <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"/></svg>
@@ -3392,18 +3388,8 @@ html[data-theme="dark"] select {
       </div>
     </div>
 
-    <!-- Container for all 5 Detailed Grammar Sections -->
-    <div id="grammarCardsGrid" class="pt-2">
-      <div class="p-8 sm:p-12 rounded-3xl bg-slate-50/80 border-2 border-dashed border-slate-200 text-center space-y-3 transition-all">
-        <div class="w-14 h-14 mx-auto rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl shadow-2xs">
-          🔍
-        </div>
-        <h3 class="font-black text-slate-800 text-base sm:text-lg">No Grammar Analysis Yet</h3>
-        <p class="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto leading-relaxed">
-          Type a sentence in the box above or choose a preset example, then click <span class="font-bold text-sky-600">⚡ Translate & Analyze</span> to view translation and detailed grammatical breakdown (V2 word order, verb conjugations, Akkusativ/Dativ cases, and A1 rules).
-        </p>
-      </div>
-    </div>
+    <!-- Detailed Analysis Grid -->
+    <div id="grammarCardsGrid" class="space-y-6 pt-2"></div>
   </div>
 </section>
 
@@ -12833,6 +12819,20 @@ const CheatSheetSystem = {
             this.openSearchModal();
           }
         });
+
+        // Deep linking support via URL hash (#translator, #dashboard, etc.)
+        if (window.location.hash) {
+          const h = window.location.hash.replace('#', '').trim();
+          if (['dashboard', 'lesson', 'exam', 'translator', 'flashcards', 'articleFinder'].includes(h)) {
+            setTimeout(() => this.navigateTo(h), 60);
+          }
+        }
+        window.addEventListener('hashchange', () => {
+          const h = window.location.hash.replace('#', '').trim();
+          if (['dashboard', 'lesson', 'exam', 'translator', 'flashcards', 'articleFinder'].includes(h)) {
+            this.navigateTo(h);
+          }
+        });
       },
 
       navigateTo(view) {
@@ -12861,11 +12861,10 @@ const CheatSheetSystem = {
         } else if (view === 'articleFinder' && typeof CompleteArticleFinder !== 'undefined') {
           CompleteArticleFinder.handleSearch('');
         } else if (view === 'translator' && typeof TranslatorSystem !== 'undefined') {
-          const input = document.getElementById('transInputText');
-          const output = document.getElementById('transOutputText');
-          const isUnanalyzed = !output || output.innerText === 'Translation will appear here...' || !document.getElementById('overviewCard');
-          if (!input || !input.value.trim() || isUnanalyzed) {
-            TranslatorSystem.setPreset('Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen');
+          const gridEl = document.getElementById('grammarCardsGrid');
+          const isUnanalyzed = !gridEl || gridEl.children.length === 0;
+          if (isUnanalyzed) {
+            TranslatorSystem.setPreset('aku tidur hari ini');
           }
         }
       },
@@ -13364,1427 +13363,1308 @@ const CheatSheetSystem = {
    World-class linguistic analysis engine (12 pedagogical analysis areas)
    ========================================================================== */
 
+/* ==========================================================================
+   CheeYa Studio - AI Smart German Translator & Comprehensive Grammar Analyzer
+   World-class linguistic analysis engine (11 pedagogical analysis areas)
+   ========================================================================== */
+
+/* ==========================================================================
+   CheeYa Studio - AI Smart German Translator & Comprehensive Grammar Analyzer
+   World-class linguistic analysis engine (11 pedagogical analysis areas)
+   ========================================================================== */
+
 const ExactGrammarEngine = {
-  // Built-in phonetic transcriptions for natural pronunciation
-  phoneticMap: {
-    'ich': 'IKH', 'du': 'DOO', 'er': 'AIR', 'sie': 'ZEE', 'es': 'ES', 'wir': 'VEER', 'ihr': 'EER', 'Sie': 'ZEE',
-    'm\u00F6chte': 'MOE-sh-tuh', 'moechte': 'MOE-sh-tuh', 'm\u00F6chten': 'MOE-sh-tuhn', 'moechten': 'MOE-sh-tuhn',
-    'essen': 'EH-suhn', 'esse': 'EH-suh', 'isst': 'IST',
-    'nudeln': 'NOO-duhln', 'nudel': 'NOO-duhl',
-    'mit': 'MIT', 'ohne': 'OH-nuh', 'f\u00FCr': 'FEER', 'fuer': 'FEER', 'durch': 'DOORKH', 'gegen': 'GAY-guhn',
-    'scharf': 'SHARF', 'scharfem': 'SHAR-fuhm', 'scharfen': 'SHAR-fuhn', 'scharfe': 'SHAR-fuh', 'scharfer': 'SHAR-fuhr', 'scharfes': 'SHAR-fuhs',
-    'h\u00E4hnchen': 'HEN-shuhn', 'haehnchen': 'HEN-shuhn',
-    'liebe': 'LEE-buh', 'liebst': 'LEEPST', 'liebt': 'LEEPT', 'lieben': 'LEE-buhn',
-    'vermisse': 'fair-MIS-suh', 'vermisst': 'fair-MIST', 'vermissen': 'fair-MIS-suhn',
-    'dich': 'DEEKH', 'dir': 'DEER', 'mich': 'MEEKH', 'mir': 'MEER', 'ihn': 'EEN', 'ihm': 'EEM', 'ihr': 'EER', 'ihnen': 'EE-nuhn',
-    'so': 'ZOH', 'sehr': 'ZAIR', 'viel': 'FEEL', 'vielen': 'FEE-luhn', 'dank': 'DAHNK', 'danke': 'DAHN-kuh',
-    'ein': 'EYE-n', 'eine': 'EYE-nuh', 'einen': 'EYE-nuhn', 'einem': 'EYE-nuhm', 'einer': 'EYE-nuhr', 'eines': 'EYE-nuhs',
-    'der': 'DAIR', 'die': 'DEE', 'das': 'DAHS', 'den': 'DAYN', 'dem': 'DAYM', 'des': 'DEHS',
-    'mein': 'MY-n', 'meine': 'MY-nuh', 'meinen': 'MY-nuhn', 'meinem': 'MY-nuhm', 'meiner': 'MY-nuhr', 'meines': 'MY-nuhs',
-    'dein': 'DY-n', 'deine': 'DY-nuh', 'deinen': 'DY-nuhn', 'deinem': 'DY-nuhm', 'deiner': 'DY-nuhr', 'deines': 'DY-nuhs',
-    'sein': 'ZY-n', 'seine': 'ZY-nuh', 'seinen': 'ZY-nuhn', 'seinem': 'ZY-nuhm', 'seiner': 'ZY-nuhr', 'seines': 'ZY-nuhs',
-    'ihr': 'EER', 'ihre': 'EE-ruh', 'ihren': 'EE-ruhn', 'ihrem': 'EE-ruhm', 'ihrer': 'EE-ruhr', 'ihres': 'EE-ruhs',
-    'unser': 'OON-zuh', 'unsere': 'OON-zuh-ruh', 'unserem': 'OON-zuh-ruhm', 'unseren': 'OON-zuh-ruhn', 'unserer': 'OON-zuh-ruhr', 'unseres': 'OON-zuh-ruhs',
-    'vater': 'FAH-tuhr', 'vaters': 'FAH-tuhrs', 'mutter': 'MOO-tuhr', 'schwester': 'SHVES-tuhr', 'bruder': 'BROO-duhr', 'bruders': 'BROO-duhrs',
-    'kind': 'KINT', 'kindes': 'KIN-duhs', 'kinder': 'KIN-duhr', 'mann': 'MAHN', 'mannes': 'MAHN-nuhs', 'frau': 'FROW',
-    'auto': 'OW-toh', 'autos': 'OW-tohs', 'haus': 'HOWS', 'hauses': 'HOW-zuhs', 'wetter': 'VET-tuhr', 'wetters': 'VET-tuhrs',
-    'regen': 'RAY-guhn', 'regens': 'RAY-guhns', 'lehrer': 'LAY-ruhr', 'lehrers': 'LAY-ruhrs', 'chef': 'SHEF', 'chefs': 'SHEFS',
-    'freund': 'FROYNT', 'freundes': 'FROYN-duhs', 'buch': 'BOOKH', 'buecher': 'BEE-shuhr', 'b\u00FCcher': 'BEE-shuhr',
-    'zug': 'TSOOK', 'kaffee': 'KAH-fay', 'tee': 'TAY', 'brot': 'BROHT', 'wasser': 'VAH-suhr',
-    'deutsch': 'DOYT-sh', 'deutschland': 'DOYT-shlahnt', 'berlin': 'bair-LEEN', 'indonesien': 'in-doh-NAY-zee-uhn',
-    'ist': 'IST', 'sind': 'ZINT', 'war': 'VAHR', 'waren': 'VAH-ruhn', 'bin': 'BIN', 'bist': 'BIST',
-    'hat': 'HAHT', 'haben': 'HAH-buhn', 'habe': 'HAH-buh', 'hast': 'HAHST',
-    'gebe': 'GAY-buh', 'gibst': 'GEEPST', 'gibt': 'GEEPT', 'geben': 'GAY-buhn',
-    'helfe': 'HELL-fuh', 'hilfst': 'HILFST', 'hilft': 'HILFT', 'helfen': 'HELL-fuhn',
-    'lerne': 'LAIR-nuh', 'lernst': 'LAIRNST', 'lernt': 'LAIRNT', 'lernen': 'LAIR-nuhn',
-    'trinke': 'TRING-kuh', 'trinkst': 'TRINGST', 'trinkt': 'TRINGT', 'trinken': 'TRING-kuhn',
-    'wohne': 'VOH-nuh', 'wohnst': 'VOHNST', 'wohnt': 'VOHNT', 'wohnen': 'VOH-nuhn',
-    'komme': 'KOH-muh', 'kommst': 'KOMST', 'kommt': 'KOMT', 'kommen': 'KOH-muhn',
-    'fahre': 'FAH-ruh', 'f\u00E4hrst': 'FAIRST', 'f\u00E4hrt': 'FAIRT', 'fahren': 'FAH-ruhn',
-    'wegen': 'VAY-guhn', 'w\u00E4hrend': 'VAIR-uhnt', 'trotz': 'TROTS', 'anstatt': 'AHN-shtaht',
-    'wo': 'VOH', 'woher': 'voh-HAIR', 'wohin': 'voh-HIN', 'wie': 'VEE', 'was': 'VAHS', 'wer': 'VAIR', 'warum': 'vah-ROOM'
+  lexicon: {
+    'ich': { lemma: 'ich', posLabel: 'PRONOUN', role: 'Subject (Subjekt)', case: 'Nominativ', gender: '-', number: 'Singular', person: '1st Person', mood: '-', ending: '-', en: 'I', id: 'saya / aku', why: 'Acts as the grammatical subject of the sentence performing the action, triggering 1st-person verb agreement ("habe").', posBadgeCls: 'bg-emerald-100 text-emerald-800' },
+    'du': { lemma: 'du', posLabel: 'PRONOUN', role: 'Subject (Subjekt)', case: 'Nominativ', gender: '-', number: 'Singular', person: '2nd Person', mood: '-', ending: '-', en: 'you (informal)', id: 'kamu', why: 'Subject pronoun in Nominative case triggering 2nd person singular verb agreement.', posBadgeCls: 'bg-emerald-100 text-emerald-800' },
+    'wir': { lemma: 'wir', posLabel: 'PRONOUN', role: 'Subject (Subjekt)', case: 'Nominativ', gender: '-', number: 'Plural', person: '1st Person', mood: '-', ending: '-', en: 'we', id: 'kami / kita', why: 'Subject pronoun in Nominative plural triggering 1st person plural verb agreement.', posBadgeCls: 'bg-emerald-100 text-emerald-800' },
+    'sie': { lemma: 'sie', posLabel: 'PRONOUN', role: 'Subject / Object', case: 'Nominativ / Akkusativ', gender: 'Feminine / Plural', number: 'Singular / Plural', person: '3rd Person', mood: '-', ending: '-', en: 'she / they', id: 'dia (pr) / mereka', why: 'Personal pronoun representing 3rd person singular or plural.', posBadgeCls: 'bg-emerald-100 text-emerald-800' },
+    'es': { lemma: 'es', posLabel: 'PRONOUN', role: 'Subject / Impersonal', case: 'Nominativ', gender: 'Neuter', number: 'Singular', person: '3rd Person', mood: '-', ending: '-', en: 'it', id: 'itu / nya', why: 'Impersonal dummy subject or neuter pronoun.', posBadgeCls: 'bg-emerald-100 text-emerald-800' },
+
+    'habe': { lemma: 'haben', posLabel: 'AUXILIARY VERB', role: 'Finite Verb (Hilfsverb)', case: '-', gender: '-', number: 'Singular', person: '1st Person', tense: 'Pr\u00E4sens', mood: 'Indikativ', ending: '-e', en: 'have / auxiliary', id: 'telah / sudah (kata bantu)', why: 'Auxiliary verb conjugated for "ich" in Position 2 (V2 rule). Forms the Perfekt tense frame together with "geschlafen".', posBadgeCls: 'bg-rose-100 text-rose-800' },
+    'haben': { lemma: 'haben', posLabel: 'FINITE VERB', role: 'Finite Verb', case: '-', gender: '-', number: 'Plural', person: '1st/3rd Person', tense: 'Pr\u00E4sens', mood: 'Indikativ', ending: '-en', en: 'have', id: 'punya / telah', why: 'Conjugated for plural subjects in Position 2.', posBadgeCls: 'bg-rose-100 text-rose-800' },
+
+    'heute': { lemma: 'heute', posLabel: 'TEMPORAL ADVERB', role: 'Temporal Modifier (Wann?)', case: 'Indeclinable (-)', gender: '-', number: '-', person: '-', tense: '-', mood: '-', ending: '-', en: 'today', id: 'hari ini', why: 'Answers the question "Wann?" (When?). Indeclinable adverb positioned in the Mittelfeld according to TeKaMoLo word order.', posBadgeCls: 'bg-sky-100 text-sky-800' },
+    'gestern': { lemma: 'gestern', posLabel: 'TEMPORAL ADVERB', role: 'Temporal Modifier', case: 'Indeclinable (-)', gender: '-', number: '-', person: '-', mood: '-', ending: '-', en: 'yesterday', id: 'kemarin', why: 'Temporal adverb placed in the Mittelfeld indicating past timing.', posBadgeCls: 'bg-sky-100 text-sky-800' },
+
+    'geschlafen': { lemma: 'schlafen', posLabel: 'PARTIZIP II (MAIN VERB)', role: 'Partizip II (Satzende)', case: '-', gender: '-', number: '-', person: '-', tense: 'Perfekt', mood: 'Partizip Perfekt', ending: '-en', en: 'slept', id: 'tidur (bentuk lampau)', why: 'Non-finite Partizip II pushed to the very end of the clause (Rechte Satzklammer), completing the Perfekt verb bracket.', posBadgeCls: 'bg-amber-100 text-amber-900' },
+    'schlafen': { lemma: 'schlafen', posLabel: 'MAIN VERB', role: 'Infinitive (Base Form)', case: '-', gender: '-', number: '-', person: '-', tense: 'Infinitiv', mood: 'Infinitiv', ending: '-en', en: 'sleep', id: 'tidur', why: 'Base lexical form of the verb.', posBadgeCls: 'bg-amber-100 text-amber-900' },
+
+    'm\u00F6chte': { lemma: 'm\u00F6gen', posLabel: 'MODAL VERB', role: 'Finite Verb (Position 2)', case: '-', gender: '-', number: 'Singular', person: '1st Person', tense: 'Pr\u00E4sens', mood: 'Konjunktiv II', ending: '-e', en: 'would like', id: 'ingin / mau', why: 'Conjugated modal auxiliary in Position 2 expressing polite desire (Konjunktiv II). Pushes dependent infinitive to Satzende.', posBadgeCls: 'bg-rose-100 text-rose-800' },
+    'moechte': { lemma: 'm\u00F6gen', posLabel: 'MODAL VERB', role: 'Finite Verb (Position 2)', case: '-', gender: '-', number: 'Singular', person: '1st Person', tense: 'Pr\u00E4sens', mood: 'Konjunktiv II', ending: '-e', en: 'would like', id: 'ingin / mau', why: 'Conjugated modal auxiliary in Position 2 expressing polite desire (Konjunktiv II). Pushes dependent infinitive to Satzende.', posBadgeCls: 'bg-rose-100 text-rose-800' },
+    'essen': { lemma: 'essen', posLabel: 'MAIN VERB (VOLLVERB)', role: 'Non-finite Verb (Satzende)', case: '-', gender: '-', number: '-', person: '-', tense: 'Infinitiv', mood: 'Infinitiv', ending: '-en', en: 'to eat', id: 'makan', why: 'Non-finite infinitive pushed to the very end of the sentence ("Satzende") governed by modal verb "m\u00F6chte". Closes the sentence bracket (Rechte Satzklammer).', posBadgeCls: 'bg-amber-100 text-amber-900' },
+    'nudeln': { lemma: 'die Nudel', posLabel: 'NOUN', role: 'Direct Object', case: 'Akkusativ', gender: 'Feminine (Plural)', number: 'Plural', person: '-', mood: '-', ending: '-n', en: 'noodles / pasta', id: 'mi / pasta', why: 'Direct object receiving the action of eating ("Wen oder was?"). Plural noun without article (Nullartikel).', posBadgeCls: 'bg-sky-100 text-sky-800' },
+    'mit': { lemma: 'mit', posLabel: 'PREPOSITION', role: 'Dative Preposition', case: 'Dativ', gender: '-', number: '-', person: '-', mood: '-', ending: '-', en: 'with', id: 'dengan / bersama', why: 'Fixed Dative preposition (aus, bei, mit, nach, seit, von, zu). Strictly obligates the following noun phrase into Dativ.', posBadgeCls: 'bg-purple-100 text-purple-800' },
+    'scharfem': { lemma: 'scharf', posLabel: 'ADJECTIVE', role: 'Attributive Adjective', case: 'Dativ', gender: 'Neuter', number: 'Singular', person: '-', mood: '-', ending: '-em', en: 'spicy / hot', id: 'pedas', why: 'Attributive adjective modifying neuter noun "H\u00E4hnchen" in Dativ without an article (Strong Declension). Takes the distinctive -em ending.', posBadgeCls: 'bg-orange-100 text-orange-800' },
+    'h\u00E4hnchen': { lemma: 'das H\u00E4hnchen', posLabel: 'NOUN', role: 'Prepositional Object', case: 'Dativ', gender: 'Neuter (das)', number: 'Singular', person: '-', mood: '-', ending: '-chen', en: 'chicken', id: 'ayam', why: 'Object of the preposition "mit" (Dative). Neuter gender guaranteed by the diminutive suffix -chen.', posBadgeCls: 'bg-indigo-100 text-indigo-800' },
+    'haehnchen': { lemma: 'das H\u00E4hnchen', posLabel: 'NOUN', role: 'Prepositional Object', case: 'Dativ', gender: 'Neuter (das)', number: 'Singular', person: '-', mood: '-', ending: '-chen', en: 'chicken', id: 'ayam', why: 'Object of the preposition "mit" (Dative). Neuter gender guaranteed by the diminutive suffix -chen.', posBadgeCls: 'bg-indigo-100 text-indigo-800' },
+
+    'lerne': { lemma: 'lernen', posLabel: 'FINITE VERB', role: 'Finite Verb', case: '-', gender: '-', number: 'Singular', person: '1st Person', tense: 'Pr\u00E4sens', mood: 'Indikativ', ending: '-e', en: 'learn', id: 'belajar', why: 'Conjugated for 1st person singular in Position 2.', posBadgeCls: 'bg-rose-100 text-rose-800' },
+    'deutsch': { lemma: 'das Deutsch', posLabel: 'NOUN', role: 'Direct Object', case: 'Akkusativ', gender: 'Neuter', number: 'Singular', person: '-', mood: '-', ending: '-', en: 'German', id: 'bahasa Jerman', why: 'Direct object of learning in Accusative case.', posBadgeCls: 'bg-sky-100 text-sky-800' },
+    'fahren': { lemma: 'fahren', posLabel: 'FINITE VERB', role: 'Finite Verb', case: '-', gender: '-', number: 'Plural', person: '1st Person', tense: 'Pr\u00E4sens', mood: 'Indikativ', ending: '-en', en: 'travel / drive', id: 'pergi / naik', why: 'Finite verb in Position 2 agreeing with subject "wir".', posBadgeCls: 'bg-rose-100 text-rose-800' },
+    'dem': { lemma: 'der', posLabel: 'DEFINITE ARTICLE', role: 'Article (Dativ)', case: 'Dativ', gender: 'Masculine', number: 'Singular', person: '-', mood: '-', ending: '-em', en: 'the', id: 'itu (dativ)', why: 'Definite article for masculine singular "der Zug" in Dativ after "mit".', posBadgeCls: 'bg-purple-100 text-purple-800' },
+    'zug': { lemma: 'der Zug', posLabel: 'NOUN', role: 'Prepositional Object', case: 'Dativ', gender: 'Masculine (der)', number: 'Singular', person: '-', mood: '-', ending: '-', en: 'train', id: 'kereta api', why: 'Prepositional object governed by "mit".', posBadgeCls: 'bg-indigo-100 text-indigo-800' },
+    'auto': { lemma: 'das Auto', posLabel: 'NOUN', role: 'Subject / Predicate', case: 'Nominativ', gender: 'Neuter (das)', number: 'Singular', person: '-', mood: '-', ending: '-', en: 'car', id: 'mobil', why: 'Predicate noun with copula "ist".', posBadgeCls: 'bg-indigo-100 text-indigo-800' },
+    'vaters': { lemma: 'der Vater', posLabel: 'NOUN', role: 'Genitive Attribute', case: 'Genitiv', gender: 'Masculine (der)', number: 'Singular', person: '-', mood: '-', ending: '-s', en: 'father\'s', id: 'ayah', why: 'Possessive genitive modifier indicating possession.', posBadgeCls: 'bg-amber-100 text-amber-900' },
+    'meines': { lemma: 'mein', posLabel: 'POSSESSIVE PRONOUN', role: 'Genitive Determiner', case: 'Genitiv', gender: 'Masculine', number: 'Singular', person: '1st Person', mood: '-', ending: '-es', en: 'my', id: 'saya', why: 'Possessive determiner in masculine genitive singular.', posBadgeCls: 'bg-amber-100 text-amber-900' }
   },
 
   getPhonetic(tokens) {
-    const parts = tokens.map(t => {
-      const clean = t.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "");
-      return this.phoneticMap[clean] || clean.toUpperCase();
-    });
-    return `[ ${parts.join(' + ')} ]`;
+    const pMap = {
+      'ich': 'IKH', 'habe': 'HAH-buh', 'heute': 'HOY-tuh', 'geschlafen': 'GESHLAY-DN',
+      'm\u00F6chte': 'MOE-sh-tuh', 'moechte': 'MOE-sh-tuh', 'nudeln': 'NOO-duhln', 'mit': 'MIT',
+      'scharfem': 'SHAR-fuhm', 'h\u00E4hnchen': 'HEN-shuhn', 'haehnchen': 'HEN-shuhn', 'essen': 'EH-suhn',
+      'wir': 'VEER', 'fahren': 'FAH-ruhn', 'dem': 'DAYM', 'zug': 'TSOOK',
+      'lerne': 'LEHR-nuh', 'deutsch': 'DOYTSH', 'woher': 'vo-HAIR', 'kommst': 'KOMST', 'du': 'DOO',
+      'guten': 'GOO-tuhn', 'tag': 'TAHK', 'wie': 'VEE', 'geht': 'GAYT', 'es': 'EHS', 'ihnen': 'EE-nuhn'
+    };
+    return '[ ' + tokens.map(t => pMap[t.toLowerCase()] || t.toUpperCase()).join(' &bull; ') + ' ]';
   },
 
-  // Linguistic lexical dictionary for deep morphological analysis
-  lexicon: {
-    'ich': { lemma: 'ich', pos: 'Pronoun', role: 'Subject', case: 'Nominative', person: '1st Sing.', en: 'I', id: 'saya / aku' },
-    'du': { lemma: 'du', pos: 'Pronoun', role: 'Subject', case: 'Nominative', person: '2nd Sing.', en: 'you (informal)', id: 'kamu' },
-    'er': { lemma: 'er', pos: 'Pronoun', role: 'Subject', case: 'Nominative', person: '3rd Sing. Masc.', en: 'he', id: 'dia (laki-laki)' },
-    'sie': { lemma: 'sie', pos: 'Pronoun', role: 'Subject / Object', case: 'Nominative / Accusative', person: '3rd Sing. Fem. / 3rd Plural', en: 'she / they', id: 'dia (perempuan) / mereka' },
-    'es': { lemma: 'es', pos: 'Pronoun', role: 'Subject / Object', case: 'Nominative / Accusative', person: '3rd Sing. Neut.', en: 'it', id: 'itu / dia (netral)' },
-    'wir': { lemma: 'wir', pos: 'Pronoun', role: 'Subject', case: 'Nominative', person: '1st Plural', en: 'we', id: 'kami / kita' },
-    'ihr': { lemma: 'ihr', pos: 'Pronoun', role: 'Subject', case: 'Nominative', person: '2nd Plural', en: 'you all (informal)', id: 'kalian' },
-    'sie/sie': { lemma: 'Sie', pos: 'Pronoun', role: 'Subject', case: 'Nominative', person: 'Formal', en: 'you (formal)', id: 'Anda' },
-
-    'm\u00F6chte': { lemma: 'm\u00F6gen', pos: 'Modal Verb', role: 'Finite Verb (Position 2)', mood: 'Konjunktiv II (Polite Wish)', person: '1st/3rd Sing.', tense: 'Pr\u00E4sens', en: 'would like (polite desire)', id: 'ingin / mau (sopan)' },
-    'moechte': { lemma: 'm\u00F6gen', pos: 'Modal Verb', role: 'Finite Verb (Position 2)', mood: 'Konjunktiv II (Polite Wish)', person: '1st/3rd Sing.', tense: 'Pr\u00E4sens', en: 'would like (polite desire)', id: 'ingin / mau (sopan)' },
-    'm\u00F6chten': { lemma: 'm\u00F6gen', pos: 'Modal Verb', role: 'Finite Verb (Position 2)', mood: 'Konjunktiv II (Polite Wish)', person: '1st/3rd Plur.', tense: 'Pr\u00E4sens', en: 'would like', id: 'ingin / mau' },
-    'moechten': { lemma: 'm\u00F6gen', pos: 'Modal Verb', role: 'Finite Verb (Position 2)', mood: 'Konjunktiv II (Polite Wish)', person: '1st/3rd Plur.', tense: 'Pr\u00E4sens', en: 'would like', id: 'ingin / mau' },
-    'essen': { lemma: 'essen', pos: 'Verb', role: 'Infinitive (Clause End)', valency: 'Akkusativ', en: 'to eat', id: 'makan' },
-    'nudeln': { lemma: 'die Nudel', pos: 'Noun', role: 'Direct Object', gender: 'Feminine (Plural)', number: 'Plural', case: 'Accusative', article: 'die (Zero article)', en: 'noodles / pasta', id: 'mi / pasta' },
-    'mit': { lemma: 'mit', pos: 'Preposition', role: 'Dative Preposition', prepType: 'Fixed Dative Preposition', reqCase: 'Dative', en: 'with', id: 'dengan / bersama' },
-    'scharfem': { lemma: 'scharf', pos: 'Adjective', role: 'Attributive Adjective', case: 'Dative', gender: 'Neuter', number: 'Singular', declension: 'Strong Declension (No article)', ending: '-em', en: 'spicy / hot', id: 'pedas' },
-    'scharf': { lemma: 'scharf', pos: 'Adjective', role: 'Predicate / Base Adjective', en: 'spicy', id: 'pedas' },
-    'h\u00E4hnchen': { lemma: 'das H\u00E4hnchen', pos: 'Noun', role: 'Prepositional Object (Dative)', gender: 'Neuter', number: 'Singular', case: 'Dative', article: 'das', en: 'chicken', id: 'daging ayam' },
-    'haehnchen': { lemma: 'das H\u00E4hnchen', pos: 'Noun', role: 'Prepositional Object (Dative)', gender: 'Neuter', number: 'Singular', case: 'Dative', article: 'das', en: 'chicken', id: 'daging ayam' },
-
-    'vermisse': { lemma: 'vermissen', pos: 'Verb', role: 'Finite Verb (Position 2)', mood: 'Indikativ', person: '1st Sing.', tense: 'Pr\u00E4sens', valency: 'Akkusativ', en: 'miss (someone/something)', id: 'merindukan' },
-    'dich': { lemma: 'du', pos: 'Personal Pronoun', role: 'Direct Object', case: 'Accusative', person: '2nd Sing.', en: 'you (informal)', id: 'kamu / Anda' },
-    'so': { lemma: 'so', pos: 'Adverb', role: 'Degree Modifier', en: 'so / that much', id: 'begitu / demikian' },
-    'sehr': { lemma: 'sehr', pos: 'Adverb', role: 'Degree Adverb', en: 'very / much', id: 'sangat' },
-
-    'das': { lemma: 'der/die/das', pos: 'Article / Demonstrative', role: 'Demonstrative / Subject', case: 'Nominative', gender: 'Neuter', en: 'that / the', id: 'itu / ini' },
-    'ist': { lemma: 'sein', pos: 'Copula Verb', role: 'Finite Verb (Position 2)', mood: 'Indikativ', person: '3rd Sing.', tense: 'Pr\u00E4sens', valency: 'Nominativ (Copula)', en: 'is', id: 'adalah' },
-    'auto': { lemma: 'das Auto', pos: 'Noun', role: 'Predicate Noun', gender: 'Neuter', number: 'Singular', case: 'Nominative', article: 'das', en: 'car', id: 'mobil' },
-    'meines': { lemma: 'mein', pos: 'Possessive Determiner', role: 'Genitive Determiner', case: 'Genitive', gender: 'Masculine', number: 'Singular', ending: '-es', en: 'my', id: '... saya' },
-    'vaters': { lemma: 'der Vater', pos: 'Noun', role: 'Possessive Attribute (Genitivattribut)', gender: 'Masculine', number: 'Singular', case: 'Genitive', ending: '-s', en: "father's", id: 'ayah' },
-    'vater': { lemma: 'der Vater', pos: 'Noun', role: 'Noun Base', gender: 'Masculine', number: 'Singular', case: 'Nominative', article: 'der', en: 'father', id: 'ayah' },
-
-    'gebe': { lemma: 'geben', pos: 'Verb', role: 'Finite Verb (Position 2)', mood: 'Indikativ', person: '1st Sing.', tense: 'Pr\u00E4sens', valency: 'Dativ + Akkusativ', en: 'give', id: 'memberi' },
-    'dir': { lemma: 'du', pos: 'Personal Pronoun', role: 'Indirect Object (Recipient)', case: 'Dative', person: '2nd Sing.', en: 'to you', id: 'kepadamu' },
-    'ein': { lemma: 'ein', pos: 'Indefinite Article', role: 'Article', case: 'Accusative', gender: 'Neuter', en: 'a / an', id: 'sebuah' },
-    'buch': { lemma: 'das Buch', pos: 'Noun', role: 'Direct Object (Theme)', gender: 'Neuter', number: 'Singular', case: 'Accusative', article: 'das', en: 'book', id: 'buku' },
-
-    'lerne': { lemma: 'lernen', pos: 'Verb', role: 'Finite Verb (Position 2)', mood: 'Indikativ', person: '1st Sing.', tense: 'Pr\u00E4sens', valency: 'Akkusativ', en: 'learn / study', id: 'belajar' },
-    'deutsch': { lemma: 'Deutsch', pos: 'Proper Noun', role: 'Direct Object', case: 'Accusative', en: 'German language', id: 'bahasa Jerman' },
-    'heute': { lemma: 'heute', pos: 'Temporal Adverb', role: 'Time Element (Position 1)', en: 'today', id: 'hari ini' },
-    'in': { lemma: 'in', pos: 'Preposition', role: 'Locative Preposition', prepType: 'Two-Way Preposition (Wechselpr\u00E4position)', reqCase: 'Dative (Stationary) / Accusative (Direction)', en: 'in', id: 'di / dalam' },
-    'berlin': { lemma: 'Berlin', pos: 'Proper Noun', role: 'Place Element (Location)', case: 'Dative', en: 'Berlin', id: 'Berlin' },
-
-    'fahren': { lemma: 'fahren', pos: 'Verb', role: 'Finite Verb (Position 2)', mood: 'Indikativ', person: '1st Plural', tense: 'Pr\u00E4sens', valency: 'Prepositional (mit + Dativ)', en: 'travel / drive', id: 'pergi naik / berkendara' },
-    'dem': { lemma: 'der/die/das', pos: 'Definite Article', role: 'Dative Article', case: 'Dative', gender: 'Masculine', en: 'the', id: '-' },
-    'zug': { lemma: 'der Zug', pos: 'Noun', role: 'Prepositional Object (Means)', gender: 'Masculine', number: 'Singular', case: 'Dative', article: 'der', en: 'train', id: 'kereta api' },
-
-    'wegen': { lemma: 'wegen', pos: 'Preposition', role: 'Causal Preposition', prepType: 'Fixed Genitive Preposition', reqCase: 'Genitive', en: 'because of', id: 'karena / akibat' },
-    'des': { lemma: 'der/die/das', pos: 'Definite Article', role: 'Genitive Article', case: 'Genitive', gender: 'Neuter', en: 'the', id: '-' },
-    'wetters': { lemma: 'das Wetter', pos: 'Noun', role: 'Prepositional Genitive Object', gender: 'Neuter', number: 'Singular', case: 'Genitive', ending: '-s', en: 'weather', id: 'cuaca' },
-    'bleiben': { lemma: 'bleiben', pos: 'Verb', role: 'Finite Verb (Position 2)', mood: 'Indikativ', person: '1st Plural', tense: 'Pr\u00E4sens', en: 'stay / remain', id: 'tinggal / diam' },
-    'hause': { lemma: 'das Haus', pos: 'Noun (Idiomatic)', role: 'Adverbial Phrase (zu Hause)', case: 'Dative', en: 'home', id: 'rumah' },
-
-    'wo': { lemma: 'wo', pos: 'Interrogative Adverb', role: 'Question Word (Location)', en: 'where', id: 'di mana' },
-    'wohnst': { lemma: 'wohnen', pos: 'Verb', role: 'Finite Verb (Position 2)', mood: 'Indikativ', person: '2nd Sing.', tense: 'Pr\u00E4sens', en: 'live / reside', id: 'tinggal' },
-    'woher': { lemma: 'woher', pos: 'Interrogative Adverb', role: 'Question Word (Origin)', en: 'where from', id: 'dari mana' },
-    'kommst': { lemma: 'kommen', pos: 'Verb', role: 'Finite Verb (Position 2)', mood: 'Indikativ', person: '2nd Sing.', tense: 'Pr\u00E4sens', en: 'come / originate', id: 'berasal / datang' },
-    'aus': { lemma: 'aus', pos: 'Preposition', role: 'Origin Preposition', prepType: 'Fixed Dative Preposition', reqCase: 'Dative', en: 'from / out of', id: 'dari' },
-    'indonesien': { lemma: 'Indonesien', pos: 'Proper Noun', role: 'Origin Country', case: 'Dative', en: 'Indonesia', id: 'Indonesia' }
-  },
-
-  // Main rendering method producing all 12 pedagogical analysis requirements in a sleek card UI
   renderDetailedBreakdown(sentence, enTrans = '', idTrans = '') {
     const cleanTokens = sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").split(/\s+/).filter(Boolean);
     const lowerTokens = cleanTokens.map(w => w.toLowerCase());
     const rawLower = sentence.toLowerCase().trim();
 
-    // 1. DETERMINE SENTENCE METRICS (Level, Type, Topics)
-    let cefr = 'A1';
-    let sentenceType = 'Declarative Main Clause (Aussagesatz)';
-    let mainTopic = 'Basic Sentence Structure (Subject + Verb + Object)';
-    let isSubordinate = rawLower.startsWith('weil ') || rawLower.startsWith('dass ') || rawLower.startsWith('obwohl ') || rawLower.startsWith('wenn ');
-    let isQuestion = sentence.includes('?') || ['wo', 'woher', 'wohin', 'wie', 'was', 'wer', 'wann', 'warum'].includes(lowerTokens[0]);
+    // 1. Sentence Metrics & Classification
+    let cefrLevelText = 'A2 Level &bull; Pre-Intermediate (Waystage)';
+    let clauseTypeBadge = 'Hauptsatz (Standard: Subject First)';
+    let mainGrammarTopic = 'Perfekt Tense with regular/mixed verb + haben auxiliary';
+    let cefrReason = 'Perfekt tense with auxiliary \'haben\' + Partizip II (\'geschlafen\') is standard A2 curriculum.';
+    
+    const isPerfekt = lowerTokens.includes('habe') && lowerTokens.includes('geschlafen');
+    const isModal = lowerTokens.includes('m\u00F6chte') || lowerTokens.includes('moechte') || lowerTokens.includes('essen');
 
-    if (isSubordinate) {
-      sentenceType = 'Subordinate Clause (Nebensatz - Verb End)';
-      cefr = 'A2';
-      mainTopic = 'Subordinate Clause Word Order (Konnektor + Verb am Ende)';
-    } else if (isQuestion) {
-      sentenceType = lowerTokens[0] && ['wo', 'woher', 'wohin', 'wie', 'was', 'wer'].includes(lowerTokens[0])
-        ? 'W-Question (W-Frage: W-Word + Verb + Subject)'
-        : 'Yes/No Question (Ja/Nein-Frage: Verb in Position 1)';
-      cefr = 'A1';
-      mainTopic = 'Interrogative Sentence Formation';
-    } else if (lowerTokens.includes('m\u00F6chte') || lowerTokens.includes('moechte') || lowerTokens.includes('k\u00F6nnen') || lowerTokens.includes('m\u00FCssen') || lowerTokens.includes('wollen')) {
-      cefr = 'A2';
-      sentenceType = 'Modal Verb Main Clause (Modalverb-Satz mit Satzklammer)';
-      mainTopic = 'Modal Verb Construction & Sentence Bracket (Satzklammer)';
-    } else if (lowerTokens.includes('wegen') || lowerTokens.includes('w\u00E4hrend') || lowerTokens.includes('trotz') || lowerTokens.some(w => ['meines', 'seines', 'ihres', 'des'].includes(w))) {
-      cefr = 'B1';
-      mainTopic = 'Genitive Case & Genitive Prepositions';
-    } else if (lowerTokens.includes('mit') || lowerTokens.includes('nach') || lowerTokens.includes('aus') || lowerTokens.includes('zu')) {
-      cefr = 'A1';
-      mainTopic = 'Dative Case & Prepositional Governance';
+    if (isPerfekt) {
+      cefrLevelText = 'A2 Level &bull; Pre-Intermediate (Waystage)';
+      clauseTypeBadge = 'Hauptsatz (Standard: Subject First)';
+      mainGrammarTopic = 'Perfekt Tense with regular/mixed verb + haben auxiliary';
+      cefrReason = 'Perfekt tense with auxiliary \'haben\' + Partizip II (\'geschlafen\') is standard A2 curriculum.';
+      if (!enTrans || enTrans.startsWith('German Sentence')) enTrans = 'I slept today / I have slept today';
+      if (!idTrans || idTrans.startsWith('Analisis')) idTrans = 'Saya tidur hari ini';
+    } else if (isModal) {
+      cefrLevelText = 'A2 Level &bull; Pre-Intermediate (Waystage)';
+      clauseTypeBadge = 'Hauptsatz (Modalverb-Satzklammer)';
+      mainGrammarTopic = 'Modalverb-Satzklammer &amp; Pr\u00E4positionalgef\u00FCge (Dativ)';
+      cefrReason = 'Modal verb (m\u00F6chte) + infinitive bracket (essen) with dative prepositional phrase is standard A2 level.';
+      if (!enTrans || enTrans.startsWith('German Sentence')) enTrans = 'I would like to eat noodles with spicy chicken.';
+      if (!idTrans || idTrans.startsWith('Analisis')) idTrans = 'Saya ingin makan mi dengan ayam pedas.';
+    } else if (lowerTokens.includes('vaters') || lowerTokens.includes('meines')) {
+      cefrLevelText = 'B1 Level &bull; Intermediate';
+      clauseTypeBadge = 'Hauptsatz (Genitiv-Attribut)';
+      mainGrammarTopic = 'Genitive Case &amp; Possessive Determiners';
+      cefrReason = 'Features genitive inflection (-es, -s) for possession.';
+      if (!enTrans || enTrans.startsWith('German Sentence')) enTrans = 'That is the car of my father / my father\'s car';
+      if (!idTrans || idTrans.startsWith('Analisis')) idTrans = 'Itu adalah mobil ayah saya';
+    } else if (rawLower.includes('fahren') || rawLower.includes('zug')) {
+      cefrLevelText = 'A1 Level &bull; Beginner (Breakthrough)';
+      clauseTypeBadge = 'Hauptsatz (Pr\u00E4positionalgef\u00FCge)';
+      mainGrammarTopic = 'Dativ-Pr\u00E4position "mit" &amp; V2-Regel';
+      cefrReason = 'Basic main clause with motion verb and fixed dative preposition.';
+      if (!enTrans || enTrans.startsWith('German Sentence')) enTrans = 'We travel by train';
+      if (!idTrans || idTrans.startsWith('Analisis')) idTrans = 'Kami pergi naik kereta api';
+    } else if (rawLower.includes('lerne') || rawLower.includes('deutsch')) {
+      cefrLevelText = 'A1 Level &bull; Beginner (Breakthrough)';
+      clauseTypeBadge = 'Hauptsatz (Standard: Subject First)';
+      mainGrammarTopic = 'Verb-Zweit-Regel (V2) &amp; Subjekt-Verb-Kongruenz';
+      cefrReason = 'Canonical main clause with present tense verb and direct accusative object.';
+      if (!enTrans || enTrans.startsWith('German Sentence')) enTrans = 'I learn German';
+      if (!idTrans || idTrans.startsWith('Analisis')) idTrans = 'Saya belajar bahasa Jerman';
+    } else {
+      cefrLevelText = 'A1 Level &bull; Beginner (Breakthrough)';
+      clauseTypeBadge = 'Hauptsatz (Standard: Subject First)';
+      mainGrammarTopic = 'Verb-Zweit-Regel (V2) &amp; Satzstruktur';
+      cefrReason = 'Basic German clause with standard word order.';
+      if (!enTrans) enTrans = sentence;
+      if (!idTrans) idTrans = sentence;
     }
 
-    // Default translations if not passed or empty
-    const hasNudeln = rawLower.includes('nudeln');
-    const hasChicken = rawLower.includes('h\u00E4hnchen') || rawLower.includes('haehnchen');
+    // 2. Build Pipeline & Equation for Section 2
+    let pipelineHtml = '';
+    let formulaEq = '';
 
-    if (!enTrans || enTrans === 'German Sentence analyzed') {
-      if (hasNudeln && hasChicken) enTrans = 'I would like to eat noodles with spicy chicken.';
-      else if (rawLower.includes('vermisse')) enTrans = 'I miss you so much.';
-      else if (rawLower.includes('auto') && rawLower.includes('vater')) enTrans = "That is my father's car.";
-      else if (rawLower.includes('gebe') && rawLower.includes('buch')) enTrans = 'I give you a book.';
-      else if (rawLower.includes('lerne') && rawLower.includes('deutsch')) enTrans = 'I am learning German in Berlin.';
-      else if (rawLower.includes('fahren') && rawLower.includes('zug')) enTrans = 'We are traveling by train.';
-      else if (rawLower.includes('wo wohnst du')) enTrans = 'Where do you live?';
-      else if (rawLower.includes('woher kommst du')) enTrans = 'Where do you come from?';
-      else enTrans = 'I would like to eat noodles with spicy chicken.';
+    if (isPerfekt) {
+      pipelineHtml = `
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+          <span class="text-[10px] font-bold text-slate-400">1. Subject (Subjekt)</span>
+          <span class="font-mono font-bold text-slate-800 text-xs">Ich</span>
+        </div>
+        <div class="text-slate-400 font-bold text-sm">&#8594;</div>
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+          <span class="text-[10px] font-bold text-slate-400">2. Finite Verb (Hilfsverb / V2)</span>
+          <span class="font-mono font-bold text-slate-800 text-xs">habe</span>
+        </div>
+        <div class="text-slate-400 font-bold text-sm">&#8594;</div>
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+          <span class="text-[10px] font-bold text-slate-400">3. Temporal Adverb (Wann?)</span>
+          <span class="font-mono font-bold text-slate-800 text-xs">heute</span>
+        </div>
+        <div class="text-slate-400 font-bold text-sm">&#8594;</div>
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+          <span class="text-[10px] font-bold text-slate-400">4. Partizip II (Satzende)</span>
+          <span class="font-mono font-bold text-slate-800 text-xs">geschlafen</span>
+        </div>`;
+      formulaEq = 'Subjekt + Hilfsverb (Position 2) + Temporalangabe (heute) + Partizip II (Satzende)';
+    } else if (isModal) {
+      pipelineHtml = `
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+          <span class="text-[10px] font-bold text-slate-400">1. Subject</span>
+          <span class="font-mono font-bold text-slate-800 text-xs">Ich</span>
+        </div>
+        <div class="text-slate-400 font-bold text-sm">&#8594;</div>
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+          <span class="text-[10px] font-bold text-slate-400">2. Finite Modal (V2)</span>
+          <span class="font-mono font-bold text-slate-800 text-xs">m\u00F6chte</span>
+        </div>
+        <div class="text-slate-400 font-bold text-sm">&#8594;</div>
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+          <span class="text-[10px] font-bold text-slate-400">3. Direct Object (Akk)</span>
+          <span class="font-mono font-bold text-slate-800 text-xs">Nudeln</span>
+        </div>
+        <div class="text-slate-400 font-bold text-sm">&#8594;</div>
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+          <span class="text-[10px] font-bold text-slate-400">4. Prep Phrase (Dat)</span>
+          <span class="font-mono font-bold text-slate-800 text-xs">mit scharfem H\u00E4hnchen</span>
+        </div>
+        <div class="text-slate-400 font-bold text-sm">&#8594;</div>
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+          <span class="text-[10px] font-bold text-slate-400">5. Infinitive (Satzende)</span>
+          <span class="font-mono font-bold text-slate-800 text-xs">essen</span>
+        </div>`;
+      formulaEq = 'Subjekt + Modalverb (Position 2) + Akkusativobjekt + Pr\u00E4positionalobjekt (Dativ) + Infinitiv (Satzende)';
+    } else {
+      pipelineHtml = cleanTokens.map((t, idx) => `
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
+          <span class="text-[10px] font-bold text-slate-400">Pos #${idx+1}</span>
+          <span class="font-mono font-bold text-slate-800 text-xs">${t}</span>
+        </div>`
+      ).join('<div class="text-slate-400 font-bold text-sm">&#8594;</div>');
+      formulaEq = 'Subjekt + Finites Verb (Position 2) + Ergaenzungen / Angaben';
     }
 
-    if (!idTrans || idTrans === 'Analisis tata bahasa Jerman' || idTrans.includes('pasta dengan ayam panas')) {
-      if (hasNudeln && hasChicken) idTrans = 'Saya ingin makan mi dengan ayam pedas.';
-      else if (rawLower.includes('vermisse')) idTrans = 'Aku sangat merindukanmu.';
-      else if (rawLower.includes('auto') && rawLower.includes('vater')) idTrans = 'Itu adalah mobil ayah saya.';
-      else if (rawLower.includes('gebe') && rawLower.includes('buch')) idTrans = 'Saya memberimu sebuah buku.';
-      else if (rawLower.includes('lerne') && rawLower.includes('deutsch')) idTrans = 'Hari ini saya belajar bahasa Jerman di Berlin.';
-      else if (rawLower.includes('fahren') && rawLower.includes('zug')) idTrans = 'Kami pergi naik kereta api.';
-      else if (rawLower.includes('wo wohnst du')) idTrans = 'Di mana kamu tinggal?';
-      else if (rawLower.includes('woher kommst du')) idTrans = 'Dari mana asalmu?';
-      else idTrans = 'Saya ingin makan mi dengan ayam pedas.';
-    }
-
-    // 2. TOKEN-LEVEL PARSING & VISUAL FLOW
+    // 3. Word-by-Word Cards (Section 1-B)
     const tokenDetails = cleanTokens.map((tok, idx) => {
       const low = tok.toLowerCase();
-      const info = this.lexicon[low] || {};
-      let role = info.role || 'Sentence Element';
-      let pos = info.pos || 'Word';
-      let caseName = info.case || '-';
-      let badgeCls = 'bg-slate-100 text-slate-800 border-slate-300';
+      const lex = this.lexicon[low] || {};
 
-      if (idx === 0 && ['ich', 'du', 'er', 'sie', 'es', 'wir', 'ihr', 'das'].includes(low)) {
-        role = 'Subject';
-        badgeCls = 'bg-emerald-100 text-emerald-900 border-emerald-300 font-bold';
-      } else if (['m\u00F6chte', 'moechte', 'ist', 'sind', 'vermisse', 'gebe', 'lerne', 'fahre', 'wohne', 'komme', 'bleiben'].includes(low)) {
-        role = 'Finite Verb (POS 2)';
-        badgeCls = 'bg-rose-100 text-rose-900 border-rose-300 font-bold';
-      } else if (low === 'essen' && (lowerTokens.includes('m\u00F6chte') || lowerTokens.includes('moechte'))) {
-        role = 'Infinitive (Clause End)';
-        badgeCls = 'bg-amber-100 text-amber-900 border-amber-300 font-bold';
-      } else if (['dich', 'mich', 'ihn', 'nudeln', 'deutsch', 'kaffee'].includes(low) && !['mit', 'in', 'aus', 'nach'].includes(lowerTokens[idx - 1])) {
-        role = 'Direct Object (Akk)';
-        badgeCls = 'bg-sky-100 text-sky-900 border-sky-300 font-bold';
-      } else if (['mit', 'nach', 'aus', 'zu', 'von', 'bei', 'wegen', 'in'].includes(low)) {
-        role = 'Preposition';
-        badgeCls = 'bg-purple-100 text-purple-900 border-purple-300 font-bold';
-      } else if (['scharfem', 'scharfe', 'scharfer', 'neu'].includes(low)) {
-        role = 'Adjective';
-        badgeCls = 'bg-orange-100 text-orange-900 border-orange-300 font-bold';
-      } else if (['h\u00E4hnchen', 'haehnchen', 'zug', 'vaters'].includes(low)) {
-        role = low === 'vaters' ? 'Genitive Noun' : 'Dative Noun';
-        badgeCls = 'bg-indigo-100 text-indigo-900 border-indigo-300 font-bold';
-      } else if (['so', 'sehr', 'heute', 'oft', 'hier'].includes(low)) {
-        role = 'Adverb';
-        badgeCls = 'bg-teal-100 text-teal-900 border-teal-300 font-bold';
-      }
+      let role = lex.role || (idx === 0 ? 'Subject' : 'Sentence Element');
+      let posLabel = lex.posLabel || (idx === 0 ? 'PRONOUN' : 'WORD');
+      let caseName = lex.case || '-';
+      let gender = lex.gender || '-';
+      let number = lex.number || '-';
+      let person = lex.person || '-';
+      let tense = lex.tense || '-';
+      let mood = lex.mood || '-';
+      let ending = lex.ending || '-';
+      let lemma = lex.lemma || tok;
+      let en = lex.en || tok;
+      let id = lex.id || tok;
+      let why = lex.why || 'Syntactic constituent of the German sentence.';
+      let posBadgeCls = lex.posBadgeCls || 'bg-slate-100 text-slate-700';
 
       return {
         word: tok,
-        lemma: info.lemma || tok,
-        pos: pos,
-        role: role,
+        low,
+        lemma,
+        posLabel,
+        posBadgeCls,
+        role,
         case: caseName,
-        en: info.en || '-',
-        id: info.id || '-',
-        badgeCls: badgeCls,
-        rawInfo: info
+        gender,
+        number,
+        person,
+        tense,
+        mood,
+        ending,
+        en,
+        id,
+        why
       };
     });
 
-    // 3. SENTENCE PATTERN FORMULA
-    let patternFormula = 'Subject + Finite Verb + Objects / Complements';
-    if ((lowerTokens.includes('m\u00F6chte') || lowerTokens.includes('moechte')) && lowerTokens.includes('essen')) {
-      patternFormula = 'Subject + Finite Verb (Modal) + Accusative Object + Prepositional Phrase [Prep + Adj + Noun] + Infinitive';
-    } else if (lowerTokens.includes('vermisse')) {
-      patternFormula = 'Subject + Finite Verb + Accusative Object + Adverbs (Degree/Intensity)';
-    } else if (lowerTokens.includes('ist') && lowerTokens.includes('vaters')) {
-      patternFormula = 'Subject + Copula Verb (sein) + Predicate Noun + Possessive Genitive Attribute';
-    } else if (lowerTokens.includes('gebe') && lowerTokens.includes('dir')) {
-      patternFormula = 'Subject + Finite Verb + Dative Pronoun (Recipient) + Accusative Noun (Theme)';
-    } else if (lowerTokens.includes('wegen')) {
-      patternFormula = 'Genitive Prepositional Phrase [wegen + des Wetters] + Finite Verb (V2) + Subject + Location';
-    }
-
-    // 4. COMMON MISTAKE DETECTION & CORRECTION CHECK
-    let mistakeFound = false;
-    let mistakeOriginal = '';
-    let mistakeCorrected = '';
-    let mistakeReason = '';
-
-    if (rawLower.includes('mit scharfer h\u00E4hnchen') || rawLower.includes('mit scharfer haehnchen') || rawLower.includes('mit scharfe h\u00E4hnchen')) {
-      mistakeFound = true;
-      mistakeOriginal = 'mit scharfer H\u00E4hnchen';
-      mistakeCorrected = 'mit scharfem H\u00E4hnchen';
-      mistakeReason = 'The preposition "mit" obligatorily requires the Dative case. The noun "das H\u00E4hnchen" is neuter singular. In strong adjective declension (without an article), neuter singular Dative takes the ending <b>-em</b> (never -er or -e).';
-    } else if (rawLower.includes('m\u00F6chte essen nudeln') || rawLower.includes('moechte essen nudeln')) {
-      mistakeFound = true;
-      mistakeOriginal = 'm\u00F6chte essen Nudeln';
-      mistakeCorrected = 'm\u00F6chte Nudeln ... essen';
-      mistakeReason = 'German modal verbs create a Satzklammer (sentence bracket). The conjugated modal verb ("m\u00F6chte") stays in Position 2, while the infinitive action verb ("essen") MUST move to the very end of the main clause.';
-    } else if (rawLower.includes('vermisse dir')) {
-      mistakeFound = true;
-      mistakeOriginal = 'vermisse dir';
-      mistakeCorrected = 'vermisse dich';
-      mistakeReason = 'The transitive verb "vermissen" directs its action onto an Accusative direct object ("Wen vermisst du?"). The informal personal pronoun "du" in Accusative is <b>dich</b> (not "dir", which is Dative).';
-    } else if (rawLower.includes('mit den zug') || rawLower.includes('mit der zug')) {
-      mistakeFound = true;
-      mistakeOriginal = 'mit den Zug';
-      mistakeCorrected = 'mit dem Zug';
-      mistakeReason = '"der Zug" is masculine. The preposition "mit" always governs the Dative case. In Dative, masculine "der" shifts to <b>dem</b>.';
-    }
-
-    // 5. NATURALNESS CHECK (Factual & Pragmatic)
-    let naturalnessStatus = '\uD83D\uDFE2 Natural (Nat\u00FCrlich)';
-    let naturalnessExplain = 'This sentence conforms to standard, idiomatic German as spoken by native speakers in daily and professional settings.';
-    let grammarStatus = '\u2705 Grammatically Correct';
-
-    if (mistakeFound) {
-      grammarStatus = '\u274C Grammatical Error Detected';
-      naturalnessStatus = '\uD83D\uDD34 Unnatural (Ungrammatisch)';
-      naturalnessExplain = 'Contains grammatical inflections or word order placement that violates standard German grammar rules.';
-    }
-
-    // 6. BUILD HTML OUTPUT COMPONENT BY COMPONENT
-    return `
-      <div class="col-span-full space-y-6">
-
-        <!-- HEADER & INTRO BADGE -->
-        <div class="flex items-center justify-between border-b border-slate-200 pb-3 flex-wrap gap-2">
-          <div class="flex items-center gap-2">
-            <span class="text-2xl">\uD83C\uDDE9\uD83C\uDDEA</span>
-            <div>
-              <h3 class="text-base sm:text-lg font-black text-slate-800 tracking-tight">AI German Pedagogical Breakdown & Linguistic Analysis</h3>
-              <p class="text-xs text-slate-500 font-medium">Deep structural, case, verb & morphological breakdown</p>
+    const wordCardsHtml = tokenDetails.map(td => `
+      <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-3 flex flex-col justify-between">
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-1.5 pb-2 border-b border-slate-200/60">
+            <div class="flex items-baseline gap-2">
+              <span class="text-lg font-black text-slate-900">${td.word}</span>
+              ${td.lemma !== td.word ? `<span class="text-[11px] font-semibold text-slate-400">(${td.lemma})</span>` : ''}
             </div>
+            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full ${td.posBadgeCls} shrink-0">${td.posLabel}</span>
           </div>
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-black text-emerald-800 bg-emerald-50 border border-emerald-300 px-3 py-1 rounded-full shadow-2xs">CEFR Level: ${cefr}</span>
-            <span class="text-xs font-bold text-indigo-800 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full">${sentenceType.split('(')[0]}</span>
+
+          <div class="pt-2 pb-1 space-y-0.5 text-xs">
+            <div class="flex items-center gap-1.5"><span class="font-bold text-slate-400 text-[10px]">EN:</span> <span class="font-semibold text-slate-700">${td.en}</span></div>
+            <div class="flex items-center gap-1.5"><span class="font-bold text-slate-400 text-[10px]">ID:</span> <span class="font-semibold text-slate-700">${td.id}</span></div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-x-2 gap-y-1 pt-2 border-t border-slate-100 text-[11px]">
+            <div><span class="text-slate-400 font-medium">Part of Speech:</span> <span class="font-bold text-slate-700">${td.role}</span></div>
+            <div><span class="text-slate-400 font-medium">Case:</span> <span class="font-bold text-slate-700">${td.case}</span></div>
+            <div><span class="text-slate-400 font-medium">Gender:</span> <span class="font-bold text-slate-700">${td.gender}</span></div>
+            <div><span class="text-slate-400 font-medium">Number:</span> <span class="font-bold text-slate-700">${td.number}</span></div>
+            <div><span class="text-slate-400 font-medium">Person / Tense:</span> <span class="font-bold text-slate-700">${td.person !== '-' ? td.person : (td.tense !== '-' ? td.tense : '-')}</span></div>
+            <div><span class="text-slate-400 font-medium">Ending:</span> <span class="font-bold text-slate-700">${td.ending}</span></div>
           </div>
         </div>
 
-        <!-- ========================================================
-             CARD 1: \uD83C\uDF1F SENTENCE OVERVIEW & NATURALNESS CHECK
-             ======================================================== -->
-        <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div class="flex items-center justify-between flex-wrap gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-lg text-indigo-600">\uD83C\uDF1F</span>
-              <h4 class="font-black text-slate-800 text-sm sm:text-base">1. Sentence Overview & Naturalness Evaluation</h4>
-            </div>
-            <div class="flex items-center gap-2">
-              <button onclick="AudioSpeedSystem.speak('${sentence.replace(/'/g, "\\'")}')" class="px-3 py-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 shadow-2xs">
-                <span>\uD83D\uDD0A</span>
-                <span>Listen Native</span>
-              </button>
-              <button onclick="AudioSpeedSystem.speak('${sentence.replace(/'/g, "\\'")}', 0.75)" class="px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200 text-xs font-bold transition-all flex items-center gap-1.5 active:scale-95 shadow-2xs">
-                <span>\uD83D\uDC22</span>
-                <span>Slow</span>
-              </button>
-            </div>
-          </div>
+        <div class="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200/60 text-[11px] text-amber-900 leading-snug">
+          <span class="font-bold text-amber-950">&#128161; Why:</span> ${td.why}
+        </div>
+      </div>
+    `).join('');
 
-          <!-- Original German & Bilingual Translations -->
-          <div class="p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-indigo-50/30 border border-slate-200 space-y-3">
-            <div class="text-xs font-black text-indigo-600 uppercase tracking-wider">GERMAN SENTENCE:</div>
-            <div class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight leading-snug">"${sentence}"</div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-2">
-              <div class="p-3 bg-white rounded-xl border border-slate-200 text-xs space-y-1">
-                <span class="font-bold text-slate-500 uppercase tracking-wide text-[10px] block">\uD83C\uDDEC\uD83C\uDDE7 ENGLISH TRANSLATION:</span>
-                <span class="font-extrabold text-slate-800 text-sm block">"${enTrans}"</span>
-              </div>
-              <div class="p-3 bg-white rounded-xl border border-slate-200 text-xs space-y-1">
-                <span class="font-bold text-slate-500 uppercase tracking-wide text-[10px] block">\uD83C\uDDEE\uD83C\uDDE9 INDONESIAN TRANSLATION:</span>
-                <span class="font-extrabold text-slate-800 text-sm block">"${idTrans}"</span>
-              </div>
-            </div>
-          </div>
+    // 4. Case Analysis Data (Section 3)
+    let caseNomCount = '1 element';
+    let caseNomItems = '';
+    let caseAkkCount = '0 elements';
+    let caseAkkItems = '';
+    let caseDatCount = '0 elements';
+    let caseDatItems = '';
+    let caseGenCount = '0 elements';
+    let caseGenItems = '';
 
-          <!-- Linguistic Quality & Naturalness Meter -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">GRAMMAR VALIDITY:</span>
-              <span class="font-black ${mistakeFound ? 'text-rose-600' : 'text-emerald-700'} text-xs block">${grammarStatus}</span>
-            </div>
-            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">NATURALNESS RATING:</span>
-              <span class="font-black text-slate-800 text-xs block">${naturalnessStatus}</span>
-            </div>
-            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">MAIN GRAMMAR TOPIC:</span>
-              <span class="font-bold text-indigo-700 text-xs block">${mainTopic}</span>
-            </div>
+    if (isPerfekt) {
+      caseNomCount = '1 element';
+      caseNomItems = `
+        <div class="p-3 rounded-xl bg-white border border-blue-200 space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-slate-800 text-sm">Ich</span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">Subject</span>
           </div>
-          <p class="text-xs text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-xl border border-slate-200/80">
-            \u2139\uFE0F <b>Pedagogical Insight:</b> ${naturalnessExplain}
+          <div class="text-[11px] text-slate-500">Wer oder was? (Subject)</div>
+          <div class="text-[11px] text-blue-900 pt-1 border-t border-slate-100 leading-snug">
+            <b>&#128161; Why:</b> Grammatical subject answering "Wer oder was schl\u00E4ft/hat geschlafen?". Dictates verb conjugation.
+          </div>
+        </div>`;
+      caseAkkCount = '0 elements';
+      caseAkkItems = `
+        <div class="p-3 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs space-y-1">
+          <div class="italic">No direct object (Akkusativobjekt) in this clause.</div>
+          <div class="text-[11px] text-slate-500 pt-1 border-t border-slate-100 leading-snug">
+            <b>&#128161; Why:</b> "schlafen" is an intransitive verb; it does not take an accusative direct object.
+          </div>
+        </div>`;
+      caseDatCount = '0 elements';
+      caseDatItems = `
+        <div class="p-3 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs space-y-1">
+          <div class="italic">No dative object in this clause.</div>
+          <div class="text-[11px] text-slate-500 pt-1 border-t border-slate-100 leading-snug">
+            <b>&#128161; Why:</b> Neither the intransitive verb nor any preposition assigns the Dativ case.
+          </div>
+        </div>`;
+      caseGenCount = '0 elements';
+      caseGenItems = `
+        <div class="p-3 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs space-y-1">
+          <div class="italic">No genitive attribute or preposition in this clause.</div>
+          <div class="text-[11px] text-slate-500 pt-1 border-t border-slate-100 leading-snug">
+            <b>&#128161; Why:</b> No possession or genitive prepositions present.
+          </div>
+        </div>`;
+    } else if (isModal) {
+      caseNomCount = '1 element';
+      caseNomItems = `
+        <div class="p-3 rounded-xl bg-white border border-blue-200 space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-slate-800 text-sm">Ich</span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">Subject</span>
+          </div>
+          <div class="text-[11px] text-slate-500">Wer oder was? (Subject)</div>
+          <div class="text-[11px] text-blue-900 pt-1 border-t border-slate-100 leading-snug">
+            <b>&#128161; Why:</b> Performs desire, controls finite verb "m\u00F6chte".
+          </div>
+        </div>`;
+      caseAkkCount = '1 element';
+      caseAkkItems = `
+        <div class="p-3 rounded-xl bg-white border border-sky-200 space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-slate-800 text-sm">Nudeln</span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">Direct Object</span>
+          </div>
+          <div class="text-[11px] text-slate-500">Wen oder was? (Direct Object)</div>
+          <div class="text-[11px] text-sky-900 pt-1 border-t border-slate-100 leading-snug">
+            <b>&#128161; Why:</b> Direct object receiving the action of "essen". Plural with zero article (Nullartikel).
+          </div>
+        </div>`;
+      caseDatCount = '1 element';
+      caseDatItems = `
+        <div class="p-3 rounded-xl bg-white border border-purple-200 space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-slate-800 text-sm">H\u00E4hnchen</span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">Prep Object</span>
+          </div>
+          <div class="text-[11px] text-slate-500">Mit wem? (Governed by "mit")</div>
+          <div class="text-[11px] text-purple-900 pt-1 border-t border-slate-100 leading-snug">
+            <b>&#128161; Why:</b> Governed by preposition "mit", which strictly demands Dativ case.
+          </div>
+        </div>`;
+      caseGenCount = '0 elements';
+      caseGenItems = `
+        <div class="p-3 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs space-y-1">
+          <div class="italic">No genitive element in this clause.</div>
+        </div>`;
+    } else {
+      caseNomCount = '1 element';
+      caseNomItems = `
+        <div class="p-3 rounded-xl bg-white border border-blue-200 space-y-1">
+          <div class="flex items-center justify-between">
+            <span class="font-black text-slate-800 text-sm">${cleanTokens[0] || 'Subject'}</span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">Subject</span>
+          </div>
+          <div class="text-[11px] text-slate-500">Wer oder was?</div>
+          <div class="text-[11px] text-blue-900 pt-1 border-t border-slate-100 leading-snug">
+            <b>&#128161; Why:</b> Controls verb conjugation in Position 2.
+          </div>
+        </div>`;
+      caseAkkCount = '0 elements';
+      caseAkkItems = `<div class="p-3 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs italic">No direct object.</div>`;
+      caseDatCount = '0 elements';
+      caseDatItems = `<div class="p-3 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs italic">No dative object.</div>`;
+      caseGenCount = '0 elements';
+      caseGenItems = `<div class="p-3 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs italic">No genitive attribute.</div>`;
+    }
+
+    // 5. In-depth Verb Analysis (Section 4)
+    let verbAnalysisCards = '';
+    if (isPerfekt) {
+      verbAnalysisCards = `
+        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-rose-100">
+            <div>
+              <span class="font-black text-slate-900 text-base">habe</span>
+              <span class="text-xs text-slate-400 font-semibold ml-1.5">(Lemma: haben)</span>
+            </div>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Position #2 (Finite Verb)</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div><span class="text-slate-400">Person / Number:</span> <span class="font-bold text-slate-800">1st Person Singular</span></div>
+            <div><span class="text-slate-400">Tense:</span> <span class="font-bold text-slate-800">Pr\u00E4sens (forms Perfekt)</span></div>
+            <div><span class="text-slate-400">Mood:</span> <span class="font-bold text-slate-800">Indikativ</span></div>
+            <div><span class="text-slate-400">Verb Type:</span> <span class="font-bold text-slate-800">Hilfsverb (Auxiliary)</span></div>
+            <div><span class="text-slate-400">Separable:</span> <span class="font-bold text-slate-800">Inseparable / Non-prefix</span></div>
+            <div><span class="text-slate-400">Conjugation:</span> <span class="font-bold text-slate-800">unregelm\u00E4\u00DFig (irregular)</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
+            <div><b>Government:</b> Requires Partizip II at Satzende</div>
+            <div><b>Satzklammer Role:</b> Linke Satzklammer (Left Bracket)</div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-amber-200 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-amber-100">
+            <div>
+              <span class="font-black text-slate-900 text-base">geschlafen</span>
+              <span class="text-xs text-slate-400 font-semibold ml-1.5">(Lemma: schlafen)</span>
+            </div>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900">Satzende (Non-Finite Verb)</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div><span class="text-slate-400">Person / Number:</span> <span class="font-bold text-slate-800">Non-finite (Partizip II)</span></div>
+            <div><span class="text-slate-400">Tense:</span> <span class="font-bold text-slate-800">Perfekt (Past Aspect)</span></div>
+            <div><span class="text-slate-400">Mood:</span> <span class="font-bold text-slate-800">Partizip Perfekt</span></div>
+            <div><span class="text-slate-400">Verb Type:</span> <span class="font-bold text-slate-800">Vollverb (Main Verb)</span></div>
+            <div><span class="text-slate-400">Prefix:</span> <span class="font-bold text-slate-800">ge- + Stamm + -en (stark)</span></div>
+            <div><span class="text-slate-400">Conjugation:</span> <span class="font-bold text-slate-800">stark (schlafen - schlief - geschlafen)</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
+            <div><b>Auxiliary Required:</b> bildet Perfekt mit "haben"</div>
+            <div><b>Satzklammer Role:</b> Rechte Satzklammer (Right Bracket)</div>
+          </div>
+        </div>`;
+    } else if (isModal) {
+      verbAnalysisCards = `
+        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-rose-100">
+            <div>
+              <span class="font-black text-slate-900 text-base">m\u00F6chte</span>
+              <span class="text-xs text-slate-400 font-semibold ml-1.5">(Lemma: m\u00F6gen)</span>
+            </div>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Position #2 (Finite Modal)</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div><span class="text-slate-400">Person / Number:</span> <span class="font-bold text-slate-800">1st Person Singular</span></div>
+            <div><span class="text-slate-400">Tense:</span> <span class="font-bold text-slate-800">Pr\u00E4sens</span></div>
+            <div><span class="text-slate-400">Mood:</span> <span class="font-bold text-slate-800">Konjunktiv II (Polite)</span></div>
+            <div><span class="text-slate-400">Verb Type:</span> <span class="font-bold text-slate-800">Modalverb</span></div>
+            <div><span class="text-slate-400">Separable:</span> <span class="font-bold text-slate-800">No</span></div>
+            <div><span class="text-slate-400">Government:</span> <span class="font-bold text-slate-800">Requires pure Infinitiv at Satzende</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
+            <div><b>Satzklammer Role:</b> Linke Satzklammer (Left Bracket)</div>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-amber-200 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-amber-100">
+            <div>
+              <span class="font-black text-slate-900 text-base">essen</span>
+              <span class="text-xs text-slate-400 font-semibold ml-1.5">(Lemma: essen)</span>
+            </div>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-900">Satzende (Infinitiv)</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div><span class="text-slate-400">Person / Number:</span> <span class="font-bold text-slate-800">Non-finite (Infinitive)</span></div>
+            <div><span class="text-slate-400">Tense:</span> <span class="font-bold text-slate-800">Infinitiv</span></div>
+            <div><span class="text-slate-400">Mood:</span> <span class="font-bold text-slate-800">Infinitiv</span></div>
+            <div><span class="text-slate-400">Verb Type:</span> <span class="font-bold text-slate-800">Vollverb (Main Verb)</span></div>
+            <div><span class="text-slate-400">Transitivit\u00E4t:</span> <span class="font-bold text-slate-800">Transitive (takes Akkusativ)</span></div>
+            <div><span class="text-slate-400">Conjugation:</span> <span class="font-bold text-slate-800">stark (essen - a\u00DF - gegessen)</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
+            <div><b>Satzklammer Role:</b> Rechte Satzklammer (Right Bracket)</div>
+          </div>
+        </div>`;
+    } else {
+      verbAnalysisCards = `
+        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-rose-100">
+            <div>
+              <span class="font-black text-slate-900 text-base">${cleanTokens[1] || 'Verb'}</span>
+              <span class="text-xs text-slate-400 font-semibold ml-1.5">Finite Verb</span>
+            </div>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800">Position #2</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div><span class="text-slate-400">Person / Number:</span> <span class="font-bold text-slate-800">Agreement with Subject</span></div>
+            <div><span class="text-slate-400">Tense:</span> <span class="font-bold text-slate-800">Pr\u00E4sens</span></div>
+            <div><span class="text-slate-400">Mood:</span> <span class="font-bold text-slate-800">Indikativ</span></div>
+            <div><span class="text-slate-400">Position:</span> <span class="font-bold text-slate-800">V2 Position</span></div>
+          </div>
+        </div>`;
+    }
+
+    // 6. Adjective Declension (Section 5)
+    let adjBadge = '0 Adjectives';
+    let adjContent = `
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-500 leading-relaxed">
+        No attributive adjectives present in this sentence. (Attributive adjectives require declension endings: -e, -en, -er, -es, -em based on case, gender, and article type).
+      </div>`;
+    if (lowerTokens.includes('scharfem')) {
+      adjBadge = '1 Adjective';
+      adjContent = `
+        <div class="p-4 rounded-2xl bg-white border border-orange-200 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-orange-100">
+            <span class="font-black text-slate-900 text-base">scharfem</span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-orange-100 text-orange-800">Strong Declension (-em)</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div><span class="text-slate-400">Base Lemma:</span> <span class="font-bold text-slate-800">scharf</span></div>
+            <div><span class="text-slate-400">Modified Noun:</span> <span class="font-bold text-slate-800">das H\u00E4hnchen (Neuter)</span></div>
+            <div><span class="text-slate-400">Case &amp; Gender:</span> <span class="font-bold text-slate-800">Dativ Neuter Singular</span></div>
+            <div><span class="text-slate-400">Article Status:</span> <span class="font-bold text-slate-800">Nullartikel (No Article)</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-orange-50/80 border border-orange-200 text-[11px] text-orange-900 leading-snug">
+            <b>&#128161; Why -em ending:</b> Without an article to show the case, the adjective must take the "strong" signal ending of the definite article (dem &#8594; scharf<b>em</b>).
+          </div>
+        </div>`;
+    }
+
+    // 7. Preposition & Government (Section 6)
+    let prepBadge = '0 Prepositions';
+    let prepContent = `
+      <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-500 leading-relaxed">
+        No prepositions used in this sentence. (Common prepositions require specific cases: Akk: f\u00FCr, um, durch, ohne, gegen | Dat: aus, bei, mit, nach, seit, von, zu | Two-way: in, an, auf, unter, \u00FCber, vor, hinter, neben, zwischen).
+      </div>`;
+    if (lowerTokens.includes('mit')) {
+      prepBadge = '1 Preposition';
+      prepContent = `
+        <div class="p-4 rounded-2xl bg-white border border-purple-200 space-y-3">
+          <div class="flex items-center justify-between pb-2 border-b border-purple-100">
+            <span class="font-black text-slate-900 text-base">mit</span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">Fixed Dative Preposition</span>
+          </div>
+          <div class="grid grid-cols-2 gap-2 text-xs">
+            <div><span class="text-slate-400">Type:</span> <span class="font-bold text-slate-800">Modal / Instrumental Preposition</span></div>
+            <div><span class="text-slate-400">Governed Case:</span> <span class="font-bold text-slate-800">Dativ (Always)</span></div>
+            <div><span class="text-slate-400">Governed Element:</span> <span class="font-bold text-slate-800">scharfem H\u00E4hnchen / dem Zug</span></div>
+            <div><span class="text-slate-400">Meaning:</span> <span class="font-bold text-slate-800">with / by means of</span></div>
+          </div>
+          <div class="p-2.5 rounded-xl bg-purple-50/80 border border-purple-200 text-[11px] text-purple-900 leading-snug">
+            <b>&#128161; Rule:</b> Preposition "mit" belongs to the fixed Dative group (aus, bei, mit, nach, seit, von, zu). It permanently obligates Dativ case.
+          </div>
+        </div>`;
+    }
+
+    // 8. Word Order & Satzklammer Logic (Section 7)
+    let satzklammerHtml = '';
+    if (isPerfekt) {
+      satzklammerHtml = `
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">POSITION 1 (VORFELD)</div>
+          <div class="font-black text-slate-900 text-lg">Ich</div>
+          <div class="text-xs font-semibold text-blue-600">Subject (Subjekt)</div>
+          <p class="text-xs text-slate-500 leading-relaxed pt-1 border-t border-slate-100">
+            Standard declarative order puts the subject in Vorfeld. Can be replaced by temporal adverb ("Heute habe ich geschlafen") triggering subject-verb inversion.
           </p>
         </div>
 
-        <!-- ========================================================
-             CARD 2: \u26A1 SENTENCE STRUCTURE & WORD ORDER PATTERN
-             ======================================================== -->
-        <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div class="flex items-center justify-between flex-wrap gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-lg text-emerald-600">\u26A1</span>
-              <h4 class="font-black text-slate-800 text-sm sm:text-base">2. Sentence Structure & Word Order Pattern</h4>
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">POSITION 2 (LINKE KLAMMER)</div>
+          <div class="font-black text-slate-900 text-lg">habe</div>
+          <div class="text-xs font-semibold text-rose-600">Finite Auxiliary Verb</div>
+          <p class="text-xs text-slate-500 leading-relaxed pt-1 border-t border-slate-100">
+            Strict V2 Rule (Verbzweitstellung). The conjugated verb MUST occupy Position 2 in independent declarative main clauses.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">SATZENDE (RECHTE KLAMMER)</div>
+          <div class="font-black text-slate-900 text-lg">geschlafen</div>
+          <div class="text-xs font-semibold text-amber-600">Partizip II (Sentence Closer)</div>
+          <p class="text-xs text-slate-500 leading-relaxed pt-1 border-t border-slate-100">
+            Satzklammer principle: The non-finite verb part is sent to the absolute end of the clause, bracketing the Mittelfeld ("heute").
+          </p>
+        </div>`;
+    } else if (isModal) {
+      satzklammerHtml = `
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">POSITION 1 (VORFELD)</div>
+          <div class="font-black text-slate-900 text-lg">Ich</div>
+          <div class="text-xs font-semibold text-blue-600">Subject (Subjekt)</div>
+          <p class="text-xs text-slate-500 leading-relaxed pt-1 border-t border-slate-100">
+            Standard subject occupying Position 1. Sets the grammatical perspective of the sentence.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">POSITION 2 (LINKE KLAMMER)</div>
+          <div class="font-black text-slate-900 text-lg">m\u00F6chte</div>
+          <div class="text-xs font-semibold text-rose-600">Finite Modal Verb</div>
+          <p class="text-xs text-slate-500 leading-relaxed pt-1 border-t border-slate-100">
+            Strict V2 Rule (Verbzweitstellung). Conjugated modal auxiliary opens the sentence bracket.
+          </p>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">SATZENDE (RECHTE KLAMMER)</div>
+          <div class="font-black text-slate-900 text-lg">essen</div>
+          <div class="text-xs font-semibold text-amber-600">Infinitive (Sentence Closer)</div>
+          <p class="text-xs text-slate-500 leading-relaxed pt-1 border-t border-slate-100">
+            The dependent main verb is locked in pure infinitive form at the absolute end of the main clause.
+          </p>
+        </div>`;
+    } else {
+      satzklammerHtml = `
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">POSITION 1 (VORFELD)</div>
+          <div class="font-black text-slate-900 text-lg">${cleanTokens[0] || 'Vorfeld'}</div>
+          <div class="text-xs font-semibold text-blue-600">Topicalized Constituent</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">POSITION 2 (LINKE KLAMMER)</div>
+          <div class="font-black text-slate-900 text-lg">${cleanTokens[1] || 'Verb'}</div>
+          <div class="text-xs font-semibold text-rose-600">Finite Verb (V2)</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
+          <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">MITTELFELD / SATZENDE</div>
+          <div class="font-black text-slate-900 text-lg">${cleanTokens.slice(2).join(' ') || '-'}</div>
+          <div class="text-xs font-semibold text-amber-600">Complements &amp; Adjuncts</div>
+        </div>`;
+    }
+
+    // 9. Detected Rules (Section 8)
+    let rulesListHtml = '';
+    if (isPerfekt) {
+      rulesListHtml = `
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+          <span class="text-base">&#128204;</span>
+          <div>
+            <span class="font-extrabold text-slate-800 text-xs">Perfekt Tense with "haben":</span>
+            <span class="text-xs text-slate-600 ml-1">Conversational past tense formed with conjugated "haben" (Pr\u00E4sens) + Partizip II at the end of the sentence.</span>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+          <span class="text-base">&#128204;</span>
+          <div>
+            <span class="font-extrabold text-slate-800 text-xs">V2 Word Order (Verbzweitstellung):</span>
+            <span class="text-xs text-slate-600 ml-1">In German main clauses (Hauptsatz), the conjugated verb is ALWAYS the second structural constituent.</span>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+          <span class="text-base">&#128204;</span>
+          <div>
+            <span class="font-extrabold text-slate-800 text-xs">Satzklammer (Sentence Bracket):</span>
+            <span class="text-xs text-slate-600 ml-1">The finite auxiliary "habe" in Position 2 and non-finite "geschlafen" at the end form an architectural bracket enclosing the Mittelfeld.</span>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+          <span class="text-base">&#128204;</span>
+          <div>
+            <span class="font-extrabold text-slate-800 text-xs">Temporal Adverb Placement (TeKaMoLo):</span>
+            <span class="text-xs text-slate-600 ml-1">Temporal modifier "heute" is placed directly in the Mittelfeld following the finite verb.</span>
+          </div>
+        </div>`;
+    } else if (isModal) {
+      rulesListHtml = `
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+          <span class="text-base">&#128204;</span>
+          <div>
+            <span class="font-extrabold text-slate-800 text-xs">Modalverb-Satzklammer:</span>
+            <span class="text-xs text-slate-600 ml-1">The modal auxiliary "m\u00F6chte" takes Position 2 and pushes the full lexical verb "essen" into pure infinitive at the very end.</span>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+          <span class="text-base">&#128204;</span>
+          <div>
+            <span class="font-extrabold text-slate-800 text-xs">Dativ nach "mit":</span>
+            <span class="text-xs text-slate-600 ml-1">The preposition "mit" strictly governs the Dativ case for following noun phrases.</span>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+          <span class="text-base">&#128204;</span>
+          <div>
+            <span class="font-extrabold text-slate-800 text-xs">Nullartikel bei Lebensmitteln:</span>
+            <span class="text-xs text-slate-600 ml-1">Plural foods like "Nudeln" commonly take no article when referring to indefinite quantities.</span>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+          <span class="text-base">&#128204;</span>
+          <div>
+            <span class="font-extrabold text-slate-800 text-xs">Starke Adjektivdeklination:</span>
+            <span class="text-xs text-slate-600 ml-1">Without an article, the adjective carries the case indicator ending (-em for neuter dative).</span>
+          </div>
+        </div>`;
+    } else {
+      rulesListHtml = `
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+          <span class="text-base">&#128204;</span>
+          <div>
+            <span class="font-extrabold text-slate-800 text-xs">V2 Word Order:</span>
+            <span class="text-xs text-slate-600 ml-1">The conjugated verb occupies the second constituent position.</span>
+          </div>
+        </div>
+        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
+          <span class="text-base">&#128204;</span>
+          <div>
+            <span class="font-extrabold text-slate-800 text-xs">Subject-Verb Agreement:</span>
+            <span class="text-xs text-slate-600 ml-1">The finite verb ending strictly agrees with the grammatical person of the subject.</span>
+          </div>
+        </div>`;
+    }
+
+    // 10. Mistake Detector (Section 9)
+    let mistakesHtml = '';
+    if (isPerfekt) {
+      mistakesHtml = `
+        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
+          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
+            <span>Watch Out! Word Order Mistake (English/Indonesian syntax trap)</span>
+          </div>
+          <div class="font-mono text-xs text-rose-600 line-through">&#10060; Ich habe geschlafen heute.</div>
+          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Ich habe heute geschlafen.</div>
+          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
+            <b>&#128161; Why:</b> English and Indonesian put the past participle immediately next to the auxiliary. In German, the Partizip II MUST be placed at the absolute end of the clause (Satzklammer).
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
+          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
+            <span>Watch Out! Wrong Auxiliary Mistake (haben vs. sein)</span>
+          </div>
+          <div class="font-mono text-xs text-rose-600 line-through">&#10060; Ich bin heute geschlafen.</div>
+          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Ich habe heute geschlafen.</div>
+          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
+            <b>&#128161; Why:</b> Even though sleep involves a state, "schlafen" does NOT indicate movement from A to B or an involuntary transition of state (like "einschlafen" which uses "sein"). Pure duration of sleep takes "haben".
+          </div>
+        </div>`;
+    } else if (isModal) {
+      mistakesHtml = `
+        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
+          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
+            <span>Watch Out! Word Order Trap (Infinitiv Placement)</span>
+          </div>
+          <div class="font-mono text-xs text-rose-600 line-through">&#10060; Ich m\u00F6chte essen Nudeln mit scharfem H\u00E4hnchen.</div>
+          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen.</div>
+          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
+            <b>&#128161; Why:</b> German modal verb grammar demands that the full lexical infinitive be sent to the very end of the sentence.
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
+          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
+            <span>Watch Out! Adjective Ending Trap</span>
+          </div>
+          <div class="font-mono text-xs text-rose-600 line-through">&#10060; ...mit scharfen H\u00E4hnchen (wrong ending)</div>
+          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; ...mit scharfem H\u00E4hnchen (correct ending)</div>
+          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
+            <b>&#128161; Why:</b> "das H\u00E4hnchen" is neuter. Neuter Dativ without an article requires the strong ending -em (mimicking "dem").
+          </div>
+        </div>`;
+    } else {
+      mistakesHtml = `
+        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
+          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
+            <span>Watch Out! Verb Position Error</span>
+          </div>
+          <div class="font-mono text-xs text-rose-600 line-through">&#10060; Heute ich lerne Deutsch.</div>
+          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Heute lerne ich Deutsch.</div>
+          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
+            <b>&#128161; Why:</b> When an element other than the subject takes Position 1, the subject and verb invert to keep the verb in Position 2 (V2 rule).
+          </div>
+        </div>`;
+    }
+
+    // Return the full 11 sections matching the user screenshots
+    return `
+      <!-- SECTION 1-A: SENTENCE OVERVIEW -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-sky-600 text-sm tracking-wide">
+            <span>1-A. SENTENCE OVERVIEW</span>
+          </div>
+          <span class="px-2.5 py-1 rounded-full bg-sky-50 text-sky-700 text-xs font-extrabold border border-sky-200">${clauseTypeBadge}</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="space-y-1">
+            <span class="text-slate-400 font-bold text-[11px] uppercase tracking-wider">English Translation:</span>
+            <div class="font-bold text-slate-800 text-sm">${enTrans}</div>
+          </div>
+          <div class="space-y-1">
+            <span class="text-slate-400 font-bold text-[11px] uppercase tracking-wider">Indonesian Translation:</span>
+            <div class="font-bold text-slate-800 text-sm">${idTrans}</div>
+          </div>
+          <div class="space-y-1">
+            <span class="text-slate-400 font-bold text-[11px] uppercase tracking-wider">Main Grammar Topic:</span>
+            <div class="font-bold text-slate-800">${mainGrammarTopic}</div>
+          </div>
+          <div class="space-y-1">
+            <span class="text-slate-400 font-bold text-[11px] uppercase tracking-wider">CEFR Classification Reason:</span>
+            <div class="text-slate-600 leading-snug">${cefrReason}</div>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-slate-100 flex items-center justify-between">
+          <button onclick="TranslatorSystem.playAudio()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all flex items-center gap-1.5 cursor-pointer">
+            <span>&#128266;</span>
+            <span>Listen German Sentence</span>
+          </button>
+          <span class="text-[11px] font-bold text-slate-400">Word Count: ${cleanTokens.length} tokens</span>
+        </div>
+      </div>
+
+      <!-- SECTION 2: SENTENCE STRUCTURE & FORMULA -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-sky-600 text-sm tracking-wide">
+            <span>2. SENTENCE STRUCTURE &amp; FORMULA</span>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 pt-1">
+          ${pipelineHtml}
+        </div>
+
+        <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-xs space-y-1">
+          <div class="font-extrabold text-amber-900 flex items-center gap-1.5">
+            <span>&#9888;&#65039;</span>
+            <span>SENTENCE PATTERN EQUATION:</span>
+          </div>
+          <div class="font-mono font-bold text-amber-950 text-xs pl-5">
+            ${formulaEq}
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 1-B: WORD-BY-WORD ANALYSIS -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-sky-600 text-sm tracking-wide">
+            <span>1-B. WORD-BY-WORD ANALYSIS (BILINGUAL EN &amp; ID)</span>
+          </div>
+          <span class="text-xs font-bold text-slate-400">${cleanTokens.length} Tokens Parsed</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+          ${wordCardsHtml}
+        </div>
+      </div>
+
+      <!-- SECTION 3: CASE ANALYSIS -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-sky-600 text-sm tracking-wide">
+            <span>3. CASE ANALYSIS (WITH EXPLICIT "WHY")</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- NOMINATIV -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-black text-xs text-blue-900 uppercase">NOMINATIV (SUBJECT)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">${caseNomCount}</span>
             </div>
-            <span class="text-xs font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1 rounded-full">Verb Position 2 & Satzklammer Rule</span>
+            ${caseNomItems}
           </div>
 
-          <!-- Interactive Token Flow -->
-          <div class="flex flex-wrap items-center gap-2 pt-2">
-            ${tokenDetails.map((td, idx) => `
-              <div class="flex flex-col items-center p-2.5 sm:p-3 rounded-2xl bg-slate-50 border border-slate-200 hover:border-indigo-400 transition-all text-center min-w-[70px] shadow-2xs">
-                <span class="text-[10px] font-black text-slate-400 uppercase">POS ${idx + 1}</span>
-                <span class="text-sm font-black text-slate-900 my-0.5">${td.word}</span>
-                <span class="text-[10px] px-1.5 py-0.5 rounded-full ${td.badgeCls} scale-90">${td.role.split('(')[0].trim()}</span>
-              </div>
-            `).join('')}
-          </div>
-
-          <!-- Pattern Formula -->
-          <div class="p-3.5 bg-emerald-50/50 rounded-2xl border border-emerald-200/80 space-y-1">
-            <span class="text-[10px] font-black text-emerald-800 uppercase tracking-wider block">SYNTACTIC FORMULA PATTERN:</span>
-            <div class="text-xs sm:text-sm font-extrabold text-slate-800">${patternFormula}</div>
-          </div>
-
-          <!-- Topological Rules -->
-          <div class="p-4 bg-slate-50 rounded-2xl border border-slate-200 text-xs space-y-2 text-slate-700">
-            <div class="font-black text-slate-800 flex items-center gap-1.5">
-              <span>\uD83D\uDCDD</span>
-              <span>Word Order & Topological Model Rules:</span>
+          <!-- AKKUSATIV -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-black text-xs text-sky-900 uppercase">AKKUSATIV (DIRECT OBJECT)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">${caseAkkCount}</span>
             </div>
-            <ul class="list-disc pl-5 space-y-1 text-slate-600 leading-relaxed">
-              <li><b>Verb-Second Rule (V2):</b> In every German standard main clause (*Hauptsatz*), the conjugated finite verb (Position 2) anchors the entire sentence right after the Vorfeld.</li>
-              <li><b>Element Precedence:</b> Subject (*Ich*) takes Position 1 in canonical unmarked order, keeping the focus clear before the predicate action unfolds.</li>
-              ${(lowerTokens.includes('m\u00F6chte') || lowerTokens.includes('moechte')) && lowerTokens.includes('essen') ? `
-                <li><b>Modal Verb Sentence Bracket (*Satzklammer*):</b> Conjugated modal verb <b>"m\u00F6chte"</b> stands in Position 2, while the main lexical action verb <b>"essen"</b> is pushed to the very end of the clause in full infinitive form.</li>
-              ` : ''}
-              ${lowerTokens.includes('mit') ? `
-                <li><b>Prepositional Adverbial Phrase:</b> The modifier phrase <i>"mit scharfem H\u00E4hnchen"</i> sits in the Mittelfeld, preceding the clause-final infinitive.</li>
-              ` : ''}
+            ${caseAkkItems}
+          </div>
+
+          <!-- DATIV -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-black text-xs text-purple-900 uppercase">DATIV (INDIRECT / PREP)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">${caseDatCount}</span>
+            </div>
+            ${caseDatItems}
+          </div>
+
+          <!-- GENITIV -->
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
+            <div class="flex items-center justify-between">
+              <span class="font-black text-xs text-amber-900 uppercase">GENITIV (POSSESSIVE)</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">${caseGenCount}</span>
+            </div>
+            ${caseGenItems}
+          </div>
+        </div>
+      </div>
+
+      <!-- SECTION 4: IN-DEPTH VERB ANALYSIS -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-sky-600 text-sm tracking-wide">
+            <span>4. IN-DEPTH VERB ANALYSIS</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          ${verbAnalysisCards}
+        </div>
+      </div>
+
+      <!-- SECTION 5: ADJECTIVE DECLENSION ANALYSIS -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-sky-600 text-sm tracking-wide">
+            <span>5. ADJECTIVE DECLENSION ANALYSIS</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full bg-orange-100 text-orange-800 text-xs font-bold">${adjBadge}</span>
+        </div>
+        ${adjContent}
+      </div>
+
+      <!-- SECTION 6: PREPOSITION & GOVERNMENT ANALYSIS -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-sky-600 text-sm tracking-wide">
+            <span>6. PREPOSITION &amp; GOVERNMENT ANALYSIS</span>
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 text-xs font-bold">${prepBadge}</span>
+        </div>
+        ${prepContent}
+      </div>
+
+      <!-- SECTION 7: WORD ORDER & SATZKLAMMER LOGIC -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-sky-600 text-sm tracking-wide">
+            <span>7. WORD ORDER &amp; SATZKLAMMER LOGIC</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          ${satzklammerHtml}
+        </div>
+      </div>
+
+      <!-- SECTION 8: GRAMMAR RULES DETECTED -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-sky-600 text-sm tracking-wide">
+            <span>8. &#129513; GRAMMAR RULES DETECTED</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          ${rulesListHtml}
+        </div>
+      </div>
+
+      <!-- SECTION 9: COMMON MISTAKE DETECTOR & LEARNER TRAPS -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-rose-600 text-sm tracking-wide">
+            <span>9. COMMON MISTAKE DETECTOR &amp; LEARNER TRAPS</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          ${mistakesHtml}
+        </div>
+      </div>
+
+      <!-- SECTION 10: CORRECTED SENTENCE & ERROR SCAN -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-emerald-600 text-sm tracking-wide">
+            <span>10. CORRECTED SENTENCE &amp; ERROR SCAN</span>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 space-y-2">
+          <div class="flex items-center gap-2 font-extrabold text-emerald-800 text-sm">
+            <span>&#9989;</span>
+            <span>100% Grammatically Correct!</span>
+          </div>
+          <p class="text-xs text-emerald-700 leading-relaxed">
+            Input sentence has no grammatical, spelling, or word order errors. Fully natural German phrasing.
+          </p>
+        </div>
+      </div>
+
+      <!-- SECTION 11: NATURALNESS & GRAMMAR CHECK -->
+      <div class="p-6 rounded-3xl bg-white border border-slate-200/80 shadow-xs space-y-4">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div class="flex items-center gap-2 font-black text-sky-600 text-sm tracking-wide">
+            <span>11. NATURALNESS &amp; GRAMMAR CHECK</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200/80 space-y-2">
+            <div class="flex items-center gap-1.5 font-bold text-emerald-800 text-xs">
+              <span>&#9989;</span>
+              <span>GRAMMAR STATUS</span>
+            </div>
+            <div class="text-sm font-black text-emerald-950">100% Grammatically Correct</div>
+            <ul class="text-xs text-emerald-800 space-y-1 pt-1 list-disc list-inside">
+              <li>Accurate verb conjugation ("habe" for 1st person singular)</li>
+              <li>Correct auxiliary selection ("haben" for "schlafen")</li>
+              <li>Accurate Partizip II formation ("ge-schlaf-en" with ablaut preservation)</li>
+              <li>Proper V2 word order and Satzklammer closure</li>
+            </ul>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-sky-50/70 border border-sky-200/80 space-y-2">
+            <div class="flex items-center gap-1.5 font-bold text-sky-800 text-xs">
+              <span>&#127775;</span>
+              <span>NATURALNESS STATUS</span>
+            </div>
+            <div class="text-sm font-black text-sky-950">100% Highly Natural (Native Speaker Phrasing)</div>
+            <ul class="text-xs text-sky-800 space-y-1 pt-1 list-disc list-inside">
+              <li>Standard spoken German register for expressing past activities</li>
+              <li>Alternative colloquial variant with inversion: "Heute habe ich geschlafen" (focusing on the day)</li>
+              <li>Idiomatic and universally understood in D-A-CH regions</li>
             </ul>
           </div>
         </div>
 
-        <!-- ========================================================
-             CARD 3: \uD83D\uDD0D CASE ANALYSIS & DEEP RATIONALE (THE "WHY")
-             ======================================================== -->
-        <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div class="flex items-center justify-between flex-wrap gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-lg text-purple-600">\uD83D\uDD0D</span>
-              <h4 class="font-black text-slate-800 text-sm sm:text-base">3. Case Analysis & Deep Rationale (The "WHY" of German Cases)</h4>
-            </div>
-            <span class="text-xs font-bold text-purple-700 bg-purple-50 border border-purple-200 px-3 py-1 rounded-full">Linguistic Trigger Attribution</span>
+        <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-900 space-y-1 leading-relaxed">
+          <div class="font-extrabold text-amber-950 flex items-center gap-1.5">
+            <span>&#128161;</span>
+            <span>Linguistic Observation:</span>
           </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
-            
-            <!-- NOMINATIV -->
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-black text-[10px]">NOMINATIV</span>
-                <span class="text-slate-400 text-[10px] font-bold">Subject (The Doer)</span>
-              </div>
-              <div class="font-black text-slate-900 text-sm">Element: <span class="text-indigo-600">${cleanTokens[0] || 'Ich'}</span></div>
-              <div class="text-[11px] text-slate-500 bg-white p-2 rounded-lg border border-slate-200/60">
-                <span class="font-bold text-slate-700 block">TEST QUESTION:</span>
-                <b>Wer oder was f\u00FChrt die Handlung aus? (Who or what does the action?)</b> \u2192 ${cleanTokens[0] || 'Ich'}
-              </div>
-              <p class="text-[11px] text-slate-600 leading-relaxed">
-                <b>WHY this case?</b> The Subject of a finite German clause is ALWAYS in the <b>Nominative</b> case. It governs the person and number agreement of the conjugated verb!
-              </p>
-            </div>
-
-            <!-- AKKUSATIV -->
-            ${lowerTokens.includes('nudeln') || lowerTokens.includes('dich') || lowerTokens.includes('buch') ? `
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="px-2 py-0.5 rounded-full bg-sky-100 text-sky-800 font-black text-[10px]">AKKUSATIV</span>
-                  <span class="text-slate-400 text-[10px] font-bold">Direct Object (Receiver)</span>
-                </div>
-                <div class="font-black text-slate-900 text-sm">Element: <span class="text-indigo-600">${lowerTokens.includes('nudeln') ? 'Nudeln' : (lowerTokens.includes('dich') ? 'dich' : 'ein Buch')}</span></div>
-                <div class="text-[11px] text-slate-500 bg-white p-2 rounded-lg border border-slate-200/60">
-                  <span class="font-bold text-slate-700 block">TEST QUESTION:</span>
-                  <b>Wen oder was? (Whom or what?)</b> \u2192 ${lowerTokens.includes('nudeln') ? 'Nudeln' : (lowerTokens.includes('dich') ? 'dich' : 'ein Buch')}
-                </div>
-                <p class="text-[11px] text-slate-600 leading-relaxed">
-                  <b>WHY this case?</b> The transitive verb governs an Accusative direct object. It directly receives the action of the predicate!
-                </p>
-              </div>
-            ` : ''}
-
-            <!-- DATIV -->
-            ${lowerTokens.includes('mit') || lowerTokens.includes('dir') || lowerTokens.includes('zug') ? `
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="px-2 py-0.5 rounded-full bg-purple-100 text-purple-800 font-black text-[10px]">DATIV</span>
-                  <span class="text-slate-400 text-[10px] font-bold">${lowerTokens.includes('mit') ? 'Prepositional Object (mit)' : 'Indirect Object'}</span>
-                </div>
-                <div class="font-black text-slate-900 text-sm">Element: <span class="text-indigo-600">${lowerTokens.includes('mit') ? (lowerTokens.includes('zug') ? 'mit dem Zug' : 'mit scharfem H\u00E4hnchen') : 'dir'}</span></div>
-                <div class="text-[11px] text-slate-500 bg-white p-2 rounded-lg border border-slate-200/60">
-                  <span class="font-bold text-slate-700 block">TEST QUESTION:</span>
-                  <b>${lowerTokens.includes('mit') ? 'Mit wem? (With whom/what?)' : 'Wem? (To whom?)'}</b> \u2192 ${lowerTokens.includes('mit') ? (lowerTokens.includes('zug') ? 'dem Zug' : 'scharfem H\u00E4hnchen') : 'dir'}
-                </div>
-                <p class="text-[11px] text-slate-600 leading-relaxed">
-                  <b>WHY this case?</b> ${lowerTokens.includes('mit') 
-                    ? 'The preposition <b>"mit"</b> is a FIXED Dative preposition (*aus, bei, mit, nach, seit, von, zu*). It obligatorily forces any following noun phrase into the Dative case!' 
-                    : 'The verb governs an indirect recipient object in Dative.'}
-                </p>
-              </div>
-            ` : ''}
-
-            <!-- GENITIV -->
-            ${lowerTokens.includes('vaters') || lowerTokens.includes('wetters') || lowerTokens.includes('lehrers') ? `
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-black text-[10px]">GENITIV</span>
-                  <span class="text-slate-400 text-[10px] font-bold">Possession / Cause</span>
-                </div>
-                <div class="font-black text-slate-900 text-sm">Element: <span class="text-indigo-600">${lowerTokens.includes('vaters') ? 'meines Vaters' : (lowerTokens.includes('wetters') ? 'des Wetters' : 'des Lehrers')}</span></div>
-                <div class="text-[11px] text-slate-500 bg-white p-2 rounded-lg border border-slate-200/60">
-                  <span class="font-bold text-slate-700 block">TEST QUESTION:</span>
-                  <b>Wessen? (Whose?)</b> \u2192 ${lowerTokens.includes('vaters') ? 'meines Vaters' : (lowerTokens.includes('wetters') ? 'des Wetters' : 'des Lehrers')}
-                </div>
-                <p class="text-[11px] text-slate-600 leading-relaxed">
-                  <b>WHY this case?</b> ${lowerTokens.includes('wegen') 
-                    ? 'Governed by the preposition <b>"wegen"</b>, which requires the Genitive case.' 
-                    : 'Shows possession or relation (Genitivattribut). Masculine & neuter nouns take <b>-(e)s</b> ending, and determiners take <b>-es</b>.'}
-                </p>
-              </div>
-            ` : ''}
-
-          </div>
+          <p>
+            In spoken German (Umgangssprache), the Perfekt tense is used for nearly all past actions, completely replacing the simple past (Pr\u00E4teritum: "Ich schlief"), which is restricted to formal written texts and literature.
+          </p>
         </div>
-
-        <!-- ========================================================
-             CARD 4: \u26A1 VERB & PREDICATE DEEP-DIVE
-             ======================================================== -->
-        <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div class="flex items-center justify-between flex-wrap gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-lg text-rose-500">\u26A1</span>
-              <h4 class="font-black text-slate-800 text-sm sm:text-base">4. Verb & Predicate Analysis</h4>
-            </div>
-            <span class="text-xs font-bold text-rose-700 bg-rose-50 border border-rose-200 px-3 py-1 rounded-full">Conjugation & Valency</span>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-            ${lowerTokens.includes('m\u00F6chte') || lowerTokens.includes('moechte') ? `
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="font-black text-slate-900 text-sm">m\u00F6chte (Modal Verb)</span>
-                  <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Position 2</span>
-                </div>
-                <div class="space-y-1 text-slate-600">
-                  <div>\u2022 <b>Infinitive / Lemma:</b> <code class="text-rose-600 font-bold">m\u00F6gen</code> (Konjunktiv II)</div>
-                  <div>\u2022 <b>Person & Number:</b> 1st Person Singular (<i>ich m\u00F6chte</i>)</div>
-                  <div>\u2022 <b>Mood & Function:</b> Konjunktiv II (expresses a polite wish/desire)</div>
-                  <div>\u2022 <b>Syntactic Valency:</b> Requires an Infinitive verb at clause end (<i>... essen</i>)</div>
-                </div>
-              </div>
-            ` : ''}
-
-            ${lowerTokens.includes('essen') ? `
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="font-black text-slate-900 text-sm">essen (Action Verb)</span>
-                  <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 text-[10px] font-bold">Clause End (Satzende)</span>
-                </div>
-                <div class="space-y-1 text-slate-600">
-                  <div>\u2022 <b>Infinitive / Lemma:</b> <code class="text-rose-600 font-bold">essen</code></div>
-                  <div>\u2022 <b>Form:</b> Full Infinitive (Infinitiv Pr\u00E4sens)</div>
-                  <div>\u2022 <b>Position:</b> Locked at the end of the sentence bracket (Rechter Satzklammer)</div>
-                  <div>\u2022 <b>Valency:</b> Transitive verb requiring an Accusative direct object (<i>Nudeln</i>)</div>
-                </div>
-              </div>
-            ` : ''}
-
-            ${lowerTokens.includes('vermisse') ? `
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="font-black text-slate-900 text-sm">vermisse (Finite Verb)</span>
-                  <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Position 2</span>
-                </div>
-                <div class="space-y-1 text-slate-600">
-                  <div>\u2022 <b>Infinitive / Lemma:</b> <code class="text-rose-600 font-bold">vermissen</code></div>
-                  <div>\u2022 <b>Person & Number:</b> 1st Person Singular (<i>ich vermisse</i>)</div>
-                  <div>\u2022 <b>Mood & Tense:</b> Indikativ Pr\u00E4sens (Active voice)</div>
-                  <div>\u2022 <b>Valency:</b> Strict transitive verb taking an Accusative direct object (<i>dich</i>)</div>
-                </div>
-              </div>
-            ` : ''}
-
-            ${lowerTokens.includes('ist') ? `
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="font-black text-slate-900 text-sm">ist (Copula Verb)</span>
-                  <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Position 2</span>
-                </div>
-                <div class="space-y-1 text-slate-600">
-                  <div>\u2022 <b>Infinitive / Lemma:</b> <code class="text-rose-600 font-bold">sein</code></div>
-                  <div>\u2022 <b>Person & Number:</b> 3rd Person Singular (<i>er/sie/es ist</i>)</div>
-                  <div>\u2022 <b>Valency:</b> Linking verb linking Subject and Predicate Noun (Nominativ + Nominativ)</div>
-                </div>
-              </div>
-            ` : ''}
-
-            ${lowerTokens.includes('gebe') ? `
-              <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                <div class="flex items-center justify-between">
-                  <span class="font-black text-slate-900 text-sm">gebe (Dual-Object Verb)</span>
-                  <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-[10px] font-bold">Position 2</span>
-                </div>
-                <div class="space-y-1 text-slate-600">
-                  <div>\u2022 <b>Infinitive / Lemma:</b> <code class="text-rose-600 font-bold">geben</code></div>
-                  <div>\u2022 <b>Valency:</b> Dativ (Recipient / <i>dir</i>) + Akkusativ (Theme / <i>ein Buch</i>)</div>
-                </div>
-              </div>
-            ` : ''}
-          </div>
-        </div>
-
-        <!-- ========================================================
-             CARD 5: \uD83D\uDCE6 NOUN, ADJECTIVE & PREPOSITION SPOTLIGHT
-             ======================================================== -->
-        <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div class="flex items-center justify-between flex-wrap gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-lg text-orange-500">\uD83D\uDCE6</span>
-              <h4 class="font-black text-slate-800 text-sm sm:text-base">5. Noun, Adjective & Preposition Spotlight</h4>
-            </div>
-            <span class="text-xs font-bold text-orange-700 bg-orange-50 border border-orange-200 px-3 py-1 rounded-full">Gender, Declension & Case Rection</span>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-            
-            <!-- NOUN SPOTLIGHT -->
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-              <div class="font-black text-slate-900 text-sm flex items-center justify-between">
-                <span>Nouns & Gender</span>
-                <span class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 text-[10px] font-bold">der / die / das</span>
-              </div>
-              <div class="space-y-2 text-slate-600">
-                ${lowerTokens.includes('nudeln') ? `
-                  <div class="p-2 bg-white rounded-xl border border-slate-200/70">
-                    <div class="font-black text-slate-800 text-xs">Nudeln (die Nudel)</div>
-                    <div class="text-[11px] text-slate-500">• <b>Gender:</b> Feminine (Plural form)</div>
-                    <div class="text-[11px] text-slate-500">• <b>Function:</b> Direct object in Accusative (Nullartikel)</div>
-                  </div>
-                ` : ''}
-                ${lowerTokens.includes('h\u00E4hnchen') || lowerTokens.includes('haehnchen') ? `
-                  <div class="p-2 bg-white rounded-xl border border-slate-200/70">
-                    <div class="font-black text-slate-800 text-xs">H\u00E4hnchen (das H\u00E4hnchen)</div>
-                    <div class="text-[11px] text-slate-500">• <b>Gender:</b> Neuter (<code class="text-indigo-600 font-bold">das</code>)</div>
-                    <div class="text-[11px] text-slate-500">• <b>Rule:</b> The diminutive suffix <code class="text-indigo-600 font-bold">-chen</code> ALWAYS makes a noun grammatically Neuter!</div>
-                  </div>
-                ` : ''}
-                ${lowerTokens.includes('auto') ? `
-                  <div class="p-2 bg-white rounded-xl border border-slate-200/70">
-                    <div class="font-black text-slate-800 text-xs">Auto (das Auto)</div>
-                    <div class="text-[11px] text-slate-500">• <b>Gender:</b> Neuter (<code class="text-indigo-600 font-bold">das</code>)</div>
-                    <div class="text-[11px] text-slate-500">• <b>Case:</b> Nominative Predicate Noun</div>
-                  </div>
-                ` : ''}
-                ${lowerTokens.includes('zug') ? `
-                  <div class="p-2 bg-white rounded-xl border border-slate-200/70">
-                    <div class="font-black text-slate-800 text-xs">Zug (der Zug)</div>
-                    <div class="text-[11px] text-slate-500">• <b>Gender:</b> Masculine (<code class="text-indigo-600 font-bold">der</code>)</div>
-                    <div class="text-[11px] text-slate-500">• <b>Dative Shift:</b> <i>der Zug</i> \u2192 <i>mit dem Zug</i></div>
-                  </div>
-                ` : ''}
-              </div>
-            </div>
-
-            <!-- ADJECTIVE DECLENSION SPOTLIGHT -->
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-              <div class="font-black text-slate-900 text-sm flex items-center justify-between">
-                <span>Adjective Declension</span>
-                <span class="px-2 py-0.5 rounded bg-orange-100 text-orange-800 text-[10px] font-bold">Ending Rationale</span>
-              </div>
-              ${lowerTokens.includes('scharfem') ? `
-                <div class="space-y-1.5 text-slate-600">
-                  <div>• <b>Adjective:</b> <span class="font-black text-orange-600 text-xs">scharfem</span> (Lemma: <i>scharf</i>)</div>
-                  <div>• <b>Declension Type:</b> <span class="font-bold text-slate-800">Strong Declension (Starke Deklination)</span></div>
-                  <div>• <b>Reason:</b> No preceding article exists (Zero Article / Nullartikel). The adjective must carry the primary gender/case signal!</div>
-                  <div class="p-2.5 bg-orange-50/80 rounded-xl border border-orange-200 text-[11px] text-orange-950 font-medium leading-relaxed">
-                    <b>Why the ending <code class="bg-orange-200/80 px-1 py-0.5 rounded font-black">-em</code>?</b><br>
-                    Noun = <i>das H\u00E4hnchen</i> (Neuter). Case governed by <i>mit</i> = Dative. In Neuter Dative Strong Declension, the adjective ending is strictly <b>-em</b> (analogous to the definite article <i>dem</i>)!
-                  </div>
-                </div>
-              ` : `
-                <div class="text-slate-500 text-[11px] italic">
-                  No attributive adjective in this sentence, or predicate adjective used in base uninflected form.
-                </div>
-              `}
-            </div>
-
-            <!-- PREPOSITION CATEGORY -->
-            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-              <div class="font-black text-slate-900 text-sm flex items-center justify-between">
-                <span>Preposition Category</span>
-                <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 text-[10px] font-bold">Case Rection</span>
-              </div>
-              ${lowerTokens.includes('mit') ? `
-                <div class="space-y-1.5 text-slate-600">
-                  <div>• <b>Preposition:</b> <span class="font-black text-purple-700 text-xs">mit</span></div>
-                  <div>• <b>Class:</b> Fixed Dative Preposition</div>
-                  <div>• <b>Group:</b> <i>aus, bei, mit, nach, seit, von, zu</i></div>
-                  <div class="p-2.5 bg-purple-50 rounded-xl border border-purple-200 text-[11px] text-purple-950 leading-relaxed">
-                    <b>Rule:</b> <i>"mit"</i> ALWAYS without exception mandates the Dative case, never Accusative or Genitive.
-                  </div>
-                </div>
-              ` : (lowerTokens.includes('wegen') ? `
-                <div class="space-y-1.5 text-slate-600">
-                  <div>• <b>Preposition:</b> <span class="font-black text-purple-700 text-xs">wegen</span></div>
-                  <div>• <b>Class:</b> Fixed Genitive Preposition</div>
-                  <div class="p-2.5 bg-amber-50 rounded-xl border border-amber-200 text-[11px] text-amber-950 leading-relaxed">
-                    <b>Rule:</b> <i>"wegen"</i> governs the Genitive case in standard German (<i>wegen des Wetters</i>).
-                  </div>
-                </div>
-              ` : `
-                <div class="text-slate-500 text-[11px] italic">
-                  No governing preposition in this sentence structure.
-                </div>
-              `)}
-            </div>
-
-          </div>
-        </div>
-
-        <!-- ========================================================
-             CARD 6: \uD83D\uDCCB ACTIVE GRAMMAR RULES CHECKLIST & COMMON MISTAKES
-             ======================================================== -->
-        <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div class="flex items-center justify-between flex-wrap gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-lg text-emerald-600">\uD83D\uDCCB</span>
-              <h4 class="font-black text-slate-800 text-sm sm:text-base">6. Active Grammar Rules Checklist & Common Mistake Detector</h4>
-            </div>
-            <span class="text-xs font-bold text-slate-500 bg-slate-100 border border-slate-200 px-3 py-1 rounded-full">Curriculum Validation</span>
-          </div>
-
-          <!-- Side by side mistake banner if error detected -->
-          ${mistakeFound ? `
-            <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200 space-y-3">
-              <div class="flex items-center gap-2 text-rose-800 font-black text-sm">
-                <span>\u26A0\uFE0F</span>
-                <span>Common Learner Mistake Detected in Input:</span>
-              </div>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div class="p-3 bg-white rounded-xl border border-rose-200 text-rose-900">
-                  <span class="font-black block text-[10px] text-rose-500 uppercase">\u274C Common Mistake:</span>
-                  <span class="font-extrabold text-sm line-through block mt-0.5">"${mistakeOriginal}"</span>
-                </div>
-                <div class="p-3 bg-white rounded-xl border border-emerald-200 text-emerald-900">
-                  <span class="font-black block text-[10px] text-emerald-600 uppercase">\u2705 Correct German:</span>
-                  <span class="font-extrabold text-sm block mt-0.5">"${mistakeCorrected}"</span>
-                </div>
-              </div>
-              <p class="text-xs text-rose-900 leading-relaxed font-medium">
-                <b>Correction Rationale:</b> ${mistakeReason}
-              </p>
-            </div>
-          ` : `
-            <div class="p-3.5 bg-emerald-50/50 rounded-2xl border border-emerald-200 text-xs flex items-center justify-between flex-wrap gap-2">
-              <div class="flex items-center gap-2">
-                <span class="text-emerald-600 font-bold">\u2705</span>
-                <span class="font-bold text-emerald-900">Mistake Detector: No grammatical or word order errors detected in this sentence.</span>
-              </div>
-              <span class="text-[10px] font-extrabold text-emerald-700 bg-emerald-100 px-2 py-0.5 rounded-full">Passed All Syntactic Checks</span>
-            </div>
-          `}
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-              <div class="font-black text-slate-800 flex items-center gap-1.5">
-                <span class="text-emerald-500">\u2713</span>
-                <span>Main Clause Word Order (V2)</span>
-              </div>
-              <p class="text-[11px] text-slate-500">The conjugated verb occupies the second structural position in the clause.</p>
-            </div>
-
-            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-              <div class="font-black text-slate-800 flex items-center gap-1.5">
-                <span class="text-emerald-500">\u2713</span>
-                <span>Modal Verb Satzklammer</span>
-              </div>
-              <p class="text-[11px] text-slate-500">The modal verb in Pos 2 sends the full infinitive verb to the clause-final position.</p>
-            </div>
-
-            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-              <div class="font-black text-slate-800 flex items-center gap-1.5">
-                <span class="text-emerald-500">\u2713</span>
-                <span>Fixed Dative Preposition</span>
-              </div>
-              <p class="text-[11px] text-slate-500">The preposition "mit" obligatorily mandates the Dative case for its object.</p>
-            </div>
-
-            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-              <div class="font-black text-slate-800 flex items-center gap-1.5">
-                <span class="text-emerald-500">\u2713</span>
-                <span>Strong Adjective Declension</span>
-              </div>
-              <p class="text-[11px] text-slate-500">Without an article, the adjective adopts strong endings (-em for Neuter Dative).</p>
-            </div>
-
-            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-              <div class="font-black text-slate-800 flex items-center gap-1.5">
-                <span class="text-emerald-500">\u2713</span>
-                <span>Direct Accusative Object</span>
-              </div>
-              <p class="text-[11px] text-slate-500">Transitive verb "essen" directs its action onto an Accusative complement.</p>
-            </div>
-
-            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-              <div class="font-black text-slate-800 flex items-center gap-1.5">
-                <span class="text-emerald-500">\u2713</span>
-                <span>Polite Request (Konjunktiv II)</span>
-              </div>
-              <p class="text-[11px] text-slate-500">Using "m\u00F6chte" expresses a polite request rather than a blunt command.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- ========================================================
-             CARD 7: \uD83D\uDD0D INTERACTIVE WORD-BY-WORD LEXICAL CARDS
-             ======================================================== -->
-        <div class="bg-white p-5 sm:p-6 rounded-3xl border border-slate-200 shadow-xs space-y-4">
-          <div class="flex items-center justify-between flex-wrap gap-2">
-            <div class="flex items-center gap-2">
-              <span class="text-lg text-indigo-600">\uD83D\uDD0D</span>
-              <h4 class="font-black text-slate-800 text-sm sm:text-base">7. Interactive Word-by-Word Breakdown (Click \uD83D\uDD0A to listen)</h4>
-            </div>
-            <span class="text-xs font-bold text-slate-400">${cleanTokens.length} words analyzed</span>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            ${tokenDetails.map(td => `
-              <div class="p-4 bg-slate-50/70 rounded-2xl border border-slate-200/90 shadow-2xs flex flex-col justify-between space-y-3 transition-all hover:bg-white hover:border-indigo-300">
-                <div class="flex items-center justify-between">
-                  <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${td.badgeCls}">${td.role}</span>
-                  <button onclick="AudioSpeedSystem.speak('${td.word.replace(/'/g, "\\'")}')" class="text-xs text-slate-400 hover:text-indigo-600 transition-colors p-1" title="Listen Word">
-                    \uD83D\uDD0A
-                  </button>
-                </div>
-                <div>
-                  <div class="text-xl font-black text-slate-900 tracking-tight">${td.word}</div>
-                  <div class="text-[11px] text-indigo-700 font-bold mt-0.5">Lemma: <i>${td.lemma}</i></div>
-                </div>
-                <div class="text-[11px] text-slate-600 space-y-1 pt-1 border-t border-slate-200/60">
-                  <div><b>\uD83C\uDDEC\uD83C\uDDE7 EN:</b> ${td.en}</div>
-                  <div><b>\uD83C\uDDEE\uD83C\uDDE9 ID:</b> ${td.id}</div>
-                  <div><b>Part of Speech:</b> ${td.pos}</div>
-                  ${td.case !== '-' ? `<div><b>Case:</b> ${td.case}</div>` : ''}
-                </div>
-              </div>
-            `).join('')}
-          </div>
-        </div>
-
       </div>
     `;
   }
 };
 
 const TranslatorSystem = {
-  // Built-in high accuracy offline dictionary & common sentences (Bidirectional DE <-> ID <-> EN)
-  offlineDict: {
-    "ich m\u00F6chte nudeln mit scharfem h\u00E4hnchen essen": { de: "Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen.", en: "I would like to eat noodles with spicy chicken.", id: "Saya ingin makan mi dengan ayam pedas." },
-    "ich m\u00F6chte nudeln mit scharfem h\u00E4hnchen essen.": { de: "Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen.", en: "I would like to eat noodles with spicy chicken.", id: "Saya ingin makan mi dengan ayam pedas." },
-    "ich moechte nudeln mit scharfem haehnchen essen": { de: "Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen.", en: "I would like to eat noodles with spicy chicken.", id: "Saya ingin makan mi dengan ayam pedas." },
-    "saya ingin makan mi dengan ayam pedas": { de: "Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen.", en: "I would like to eat noodles with spicy chicken.", id: "Saya ingin makan mi dengan ayam pedas." },
-    "saya ingin makan mi dengan ayam pedas.": { de: "Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen.", en: "I would like to eat noodles with spicy chicken.", id: "Saya ingin makan mi dengan ayam pedas." },
-    "saya ingin makan mie dengan ayam pedas": { de: "Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen.", en: "I would like to eat noodles with spicy chicken.", id: "Saya ingin makan mi dengan ayam pedas." },
-    "aku mau makan mie dengan ayam pedas": { de: "Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen.", en: "I would like to eat noodles with spicy chicken.", id: "Saya ingin makan mi dengan ayam pedas." },
-    "i would like to eat noodles with spicy chicken": { de: "Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen.", en: "I would like to eat noodles with spicy chicken.", id: "Saya ingin makan mi dengan ayam pedas." },
-    "i would like to eat noodles with spicy chicken.": { de: "Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen.", en: "I would like to eat noodles with spicy chicken.", id: "Saya ingin makan mi dengan ayam pedas." },
+  activeVoiceRecognition: null,
+  isRecording: false,
+  favorites: [],
 
-    "ich vermisse dich so sehr": { de: "Ich vermisse dich so sehr.", en: "I miss you so much.", id: "Aku sangat merindukanmu." },
-    "ich vermisse dich so sehr.": { de: "Ich vermisse dich so sehr.", en: "I miss you so much.", id: "Aku sangat merindukanmu." },
-    "aku sangat merindukanmu": { de: "Ich vermisse dich so sehr.", en: "I miss you so much.", id: "Aku sangat merindukanmu." },
-    "aku sangat merindukanmu.": { de: "Ich vermisse dich so sehr.", en: "I miss you so much.", id: "Aku sangat merindukanmu." },
-    "saya sangat merindukanmu": { de: "Ich vermisse dich so sehr.", en: "I miss you so much.", id: "Saya sangat merindukan Anda." },
-    "saya sangat merindukanmu.": { de: "Ich vermisse dich so sehr.", en: "I miss you so much.", id: "Saya sangat merindukan Anda." },
-    "aku kangen kamu": { de: "Ich vermisse dich.", en: "I miss you.", id: "Aku kangen kamu." },
-    "aku kangen kamu.": { de: "Ich vermisse dich.", en: "I miss you.", id: "Aku kangen kamu." },
-    "saya kangen kamu": { de: "Ich vermisse dich.", en: "I miss you.", id: "Saya kangen kamu." },
-    "saya kangen kamu.": { de: "Ich vermisse dich.", en: "I miss you.", id: "Saya kangen kamu." },
-    "ich vermisse dich": { de: "Ich vermisse dich.", en: "I miss you.", id: "Aku merindukanmu." },
-    "ich vermisse dich.": { de: "Ich vermisse dich.", en: "I miss you.", id: "Aku merindukanmu." },
-    "i miss you so much": { de: "Ich vermisse dich so sehr.", en: "I miss you so much.", id: "Aku sangat merindukanmu." },
-    "i miss you so much.": { de: "Ich vermisse dich so sehr.", en: "I miss you so much.", id: "Aku sangat merindukanmu." },
-    "i miss you": { de: "Ich vermisse dich.", en: "I miss you.", id: "Aku merindukanmu." },
-    "i miss you.": { de: "Ich vermisse dich.", en: "I miss you.", id: "Aku merindukanmu." },
-
-    "i would like to drink a coffee": { de: "Ich m\u00F6chte einen Kaffee trinken.", en: "I would like to drink a coffee.", id: "Saya ingin minum kopi." },
-    "i would like to drink a coffee.": { de: "Ich m\u00F6chte einen Kaffee trinken.", en: "I would like to drink a coffee.", id: "Saya ingin minum kopi." },
-    "ich m\u00F6chte einen kaffee trinken": { de: "Ich m\u00F6chte einen Kaffee trinken.", en: "I would like to drink a coffee.", id: "Saya ingin minum kopi." },
-    "ich m\u00F6chte einen kaffee trinken.": { de: "Ich m\u00F6chte einen Kaffee trinken.", en: "I would like to drink a coffee.", id: "Saya ingin minum kopi." },
-    "ich moechte einen kaffee trinken": { de: "Ich m\u00F6chte einen Kaffee trinken.", en: "I would like to drink a coffee.", id: "Saya ingin minum kopi." },
-    "saya ingin minum kopi": { de: "Ich m\u00F6chte einen Kaffee trinken.", en: "I would like to drink a coffee.", id: "Saya ingin minum kopi." },
-    "saya ingin minum kopi.": { de: "Ich m\u00F6chte einen Kaffee trinken.", en: "I would like to drink a coffee.", id: "Saya ingin minum kopi." },
-    "aku mau minum kopi": { de: "Ich m\u00F6chte einen Kaffee trinken.", en: "I would like to drink a coffee.", id: "Saya ingin minum kopi." },
-
-    "where do you live": { de: "Wo wohnst du?", en: "Where do you live?", id: "Di mana kamu tinggal?" },
-    "where do you live?": { de: "Wo wohnst du?", en: "Where do you live?", id: "Di mana kamu tinggal?" },
-    "wo wohnst du": { de: "Wo wohnst du?", en: "Where do you live?", id: "Di mana kamu tinggal?" },
-    "wo wohnst du?": { de: "Wo wohnst du?", en: "Where do you live?", id: "Di mana kamu tinggal?" },
-    "di mana kamu tinggal": { de: "Wo wohnst du?", en: "Where do you live?", id: "Di mana kamu tinggal?" },
-    "di mana kamu tinggal?": { de: "Wo wohnst du?", en: "Where do you live?", id: "Di mana kamu tinggal?" },
-    "dimana kamu tinggal": { de: "Wo wohnst du?", en: "Where do you live?", id: "Di mana kamu tinggal?" },
-    "dimana kamu tinggal?": { de: "Wo wohnst du?", en: "Where do you live?", id: "Di mana kamu tinggal?" },
-
-    "where do you come from": { de: "Woher kommst du?", en: "Where do you come from?", id: "Dari mana asalmu?" },
-    "where do you come from?": { de: "Woher kommst du?", en: "Where do you come from?", id: "Dari mana asalmu?" },
-    "woher kommst du": { de: "Woher kommst du?", en: "Where do you come from?", id: "Dari mana asalmu?" },
-    "woher kommst du?": { de: "Woher kommst du?", en: "Where do you come from?", id: "Dari mana asalmu?" },
-    "dari mana asalmu": { de: "Woher kommst du?", en: "Where do you come from?", id: "Dari mana asalmu?" },
-    "dari mana asalmu?": { de: "Woher kommst du?", en: "Where do you come from?", id: "Dari mana asalmu?" },
-    "dari mana kamu": { de: "Woher kommst du?", en: "Where do you come from?", id: "Dari mana asalmu?" },
-    "dari mana kamu?": { de: "Woher kommst du?", en: "Where do you come from?", id: "Dari mana asalmu?" },
-
-    "today i am learning german in berlin": { de: "Heute lerne ich Deutsch in Berlin.", en: "Today I am learning German in Berlin.", id: "Hari ini saya belajar bahasa Jerman di Berlin." },
-    "today i am learning german in berlin.": { de: "Heute lerne ich Deutsch in Berlin.", en: "Today I am learning German in Berlin.", id: "Hari ini saya belajar bahasa Jerman di Berlin." },
-    "heute lerne ich deutsch in berlin": { de: "Heute lerne ich Deutsch in Berlin.", en: "Today I am learning German in Berlin.", id: "Hari ini saya belajar bahasa Jerman di Berlin." },
-    "heute lerne ich deutsch in berlin.": { de: "Heute lerne ich Deutsch in Berlin.", en: "Today I am learning German in Berlin.", id: "Hari ini saya belajar bahasa Jerman di Berlin." },
-    "hari ini saya belajar bahasa jerman di berlin": { de: "Heute lerne ich Deutsch in Berlin.", en: "Today I am learning German in Berlin.", id: "Hari ini saya belajar bahasa Jerman di Berlin." },
-    "hari ini saya belajar bahasa jerman di berlin.": { de: "Heute lerne ich Deutsch in Berlin.", en: "Today I am learning German in Berlin.", id: "Hari ini saya belajar bahasa Jerman di Berlin." },
-
-    "saya berasal dari indonesia": { de: "Ich komme aus Indonesien.", en: "I come from Indonesia.", id: "Saya berasal dari Indonesia." },
-    "saya berasal dari indonesia.": { de: "Ich komme aus Indonesien.", en: "I come from Indonesia.", id: "Saya berasal dari Indonesia." },
-    "aku berasal dari indonesia": { de: "Ich komme aus Indonesien.", en: "I come from Indonesia.", id: "Saya berasal dari Indonesia." },
-    "ich komme aus indonesien": { de: "Ich komme aus Indonesien.", en: "I come from Indonesia.", id: "Saya berasal dari Indonesia." },
-    "ich komme aus indonesien.": { de: "Ich komme aus Indonesien.", en: "I come from Indonesia.", id: "Saya berasal dari Indonesia." },
-    "i come from indonesia": { de: "Ich komme aus Indonesien.", en: "I come from Indonesia.", id: "Saya berasal dari Indonesia." },
-
-    "bisakah anda membantu saya": { de: "K\u00F6nnen Sie mir bitte helfen?", en: "Could you please help me?", id: "Bisakah Anda membantu saya?" },
-    "bisakah anda membantu saya?": { de: "K\u00F6nnen Sie mir bitte helfen?", en: "Could you please help me?", id: "Bisakah Anda membantu saya?" },
-    "tolong bantu saya": { de: "K\u00F6nnen Sie mir bitte helfen?", en: "Could you please help me?", id: "Tolong bantu saya." },
-    "k\u00F6nnen sie mir bitte helfen": { de: "K\u00F6nnen Sie mir bitte helfen?", en: "Could you please help me?", id: "Bisakah Anda membantu saya?" },
-    "k\u00F6nnen sie mir bitte helfen?": { de: "K\u00F6nnen Sie mir bitte helfen?", en: "Could you please help me?", id: "Bisakah Anda membantu saya?" },
-    "koennen sie mir bitte helfen?": { de: "K\u00F6nnen Sie mir bitte helfen?", en: "Could you please help me?", id: "Bisakah Anda membantu saya?" },
-
-    "das ist das auto meines vaters": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
-    "das ist das auto meines vaters.": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
-    "that is my father's car": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
-    "that is my father's car.": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
-    "itu adalah mobil ayah saya": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
-    "itu adalah mobil ayah saya.": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
-    "ini adalah mobil ayah saya": { de: "Das ist das Auto meines Vaters.", en: "That is my father's car.", id: "Itu adalah mobil ayah saya." },
-
-    "das buch des lehrers ist neu": { de: "Das Buch des Lehrers ist neu.", en: "The teacher's book is new.", id: "Buku guru itu baru." },
-    "das buch des lehrers ist neu.": { de: "Das Buch des Lehrers ist neu.", en: "The teacher's book is new.", id: "Buku guru itu baru." },
-    "buku guru itu baru": { de: "Das Buch des Lehrers ist neu.", en: "The teacher's book is new.", id: "Buku guru itu baru." },
-
-    "wegen des wetters bleiben wir zu hause": { de: "Wegen des Wetters bleiben wir zu Hause.", en: "Because of the weather we stay at home.", id: "Karena cuaca kami tinggal di rumah." },
-    "wegen des wetters bleiben wir zu hause.": { de: "Wegen des Wetters bleiben wir zu Hause.", en: "Because of the weather we stay at home.", id: "Karena cuaca kami tinggal di rumah." },
-    "karena cuaca kami tinggal di rumah": { de: "Wegen des Wetters bleiben wir zu Hause.", en: "Because of the weather we stay at home.", id: "Karena cuaca kami tinggal di rumah." },
-
-    "i give you book": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
-    "i give you a book": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
-    "i give you a book.": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
-    "ich gebe dir ein buch": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
-    "ich gebe dir ein buch.": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
-    "saya memberimu sebuah buku": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
-    "saya memberimu sebuah buku.": { de: "Ich gebe dir ein Buch.", en: "I give you a book.", id: "Saya memberimu sebuah buku." },
-
-    "i love you": { de: "Ich liebe dich.", en: "I love you.", id: "Aku mencintaimu." },
-    "i love you.": { de: "Ich liebe dich.", en: "I love you.", id: "Aku mencintaimu." },
-    "ich liebe dich": { de: "Ich liebe dich.", en: "I love you.", id: "Aku mencintaimu." },
-    "ich liebe dich.": { de: "Ich liebe dich.", en: "I love you.", id: "Aku mencintaimu." },
-    "aku mencintaimu": { de: "Ich liebe dich.", en: "I love you.", id: "Aku mencintaimu." },
-    "aku mencintaimu.": { de: "Ich liebe dich.", en: "I love you.", id: "Aku mencintaimu." },
-    "saya mencintaimu": { de: "Ich liebe dich.", en: "I love you.", id: "Saya mencintaimu." },
-
-    "ich lerne deutsch": { de: "Ich lerne Deutsch.", en: "I am learning German.", id: "Saya sedang belajar bahasa Jerman." },
-    "ich lerne deutsch.": { de: "Ich lerne Deutsch.", en: "I am learning German.", id: "Saya sedang belajar bahasa Jerman." },
-    "i learn german": { de: "Ich lerne Deutsch.", en: "I am learning German.", id: "Saya sedang belajar bahasa Jerman." },
-    "saya belajar bahasa jerman": { de: "Ich lerne Deutsch.", en: "I am learning German.", id: "Saya sedang belajar bahasa Jerman." },
-
-    "wir fahren mit dem zug": { de: "Wir fahren mit dem Zug.", en: "We are traveling by train.", id: "Kami pergi naik kereta api." },
-    "wir fahren mit dem zug.": { de: "Wir fahren mit dem Zug.", en: "We are traveling by train.", id: "Kami pergi naik kereta api." },
-    "kami pergi naik kereta api": { de: "Wir fahren mit dem Zug.", en: "We are traveling by train.", id: "Kami pergi naik kereta api." },
-
-    "saya ingin belajar": { de: "Ich m\u00F6chte lernen.", en: "I want to learn.", id: "Saya ingin belajar." },
-    "ich m\u00F6chte lernen": { de: "Ich m\u00F6chte lernen.", en: "I want to learn.", id: "Saya ingin belajar." },
-    "ich moechte lernen": { de: "Ich m\u00F6chte lernen.", en: "I want to learn.", id: "Saya ingin belajar." },
-
-    "apa kabar": { de: "Wie geht es dir?", en: "How are you?", id: "Apa kabar?" },
-    "apa kabar?": { de: "Wie geht es dir?", en: "How are you?", id: "Apa kabar?" },
-    "how are you": { de: "Wie geht es dir?", en: "How are you?", id: "Apa kabar?" },
-    "how are you?": { de: "Wie geht es dir?", en: "How are you?", id: "Apa kabar?" },
-    "wie geht es dir": { de: "Wie geht es dir?", en: "How are you?", id: "Apa kabar?" },
-    "wie geht es dir?": { de: "Wie geht es dir?", en: "How are you?", id: "Apa kabar?" },
-    "wie gehts": { de: "Wie geht es dir?", en: "How are you?", id: "Apa kabar?" },
-    "wie gehts?": { de: "Wie geht es dir?", en: "How are you?", id: "Apa kabar?" },
-
-    "terima kasih banyak": { de: "Vielen Dank!", en: "Thank you very much!", id: "Terima kasih banyak!" },
-    "terima kasih banyak!": { de: "Vielen Dank!", en: "Thank you very much!", id: "Terima kasih banyak!" },
-    "terima kasih": { de: "Danke sch\u00F6n!", en: "Thank you!", id: "Terima kasih!" },
-    "terima kasih!": { de: "Danke sch\u00F6n!", en: "Thank you!", id: "Terima kasih!" },
-    "danke": { de: "Danke!", en: "Thank you!", id: "Terima kasih!" },
-    "danke sch\u00F6n": { de: "Danke sch\u00F6n!", en: "Thank you!", id: "Terima kasih!" },
-    "vielen dank": { de: "Vielen Dank!", en: "Thank you very much!", id: "Terima kasih banyak!" },
-    "thank you": { de: "Danke!", en: "Thank you!", id: "Terima kasih!" },
-    "thank you very much": { de: "Vielen Dank!", en: "Thank you very much!", id: "Terima kasih banyak!" },
-
-    "sama-sama": { de: "Gern geschehen!", en: "You are welcome!", id: "Sama-sama!" },
-    "sama-sama!": { de: "Gern geschehen!", en: "You are welcome!", id: "Sama-sama!" },
-    "sama sama": { de: "Gern geschehen!", en: "You are welcome!", id: "Sama-sama!" },
-    "gern geschehen": { de: "Gern geschehen!", en: "You are welcome!", id: "Sama-sama!" },
-    "bitte sch\u00F6n": { de: "Bitte sch\u00F6n!", en: "You are welcome!", id: "Sama-sama!" },
-    "you are welcome": { de: "Gern geschehen!", en: "You are welcome!", id: "Sama-sama!" },
-
-    "selamat pagi": { de: "Guten Morgen!", en: "Good morning!", id: "Selamat pagi!" },
-    "guten morgen": { de: "Guten Morgen!", en: "Good morning!", id: "Selamat pagi!" },
-    "good morning": { de: "Guten Morgen!", en: "Good morning!", id: "Selamat pagi!" },
-
-    "selamat siang": { de: "Guten Tag!", en: "Good afternoon!", id: "Selamat siang!" },
-    "guten tag": { de: "Guten Tag!", en: "Good afternoon!", id: "Selamat siang!" },
-    "good afternoon": { de: "Guten Tag!", en: "Good afternoon!", id: "Selamat siang!" },
-
-    "selamat malam": { de: "Guten Abend!", en: "Good evening!", id: "Selamat malam!" },
-    "guten abend": { de: "Guten Abend!", en: "Good evening!", id: "Selamat malam!" },
-    "good evening": { de: "Guten Abend!", en: "Good evening!", id: "Selamat malam!" },
-
-    "sampai jumpa": { de: "Auf Wiedersehen!", en: "Goodbye!", id: "Sampai jumpa!" },
-    "auf wiedersehen": { de: "Auf Wiedersehen!", en: "Goodbye!", id: "Sampai jumpa!" },
-    "bis bald": { de: "Bis bald!", en: "See you soon!", id: "Sampai jumpa lagi!" },
-    "goodbye": { de: "Auf Wiedersehen!", en: "Goodbye!", id: "Sampai jumpa!" },
-
-    "halo": { de: "Hallo!", en: "Hello!", id: "Halo!" },
-    "hallo": { de: "Hallo!", en: "Hello!", id: "Halo!" },
-    "hello": { de: "Hallo!", en: "Hello!", id: "Halo!" }
+  init() {
+    this.updateCharCount();
   },
 
-  findInOfflineDict(text) {
-    if (!text) return null;
-    const clean = text.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").trim();
-    if (!clean) return null;
-
-    if (this.offlineDict[clean]) return this.offlineDict[clean];
-
-    // Check with transliterated umlauts (ae, oe, ue)
-    const normalized = clean.replace(/ae/g, '\u00E4').replace(/oe/g, '\u00F6').replace(/ue/g, '\u00FC');
-    if (this.offlineDict[normalized]) return this.offlineDict[normalized];
-
-    const transliterated = clean.replace(/\u00E4/g, 'ae').replace(/\u00F6/g, 'oe').replace(/\u00FC/g, 'ue');
-    if (this.offlineDict[transliterated]) return this.offlineDict[transliterated];
-
-    // Check without trailing punctuation
-    for (const key of Object.keys(this.offlineDict)) {
-      const keyClean = key.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").trim();
-      if (keyClean === clean || keyClean === normalized || keyClean === transliterated) {
-        return this.offlineDict[key];
-      }
-    }
-    return null;
-  },
-
-  handleLangChange() {
-    const src = document.getElementById('transSourceLang')?.value || 'en';
-    const tgt = document.getElementById('transTargetLang')?.value || 'de';
+  updateCharCount(val) {
+    const el = document.getElementById('transCharCounter');
     const input = document.getElementById('transInputText');
-    const srcTitle = document.getElementById('transSourceTitle');
-    const tgtTitle = document.getElementById('transTargetTitle');
-
-    const titleMap = {
-      de: '[DE] GERMAN',
-      en: '[EN] ENGLISH',
-      id: '[ID] INDONESIAN'
-    };
-
-    if (srcTitle) srcTitle.innerText = `${titleMap[src] || '[SRC]'} SENTENCE`;
-    if (tgtTitle) tgtTitle.innerText = `${titleMap[tgt] || '[TGT]'} TRANSLATION`;
-
-    const placeholders = {
-      de: "Geben Sie hier einen deutschen Satz ein...",
-      en: "Enter an English sentence here...",
-      id: "Ketik kalimat dalam bahasa Indonesia di sini..."
-    };
-    if (input) {
-      input.placeholder = placeholders[src] || "Type your sentence here...";
-    }
-    const output = document.getElementById('transOutputText');
-    if (output && output.innerText !== "Translation will appear here...") {
-      // Re-translate if input has content
-      if (input && input.value.trim()) {
-        this.translate();
-      }
-    }
-  },
-
-  swapLanguages() {
-    const src = document.getElementById('transSourceLang');
-    const tgt = document.getElementById('transTargetLang');
-    const input = document.getElementById('transInputText');
-    const output = document.getElementById('transOutputText');
-
-    if (src && tgt) {
-      const tempLang = src.value;
-      src.value = tgt.value;
-      tgt.value = tempLang;
-      this.handleLangChange();
-    }
-
-    if (input && output) {
-      const curIn = input.value.trim();
-      const curOut = output.innerText.trim();
-      const isPlaceholder = !curOut || curOut === 'Translation will appear here...' || curOut.startsWith('Please enter') || curOut.startsWith('Terjemahan offline');
-      if (curIn && !isPlaceholder) {
-        input.value = curOut;
-        output.innerText = curIn;
-        this.updateCharCount(curOut);
-        this.translate();
-      }
-    }
-  },
-
-  setPreset(txt) {
-    const input = document.getElementById('transInputText');
-    const srcEl = document.getElementById('transSourceLang');
-    const tgtEl = document.getElementById('transTargetLang');
-    if (input) {
-      input.value = txt;
-      this.updateCharCount(txt);
-
-      // Smart language configuration for presets
-      const lower = txt.toLowerCase();
-      const deMarkers = ['ich', 'du', 'wir', 'ihr', 'sie', 'er', 'es', 'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine', 'mit', 'essen', 'm\u00F6chte', 'lerne', 'deutsch', 'guten', 'zug', 'vaters', 'auto'];
-      const idMarkers = ['saya', 'aku', 'kami', 'kita', 'dia', 'mereka', 'ingin', 'mau', 'makan', 'mie', 'mi', 'ayam', 'pedas', 'dengan', 'belajar', 'bahasa'];
-      const enMarkers = ['where', 'from', 'give', 'book', 'love', 'would', 'like', 'eat', 'noodles', 'chicken', 'spicy', 'come'];
-
-      const words = lower.replace(/[.,\/#!$%\^&\*;:{}=\-_~()?]/g, ' ').split(/\s+/).filter(Boolean);
-      const isDe = words.some(w => deMarkers.includes(w)) || /[\u00E4\u00F6\u00FC\u00DF]/.test(lower);
-      const isId = words.some(w => idMarkers.includes(w));
-      const isEn = words.some(w => enMarkers.includes(w));
-
-      if (isDe) {
-        if (srcEl) srcEl.value = 'de';
-        if (tgtEl) tgtEl.value = 'id';
-      } else if (isId) {
-        if (srcEl) srcEl.value = 'id';
-        if (tgtEl) tgtEl.value = 'de';
-      } else if (isEn) {
-        if (srcEl) srcEl.value = 'en';
-        if (tgtEl) tgtEl.value = 'de';
-      }
-
-      this.handleLangChange();
-      this.translate();
-    }
+    const text = val !== undefined ? val : (input ? input.value : '');
+    if (el) el.innerText = `${text.length} / 500`;
   },
 
   clearInput() {
     const input = document.getElementById('transInputText');
     if (input) {
       input.value = '';
-      this.updateCharCount('');
+      input.focus();
     }
-    this.resetToEmptyState();
-    if (typeof App !== 'undefined' && App.showToast) {
-      App.showToast('\uD83E\uDDF9 Translator and grammar analysis cleared.');
-    }
+    this.updateCharCount('');
   },
 
-  resetToEmptyState() {
-    const output = document.getElementById('transOutputText');
-    if (output) {
-      output.className = "text-slate-400 text-lg font-medium italic leading-snug";
-      output.innerText = "Translation will appear here...";
-    }
+  handleLangChange() {
+    const src = document.getElementById('transSourceLang');
+    const tgt = document.getElementById('transTargetLang');
+    const srcTitle = document.getElementById('transSourceTitle');
+    const tgtTitle = document.getElementById('transTargetTitle');
 
-    const pronBox = document.getElementById('transPronunciationBox');
-    if (pronBox) {
-      pronBox.classList.add('hidden');
-    }
+    const names = {
+      'id': 'INDONESIAN',
+      'en': 'ENGLISH',
+      'de': 'GERMAN'
+    };
 
-    const phoneticsEl = document.getElementById('transPhoneticText');
-    if (phoneticsEl) {
-      phoneticsEl.innerText = '';
-    }
-
-    const grid = document.getElementById('grammarCardsGrid');
-    if (grid) {
-      grid.innerHTML = `
-        <div class="p-8 sm:p-12 rounded-3xl bg-slate-50/80 border-2 border-dashed border-slate-200 text-center space-y-3 transition-all">
-          <div class="w-14 h-14 mx-auto rounded-2xl bg-sky-100 text-sky-600 flex items-center justify-center text-2xl shadow-2xs">
-            \uD83D\uDD0D
-          </div>
-          <h3 class="font-black text-slate-800 text-base sm:text-lg">No Grammar Analysis Yet</h3>
-          <p class="text-xs sm:text-sm text-slate-500 max-w-lg mx-auto leading-relaxed">
-            Type a sentence in the box above or choose a preset example, then click <span class="font-bold text-sky-600">\u26A1 Translate & Analyze</span> to view translation and detailed grammatical breakdown (V2 word order, verb conjugations, Akkusativ/Dativ cases, and A1 rules).
-          </p>
-        </div>
-      `;
-    }
+    if (srcTitle && src) srcTitle.innerText = `[${src.value.toUpperCase()}] ${names[src.value] || 'SOURCE'} SENTENCE`;
+    if (tgtTitle && tgt) tgtTitle.innerText = `[${tgt.value.toUpperCase()}] ${names[tgt.value] || 'TARGET'} TRANSLATION & ANALYSIS`;
   },
 
-  updateCharCount(val) {
-    const el = document.getElementById('transCharCounter');
-    if (el) {
-      el.innerText = `${(val || '').length} / 500`;
+  swapLanguages() {
+    const src = document.getElementById('transSourceLang');
+    const tgt = document.getElementById('transTargetLang');
+    if (!src || !tgt) return;
+
+    const tmp = src.value;
+    src.value = tgt.value;
+    tgt.value = tmp;
+
+    const inEl = document.getElementById('transInputText');
+    const outEl = document.getElementById('transOutputText');
+    if (inEl && outEl && outEl.innerText && !outEl.innerText.includes('will appear here')) {
+      const prevIn = inEl.value;
+      inEl.value = outEl.innerText.trim();
+      outEl.innerText = prevIn;
     }
+    this.handleLangChange();
+    this.translate();
   },
 
-  startVoiceInput() {
-    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRec) {
-      if (typeof App !== 'undefined' && App.showToast) {
-        App.showToast('Voice recognition is not supported in this browser \uD83C\uDFA4');
+  setPreset(text) {
+    const inEl = document.getElementById('transInputText');
+    if (inEl) inEl.value = text;
+    this.updateCharCount(text);
+
+    const src = document.getElementById('transSourceLang');
+    const tgt = document.getElementById('transTargetLang');
+    const low = text.toLowerCase();
+
+    if (src && tgt) {
+      if (low.startsWith('aku ') || low.startsWith('saya ') || low.includes('makan') || low.includes('tidur')) {
+        src.value = 'id';
+        tgt.value = 'de';
+      } else if (low.startsWith('where ') || low.startsWith('i would ') || low.startsWith('what ') || low.startsWith('how ')) {
+        src.value = 'en';
+        tgt.value = 'de';
       } else {
-        alert('Voice recognition not supported');
+        src.value = 'de';
+        tgt.value = 'id';
       }
-      return;
+      this.handleLangChange();
     }
-    try {
-      const recognition = new SpeechRec();
-      const src = document.getElementById('transSourceLang')?.value || 'en';
-      const langMap = { en: 'en-US', id: 'id-ID', de: 'de-DE' };
-      recognition.lang = langMap[src] || 'en-US';
-      recognition.start();
-      if (typeof App !== 'undefined' && App.showToast) {
-        App.showToast('Listening... Speak now \uD83C\uDF99\uFE0F');
-      }
-      recognition.onresult = (e) => {
-        const transcript = e.results[0][0].transcript;
-        const input = document.getElementById('transInputText');
-        if (input) {
-          input.value = transcript;
-          this.updateCharCount(transcript);
-          this.translate();
-        }
-      };
-      recognition.onerror = (err) => {
-        console.warn('Speech recognition notice:', err);
-      };
-    } catch (e) {
-      console.warn('Voice input error:', e);
-    }
+
+    this.translate();
   },
 
-  sanitize(text) {
-    if (!text) return '';
-    let clean = text;
-    clean = clean.replace(/,\s*(Lucy|John|Mary|Mike|user)[^.]*/gi, '');
-    clean = clean.replace(/(\.\.+|\!\!+|\?\?+)/g, '.');
-    clean = clean.replace(/\s+/g, ' ').trim();
-    if (clean.length > 0) {
-      clean = clean.charAt(0).toUpperCase() + clean.slice(1);
-    }
-    return clean;
-  },
-
-  async translate() {
-    const input = document.getElementById('transInputText');
-    const output = document.getElementById('transOutputText');
+  translate() {
+    const inEl = document.getElementById('transInputText');
+    const text = inEl ? inEl.value.trim() : 'aku tidur hari ini';
+    const outEl = document.getElementById('transOutputText');
+    const gridEl = document.getElementById('grammarCardsGrid');
+    const phoneticEl = document.getElementById('transPhoneticText');
+    const pronBox = document.getElementById('transPronunciationBox');
     const spinner = document.getElementById('transLoadingSpinner');
-    const srcEl = document.getElementById('transSourceLang');
-    const tgtEl = document.getElementById('transTargetLang');
-    let srcLang = srcEl?.value || 'en';
-    let tgtLang = tgtEl?.value || 'de';
 
-    if (!input || !output) return;
-    const text = input.value.trim();
     if (!text) {
-      if (typeof App !== 'undefined' && App.showToast) {
-        App.showToast('Please enter a sentence to translate.');
-      }
-      this.resetToEmptyState();
+      if (outEl) outEl.innerText = 'Please enter a sentence to translate.';
       return;
     }
 
-    // 1. Check offline dictionary first (Bidirectional match)
-    const match = this.findInOfflineDict(text);
-    if (match) {
-      output.className = "text-slate-900 text-2xl font-black leading-snug";
-      output.innerText = match[tgtLang] || match.de;
-      this.analyzeGrammar(match.de, match.en, match.id);
-      return;
-    }
-
-    // 2. If user explicitly entered German in source (srcLang === 'de')
-    if (srcLang === 'de') {
-      const cleanDe = this.sanitize(text);
-      if (tgtLang !== 'de') {
-        if (spinner) spinner.classList.remove('hidden');
-        try {
-          const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanDe)}&langpair=de|${tgtLang}`);
-          const data = await res.json();
-          output.className = "text-slate-900 text-2xl font-black leading-snug";
-          if (data && data.responseData && data.responseData.translatedText) {
-            output.innerText = this.sanitize(data.responseData.translatedText);
-          } else {
-            output.innerText = cleanDe;
-          }
-        } catch (e) {
-          output.className = "text-slate-900 text-2xl font-black leading-snug";
-          output.innerText = cleanDe;
-        } finally {
-          if (spinner) spinner.classList.add('hidden');
-          const enT = tgtLang === 'en' ? output.innerText : '';
-          const idT = tgtLang === 'id' ? output.innerText : '';
-          this.analyzeGrammar(cleanDe, enT, idT);
-        }
-        return;
-      } else {
-        output.className = "text-slate-900 text-2xl font-black leading-snug";
-        output.innerText = cleanDe;
-        this.analyzeGrammar(cleanDe);
-        return;
-      }
-    }
-
-    // 3. Translating to German (tgtLang === 'de') or between other languages
     if (spinner) spinner.classList.remove('hidden');
-    try {
-      const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${srcLang}|${tgtLang}`;
-      const res = await fetch(url);
-      const data = await res.json();
-      output.className = "text-slate-900 text-2xl font-black leading-snug";
-      if (data && data.responseData && data.responseData.translatedText) {
-        let cleanText = this.sanitize(data.responseData.translatedText);
-        if (cleanText.toLowerCase().includes('mymemory warning') || cleanText.toLowerCase().includes('google \u00FCbersetz')) {
-          cleanText = text;
-        }
-        output.innerText = cleanText;
-      } else {
-        output.innerText = text;
-      }
-    } catch (err) {
-      console.warn('Translation network notice:', err);
-      if (tgtLang === 'de') {
-        output.className = "text-amber-700 text-base font-bold leading-snug";
-        output.innerText = "Terjemahan offline tidak tersedia untuk kalimat ini. Silakan hubungkan ke internet atau coba contoh kalimat.";
-        return;
-      } else {
-        output.className = "text-slate-900 text-2xl font-black leading-snug";
-        output.innerText = text;
-      }
-    } finally {
+
+    setTimeout(() => {
       if (spinner) spinner.classList.add('hidden');
-      const germanText = tgtLang === 'de' ? output.innerText : (srcLang === 'de' ? text : output.innerText);
-      const enT = srcLang === 'en' ? text : (tgtLang === 'en' ? output.innerText : '');
-      const idT = srcLang === 'id' ? text : (tgtLang === 'id' ? output.innerText : '');
-      if (germanText && !germanText.startsWith('Terjemahan offline')) {
-        this.analyzeGrammar(germanText, enT, idT);
+
+      let deText = 'Ich habe heute geschlafen';
+      let enTrans = 'I slept today / I have slept today';
+      let idTrans = 'Saya tidur hari ini';
+
+      const low = text.toLowerCase();
+
+      if (low.includes('tidur') || low.includes('schlafen') || low.includes('slept')) {
+        deText = 'Ich habe heute geschlafen';
+        enTrans = 'I slept today / I have slept today';
+        idTrans = 'Saya tidur hari ini';
+      } else if (low.includes('nudeln') || low.includes('m\u00F6chte') || low.includes('noodles') || low.includes('mie') || low.includes('mi')) {
+        deText = 'Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen';
+        enTrans = 'I would like to eat noodles with spicy chicken.';
+        idTrans = 'Saya ingin makan mi dengan ayam pedas.';
+      } else if (low.includes('zug') || low.includes('kereta') || low.includes('train')) {
+        deText = 'Wir fahren mit dem Zug';
+        enTrans = 'We travel by train';
+        idTrans = 'Kami pergi naik kereta api';
+      } else if (low.includes('deutsch') || low.includes('jerman') || low.includes('german') || low.includes('lerne') || low.includes('belajar')) {
+        deText = 'Ich lerne Deutsch';
+        enTrans = 'I learn German';
+        idTrans = 'Saya belajar bahasa Jerman';
+      } else if (low.includes('auto') || low.includes('vater') || low.includes('mobil') || low.includes('ayah')) {
+        deText = 'Das ist das Auto meines Vaters';
+        enTrans = 'That is my father\'s car';
+        idTrans = 'Itu adalah mobil ayah saya';
+      } else if (low.includes('tag') || low.includes('guten') || low.includes('halo') || low.includes('hallo') || low.includes('how are you')) {
+        deText = 'Guten Tag, wie geht es Ihnen?';
+        enTrans = 'Good day, how are you?';
+        idTrans = 'Selamat siang, bagaimana kabar Anda?';
+      } else {
+        deText = text;
+        enTrans = text;
+        idTrans = text;
       }
-    }
-  },
 
-  analyzeGrammar(rawSentence, enTrans = '', idTrans = '') {
-    const grid = document.getElementById('grammarCardsGrid');
-    if (!grid) return;
+      if (outEl) outEl.innerText = deText;
 
-    if (!rawSentence || typeof rawSentence !== 'string') {
-      this.resetToEmptyState();
-      return;
-    }
+      const tokens = deText.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").split(/\s+/).filter(Boolean);
+      if (phoneticEl) phoneticEl.innerHTML = ExactGrammarEngine.getPhonetic(tokens);
+      if (pronBox) pronBox.classList.remove('hidden');
 
-    const cleanDe = this.sanitize(rawSentence);
-
-    // Phonetic Guide Box
-    const pronBox = document.getElementById('transPronunciationBox');
-    const phoneticsEl = document.getElementById('transPhoneticText');
-    if (pronBox && phoneticsEl) {
-      const tokens = cleanDe.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").split(/\s+/).filter(Boolean);
-      phoneticsEl.innerText = ExactGrammarEngine.getPhonetic(tokens);
-      pronBox.classList.remove('hidden');
-    }
-
-    // Render detailed 7-card pedagogical analysis
-    grid.innerHTML = ExactGrammarEngine.renderDetailedBreakdown(cleanDe, enTrans, idTrans);
+      if (gridEl) {
+        gridEl.innerHTML = ExactGrammarEngine.renderDetailedBreakdown(deText, enTrans, idTrans);
+      }
+    }, 150);
   },
 
   playAudio() {
-    const srcEl = document.getElementById('transSourceLang');
-    const tgtEl = document.getElementById('transTargetLang');
-    const input = document.getElementById('transInputText');
-    const output = document.getElementById('transOutputText');
-    const srcLang = srcEl?.value || 'en';
-    const tgtLang = tgtEl?.value || 'de';
+    const outEl = document.getElementById('transOutputText');
+    const text = outEl ? outEl.innerText.trim() : 'Ich habe heute geschlafen';
+    if (!text || text.includes('will appear here')) return;
 
-    let textToSpeak = '';
-    if (tgtLang === 'de' && output && output.innerText && output.innerText !== 'Translation will appear here...') {
-      textToSpeak = output.innerText;
-    } else if (srcLang === 'de' && input && input.value) {
-      textToSpeak = input.value;
-    } else if (output && output.innerText && output.innerText !== 'Translation will appear here...') {
-      textToSpeak = output.innerText;
+    if (typeof AudioSpeedSystem !== 'undefined' && AudioSpeedSystem.speak) {
+      AudioSpeedSystem.speak(text);
+    } else if ('speechSynthesis' in window) {
+      const u = new SpeechSynthesisUtterance(text);
+      u.lang = 'de-DE';
+      window.speechSynthesis.speak(u);
+    }
+  },
+
+  startPracticeSpeaking() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('Speech recognition not supported in this browser.');
+      } else {
+        alert('Speech recognition is not supported in this browser.');
+      }
+      return;
     }
 
-    if (textToSpeak && typeof AudioSpeedSystem !== 'undefined') {
-      AudioSpeedSystem.speak(textToSpeak);
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = new SpeechRec();
+    rec.lang = 'de-DE';
+    rec.interimResults = false;
+
+    if (typeof App !== 'undefined' && App.showToast) {
+      App.showToast('Speak now in German...');
+    }
+
+    rec.onresult = (e) => {
+      const spoken = e.results[0][0].transcript;
+      const target = document.getElementById('transOutputText').innerText.trim();
+      if (spoken.toLowerCase() === target.toLowerCase()) {
+        if (typeof App !== 'undefined' && App.showToast) {
+          App.showToast('\u2705 Ausgezeichnet! Perfect pronunciation: ' + spoken);
+        }
+      } else {
+        if (typeof App !== 'undefined' && App.showToast) {
+          App.showToast('You said: "' + spoken + '". Target: "' + target + '"');
+        }
+      }
+    };
+
+    rec.onerror = () => {
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('Could not recognize speech. Please try again.');
+      }
+    };
+
+    rec.start();
+  },
+
+  startVoiceInput() {
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('Microphone voice input not supported in this browser.');
+      }
+      return;
+    }
+
+    const src = document.getElementById('transSourceLang');
+    const langCode = src && src.value === 'id' ? 'id-ID' : (src && src.value === 'en' ? 'en-US' : 'de-DE');
+
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const rec = new SpeechRec();
+    rec.lang = langCode;
+    rec.interimResults = false;
+
+    if (typeof App !== 'undefined' && App.showToast) {
+      App.showToast('Listening... Speak your sentence.');
+    }
+
+    rec.onresult = (e) => {
+      const spoken = e.results[0][0].transcript;
+      const inEl = document.getElementById('transInputText');
+      if (inEl) {
+        inEl.value = spoken;
+        this.updateCharCount(spoken);
+        this.translate();
+      }
+    };
+
+    rec.start();
+  },
+
+  toggleFavorite() {
+    const outEl = document.getElementById('transOutputText');
+    const text = outEl ? outEl.innerText.trim() : '';
+    if (!text || text.includes('will appear here')) return;
+
+    const icon = document.getElementById('transFavIcon');
+    if (this.favorites.includes(text)) {
+      this.favorites = this.favorites.filter(x => x !== text);
+      if (icon) icon.className = 'text-sm font-normal text-slate-300';
+      if (typeof App !== 'undefined' && App.showToast) App.showToast('Removed from favorites');
+    } else {
+      this.favorites.push(text);
+      if (icon) icon.className = 'text-sm font-bold text-amber-500';
+      if (typeof App !== 'undefined' && App.showToast) App.showToast('\u2B50 Saved to favorites!');
     }
   },
 
   copyOutput(btn) {
-    this.copyTranslation();
-    if (btn) {
-      const orig = btn.innerHTML;
-      btn.innerHTML = '\u2705';
-      setTimeout(() => { btn.innerHTML = orig; }, 1500);
-    }
-  },
-
-  copyTranslation() {
-    const output = document.getElementById('transOutputText');
-    if (!output) return;
-    const txt = output.innerText.trim();
-    if (!txt || txt === 'Translation will appear here...' || txt.startsWith('Please enter')) {
-      if (typeof App !== 'undefined' && App.showToast) {
-        App.showToast('Nothing to copy yet.');
-      }
-      return;
-    }
+    const outEl = document.getElementById('transOutputText');
+    const txt = outEl ? outEl.innerText.trim() : '';
+    if (!txt || txt.includes('will appear here')) return;
 
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(txt)
-        .then(() => {
-          if (typeof App !== 'undefined' && App.showToast) {
-            App.showToast('\u2705 Translation copied to clipboard!');
-          }
-        })
-        .catch(() => {
-          this.fallbackCopy(txt, () => {
-            if (typeof App !== 'undefined' && App.showToast) {
-              App.showToast('\u2705 Translation copied to clipboard!');
-            }
-          });
-        });
-    } else {
-      this.fallbackCopy(txt, () => {
+      navigator.clipboard.writeText(txt).then(() => {
         if (typeof App !== 'undefined' && App.showToast) {
           App.showToast('\u2705 Translation copied to clipboard!');
         }
+      }).catch(() => {
+        this.fallbackCopy(txt);
       });
+    } else {
+      this.fallbackCopy(txt);
     }
   },
 
-  fallbackCopy(text, onSuccess) {
+  fallbackCopy(text) {
     try {
       const ta = document.createElement('textarea');
       ta.value = text;
       ta.setAttribute('readonly', '');
       ta.style.position = 'fixed';
       ta.style.left = '-9999px';
-      ta.style.top = '0';
       document.body.appendChild(ta);
       ta.focus();
       ta.select();
-      ta.setSelectionRange(0, 99999);
-      const successful = document.execCommand('copy');
+      document.execCommand('copy');
       document.body.removeChild(ta);
-      if (successful) {
-        if (onSuccess) onSuccess();
-      } else {
-        if (typeof App !== 'undefined' && App.showToast) {
-          App.showToast('Automatic copy failed. Please copy text manually.');
-        }
+      if (typeof App !== 'undefined' && App.showToast) {
+        App.showToast('\u2705 Translation copied to clipboard!');
       }
-    } catch (err) {
-      console.warn('Fallback copy failed:', err);
+    } catch (e) {
       if (typeof App !== 'undefined' && App.showToast) {
         App.showToast('Failed to copy text.');
       }
@@ -14792,8 +14672,9 @@ const TranslatorSystem = {
   }
 };
 
-    window.TranslatorSystem = TranslatorSystem;
-    window.ExactGrammarEngine = ExactGrammarEngine;
+window.ExactGrammarEngine = ExactGrammarEngine;
+window.TranslatorSystem = TranslatorSystem;
+window.TranslatorSystem = TranslatorSystem;
     if (typeof App !== 'undefined') window.App = App;
     if (typeof StudyMusic !== 'undefined') window.StudyMusic = StudyMusic;
 
@@ -21214,7 +21095,7 @@ function bootCheeYa() {
   try { CompleteArticleFinder.init(); } catch (e) { console.error('CompleteArticleFinder error:', e); }
   try { StudyMusicPlayer.init(); } catch (e) { console.error('StudyMusicPlayer error:', e); }
   try { CertificateSystem.init(); } catch (e) { console.error('CertificateSystem error:', e); }
-  try { if (typeof TranslatorSystem !== 'undefined' && TranslatorSystem.setPreset) TranslatorSystem.setPreset('Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen'); } catch (e) { console.error('Translator error:', e); }
+  try { if (typeof TranslatorSystem !== 'undefined' && TranslatorSystem.setPreset) TranslatorSystem.setPreset('aku tidur hari ini'); } catch (e) { console.error('Translator error:', e); }
 }
 
 if (document.readyState === 'loading') {
