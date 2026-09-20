@@ -3257,7 +3257,7 @@ html[data-theme="dark"] select {
           <div class="flex flex-wrap items-center gap-2">
             <h1 class="text-lg sm:text-xl font-extrabold text-slate-800">AI Smart German Translator & Grammar Analyzer</h1>
             <span class="text-[10px] font-extrabold text-sky-700 bg-sky-50 border border-sky-200 px-2 py-0.5 rounded-full">A1-C1 Deep Analysis</span>
-          </div>
+            <span class="text-[10px] font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-2.5 py-0.5 rounded-full shadow-2xs">&#10024; v17.0 Live &bull; 7-Card Grammar Breakdown</span></div>
           <p class="text-xs text-slate-500 mt-0.5 leading-relaxed">
             Translate between English, Indonesian & German with in-depth grammatical breakdown (verb conjugations, noun articles der/die/das, Nominativ, Akkusativ, Dativ & Genitiv cases, and V2 word order) and native audio pronunciation.
           </p>
@@ -12860,6 +12860,13 @@ const CheatSheetSystem = {
           DualFlashcardSystem.showCard();
         } else if (view === 'articleFinder' && typeof CompleteArticleFinder !== 'undefined') {
           CompleteArticleFinder.handleSearch('');
+        } else if (view === 'translator' && typeof TranslatorSystem !== 'undefined') {
+          const input = document.getElementById('transInputText');
+          const output = document.getElementById('transOutputText');
+          const isUnanalyzed = !output || output.innerText === 'Translation will appear here...' || !document.getElementById('overviewCard');
+          if (!input || !input.value.trim() || isUnanalyzed) {
+            TranslatorSystem.setPreset('Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen');
+          }
         }
       },
 
@@ -14436,9 +14443,35 @@ const TranslatorSystem = {
 
   setPreset(txt) {
     const input = document.getElementById('transInputText');
+    const srcEl = document.getElementById('transSourceLang');
+    const tgtEl = document.getElementById('transTargetLang');
     if (input) {
       input.value = txt;
       this.updateCharCount(txt);
+
+      // Smart language configuration for presets
+      const lower = txt.toLowerCase();
+      const deMarkers = ['ich', 'du', 'wir', 'ihr', 'sie', 'er', 'es', 'der', 'die', 'das', 'den', 'dem', 'des', 'ein', 'eine', 'mit', 'essen', 'm\u00F6chte', 'lerne', 'deutsch', 'guten', 'zug', 'vaters', 'auto'];
+      const idMarkers = ['saya', 'aku', 'kami', 'kita', 'dia', 'mereka', 'ingin', 'mau', 'makan', 'mie', 'mi', 'ayam', 'pedas', 'dengan', 'belajar', 'bahasa'];
+      const enMarkers = ['where', 'from', 'give', 'book', 'love', 'would', 'like', 'eat', 'noodles', 'chicken', 'spicy', 'come'];
+
+      const words = lower.replace(/[.,\/#!$%\^&\*;:{}=\-_~()?]/g, ' ').split(/\s+/).filter(Boolean);
+      const isDe = words.some(w => deMarkers.includes(w)) || /[\u00E4\u00F6\u00FC\u00DF]/.test(lower);
+      const isId = words.some(w => idMarkers.includes(w));
+      const isEn = words.some(w => enMarkers.includes(w));
+
+      if (isDe) {
+        if (srcEl) srcEl.value = 'de';
+        if (tgtEl) tgtEl.value = 'id';
+      } else if (isId) {
+        if (srcEl) srcEl.value = 'id';
+        if (tgtEl) tgtEl.value = 'de';
+      } else if (isEn) {
+        if (srcEl) srcEl.value = 'en';
+        if (tgtEl) tgtEl.value = 'de';
+      }
+
+      this.handleLangChange();
       this.translate();
     }
   },
@@ -14766,11 +14799,7 @@ const TranslatorSystem = {
 
     // Initialize application on window load safely
     window.addEventListener('DOMContentLoaded', () => {
-      try {
-        if (typeof TranslatorSystem !== 'undefined' && TranslatorSystem.resetToEmptyState) {
-          TranslatorSystem.resetToEmptyState();
-        }
-      } catch (e) { console.error('TranslatorSystem init error:', e); }
+      // TranslatorSystem initializes on demand or preset
 
       try {
         if (typeof App !== 'undefined' && App.init) {
@@ -14924,7 +14953,7 @@ const PWAInstaller = {
     // 1. Register Service Worker if supported and running over HTTP/HTTPS
     if ('serviceWorker' in navigator && (location.protocol === 'http:' || location.protocol === 'https:')) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=17').then((reg) => { if (reg.update) reg.update();
           console.log('CheeYa PWA Service Worker registered:', reg.scope);
         }).catch((err) => {
           console.warn('CheeYa PWA Service Worker registration non-fatal notice:', err);
@@ -21185,7 +21214,7 @@ function bootCheeYa() {
   try { CompleteArticleFinder.init(); } catch (e) { console.error('CompleteArticleFinder error:', e); }
   try { StudyMusicPlayer.init(); } catch (e) { console.error('StudyMusicPlayer error:', e); }
   try { CertificateSystem.init(); } catch (e) { console.error('CertificateSystem error:', e); }
-  try { if (typeof TranslatorSystem !== 'undefined' && TranslatorSystem.analyzeGrammar) TranslatorSystem.analyzeGrammar('Ich liebe dich'); } catch (e) { console.error('Translator error:', e); }
+  try { if (typeof TranslatorSystem !== 'undefined' && TranslatorSystem.setPreset) TranslatorSystem.setPreset('Ich m\u00F6chte Nudeln mit scharfem H\u00E4hnchen essen'); } catch (e) { console.error('Translator error:', e); }
 }
 
 if (document.readyState === 'loading') {
