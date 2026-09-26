@@ -1,4 +1,4 @@
-
+﻿
 
 
 
@@ -13380,98 +13380,324 @@ const CheatSheetSystem = {
    ========================================================================== */
 
 const DynamicGermanGrammar = {
-  // Built-in lexical knowledge base
+  ALLOWED_CASES: {
+    NOMINATIVE: 'NOMINATIVE',
+    ACCUSATIVE: 'ACCUSATIVE',
+    DATIVE: 'DATIVE',
+    GENITIVE: 'GENITIVE',
+    NO_CASE: 'NO CASE'
+  },
+
+  VERB_ROLES: {
+    FINITE_VERB: 'FINITE VERB',
+    FINITE_AUXILIARY_VERB: 'FINITE AUXILIARY VERB',
+    MODAL_VERB: 'MODAL VERB',
+    INFINITIVE: 'INFINITIVE',
+    PAST_PARTICIPLE: 'PAST PARTICIPLE / PARTIZIP II',
+    PRESENT_PARTICIPLE: 'PRESENT PARTICIPLE / PARTIZIP I',
+    SEPARABLE_PREFIX: 'SEPARABLE VERB PREFIX'
+  },
+
+  CORE_LABELS: {
+    SUBJECT: 'SUBJECT',
+    FINITE_VERB: 'FINITE VERB',
+    FINITE_AUXILIARY_VERB: 'FINITE AUXILIARY VERB',
+    MODAL_VERB: 'MODAL VERB',
+    INFINITIVE: 'INFINITIVE',
+    PAST_PARTICIPLE: 'PAST PARTICIPLE / PARTIZIP II',
+    PRESENT_PARTICIPLE: 'PRESENT PARTICIPLE / PARTIZIP I',
+    SEPARABLE_PREFIX: 'SEPARABLE VERB PREFIX',
+    DIRECT_OBJECT: 'DIRECT OBJECT',
+    INDIRECT_OBJECT: 'INDIRECT OBJECT',
+    OBJECT_OF_PREPOSITION: 'OBJECT OF PREPOSITION',
+    PREDICATE_NOMINATIVE: 'PREDICATE NOMINATIVE',
+    PREDICATE_ADJECTIVE: 'PREDICATE ADJECTIVE',
+    ADVERBIAL: 'ADVERBIAL',
+    TEMPORAL_ADVERBIAL: 'TEMPORAL ADVERBIAL',
+    LOCAL_ADVERBIAL: 'LOCAL ADVERBIAL',
+    DIRECTIONAL_ADVERBIAL: 'DIRECTIONAL ADVERBIAL',
+    MANNER_ADVERBIAL: 'MANNER ADVERBIAL',
+    CAUSAL_ADVERBIAL: 'CAUSAL ADVERBIAL',
+    DEGREE_MODIFIER: 'DEGREE MODIFIER',
+    ADJECTIVAL_MODIFIER: 'ADJECTIVAL MODIFIER',
+    NOUN_MODIFIER: 'NOUN MODIFIER',
+    CLAUSE_CONNECTOR: 'CLAUSE CONNECTOR',
+    PARTICLE: 'PARTICLE',
+    NEGATION_PARTICLE: 'PARTICLE',
+    PREPOSITION: 'PREPOSITION',
+    DEFINITE_ARTICLE: 'DEFINITE ARTICLE',
+    INDEFINITE_ARTICLE: 'INDEFINITE ARTICLE',
+    POSSESSIVE_DETERMINER: 'POSSESSIVE DETERMINER'
+  },
+
   pronouns: {
-    'ich': { case: 'Nominativ', role: 'Subject (Subjekt)', person: '1st Person', number: 'Singular', en: 'I', id: 'saya / aku', why: 'Grammatical subject performing the verb action ("Wer oder was?"). In German, the subject strictly governs verb agreement.' },
-    'du': { case: 'Nominativ', role: 'Subject (Subjekt)', person: '2nd Person', number: 'Singular', en: 'you (informal)', id: 'kamu', why: 'Informal singular subject in Nominativ case.' },
-    'er': { case: 'Nominativ', role: 'Subject (Subjekt)', person: '3rd Person', number: 'Singular', en: 'he', id: 'dia (laki-laki)', why: '3rd person masculine subject pronoun in Nominative.' },
-    'sie': { case: 'Nominativ / Akkusativ', role: 'Subject / Object', person: '3rd Person', number: 'Singular / Plural', en: 'she / they', id: 'dia (perempuan) / mereka', why: 'Feminine singular or 3rd person plural pronoun.' },
-    'es': { case: 'Nominativ / Akkusativ', role: 'Subject / Impersonal', person: '3rd Person', number: 'Singular', en: 'it', id: 'itu / nya', why: 'Neuter singular subject or impersonal pronoun.' },
-    'wir': { case: 'Nominativ', role: 'Subject (Subjekt)', person: '1st Person', number: 'Plural', en: 'we', id: 'kami / kita', why: '1st person plural subject pronoun in Nominativ.' },
-    'ihr': { case: 'Nominativ', role: 'Subject (Subjekt)', person: '2nd Person', number: 'Plural', en: 'you all', id: 'kalian', why: '2nd person informal plural subject.' },
-    'Sie': { case: 'Nominativ / Akkusativ', role: 'Formal Subject / Object', person: 'Formal', number: 'Singular / Plural', en: 'You (formal)', id: 'Anda', why: 'Formal address pronoun in Nominative or Accusative.' },
-    'mich': { case: 'Akkusativ', role: 'Direct Object', person: '1st Person', number: 'Singular', en: 'me', id: 'saya / aku (objek)', why: 'Direct object pronoun in Akkusativ answering "Wen oder was?".' },
-    'dich': { case: 'Akkusativ', role: 'Direct Object', person: '2nd Person', number: 'Singular', en: 'you', id: 'kamu (objek)', why: 'Direct object pronoun in Akkusativ receiving the action ("Wen oder was?").' },
-    'ihn': { case: 'Akkusativ', role: 'Direct Object', person: '3rd Person', number: 'Singular', en: 'him', id: 'dia (laki-laki, objek)', why: 'Accusative masculine singular direct object pronoun.' },
-    'uns': { case: 'Akkusativ / Dativ', role: 'Object', person: '1st Person', number: 'Plural', en: 'us', id: 'kami / kita (objek)', why: 'Object pronoun in Accusative or Dative plural.' },
-    'euch': { case: 'Akkusativ / Dativ', role: 'Object', person: '2nd Person', number: 'Plural', en: 'you all', id: 'kalian (objek)', why: 'Object pronoun in Accusative or Dative plural.' },
-    'mir': { case: 'Dativ', role: 'Indirect Object', person: '1st Person', number: 'Singular', en: 'to me', id: 'pada saya / untuk saya', why: 'Dative personal pronoun for indirect object or governed by dative preposition.' },
-    'dir': { case: 'Dativ', role: 'Indirect Object', person: '2nd Person', number: 'Singular', en: 'to you', id: 'pada kamu / untuk kamu', why: 'Dative personal pronoun answering "Wem?".' },
-    'ihm': { case: 'Dativ', role: 'Indirect Object', person: '3rd Person', number: 'Singular', en: 'to him / it', id: 'padanya (laki-laki/netral)', why: 'Dative singular pronoun.' },
-    'ihnen': { case: 'Dativ', role: 'Indirect Object', person: '3rd Person', number: 'Plural', en: 'to them', id: 'pada mereka', why: 'Dative plural pronoun.' },
-    'Ihnen': { case: 'Dativ', role: 'Formal Indirect Object', person: 'Formal', number: 'Singular / Plural', en: 'to You (formal)', id: 'pada Anda', why: 'Formal address in Dativ case.' }
+    'ich': { coreLabel: 'SUBJECT', case: 'NOMINATIVE', person: '1st Person', number: 'SINGULAR', en: 'I', id: 'saya / aku', why: 'Grammatical subject performing the verb action ("Wer oder was?"). Always in NOMINATIVE case.' },
+    'du': { coreLabel: 'SUBJECT', case: 'NOMINATIVE', person: '2nd Person', number: 'SINGULAR', en: 'you (informal)', id: 'kamu', why: 'Informal singular subject in NOMINATIVE case.' },
+    'er': { coreLabel: 'SUBJECT', case: 'NOMINATIVE', gender: 'MASCULINE (der)', person: '3rd Person', number: 'SINGULAR', en: 'he', id: 'dia (laki-laki)', why: '3rd person masculine singular subject pronoun in NOMINATIVE.' },
+    'sie': { coreLabel: 'SUBJECT', case: 'NOMINATIVE', gender: 'FEMININE / PLURAL', person: '3rd Person', number: 'SINGULAR / PLURAL', en: 'she / they', id: 'dia (perempuan) / mereka', why: 'Feminine singular or 3rd person plural subject pronoun in NOMINATIVE.' },
+    'es': { coreLabel: 'SUBJECT', case: 'NOMINATIVE', gender: 'NEUTER (das)', person: '3rd Person', number: 'SINGULAR', en: 'it', id: 'itu / nya', why: 'Neuter singular subject or impersonal pronoun in NOMINATIVE.' },
+    'wir': { coreLabel: 'SUBJECT', case: 'NOMINATIVE', person: '1st Person', number: 'PLURAL', en: 'we', id: 'kami / kita', why: '1st person plural subject pronoun in NOMINATIVE.' },
+    'ihr': { coreLabel: 'SUBJECT', case: 'NOMINATIVE', person: '2nd Person', number: 'PLURAL', en: 'you all', id: 'kalian', why: '2nd person informal plural subject in NOMINATIVE.' },
+    'Sie': { coreLabel: 'SUBJECT', case: 'NOMINATIVE', person: 'Formal', number: 'SINGULAR / PLURAL', en: 'You (formal)', id: 'Anda', why: 'Formal polite address subject pronoun in NOMINATIVE.' },
+    'mich': { coreLabel: 'DIRECT OBJECT', case: 'ACCUSATIVE', person: '1st Person', number: 'SINGULAR', en: 'me', id: 'saya / aku (objek)', why: 'Direct object pronoun receiving transitive action ("Wen oder was?"). Governed in ACCUSATIVE case.' },
+    'dich': { coreLabel: 'DIRECT OBJECT', case: 'ACCUSATIVE', person: '2nd Person', number: 'SINGULAR', en: 'you', id: 'kamu (objek)', why: 'Direct object pronoun receiving transitive action ("Wen oder was?"). Governed in ACCUSATIVE case.' },
+    'ihn': { coreLabel: 'DIRECT OBJECT', case: 'ACCUSATIVE', gender: 'MASCULINE (der)', person: '3rd Person', number: 'SINGULAR', en: 'him', id: 'dia (laki-laki, objek)', why: 'Accusative masculine singular direct object pronoun.' },
+    'uns': { coreLabel: 'DIRECT OBJECT', case: 'ACCUSATIVE', person: '1st Person', number: 'PLURAL', en: 'us', id: 'kami / kita (objek)', why: 'Object personal pronoun in ACCUSATIVE plural.' },
+    'euch': { coreLabel: 'DIRECT OBJECT', case: 'ACCUSATIVE', person: '2nd Person', number: 'PLURAL', en: 'you all (object)', id: 'kalian (objek)', why: 'Object personal pronoun in ACCUSATIVE plural.' },
+    'mir': { coreLabel: 'INDIRECT OBJECT', case: 'DATIVE', person: '1st Person', number: 'SINGULAR', en: 'to me', id: 'pada saya / untuk saya', why: 'Indirect object personal pronoun answering "Wem?". Governed in DATIVE case.' },
+    'dir': { coreLabel: 'INDIRECT OBJECT', case: 'DATIVE', person: '2nd Person', number: 'SINGULAR', en: 'to you', id: 'pada kamu / untuk kamu', why: 'Indirect object personal pronoun answering "Wem?". Governed in DATIVE case.' },
+    'ihm': { coreLabel: 'INDIRECT OBJECT', case: 'DATIVE', person: '3rd Person', number: 'SINGULAR', en: 'to him / it', id: 'padanya', why: 'Dative singular pronoun for indirect recipient.' },
+    'ihnen': { coreLabel: 'INDIRECT OBJECT', case: 'DATIVE', person: '3rd Person', number: 'PLURAL', en: 'to them', id: 'pada mereka', why: 'Dative plural pronoun for indirect recipient.' },
+    'Ihnen': { coreLabel: 'INDIRECT OBJECT', case: 'DATIVE', person: 'Formal', number: 'SINGULAR / PLURAL', en: 'to You (formal)', id: 'pada Anda', why: 'Formal polite indirect object pronoun in DATIVE case.' },
+    'man': { coreLabel: 'SUBJECT', case: 'NOMINATIVE', person: '3rd Person', number: 'SINGULAR', en: 'one / people / you', id: 'orang / kita', why: 'Indefinite subject pronoun in NOMINATIVE case.' }
   },
 
   prepositions: {
-    'mit': { case: 'Dativ', type: 'Fixed Dative Preposition', en: 'with / by means of', id: 'dengan / bersama / naik', why: 'Belongs to fixed Dative group (aus, bei, mit, nach, seit, von, zu). Strictly assigns Dativ.' },
-    'aus': { case: 'Dativ', type: 'Fixed Dative Preposition', en: 'out of / from', id: 'dari', why: 'Fixed Dative preposition indicating origin or source.' },
-    'bei': { case: 'Dativ', type: 'Fixed Dative Preposition', en: 'at / with / near', id: 'di / dekat / pada', why: 'Fixed Dative preposition indicating location or employer.' },
-    'nach': { case: 'Dativ', type: 'Fixed Dative Preposition', en: 'to / after', id: 'ke / setelah', why: 'Fixed Dative preposition for destinations without article or time.' },
-    'von': { case: 'Dativ', type: 'Fixed Dative Preposition', en: 'from / of', id: 'dari / milik', why: 'Fixed Dative preposition.' },
-    'zu': { case: 'Dativ', type: 'Fixed Dative Preposition', en: 'to / at', id: 'ke / pada', why: 'Fixed Dative preposition.' },
-    'f\u00FCr': { case: 'Akkusativ', type: 'Fixed Accusative Preposition', en: 'for', id: 'untuk', why: 'Belongs to fixed Akkusativ group (durch, f\u00FCr, gegen, ohne, um). Strictly assigns Akkusativ.' },
-    'fuer': { case: 'Akkusativ', type: 'Fixed Accusative Preposition', en: 'for', id: 'untuk', why: 'Fixed Akkusativ preposition.' },
-    'ohne': { case: 'Akkusativ', type: 'Fixed Accusative Preposition', en: 'without', id: 'tanpa', why: 'Fixed Akkusativ preposition.' },
-    'durch': { case: 'Akkusativ', type: 'Fixed Accusative Preposition', en: 'through', id: 'melalui', why: 'Fixed Akkusativ preposition.' },
-    'gegen': { case: 'Akkusativ', type: 'Fixed Accusative Preposition', en: 'against', id: 'melawan / terhadap', why: 'Fixed Akkusativ preposition.' },
-    'um': { case: 'Akkusativ', type: 'Fixed Accusative Preposition', en: 'around / at (time)', id: 'sekitar / pada (jam)', why: 'Fixed Akkusativ preposition.' }
+    'mit': { caseGoverned: 'DATIVE', en: 'with / by means of', id: 'dengan / bersama / naik', why: 'Fixed Dative preposition (aus, bei, mit, nach, seit, von, zu). The preposition itself has NO CASE, but assigns DATIVE to its governed object.' },
+    'aus': { caseGoverned: 'DATIVE', en: 'out of / from', id: 'dari', why: 'Fixed Dative preposition assigning DATIVE case to following noun phrase.' },
+    'bei': { caseGoverned: 'DATIVE', en: 'at / with / near', id: 'di / dekat / pada', why: 'Fixed Dative preposition assigning DATIVE case.' },
+    'nach': { caseGoverned: 'DATIVE', en: 'to / after', id: 'ke / setelah', why: 'Fixed Dative preposition used for cities/countries without article or time.' },
+    'von': { caseGoverned: 'DATIVE', en: 'from / of', id: 'dari / milik', why: 'Fixed Dative preposition assigning DATIVE case.' },
+    'zu': { caseGoverned: 'DATIVE', en: 'to / at', id: 'ke / pada', why: 'Fixed Dative preposition assigning DATIVE case.' },
+    'seit': { caseGoverned: 'DATIVE', en: 'since / for', id: 'sejak / selama', why: 'Fixed Dative preposition expressing ongoing duration.' },
+    'ab': { caseGoverned: 'DATIVE', en: 'starting from', id: 'mulai dari', why: 'Fixed Dative preposition.' },
+    'für': { caseGoverned: 'ACCUSATIVE', en: 'for', id: 'untuk', why: 'Fixed Accusative preposition (durch, für, gegen, ohne, um). Assigns ACCUSATIVE case.' },
+    'fuer': { caseGoverned: 'ACCUSATIVE', en: 'for', id: 'untuk', why: 'Fixed Accusative preposition assigning ACCUSATIVE case.' },
+    'ohne': { caseGoverned: 'ACCUSATIVE', en: 'without', id: 'tanpa', why: 'Fixed Accusative preposition assigning ACCUSATIVE case.' },
+    'durch': { caseGoverned: 'ACCUSATIVE', en: 'through', id: 'melalui', why: 'Fixed Accusative preposition assigning ACCUSATIVE case.' },
+    'gegen': { caseGoverned: 'ACCUSATIVE', en: 'against', id: 'melawan / terhadap', why: 'Fixed Accusative preposition assigning ACCUSATIVE case.' },
+    'um': { caseGoverned: 'ACCUSATIVE', en: 'around / at (clock time)', id: 'sekitar / pada (jam)', why: 'Fixed Accusative preposition assigning ACCUSATIVE case.' },
+    'in': { caseGoverned: 'WECHSEL', en: 'in / into', id: 'di / ke dalam', why: 'Two-way preposition (Wechselpräposition). Assigns DATIVE (location) or ACCUSATIVE (motion).' },
+    'an': { caseGoverned: 'WECHSEL', en: 'at / to / on', id: 'pada / ke', why: 'Two-way preposition assigning DATIVE or ACCUSATIVE.' },
+    'auf': { caseGoverned: 'WECHSEL', en: 'on / onto', id: 'di atas / ke atas', why: 'Two-way preposition assigning DATIVE or ACCUSATIVE.' },
+    'unter': { caseGoverned: 'WECHSEL', en: 'under', id: 'di bawah', why: 'Two-way preposition assigning DATIVE or ACCUSATIVE.' },
+    'über': { caseGoverned: 'WECHSEL', en: 'over / above', id: 'di atas', why: 'Two-way preposition assigning DATIVE or ACCUSATIVE.' },
+    'ueber': { caseGoverned: 'WECHSEL', en: 'over / above', id: 'di atas', why: 'Two-way preposition assigning DATIVE or ACCUSATIVE.' },
+    'vor': { caseGoverned: 'WECHSEL', en: 'in front of / before', id: 'di depan / sebelum', why: 'Two-way preposition assigning DATIVE or ACCUSATIVE.' },
+    'hinter': { caseGoverned: 'WECHSEL', en: 'behind', id: 'di belakang', why: 'Two-way preposition assigning DATIVE or ACCUSATIVE.' },
+    'neben': { caseGoverned: 'WECHSEL', en: 'beside / next to', id: 'di sebelah / di samping', why: 'Two-way preposition assigning DATIVE or ACCUSATIVE.' },
+    'zwischen': { caseGoverned: 'WECHSEL', en: 'between', id: 'di antara', why: 'Two-way preposition assigning DATIVE or ACCUSATIVE.' }
+  },
+
+  adverbs: {
+    'heute': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'today', id: 'hari ini', why: 'Answers the question "Wann?" (When?). Placed in the German Mittelfeld following TeKaMoLo word order. Invariant adverb with NO CASE.' },
+    'gestern': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'yesterday', id: 'kemarin', why: 'Temporal adverbial indicating past timing. Invariant part of speech with NO CASE.' },
+    'morgen': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'tomorrow', id: 'besok', why: 'Temporal adverbial indicating future timing with NO CASE.' },
+    'jetzt': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'now', id: 'sekarang', why: 'Temporal adverbial indicating present timing with NO CASE.' },
+    'bald': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'soon', id: 'segera', why: 'Temporal adverbial with NO CASE.' },
+    'immer': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'always', id: 'selalu', why: 'Temporal adverbial of frequency with NO CASE.' },
+    'oft': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'often', id: 'sering', why: 'Temporal adverbial of frequency with NO CASE.' },
+    'manchmal': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'sometimes', id: 'kadang-kadang', why: 'Temporal adverbial with NO CASE.' },
+    'nie': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'never', id: 'tidak pernah', why: 'Temporal adverbial of frequency with NO CASE.' },
+    'selten': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'rarely', id: 'jarang', why: 'Temporal adverbial with NO CASE.' },
+    'später': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'later', id: 'nanti / kemudian', why: 'Temporal adverbial with NO CASE.' },
+    'spaeter': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'later', id: 'nanti / kemudian', why: 'Temporal adverbial with NO CASE.' },
+    'früher': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'earlier / in the past', id: 'dahulu / lebih awal', why: 'Temporal adverbial with NO CASE.' },
+    'frueher': { coreLabel: 'TEMPORAL ADVERBIAL', en: 'earlier', id: 'lebih awal', why: 'Temporal adverbial with NO CASE.' },
+    'hier': { coreLabel: 'LOCAL ADVERBIAL', en: 'here', id: 'di sini', why: 'Local adverbial indicating location ("Wo?"). Invariant modifier with NO CASE.' },
+    'dort': { coreLabel: 'LOCAL ADVERBIAL', en: 'there', id: 'di sana', why: 'Local adverbial indicating location ("Wo?") with NO CASE.' },
+    'da': { coreLabel: 'LOCAL ADVERBIAL', en: 'there / here', id: 'di situ / di sana', why: 'Local adverbial with NO CASE.' },
+    'überall': { coreLabel: 'LOCAL ADVERBIAL', en: 'everywhere', id: 'di mana-mana', why: 'Local adverbial with NO CASE.' },
+    'ueberall': { coreLabel: 'LOCAL ADVERBIAL', en: 'everywhere', id: 'di mana-mana', why: 'Local adverbial with NO CASE.' },
+    'drinnen': { coreLabel: 'LOCAL ADVERBIAL', en: 'indoors / inside', id: 'di dalam', why: 'Local adverbial with NO CASE.' },
+    'draußen': { coreLabel: 'LOCAL ADVERBIAL', en: 'outdoors / outside', id: 'di luar', why: 'Local adverbial with NO CASE.' },
+    'draussen': { coreLabel: 'LOCAL ADVERBIAL', en: 'outside', id: 'di luar', why: 'Local adverbial with NO CASE.' },
+    'schnell': { coreLabel: 'MANNER ADVERBIAL', en: 'quickly / fast', id: 'cepat / dengan cepat', why: 'Manner adverbial specifying how the action is performed ("Wie?"). Uninflected adverb with NO CASE.' },
+    'langsam': { coreLabel: 'MANNER ADVERBIAL', en: 'slowly', id: 'lambat', why: 'Manner adverbial with NO CASE.' },
+    'gut': { coreLabel: 'MANNER ADVERBIAL', en: 'well', id: 'dengan baik', why: 'Manner adverbial modifying the action (NO CASE).' },
+    'schlecht': { coreLabel: 'MANNER ADVERBIAL', en: 'poorly / badly', id: 'buruk / dengan buruk', why: 'Manner adverbial (NO CASE).' },
+    'gerne': { coreLabel: 'MANNER ADVERBIAL', en: 'gladly', id: 'dengan senang hati / suka', why: 'Manner adverbial expressing preference (NO CASE).' },
+    'gern': { coreLabel: 'MANNER ADVERBIAL', en: 'gladly', id: 'dengan senang hati / suka', why: 'Manner adverbial expressing preference (NO CASE).' },
+    'zusammen': { coreLabel: 'MANNER ADVERBIAL', en: 'together', id: 'bersama-sama', why: 'Manner adverbial (NO CASE).' },
+    'allein': { coreLabel: 'MANNER ADVERBIAL', en: 'alone', id: 'sendirian', why: 'Manner adverbial (NO CASE).' },
+    'deshalb': { coreLabel: 'CAUSAL ADVERBIAL', en: 'therefore / that\'s why', id: 'karena itu / oleh sebab itu', why: 'Causal adverbial expressing cause or consequence ("Warum?"). Position 1 element triggering subject-verb inversion (NO CASE).' },
+    'darum': { coreLabel: 'CAUSAL ADVERBIAL', en: 'for that reason', id: 'karena alasan itu', why: 'Causal adverbial expressing logical reason (NO CASE).' },
+    'deswegen': { coreLabel: 'CAUSAL ADVERBIAL', en: 'because of that', id: 'maka dari itu', why: 'Causal adverbial (NO CASE).' },
+    'daher': { coreLabel: 'CAUSAL ADVERBIAL', en: 'hence / therefore', id: 'karenanya', why: 'Causal adverbial (NO CASE).' }
+  },
+
+  degreeModifiers: {
+    'sehr': { coreLabel: 'DEGREE MODIFIER', en: 'very', id: 'sangat', why: 'Degree modifier (Gradpartikel) modifying the intensity of an adjective or adverb. Invariant with NO CASE.' },
+    'zu': { coreLabel: 'DEGREE MODIFIER', en: 'too (excessive)', id: 'terlalu', why: 'Degree modifier indicating excessive degree (NO CASE).' },
+    'ziemlich': { coreLabel: 'DEGREE MODIFIER', en: 'quite / rather', id: 'cukup / agak', why: 'Degree modifier scaling intensity (NO CASE).' },
+    'extrem': { coreLabel: 'DEGREE MODIFIER', en: 'extremely', id: 'amat sangat', why: 'Degree modifier expressing extreme degree (NO CASE).' },
+    'ganz': { coreLabel: 'DEGREE MODIFIER', en: 'quite / totally', id: 'cukup / seluruhnya', why: 'Degree modifier (NO CASE).' },
+    'etwas': { coreLabel: 'DEGREE MODIFIER', en: 'somewhat / a bit', id: 'agak / sedikit', why: 'Degree modifier (NO CASE).' },
+    'besonders': { coreLabel: 'DEGREE MODIFIER', en: 'especially', id: 'terutama / sangat', why: 'Degree modifier (NO CASE).' }
+  },
+
+  particles: {
+    'nicht': { coreLabel: 'PARTICLE', en: 'not', id: 'tidak / bukan', why: 'Negation particle (Negationspartikel) that negates the clause or predicate. Invariant grammatical element with NO CASE.' },
+    'doch': { coreLabel: 'PARTICLE', en: 'indeed / surely', id: 'kan / justru', why: 'Modal particle providing communicative nuance or conversational emphasis (NO CASE).' },
+    'ja': { coreLabel: 'PARTICLE', en: 'indeed / as known', id: 'kan / sudah tentu', why: 'Modal particle (NO CASE).' },
+    'mal': { coreLabel: 'PARTICLE', en: 'just / once', id: 'coba / sebentar', why: 'Modal particle softening requests (NO CASE).' },
+    'denn': { coreLabel: 'PARTICLE', en: 'then (modal)', id: 'gerangan', why: 'Modal particle in questions (NO CASE).' },
+    'halt': { coreLabel: 'PARTICLE', en: 'simply / just', id: 'ya begitulah', why: 'Modal particle (NO CASE).' },
+    'eben': { coreLabel: 'PARTICLE', en: 'just / exactly', id: 'memang demikian', why: 'Modal particle (NO CASE).' },
+    'schon': { coreLabel: 'PARTICLE', en: 'already / surely', id: 'sudah / tentu', why: 'Modal particle (NO CASE).' }
+  },
+
+  connectors: {
+    'weil': { coreLabel: 'CLAUSE CONNECTOR', en: 'because', id: 'karena', why: 'Subordinating conjunction that pushes conjugated verb to clause end (NO CASE).' },
+    'und': { coreLabel: 'CLAUSE CONNECTOR', en: 'and', id: 'dan', why: 'Coordinating conjunction joining words or clauses (NO CASE).' },
+    'aber': { coreLabel: 'CLAUSE CONNECTOR', en: 'but', id: 'tetapi / namun', why: 'Coordinating conjunction expressing contrast (NO CASE).' },
+    'oder': { coreLabel: 'CLAUSE CONNECTOR', en: 'or', id: 'atau', why: 'Coordinating conjunction (NO CASE).' },
+    'denn': { coreLabel: 'CLAUSE CONNECTOR', en: 'for / because', id: 'sebab', why: 'Coordinating conjunction at Position 0 (NO CASE).' },
+    'dass': { coreLabel: 'CLAUSE CONNECTOR', en: 'that', id: 'bahwa', why: 'Subordinating conjunction (NO CASE).' },
+    'wenn': { coreLabel: 'CLAUSE CONNECTOR', en: 'if / when', id: 'jika / apabila', why: 'Subordinating conjunction (NO CASE).' }
+  },
+
+  articles: {
+    'der': { coreLabel: 'DEFINITE ARTICLE', gender: 'MASCULINE (der)', number: 'SINGULAR', en: 'the', id: 'itu / sang', cases: ['NOMINATIVE'] },
+    'die': { coreLabel: 'DEFINITE ARTICLE', gender: 'FEMININE / PLURAL', en: 'the', id: 'itu / sang', cases: ['NOMINATIVE', 'ACCUSATIVE'] },
+    'das': { coreLabel: 'DEFINITE ARTICLE', gender: 'NEUTER (das)', number: 'SINGULAR', en: 'the', id: 'itu', cases: ['NOMINATIVE', 'ACCUSATIVE'] },
+    'den': { coreLabel: 'DEFINITE ARTICLE', gender: 'MASCULINE (der)', number: 'SINGULAR', en: 'the', id: 'itu', cases: ['ACCUSATIVE'] },
+    'dem': { coreLabel: 'DEFINITE ARTICLE', gender: 'MASCULINE / NEUTER', number: 'SINGULAR', en: 'the', id: 'itu', cases: ['DATIVE'] },
+    'des': { coreLabel: 'DEFINITE ARTICLE', gender: 'MASCULINE / NEUTER', number: 'SINGULAR', en: 'of the', id: 'dari', cases: ['GENITIVE'] },
+    'ein': { coreLabel: 'INDEFINITE ARTICLE', gender: 'MASCULINE / NEUTER', number: 'SINGULAR', en: 'a / an', id: 'seorang / sebuah', cases: ['NOMINATIVE', 'ACCUSATIVE'] },
+    'eine': { coreLabel: 'INDEFINITE ARTICLE', gender: 'FEMININE (die)', number: 'SINGULAR', en: 'a / an', id: 'sebuah / seorang', cases: ['NOMINATIVE', 'ACCUSATIVE'] },
+    'einen': { coreLabel: 'INDEFINITE ARTICLE', gender: 'MASCULINE (der)', number: 'SINGULAR', en: 'a / an', id: 'seorang / sebuah', cases: ['ACCUSATIVE'] },
+    'einem': { coreLabel: 'INDEFINITE ARTICLE', gender: 'MASCULINE / NEUTER', number: 'SINGULAR', en: 'a / an', id: 'seorang / sebuah', cases: ['DATIVE'] },
+    'einer': { coreLabel: 'INDEFINITE ARTICLE', gender: 'FEMININE (die)', number: 'SINGULAR', en: 'a / an', id: 'seorang / sebuah', cases: ['DATIVE', 'GENITIVE'] },
+    'meines': { coreLabel: 'POSSESSIVE DETERMINER', gender: 'MASCULINE / NEUTER', number: 'SINGULAR', en: 'my', id: 'saya (kepemilikan)', cases: ['GENITIVE'], why: 'Possessive determiner in GENITIVE case denoting ownership.' },
+    'meinem': { coreLabel: 'POSSESSIVE DETERMINER', gender: 'MASCULINE / NEUTER', number: 'SINGULAR', en: 'my', id: 'saya', cases: ['DATIVE'], why: 'Possessive determiner in DATIVE case.' },
+    'meinen': { coreLabel: 'POSSESSIVE DETERMINER', gender: 'MASCULINE (der)', number: 'SINGULAR', en: 'my', id: 'saya', cases: ['ACCUSATIVE'], why: 'Possessive determiner in ACCUSATIVE case.' },
+    'mein': { coreLabel: 'POSSESSIVE DETERMINER', gender: 'MASCULINE / NEUTER', number: 'SINGULAR', en: 'my', id: 'saya', cases: ['NOMINATIVE'], why: 'Possessive determiner in NOMINATIVE case.' },
+    'dein': { coreLabel: 'POSSESSIVE DETERMINER', gender: 'MASCULINE / NEUTER', number: 'SINGULAR', en: 'your', id: 'kamu', cases: ['NOMINATIVE'] },
+    'sein': { coreLabel: 'POSSESSIVE DETERMINER', gender: 'MASCULINE / NEUTER', number: 'SINGULAR', en: 'his / its', id: 'dia (laki-laki)', cases: ['NOMINATIVE'] },
+    'ihr': { coreLabel: 'POSSESSIVE DETERMINER', gender: 'MASCULINE / NEUTER', number: 'SINGULAR', en: 'her / their', id: 'dia (perempuan) / mereka', cases: ['NOMINATIVE'] }
   },
 
   verbs: {
-    'liebe': { lemma: 'lieben', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '1st Person Singular', mood: 'Indikativ', en: 'love', id: 'mencintai', why: 'Conjugated transitive verb in Position 2 agreeing with "ich". Governs an Accusative direct object ("dich").' },
-    'liebst': { lemma: 'lieben', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '2nd Person Singular', mood: 'Indikativ', en: 'love', id: 'mencintai', why: 'Conjugated for 2nd person singular in Position 2.' },
-    'liebt': { lemma: 'lieben', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '3rd Person Singular', mood: 'Indikativ', en: 'loves', id: 'mencintai', why: 'Conjugated for 3rd person singular in Position 2.' },
-    'lieben': { lemma: 'lieben', pos: 'FINITE / INFINITIVE', tense: 'Pr\u00E4sens / Infinitiv', person: 'Plural / Infinitiv', mood: 'Indikativ', en: 'love', id: 'mencintai', why: 'Plural conjugated form or base infinitive.' },
-    'geliebt': { lemma: 'lieben', pos: 'PARTIZIP II', tense: 'Perfekt', person: 'Non-finite', mood: 'Partizip', en: 'loved', id: 'dicintai', why: 'Past participle forming Perfekt tense.' },
+    'habe': { lemma: 'haben', verbRole: 'FINITE AUXILIARY VERB', tense: 'Präsens', person: '1st Person Singular', ending: '-e', en: 'have (auxiliary)', id: 'telah / sudah', why: 'Conjugated finite auxiliary verb in Position 2 forming Perfekt tense. Verbs take NO CASE.' },
+    'hast': { lemma: 'haben', verbRole: 'FINITE AUXILIARY VERB', tense: 'Präsens', person: '2nd Person Singular', ending: '-st', en: 'have', id: 'telah / punya', why: 'Finite auxiliary verb in Position 2 agreeing with "du" (NO CASE).' },
+    'hat': { lemma: 'haben', verbRole: 'FINITE AUXILIARY VERB', tense: 'Präsens', person: '3rd Person Singular', ending: '-t', en: 'has', id: 'telah / punya', why: 'Finite auxiliary verb in Position 2 agreeing with 3rd person singular (NO CASE).' },
+    'haben': { lemma: 'haben', verbRole: 'FINITE AUXILIARY VERB', tense: 'Präsens / Infinitiv', person: 'Plural', ending: '-en', en: 'have', id: 'telah / punya', why: 'Finite auxiliary verb in Position 2 for plural subjects (NO CASE).' },
 
-    'esse': { lemma: 'essen', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '1st Person Singular', mood: 'Indikativ', en: 'eat', id: 'makan', why: 'Conjugated transitive verb in Position 2 agreeing with "ich". Governs Akkusativ.' },
-    'isst': { lemma: 'essen', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '2nd/3rd Person Singular', mood: 'Indikativ', en: 'eats', id: 'makan', why: 'Irregular vowel mutation (e -> i) in 2nd/3rd person singular present tense.' },
-    'essen': { lemma: 'essen', pos: 'MAIN VERB / INFINITIVE', tense: 'Infinitiv', person: 'Non-finite', mood: 'Infinitiv', en: 'eat / to eat', id: 'makan', why: 'Full lexical verb in infinitive form closing the Satzklammer at sentence end.' },
-    'gegessen': { lemma: 'essen', pos: 'PARTIZIP II (MAIN VERB)', tense: 'Perfekt', person: 'Non-finite', mood: 'Partizip II', en: 'eaten', id: 'sudah makan', why: 'Strong past participle (ge- + Stamm + -en with vowel shift e -> e) placed at Satzende.' },
+    'bin': { lemma: 'sein', verbRole: 'FINITE AUXILIARY VERB', tense: 'Präsens', person: '1st Person Singular', ending: '-', en: 'am', id: 'adalah', why: 'Conjugated copula/auxiliary in Position 2. Verbs take NO CASE.' },
+    'bist': { lemma: 'sein', verbRole: 'FINITE AUXILIARY VERB', tense: 'Präsens', person: '2nd Person Singular', ending: '-st', en: 'are', id: 'adalah', why: 'Copula/auxiliary in Position 2 agreeing with "du" (NO CASE).' },
+    'ist': { lemma: 'sein', verbRole: 'FINITE AUXILIARY VERB', tense: 'Präsens', person: '3rd Person Singular', ending: '-t', en: 'is', id: 'adalah', why: 'Copula/auxiliary in Position 2 linking subject to predicate (NO CASE).' },
+    'sind': { lemma: 'sein', verbRole: 'FINITE AUXILIARY VERB', tense: 'Präsens', person: 'Plural', ending: '-en', en: 'are', id: 'adalah', why: 'Copula/auxiliary in Position 2 for plural subjects (NO CASE).' },
 
-    'habe': { lemma: 'haben', pos: 'AUXILIARY / FINITE VERB', tense: 'Pr\u00E4sens', person: '1st Person Singular', mood: 'Indikativ', en: 'have / auxiliary', id: 'telah / punya', why: 'Finite auxiliary in Position 2. Opens the sentence bracket (Linke Satzklammer) to form Perfekt past tense.' },
-    'hast': { lemma: 'haben', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '2nd Person Singular', mood: 'Indikativ', en: 'have', id: 'punya / telah', why: 'Finite auxiliary in Position 2 agreeing with "du".' },
-    'hat': { lemma: 'haben', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '3rd Person Singular', mood: 'Indikativ', en: 'has', id: 'punya / telah', why: 'Finite auxiliary in Position 2 agreeing with 3rd person singular.' },
-    'haben': { lemma: 'haben', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: 'Plural', mood: 'Indikativ', en: 'have', id: 'punya / telah', why: 'Finite verb in Position 2 for plural subjects.' },
+    'möchte': { lemma: 'mögen', verbRole: 'MODAL VERB', tense: 'Präsens (Konjunktiv II)', person: '1st/3rd Person Singular', ending: '-e', en: 'would like', id: 'ingin / mau', why: 'Conjugated modal auxiliary in Position 2 expressing polite desire. Brackets full infinitive at Satzende (NO CASE).' },
+    'moechte': { lemma: 'mögen', verbRole: 'MODAL VERB', tense: 'Präsens (Konjunktiv II)', person: '1st/3rd Person Singular', ending: '-e', en: 'would like', id: 'ingin / mau', why: 'Modal auxiliary in Position 2 (NO CASE).' },
+    'kann': { lemma: 'können', verbRole: 'MODAL VERB', tense: 'Präsens', person: '1st/3rd Person Singular', ending: '-', en: 'can / able to', id: 'bisa / dapat', why: 'Modal verb expressing ability (NO CASE).' },
+    'muss': { lemma: 'müssen', verbRole: 'MODAL VERB', tense: 'Präsens', person: '1st/3rd Person Singular', ending: '-', en: 'must', id: 'harus', why: 'Modal verb expressing obligation (NO CASE).' },
+    'will': { lemma: 'wollen', verbRole: 'MODAL VERB', tense: 'Präsens', person: '1st/3rd Person Singular', ending: '-', en: 'want to', id: 'mau / berniat', why: 'Modal verb expressing intention (NO CASE).' },
+    'darf': { lemma: 'dürfen', verbRole: 'MODAL VERB', tense: 'Präsens', person: '1st/3rd Person Singular', ending: '-', en: 'may / allowed to', id: 'boleh', why: 'Modal verb expressing permission (NO CASE).' },
+    'soll': { lemma: 'sollen', verbRole: 'MODAL VERB', tense: 'Präsens', person: '1st/3rd Person Singular', ending: '-', en: 'should', id: 'seharusnya', why: 'Modal verb expressing expectation (NO CASE).' },
 
-    'bin': { lemma: 'sein', pos: 'COPULA / AUXILIARY', tense: 'Pr\u00E4sens', person: '1st Person Singular', mood: 'Indikativ', en: 'am', id: 'adalah', why: 'Irregular copula verb in Position 2.' },
-    'bist': { lemma: 'sein', pos: 'COPULA / AUXILIARY', tense: 'Pr\u00E4sens', person: '2nd Person Singular', mood: 'Indikativ', en: 'are', id: 'adalah', why: 'Irregular copula verb in Position 2 agreeing with "du".' },
-    'ist': { lemma: 'sein', pos: 'COPULA / AUXILIARY', tense: 'Pr\u00E4sens', person: '3rd Person Singular', mood: 'Indikativ', en: 'is', id: 'adalah', why: 'Irregular copula in Position 2 linking subject to predicate.' },
-    'sind': { lemma: 'sein', pos: 'COPULA / AUXILIARY', tense: 'Pr\u00E4sens', person: 'Plural', mood: 'Indikativ', en: 'are', id: 'adalah', why: 'Copula in Position 2 for plural subjects.' },
+    'liebe': { lemma: 'lieben', verbRole: 'FINITE VERB', tense: 'Präsens', person: '1st Person Singular', ending: '-e', en: 'love', id: 'mencintai', why: 'Conjugated transitive lexical verb in Position 2 agreeing with "ich". Governs an ACCUSATIVE direct object (NO CASE).' },
+    'liebst': { lemma: 'lieben', verbRole: 'FINITE VERB', tense: 'Präsens', person: '2nd Person Singular', ending: '-st', en: 'love', id: 'mencintai', why: 'Finite verb in Position 2 agreeing with "du" (NO CASE).' },
+    'liebt': { lemma: 'lieben', verbRole: 'FINITE VERB', tense: 'Präsens', person: '3rd Person Singular', ending: '-t', en: 'loves', id: 'mencintai', why: 'Finite verb in Position 2 agreeing with 3rd person singular (NO CASE).' },
+    'esse': { lemma: 'essen', verbRole: 'FINITE VERB', tense: 'Präsens', person: '1st Person Singular', ending: '-e', en: 'eat', id: 'makan', why: 'Conjugated transitive verb in Position 2. Governs an ACCUSATIVE direct object (NO CASE).' },
+    'isst': { lemma: 'essen', verbRole: 'FINITE VERB', tense: 'Präsens', person: '2nd/3rd Person Singular', ending: '-t', en: 'eats', id: 'makan', why: 'Conjugated transitive verb with irregular vowel shift (e -> i) (NO CASE).' },
+    'schlafe': { lemma: 'schlafen', verbRole: 'FINITE VERB', tense: 'Präsens', person: '1st Person Singular', ending: '-e', en: 'sleep', id: 'tidur', why: 'Conjugated intransitive verb in Position 2 (NO CASE).' },
+    'lerne': { lemma: 'lernen', verbRole: 'FINITE VERB', tense: 'Präsens', person: '1st Person Singular', ending: '-e', en: 'learn', id: 'belajar', why: 'Conjugated transitive verb in Position 2 (NO CASE).' },
+    'fahren': { lemma: 'fahren', verbRole: 'FINITE VERB', tense: 'Präsens', person: 'Plural', ending: '-en', en: 'travel / drive', id: 'pergi / berkendara', why: 'Finite verb in Position 2 agreeing with plural subject (NO CASE).' },
+    'fahre': { lemma: 'fahren', verbRole: 'FINITE VERB', tense: 'Präsens', person: '1st Person Singular', ending: '-e', en: 'travel / drive', id: 'pergi / berkendara', why: 'Finite verb in Position 2 agreeing with "ich" (NO CASE).' },
+    'gehe': { lemma: 'gehen', verbRole: 'FINITE VERB', tense: 'Präsens', person: '1st Person Singular', ending: '-e', en: 'go / walk', id: 'pergi / berjalan', why: 'Finite intransitive verb in Position 2 (NO CASE).' },
+    'geht': { lemma: 'gehen', verbRole: 'FINITE VERB', tense: 'Präsens', person: '3rd Person Singular', ending: '-t', en: 'goes', id: 'berjalan / pergi', why: 'Finite verb in Position 2 (NO CASE).' },
+    'steht': { lemma: 'stehen', verbRole: 'FINITE VERB', tense: 'Präsens', person: '3rd Person Singular', ending: '-t', en: 'stands / gets up', id: 'berdiri / bangun', why: 'Conjugated finite verb in Position 2 paired with separable prefix (NO CASE).' },
+    'stehe': { lemma: 'stehen', verbRole: 'FINITE VERB', tense: 'Präsens', person: '1st Person Singular', ending: '-e', en: 'stand / get up', id: 'berdiri / bangun', why: 'Finite verb in Position 2 (NO CASE).' },
+    'gebe': { lemma: 'geben', verbRole: 'FINITE VERB', tense: 'Präsens', person: '1st Person Singular', ending: '-e', en: 'give', id: 'memberikan', why: 'Ditransitive verb governing DATIVE recipient and ACCUSATIVE direct object (NO CASE).' },
+    'gibt': { lemma: 'geben', verbRole: 'FINITE VERB', tense: 'Präsens', person: '3rd Person Singular', ending: '-t', en: 'gives / there is', id: 'memberikan / ada', why: 'Finite verb in Position 2 (NO CASE).' },
 
-    'schlafe': { lemma: 'schlafen', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '1st Person Singular', mood: 'Indikativ', en: 'sleep', id: 'tidur', why: 'Conjugated intransitive verb in Position 2.' },
-    'schl\u00E4fst': { lemma: 'schlafen', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '2nd Person Singular', mood: 'Indikativ', en: 'sleep', id: 'tidur', why: 'Vowel mutation a -> \u00E4 in 2nd person singular.' },
-    'schl\u00E4ft': { lemma: 'schlafen', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '3rd Person Singular', mood: 'Indikativ', en: 'sleeps', id: 'tidur', why: 'Vowel mutation a -> \u00E4 in 3rd person singular.' },
-    'schlafen': { lemma: 'schlafen', pos: 'MAIN VERB', tense: 'Infinitiv', person: 'Non-finite', mood: 'Infinitiv', en: 'sleep', id: 'tidur', why: 'Lexical infinitive of sleep.' },
-    'geschlafen': { lemma: 'schlafen', pos: 'PARTIZIP II (MAIN VERB)', tense: 'Perfekt', person: 'Non-finite', mood: 'Partizip II', en: 'slept', id: 'tidur (lampau)', why: 'Strong past participle placed at the very end of the clause (Rechte Satzklammer).' },
+    // Infinitives
+    'essen': { lemma: 'essen', verbRole: 'INFINITIVE', tense: 'Infinitiv', person: 'Non-finite', ending: '-en', en: 'eat / to eat', id: 'makan', why: 'Lexical verb in infinitive form closing the Satzklammer at sentence end. Invariant with NO CASE.' },
+    'schlafen': { lemma: 'schlafen', verbRole: 'INFINITIVE', tense: 'Infinitiv', person: 'Non-finite', ending: '-en', en: 'sleep / to sleep', id: 'tidur', why: 'Infinitive form of the verb closing the clause bracket (NO CASE).' },
+    'lernen': { lemma: 'lernen', verbRole: 'INFINITIVE', tense: 'Infinitiv', person: 'Non-finite', ending: '-en', en: 'to learn', id: 'belajar', why: 'Base infinitive verb form (NO CASE).' },
+    'kaufen': { lemma: 'kaufen', verbRole: 'INFINITIVE', tense: 'Infinitiv', person: 'Non-finite', ending: '-en', en: 'to buy', id: 'membeli', why: 'Base infinitive verb form (NO CASE).' },
+    'trinken': { lemma: 'trinken', verbRole: 'INFINITIVE', tense: 'Infinitiv', person: 'Non-finite', ending: '-en', en: 'to drink', id: 'minum', why: 'Base infinitive verb form (NO CASE).' },
 
-    'm\u00F6chte': { lemma: 'm\u00F6gen', pos: 'MODAL VERB', tense: 'Pr\u00E4sens', person: '1st Person Singular', mood: 'Konjunktiv II', en: 'would like', id: 'ingin / mau', why: 'Conjugated modal auxiliary in Position 2 expressing polite desire. Pushes dependent infinitive to Satzende.' },
-    'moechte': { lemma: 'm\u00F6gen', pos: 'MODAL VERB', tense: 'Pr\u00E4sens', person: '1st Person Singular', mood: 'Konjunktiv II', en: 'would like', id: 'ingin / mau', why: 'Modal auxiliary in Position 2.' },
-    'lerne': { lemma: 'lernen', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: '1st Person Singular', mood: 'Indikativ', en: 'learn', id: 'belajar', why: 'Conjugated verb in Position 2 agreeing with "ich".' },
-    'lernen': { lemma: 'lernen', pos: 'MAIN VERB', tense: 'Infinitiv', person: 'Non-finite', mood: 'Infinitiv', en: 'to learn', id: 'belajar', why: 'Infinitive form of the verb.' },
-    'fahren': { lemma: 'fahren', pos: 'FINITE VERB', tense: 'Pr\u00E4sens', person: 'Plural', mood: 'Indikativ', en: 'travel / drive', id: 'pergi / naik kendaraan', why: 'Finite verb in Position 2 agreeing with plural subject.' }
+    // Past Participles
+    'geschlafen': { lemma: 'schlafen', verbRole: 'PAST PARTICIPLE / PARTIZIP II', tense: 'Perfekt', person: 'Non-finite', ending: '-en', en: 'slept', id: 'tidur (lampau)', why: 'Strong past participle (ge- + Stamm + -en) placed at the absolute sentence end (Rechte Satzklammer). Has NO CASE.' },
+    'gegessen': { lemma: 'essen', verbRole: 'PAST PARTICIPLE / PARTIZIP II', tense: 'Perfekt', person: 'Non-finite', ending: '-en', en: 'eaten', id: 'sudah makan', why: 'Strong past participle placed at Satzende (NO CASE).' },
+    'gelernt': { lemma: 'lernen', verbRole: 'PAST PARTICIPLE / PARTIZIP II', tense: 'Perfekt', person: 'Non-finite', ending: '-t', en: 'learned', id: 'telah belajar', why: 'Regular past participle placed at Satzende (NO CASE).' },
+    'gekauft': { lemma: 'kaufen', verbRole: 'PAST PARTICIPLE / PARTIZIP II', tense: 'Perfekt', person: 'Non-finite', ending: '-t', en: 'bought', id: 'telah membeli', why: 'Regular past participle placed at Satzende (NO CASE).' },
+    'getrunken': { lemma: 'trinken', verbRole: 'PAST PARTICIPLE / PARTIZIP II', tense: 'Perfekt', person: 'Non-finite', ending: '-en', en: 'drunk', id: 'telah minum', why: 'Past participle placed at Satzende (NO CASE).' },
+    'gesehen': { lemma: 'sehen', verbRole: 'PAST PARTICIPLE / PARTIZIP II', tense: 'Perfekt', person: 'Non-finite', ending: '-en', en: 'seen', id: 'telah melihat', why: 'Past participle placed at Satzende (NO CASE).' },
+    'gemacht': { lemma: 'machen', verbRole: 'PAST PARTICIPLE / PARTIZIP II', tense: 'Perfekt', person: 'Non-finite', ending: '-t', en: 'done / made', id: 'telah membuat / melakukan', why: 'Past participle placed at Satzende (NO CASE).' }
   },
 
   nouns: {
-    'heute': { pos: 'TEMPORAL ADVERB', case: 'Indeclinable (-)', gender: '-', en: 'today', id: 'hari ini', why: 'Answers the question "Wann?" (When?). Positioned in the Mittelfeld following TeKaMoLo word order.' },
-    'gestern': { pos: 'TEMPORAL ADVERB', case: 'Indeclinable (-)', gender: '-', en: 'yesterday', id: 'kemarin', why: 'Temporal adverb placed in the Mittelfeld indicating past timing.' },
-    'morgen': { pos: 'TEMPORAL ADVERB', case: 'Indeclinable (-)', gender: '-', en: 'tomorrow', id: 'besok', why: 'Temporal adverb indicating future timing.' },
-    'nudeln': { pos: 'NOUN', case: 'Akkusativ', gender: 'Feminine (Plural)', en: 'noodles / pasta', id: 'mi / pasta', why: 'Direct object of eating ("Wen oder was?"). Zero article (Nullartikel) applied for food plural.' },
-    'h\u00E4hnchen': { pos: 'NOUN', case: 'Dativ', gender: 'Neuter (das)', en: 'chicken', id: 'ayam', why: 'Object of preposition "mit" (Dative). Diminutive suffix -chen guarantees neuter gender.' },
-    'haehnchen': { pos: 'NOUN', case: 'Dativ', gender: 'Neuter (das)', en: 'chicken', id: 'ayam', why: 'Object of preposition "mit" (Dative).' },
-    'deutsch': { pos: 'NOUN', case: 'Akkusativ', gender: 'Neuter (das)', en: 'German', id: 'bahasa Jerman', why: 'Direct object of learning in Accusative case.' },
-    'zug': { pos: 'NOUN', case: 'Dativ', gender: 'Masculine (der)', en: 'train', id: 'kereta api', why: 'Prepositional object governed by "mit" (Dativ).' },
-    'auto': { pos: 'NOUN', case: 'Nominativ / Akkusativ', gender: 'Neuter (das)', en: 'car', id: 'mobil', why: 'Neuter noun.' },
-    'vaters': { pos: 'NOUN', case: 'Genitiv', gender: 'Masculine (der)', en: 'father\'s', id: 'ayah', why: 'Possessive genitive attribute with -s ending.' },
-    'meines': { pos: 'POSSESSIVE PRONOUN', case: 'Genitiv', gender: 'Masculine', en: 'my', id: 'saya', why: 'Possessive determiner in masculine genitive singular.' },
-    'wasser': { pos: 'NOUN', case: 'Akkusativ', gender: 'Neuter (das)', en: 'water', id: 'air', why: 'Neuter mass noun in Accusative.' },
-    'brot': { pos: 'NOUN', case: 'Akkusativ', gender: 'Neuter (das)', en: 'bread', id: 'roti', why: 'Neuter noun in Accusative.' },
-    'kaffee': { pos: 'NOUN', case: 'Akkusativ', gender: 'Masculine (der)', en: 'coffee', id: 'kopi', why: 'Masculine noun in Accusative.' },
-    'tee': { pos: 'NOUN', case: 'Akkusativ', gender: 'Masculine (der)', en: 'tea', id: 'teh', why: 'Masculine noun in Accusative.' },
-    'buch': { pos: 'NOUN', case: 'Akkusativ', gender: 'Neuter (das)', en: 'book', id: 'buku', why: 'Neuter noun.' }
+    'uhr': { gender: 'FEMININE (die)', en: 'o\'clock / clock / watch', id: 'jam / pukul', typicalCase: 'ACCUSATIVE', why: 'Noun denoting clock time or watch.' },
+    'nudeln': { gender: 'FEMININE / PLURAL', en: 'noodles / pasta', id: 'mi / pasta', typicalCase: 'ACCUSATIVE', why: 'Direct object of eating ("Wen oder was?"). Plural food noun with zero article.' },
+    'hähnchen': { gender: 'NEUTER (das)', en: 'chicken', id: 'ayam', typicalCase: 'DATIVE', why: 'Object of preposition "mit" requiring DATIVE case. Diminutive suffix "-chen" guarantees neuter gender.' },
+    'haehnchen': { gender: 'NEUTER (das)', en: 'chicken', id: 'ayam', typicalCase: 'DATIVE', why: 'Object of preposition "mit" requiring DATIVE case.' },
+    'zug': { gender: 'MASCULINE (der)', en: 'train', id: 'kereta api', typicalCase: 'DATIVE', why: 'Object of preposition "mit" in DATIVE case.' },
+    'film': { gender: 'MASCULINE (der)', en: 'film / movie', id: 'film', typicalCase: 'ACCUSATIVE', why: 'Direct object of transitive action in ACCUSATIVE case.' },
+    'mann': { gender: 'MASCULINE (der)', en: 'man', id: 'pria / laki-laki', typicalCase: 'DATIVE', why: 'Indirect object recipient in DATIVE case.' },
+    'lehrer': { gender: 'MASCULINE (der)', en: 'teacher', id: 'guru', typicalCase: 'NOMINATIVE', why: 'Predicate nominative complementing subject after "sein". In NOMINATIVE case.' },
+    'arzt': { gender: 'MASCULINE (der)', en: 'doctor', id: 'dokter', typicalCase: 'NOMINATIVE', why: 'Predicate nominative complementing subject after "sein". In NOMINATIVE case.' },
+    'deutsch': { gender: 'NEUTER (das)', en: 'German (language)', id: 'bahasa Jerman', typicalCase: 'ACCUSATIVE', why: 'Direct object of learning in ACCUSATIVE case.' },
+    'auto': { gender: 'NEUTER (das)', en: 'car', id: 'mobil', typicalCase: 'NOMINATIVE', why: 'Noun in NOMINATIVE or ACCUSATIVE case.' },
+    'vaters': { gender: 'MASCULINE (der)', en: 'father\'s', id: 'ayah', typicalCase: 'GENITIVE', why: 'Possessive genitive attribute with -s ending in GENITIVE case.' },
+    'vater': { gender: 'MASCULINE (der)', en: 'father', id: 'ayah', typicalCase: 'NOMINATIVE', why: 'Masculine noun.' },
+    'wasser': { gender: 'NEUTER (das)', en: 'water', id: 'air', typicalCase: 'ACCUSATIVE', why: 'Neuter mass noun.' },
+    'brot': { gender: 'NEUTER (das)', en: 'bread', id: 'roti', typicalCase: 'ACCUSATIVE', why: 'Neuter noun.' },
+    'kaffee': { gender: 'MASCULINE (der)', en: 'coffee', id: 'kopi', typicalCase: 'ACCUSATIVE', why: 'Masculine beverage noun.' },
+    'tee': { gender: 'MASCULINE (der)', en: 'tea', id: 'teh', typicalCase: 'ACCUSATIVE', why: 'Masculine beverage noun.' },
+    'buch': { gender: 'NEUTER (das)', en: 'book', id: 'buku', typicalCase: 'ACCUSATIVE', why: 'Neuter noun.' },
+    'berlin': { gender: 'NEUTER', en: 'Berlin', id: 'Berlin', typicalCase: 'DATIVE', why: 'Proper place name following directional preposition "nach".' }
   },
 
-  // Dynamic German Phonetic Converter
+  adjectives: {
+    'müde': { coreLabel: 'PREDICATE ADJECTIVE', en: 'tired', id: 'lelah / capek', why: 'Predicate adjective following copula "ist". Describes the subject without declension endings (NO CASE).' },
+    'muede': { coreLabel: 'PREDICATE ADJECTIVE', en: 'tired', id: 'lelah / capek', why: 'Predicate adjective following copula (NO CASE).' },
+    'scharfem': { coreLabel: 'ADJECTIVAL MODIFIER', lemma: 'scharf', ending: '-em', en: 'spicy', id: 'pedas', case: 'DATIVE', why: 'Attributive adjective taking strong Dative neuter ending "-em" under zero article.' },
+    'scharf': { coreLabel: 'PREDICATE ADJECTIVE', en: 'spicy', id: 'pedas', why: 'Predicate adjective with NO CASE.' },
+    'gut': { coreLabel: 'PREDICATE ADJECTIVE', en: 'good', id: 'bagus / baik', why: 'Predicate adjective describing subject state (NO CASE).' },
+    'schön': { coreLabel: 'PREDICATE ADJECTIVE', en: 'beautiful', id: 'cantik / indah', why: 'Predicate adjective with NO CASE.' },
+    'schoen': { coreLabel: 'PREDICATE ADJECTIVE', en: 'beautiful', id: 'cantik / indah', why: 'Predicate adjective with NO CASE.' },
+    'krank': { coreLabel: 'PREDICATE ADJECTIVE', en: 'sick', id: 'sakit', why: 'Predicate adjective describing subject state (NO CASE).' },
+    'glücklich': { coreLabel: 'PREDICATE ADJECTIVE', en: 'happy', id: 'bahagia', why: 'Predicate adjective describing subject state (NO CASE).' }
+  },
+
+  getBadgeClass(coreLabel) {
+    switch (coreLabel) {
+      case 'SUBJECT': return 'bg-blue-100 text-blue-800 border border-blue-200';
+      case 'FINITE VERB': return 'bg-rose-100 text-rose-800 border border-rose-200';
+      case 'FINITE AUXILIARY VERB': return 'bg-red-100 text-red-800 border border-red-200';
+      case 'MODAL VERB': return 'bg-purple-100 text-purple-800 border border-purple-200';
+      case 'INFINITIVE': return 'bg-indigo-100 text-indigo-800 border border-indigo-200';
+      case 'PAST PARTICIPLE / PARTIZIP II': return 'bg-amber-100 text-amber-800 border border-amber-200';
+      case 'PRESENT PARTICIPLE / PARTIZIP I': return 'bg-yellow-100 text-yellow-800 border border-yellow-200';
+      case 'SEPARABLE VERB PREFIX': return 'bg-orange-100 text-orange-800 border border-orange-200';
+      case 'DIRECT OBJECT': return 'bg-sky-100 text-sky-800 border border-sky-200';
+      case 'INDIRECT OBJECT': return 'bg-purple-100 text-purple-800 border border-purple-200';
+      case 'OBJECT OF PREPOSITION': return 'bg-teal-100 text-teal-800 border border-teal-200';
+      case 'PREDICATE NOMINATIVE': return 'bg-cyan-100 text-cyan-800 border border-cyan-200';
+      case 'PREDICATE ADJECTIVE': return 'bg-emerald-100 text-emerald-800 border border-emerald-200';
+      case 'TEMPORAL ADVERBIAL': return 'bg-emerald-100 text-emerald-800 border border-emerald-200';
+      case 'LOCAL ADVERBIAL': return 'bg-teal-100 text-teal-800 border border-teal-200';
+      case 'DIRECTIONAL ADVERBIAL': return 'bg-teal-100 text-teal-800 border border-teal-200';
+      case 'MANNER ADVERBIAL': return 'bg-fuchsia-100 text-fuchsia-800 border border-fuchsia-200';
+      case 'CAUSAL ADVERBIAL': return 'bg-violet-100 text-violet-800 border border-violet-200';
+      case 'DEGREE MODIFIER': return 'bg-orange-100 text-orange-800 border border-orange-200';
+      case 'ADJECTIVAL MODIFIER': return 'bg-amber-100 text-amber-800 border border-amber-200';
+      case 'NOUN MODIFIER': return 'bg-yellow-100 text-yellow-800 border border-yellow-200';
+      case 'CLAUSE CONNECTOR': return 'bg-indigo-100 text-indigo-800 border border-indigo-200';
+      case 'PARTICLE': return 'bg-pink-100 text-pink-800 border border-pink-200';
+      case 'PREPOSITION': return 'bg-purple-100 text-purple-800 border border-purple-200';
+      case 'DEFINITE ARTICLE': return 'bg-blue-100 text-blue-800 border border-blue-200';
+      case 'INDEFINITE ARTICLE': return 'bg-sky-100 text-sky-800 border border-sky-200';
+      case 'POSSESSIVE DETERMINER': return 'bg-amber-100 text-amber-800 border border-amber-200';
+      default: return 'bg-slate-100 text-slate-700 border border-slate-200';
+    }
+  },
+
+  getCaseBadgeClass(caseLabel) {
+    switch (caseLabel) {
+      case 'NOMINATIVE': return 'bg-blue-50 text-blue-900 border border-blue-200';
+      case 'ACCUSATIVE': return 'bg-sky-50 text-sky-900 border border-sky-200';
+      case 'DATIVE': return 'bg-purple-50 text-purple-900 border border-purple-200';
+      case 'GENITIVE': return 'bg-amber-50 text-amber-900 border border-amber-200';
+      case 'NO CASE':
+      default: return 'bg-slate-100 text-slate-600 border border-slate-200';
+    }
+  },
+
   toPhonetic(germanWords) {
     const known = {
       'ich': 'IKH', 'habe': 'HAH-buh', 'heute': 'HOY-tuh', 'geschlafen': 'GESHLAY-DN',
@@ -13483,7 +13709,8 @@ const DynamicGermanGrammar = {
       'lerne': 'LEHR-nuh', 'deutsch': 'DOYTSH', 'woher': 'vo-HAIR', 'kommst': 'KOMST', 'du': 'DOO',
       'guten': 'GOO-tuhn', 'tag': 'TAHK', 'wie': 'VEE', 'geht': 'GAYT', 'es': 'EHS', 'ihnen': 'EE-nuhn',
       'das': 'DAHS', 'ist': 'IST', 'auto': 'OW-toh', 'meines': 'MY-nuhs', 'vaters': 'FAH-tuhrs',
-      'wasser': 'VAH-suhr', 'brot': 'BROHT', 'danke': 'DAHN-kuh', 'bitte': 'BIT-tuh'
+      'wasser': 'VAH-suhr', 'brot': 'BROHT', 'danke': 'DAHN-kuh', 'bitte': 'BIT-tuh',
+      'nicht': 'NIKHT', 'sehr': 'ZEHR', 'müde': 'MEW-duh', 'lehrer': 'LAY-ruhr'
     };
 
     return '[ ' + germanWords.map(raw => {
@@ -13491,7 +13718,6 @@ const DynamicGermanGrammar = {
       if (!w) return raw.toUpperCase();
       if (known[w]) return known[w];
 
-      // Algorithmic phonetic approximation for unknown German words
       let p = w;
       p = p.replace(/sch/g, 'sh');
       p = p.replace(/ch/g, 'kh');
@@ -13510,22 +13736,519 @@ const DynamicGermanGrammar = {
       p = p.replace(/e$/g, 'uh');
       return p.toUpperCase();
     }).join(' &bull; ') + ' ]';
+  },
+
+  analyzeSentenceTokens(cleanTokens) {
+    const lowerTokens = cleanTokens.map(t => t.toLowerCase());
+
+    const hasAuxiliary = lowerTokens.some(w => ['habe', 'hast', 'hat', 'haben', 'habt', 'bin', 'bist', 'ist', 'sind', 'seid'].includes(w));
+    const hasParticiple = lowerTokens.some(w => (w.startsWith('ge') && (w.endsWith('en') || w.endsWith('t') || w.endsWith('et'))));
+    const isPerfekt = hasAuxiliary && hasParticiple;
+    const copulaIdx = lowerTokens.findIndex(w => ['bin', 'bist', 'ist', 'sind', 'seid', 'war', 'waren', 'bleibt', 'wird'].includes(w));
+    const separablePrefixes = ['auf', 'an', 'ab', 'aus', 'ein', 'mit', 'vor', 'zu', 'zurück', 'weg', 'fern'];
+    const lastLow = lowerTokens[lowerTokens.length - 1];
+    const isSeparableEnd = separablePrefixes.includes(lastLow) && cleanTokens.length > 2;
+
+    let activePrep = null;
+    let prepGovernedCase = null;
+    let activeArticle = null;
+    let activeArticleCase = null;
+
+    return cleanTokens.map((tok, idx) => {
+      const low = tok.toLowerCase();
+
+      let coreLabel = 'CONSTITUENT';
+      let verbRole = '-';
+      let caseLabel = 'NO CASE';
+      let gender = '-';
+      let number = '-';
+      let personTense = '-';
+      let ending = '-';
+      let lemma = tok;
+      let category = 'Grammatical Constituent';
+      let en = tok;
+      let id = tok;
+      let why = '';
+
+      // 1. Check Separable Prefix at Sentence End (Highest Priority)
+      if (idx === cleanTokens.length - 1 && isSeparableEnd) {
+        coreLabel = 'SEPARABLE VERB PREFIX';
+        verbRole = 'SEPARABLE VERB PREFIX';
+        caseLabel = 'NO CASE';
+        category = 'Separable Verb Prefix (Verbzusatz)';
+        en = `${low} (separable prefix)`;
+        id = `prefiks terpisah (${low})`;
+        why = `Separable verb prefix detached from the finite verb in Position 2 and placed at the absolute end of the clause (Rechte Satzklammer). Has NO CASE.`;
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 2. Check Preposition
+      if (this.prepositions[low]) {
+        const p = this.prepositions[low];
+        coreLabel = 'PREPOSITION';
+        verbRole = '-';
+        caseLabel = 'NO CASE';
+        category = p.caseGoverned === 'DATIVE' ? 'Fixed Dative Preposition' : (p.caseGoverned === 'ACCUSATIVE' ? 'Fixed Accusative Preposition' : 'Two-way Preposition');
+        en = p.en;
+        id = p.id;
+        why = p.why;
+        activePrep = low;
+        prepGovernedCase = p.caseGoverned === 'DATIVE' ? 'DATIVE' : (p.caseGoverned === 'ACCUSATIVE' ? 'ACCUSATIVE' : 'DATIVE');
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 3. Check Temporal Adverbs
+      if (this.adverbs[low] && this.adverbs[low].coreLabel === 'TEMPORAL ADVERBIAL') {
+        const adv = this.adverbs[low];
+        coreLabel = 'TEMPORAL ADVERBIAL';
+        verbRole = '-';
+        caseLabel = 'NO CASE';
+        category = 'Temporal Adverbial (Wann?)';
+        en = adv.en;
+        id = adv.id;
+        why = adv.why;
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 4. Check Local Adverbs
+      if (this.adverbs[low] && this.adverbs[low].coreLabel === 'LOCAL ADVERBIAL') {
+        const adv = this.adverbs[low];
+        coreLabel = 'LOCAL ADVERBIAL';
+        verbRole = '-';
+        caseLabel = 'NO CASE';
+        category = 'Local Adverbial (Wo?)';
+        en = adv.en;
+        id = adv.id;
+        why = adv.why;
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 5. Check Manner Adverbs
+      if (this.adverbs[low] && this.adverbs[low].coreLabel === 'MANNER ADVERBIAL') {
+        const adv = this.adverbs[low];
+        coreLabel = 'MANNER ADVERBIAL';
+        verbRole = '-';
+        caseLabel = 'NO CASE';
+        category = 'Manner Adverbial (Wie?)';
+        en = adv.en;
+        id = adv.id;
+        why = adv.why;
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 6. Check Causal Adverbs
+      if (this.adverbs[low] && this.adverbs[low].coreLabel === 'CAUSAL ADVERBIAL') {
+        const adv = this.adverbs[low];
+        coreLabel = 'CAUSAL ADVERBIAL';
+        verbRole = '-';
+        caseLabel = 'NO CASE';
+        category = 'Causal Adverbial (Warum?)';
+        en = adv.en;
+        id = adv.id;
+        why = adv.why;
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 7. Check Degree Modifiers
+      if (this.degreeModifiers[low]) {
+        const dm = this.degreeModifiers[low];
+        coreLabel = 'DEGREE MODIFIER';
+        verbRole = '-';
+        caseLabel = 'NO CASE';
+        category = 'Degree Modifier (Gradpartikel)';
+        en = dm.en;
+        id = dm.id;
+        why = dm.why;
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 8. Check Particles (including nicht)
+      if (this.particles[low]) {
+        const pt = this.particles[low];
+        coreLabel = 'PARTICLE';
+        verbRole = '-';
+        caseLabel = 'NO CASE';
+        category = (low === 'nicht' ? 'Negation Particle (Negationspartikel)' : 'Modal Particle (Abtönungspartikel)');
+        en = pt.en;
+        id = pt.id;
+        why = pt.why;
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 9. Check Connectors
+      if (this.connectors[low]) {
+        const c = this.connectors[low];
+        coreLabel = 'CLAUSE CONNECTOR';
+        verbRole = '-';
+        caseLabel = 'NO CASE';
+        category = 'Clause Connector (Konjunktion)';
+        en = c.en;
+        id = c.id;
+        why = c.why;
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 9b. Check Cardinal Numbers / Numerals
+      if (/^\d+$/.test(tok)) {
+        coreLabel = 'NOUN MODIFIER';
+        verbRole = '-';
+        caseLabel = activePrep ? prepGovernedCase : (activeArticleCase || 'NO CASE');
+        category = 'Cardinal Number / Numeral';
+        en = tok;
+        id = tok;
+        why = `Cardinal number / numeral modifying the following noun or expressing quantity.`;
+        return {
+          word: tok, lemma: tok, coreLabel, verbRole, case: caseLabel,
+          gender: '-', number: 'PLURAL', personTense: '-', ending: '-', category, en, id, why
+        };
+      }
+
+      // 10. Check Personal Pronouns
+      if (this.pronouns[low] || this.pronouns[tok]) {
+        const pr = this.pronouns[low] || this.pronouns[tok];
+        coreLabel = pr.coreLabel;
+        verbRole = '-';
+        caseLabel = pr.case;
+        personTense = pr.person || '-';
+        number = pr.number || '-';
+        gender = pr.gender || '-';
+        en = pr.en;
+        id = pr.id;
+        why = pr.why;
+
+        if (activePrep) {
+          coreLabel = 'OBJECT OF PREPOSITION';
+          caseLabel = prepGovernedCase;
+          why = `Personal pronoun governed by the preposition "${activePrep}". In ${prepGovernedCase} case.`;
+          activePrep = null;
+          prepGovernedCase = null;
+        }
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category: 'Personal Pronoun', en, id, why
+        };
+      }
+
+      // 11. Check Articles & Determiners
+      if (this.articles[low]) {
+        const art = this.articles[low];
+        coreLabel = art.coreLabel;
+        verbRole = '-';
+        gender = art.gender || '-';
+        number = art.number || '-';
+        en = art.en;
+        id = art.id;
+
+        if (activePrep) {
+          caseLabel = prepGovernedCase;
+          why = `${art.coreLabel} governed by preposition "${activePrep}" in ${prepGovernedCase} case.`;
+        } else if (copulaIdx !== -1 && idx > copulaIdx) {
+          caseLabel = 'NOMINATIVE';
+          why = `${art.coreLabel} accompanying the Predicate Nominative after copula. In NOMINATIVE case.`;
+          activeArticle = art;
+          activeArticleCase = 'NOMINATIVE';
+        } else if (art.cases.includes('DATIVE')) {
+          caseLabel = 'DATIVE';
+          why = `${art.coreLabel} marking indirect object recipient in DATIVE case.`;
+          activeArticle = art;
+          activeArticleCase = 'DATIVE';
+        } else if (art.cases.includes('ACCUSATIVE') && idx > 1) {
+          caseLabel = 'ACCUSATIVE';
+          why = `${art.coreLabel} modifying the direct object in ACCUSATIVE case.`;
+          activeArticle = art;
+          activeArticleCase = 'ACCUSATIVE';
+        } else if (art.cases.includes('GENITIVE')) {
+          caseLabel = 'GENITIVE';
+          why = `${art.coreLabel} in possessive GENITIVE case.`;
+          activeArticle = art;
+          activeArticleCase = 'GENITIVE';
+        } else {
+          caseLabel = art.cases[0] || 'NOMINATIVE';
+          why = `${art.coreLabel} in ${caseLabel} case.`;
+          activeArticle = art;
+          activeArticleCase = caseLabel;
+        }
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category: 'Determiner / Article', en, id, why
+        };
+      }
+
+      // 12. Check Verbs
+      if (this.verbs[low]) {
+        const v = this.verbs[low];
+        lemma = v.lemma || tok;
+        personTense = `${v.person || '-'} • ${v.tense || '-'}`;
+        ending = v.ending || (tok.endsWith('en') ? '-en' : (tok.endsWith('e') ? '-e' : (tok.endsWith('st') ? '-st' : (tok.endsWith('t') ? '-t' : '-'))));
+        caseLabel = 'NO CASE';
+        en = v.en;
+        id = v.id;
+
+        if (v.verbRole === 'MODAL VERB') {
+          coreLabel = 'MODAL VERB';
+          verbRole = 'MODAL VERB';
+          category = 'Modal Auxiliary (Modalverb)';
+          why = v.why;
+        } else if (v.verbRole === 'FINITE AUXILIARY VERB') {
+          if (isPerfekt) {
+            coreLabel = 'FINITE AUXILIARY VERB';
+            verbRole = 'FINITE AUXILIARY VERB';
+            category = 'Conjugated Auxiliary (Hilfsverb)';
+            why = `Conjugated finite auxiliary verb in Position 2 forming Perfekt tense together with Partizip II at Satzende. Verbs have NO CASE.`;
+          } else if (copulaIdx === idx) {
+            coreLabel = 'FINITE VERB';
+            verbRole = 'FINITE VERB';
+            category = 'Copula Verb (Kopula)';
+            why = `Conjugated copula verb in Position 2 linking subject to predicate complement. Verbs take NO CASE.`;
+          } else {
+            coreLabel = 'FINITE AUXILIARY VERB';
+            verbRole = 'FINITE AUXILIARY VERB';
+            category = 'Auxiliary Verb';
+            why = v.why;
+          }
+        } else if (v.verbRole === 'PAST PARTICIPLE / PARTIZIP II') {
+          coreLabel = 'PAST PARTICIPLE / PARTIZIP II';
+          verbRole = 'PAST PARTICIPLE / PARTIZIP II';
+          category = 'Past Participle (Partizip II)';
+          why = v.why;
+        } else if (v.verbRole === 'INFINITIVE') {
+          coreLabel = 'INFINITIVE';
+          verbRole = 'INFINITIVE';
+          category = 'Infinitive (Grundform)';
+          why = v.why;
+        } else {
+          coreLabel = 'FINITE VERB';
+          verbRole = 'FINITE VERB';
+          category = 'Conjugated Main Verb (Vollverb)';
+          why = v.why;
+        }
+
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 13. Check Past Participle Heuristic
+      if (low.startsWith('ge') && (low.endsWith('en') || low.endsWith('t') || low.endsWith('et')) && (idx >= cleanTokens.length - 2)) {
+        coreLabel = 'PAST PARTICIPLE / PARTIZIP II';
+        verbRole = 'PAST PARTICIPLE / PARTIZIP II';
+        caseLabel = 'NO CASE';
+        lemma = low.replace(/^ge/, '').replace(/(en|t|et)$/, 'en');
+        personTense = 'Non-finite • Partizip II';
+        ending = low.endsWith('en') ? '-en' : '-t';
+        category = 'Past Participle (Partizip II)';
+        why = `Past participle (Partizip II) functioning as non-finite clause closer at the end of the sentence (Rechte Satzklammer). Has NO CASE.`;
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 14. Check Present Participle Heuristic
+      if (low.endsWith('end') && low.length > 5) {
+        coreLabel = 'PRESENT PARTICIPLE / PARTIZIP I';
+        verbRole = 'PRESENT PARTICIPLE / PARTIZIP I';
+        caseLabel = 'NO CASE';
+        lemma = low.replace(/d$/, '');
+        personTense = 'Non-finite • Partizip I';
+        ending = '-end';
+        category = 'Present Participle (Partizip I)';
+        why = `Present participle (Partizip I) indicating continuous simultaneous action. Has NO CASE.`;
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 15. Check Adjectives
+      if (this.adjectives[low]) {
+        const adj = this.adjectives[low];
+        lemma = adj.lemma || low;
+        en = adj.en || tok;
+        id = adj.id || tok;
+        ending = adj.ending || '-';
+
+        if (activePrep) {
+          coreLabel = 'ADJECTIVAL MODIFIER';
+          verbRole = '-';
+          caseLabel = prepGovernedCase;
+          category = 'Attributive Adjective';
+          why = `Adjectival modifier preceding noun within prepositional phrase. Declines in ${prepGovernedCase} case.`;
+        } else if (activeArticleCase) {
+          coreLabel = 'ADJECTIVAL MODIFIER';
+          verbRole = '-';
+          caseLabel = activeArticleCase;
+          category = 'Attributive Adjective';
+          why = `Attributive adjective modifying following noun in ${activeArticleCase} case.`;
+        } else if (copulaIdx !== -1 && idx > copulaIdx && idx === cleanTokens.length - 1) {
+          coreLabel = 'PREDICATE ADJECTIVE';
+          verbRole = '-';
+          caseLabel = 'NO CASE';
+          category = 'Predicate Adjective (Prädikatives Adjektiv)';
+          why = `Predicate adjective following copula "sein". Describes the subject condition without declension endings (NO CASE).`;
+        } else if (idx < cleanTokens.length - 1 && /^[A-ZÄÖÜ]/.test(cleanTokens[idx + 1])) {
+          coreLabel = 'ADJECTIVAL MODIFIER';
+          verbRole = '-';
+          caseLabel = 'ACCUSATIVE';
+          category = 'Attributive Adjective';
+          why = `Attributive adjective modifying the following noun in ACCUSATIVE case.`;
+        } else {
+          coreLabel = adj.coreLabel || 'ADJECTIVAL MODIFIER';
+          verbRole = '-';
+          caseLabel = adj.case || 'NO CASE';
+          why = adj.why;
+        }
+
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 16. Check Nouns
+      const nounInfo = this.nouns[low];
+      const isCapitalized = /^[A-ZÄÖÜ]/.test(tok);
+
+      if (nounInfo || isCapitalized) {
+        lemma = nounInfo ? (nounInfo.lemma || tok) : tok;
+        gender = nounInfo ? nounInfo.gender : 'NOUN';
+        en = nounInfo ? nounInfo.en : tok;
+        id = nounInfo ? nounInfo.id : tok;
+
+        if (activePrep) {
+          coreLabel = 'OBJECT OF PREPOSITION';
+          verbRole = '-';
+          caseLabel = prepGovernedCase;
+          category = 'Prepositional Object';
+          why = `Noun functioning as object of preposition "${activePrep}". Strictly governed in ${prepGovernedCase} case.`;
+          activePrep = null;
+          prepGovernedCase = null;
+          activeArticle = null;
+          activeArticleCase = null;
+        } else if (copulaIdx !== -1 && idx > copulaIdx) {
+          coreLabel = 'PREDICATE NOMINATIVE';
+          verbRole = '-';
+          caseLabel = 'NOMINATIVE';
+          category = 'Predicate Noun (Prädikatsnomen)';
+          why = `Predicate nominative complementing and renaming the subject after copula "sein". In NOMINATIVE case.`;
+          activeArticle = null;
+          activeArticleCase = null;
+        } else if (activeArticleCase === 'DATIVE') {
+          coreLabel = 'INDIRECT OBJECT';
+          verbRole = '-';
+          caseLabel = 'DATIVE';
+          category = 'Indirect Object (Dativobjekt)';
+          why = `Indirect object recipient answering "Wem?". Governed by dative determiner in DATIVE case.`;
+          activeArticle = null;
+          activeArticleCase = null;
+        } else if (activeArticleCase === 'GENITIVE' || (low.endsWith('s') && (idx === cleanTokens.length - 1 || idx === cleanTokens.length - 2) && lowerTokens.includes('auto'))) {
+          coreLabel = 'NOUN MODIFIER';
+          verbRole = '-';
+          caseLabel = 'GENITIVE';
+          category = 'Genitive Attribute (Genitivattribut)';
+          why = `Possessive genitive attribute with -s suffix modifying the head noun. In GENITIVE case.`;
+          activeArticle = null;
+          activeArticleCase = null;
+        } else if (activeArticleCase === 'ACCUSATIVE') {
+          coreLabel = 'DIRECT OBJECT';
+          verbRole = '-';
+          caseLabel = 'ACCUSATIVE';
+          category = 'Direct Object (Akkusativobjekt)';
+          why = `Direct object answering "Wen oder was?" receiving the action of the verb. In ACCUSATIVE case.`;
+          activeArticle = null;
+          activeArticleCase = null;
+        } else if (activeArticleCase === 'NOMINATIVE' || idx === 0) {
+          coreLabel = 'SUBJECT';
+          verbRole = '-';
+          caseLabel = 'NOMINATIVE';
+          category = 'Subject Noun';
+          why = `Grammatical subject performing the verb action ("Wer oder was?"). In NOMINATIVE case.`;
+          activeArticle = null;
+          activeArticleCase = null;
+        } else {
+          coreLabel = 'DIRECT OBJECT';
+          verbRole = '-';
+          caseLabel = 'ACCUSATIVE';
+          category = 'Direct Object (Akkusativobjekt)';
+          why = `Direct object answering "Wen oder was?" receiving the action of the verb. In ACCUSATIVE case.`;
+          activeArticle = null;
+          activeArticleCase = null;
+        }
+
+        return {
+          word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+          gender, number, personTense, ending, category, en, id, why
+        };
+      }
+
+      // 17. Positional Fallback Heuristics
+      if (idx === 0) {
+        coreLabel = 'SUBJECT';
+        verbRole = '-';
+        caseLabel = 'NOMINATIVE';
+        category = 'Subject (Vorfeld)';
+        why = `First element occupying Vorfeld as the grammatical subject in NOMINATIVE case.`;
+      } else if (idx === 1) {
+        coreLabel = 'FINITE VERB';
+        verbRole = 'FINITE VERB';
+        caseLabel = 'NO CASE';
+        category = 'Finite Verb (Position 2)';
+        why = `Strict V2 position in main clause agreeing with the subject (NO CASE).`;
+      } else {
+        coreLabel = 'DIRECT OBJECT';
+        verbRole = '-';
+        caseLabel = 'ACCUSATIVE';
+        category = 'Constituent';
+        why = `Complement constituent in the German clause structure.`;
+      }
+
+      return {
+        word: tok, lemma, coreLabel, verbRole, case: caseLabel,
+        gender, number, personTense, ending, category, en, id, why
+      };
+    });
   }
 };
 
 const ExactGrammarEngine = {
   renderDetailedBreakdown(sentence, enTrans = '', idTrans = '') {
     const cleanTokens = sentence.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, "").split(/\s+/).filter(Boolean);
+    const tokenDetails = DynamicGermanGrammar.analyzeSentenceTokens(cleanTokens);
     const lowerTokens = cleanTokens.map(w => w.toLowerCase());
-    const rawLower = sentence.toLowerCase().trim();
 
-    // 1. Determine sentence structure and characteristics
-    const hasAuxiliary = lowerTokens.includes('habe') || lowerTokens.includes('hat') || lowerTokens.includes('hast') || lowerTokens.includes('bin') || lowerTokens.includes('ist');
-    const hasParticiple = lowerTokens.some(w => w.startsWith('ge') && (w.endsWith('en') || w.endsWith('t')));
+    const hasAuxiliary = lowerTokens.some(w => ['habe', 'hast', 'hat', 'haben', 'bin', 'bist', 'ist', 'sind'].includes(w));
+    const hasParticiple = lowerTokens.some(w => (w.startsWith('ge') && (w.endsWith('en') || w.endsWith('t') || w.endsWith('et'))));
     const isPerfekt = hasAuxiliary && hasParticiple;
-    const isModal = lowerTokens.includes('m\u00F6chte') || lowerTokens.includes('moechte') || lowerTokens.includes('kann') || lowerTokens.includes('muss') || lowerTokens.includes('will');
+    const isModal = lowerTokens.some(w => ['kann', 'muss', 'möchte', 'moechte', 'will', 'darf', 'soll'].includes(w));
     const isTransitiveLove = lowerTokens.includes('liebe') || lowerTokens.includes('liebt');
-    const isEating = lowerTokens.includes('esse') || lowerTokens.includes('isst') || lowerTokens.includes('gegessen') || lowerTokens.includes('essen');
 
     let cefrLevelText = 'A1 Level &bull; Beginner (Breakthrough)';
     let clauseTypeBadge = 'Hauptsatz (Standard: Subject First)';
@@ -13534,255 +14257,116 @@ const ExactGrammarEngine = {
 
     if (isPerfekt) {
       cefrLevelText = 'A2 Level &bull; Pre-Intermediate (Waystage)';
-      clauseTypeBadge = 'Hauptsatz (Standard: Subject First)';
-      mainGrammarTopic = 'Perfekt Tense with regular/mixed verb + haben auxiliary';
-      cefrReason = 'Perfekt tense with auxiliary + Partizip II forms the conversational past tense (A2 curriculum).';
+      clauseTypeBadge = 'Hauptsatz (Perfekt-Satzklammer)';
+      mainGrammarTopic = 'Perfekt Tense with auxiliary + Partizip II';
+      cefrReason = 'Perfekt tense with auxiliary in Position 2 and Partizip II locked at sentence end.';
     } else if (isModal) {
       cefrLevelText = 'A2 Level &bull; Pre-Intermediate (Waystage)';
       clauseTypeBadge = 'Hauptsatz (Modalverb-Satzklammer)';
-      mainGrammarTopic = 'Modalverb-Satzklammer &amp; Pr\u00E4positionalgef\u00FCge';
+      mainGrammarTopic = 'Modalverb-Satzklammer &amp; Infinitiv am Satzende';
       cefrReason = 'Modal auxiliary in Position 2 bracketing full lexical infinitive at Satzende.';
     } else if (isTransitiveLove) {
       cefrLevelText = 'A1 Level &bull; Beginner (Breakthrough)';
       clauseTypeBadge = 'Hauptsatz (Transitives Verb + Akkusativ)';
       mainGrammarTopic = 'Transitive Verben &amp; Akkusativ-Objekt (Wen oder was?)';
-      cefrReason = 'Core A1 emotional and relational verb governing direct personal pronoun in Akkusativ.';
+      cefrReason = 'Core relational verb governing direct object in Akkusativ.';
     } else if (lowerTokens.includes('vaters') || lowerTokens.includes('meines')) {
       cefrLevelText = 'B1 Level &bull; Intermediate';
       clauseTypeBadge = 'Hauptsatz (Genitiv-Attribut)';
       mainGrammarTopic = 'Genitive Case &amp; Possessive Determiners';
-      cefrReason = 'Features genitive inflection (-es, -s) denoting grammatical possession.';
+      cefrReason = 'Features genitive inflection denoting grammatical possession.';
     }
 
-    // Default translations fallback
     if (!enTrans) enTrans = sentence;
     if (!idTrans) idTrans = sentence;
 
-    // 2. Build Pipeline & Equation (Section 2)
-    let pipelineHtml = '';
-    let formulaEq = '';
-
-    if (isPerfekt) {
-      pipelineHtml = cleanTokens.map((t, idx) => {
-        let label = `Pos #${idx+1}`;
-        const low = t.toLowerCase();
-        if (idx === 0) label = '1. Subject (Subjekt)';
-        else if (low === 'habe' || low === 'bin') label = '2. Finite Verb (Hilfsverb / V2)';
-        else if (low === 'heute' || low === 'gestern') label = '3. Temporal Adverb (Wann?)';
-        else if (low.startsWith('ge')) label = '4. Partizip II (Satzende)';
-        return `
-          <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
-            <span class="text-[10px] font-bold text-slate-400">${label}</span>
-            <span class="font-mono font-bold text-slate-800 text-xs">${t}</span>
-          </div>`;
-      }).join('<div class="text-slate-400 font-bold text-sm">&#8594;</div>');
-      formulaEq = 'Subjekt + Hilfsverb (Position 2) + Temporalangabe + Partizip II (Satzende)';
-    } else if (isTransitiveLove) {
-      pipelineHtml = `
-        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
-          <span class="text-[10px] font-bold text-slate-400">1. Subject (Subjekt)</span>
-          <span class="font-mono font-bold text-slate-800 text-xs">${cleanTokens[0] || 'Ich'}</span>
+    // SECTION 2: Pipeline & Equation
+    const pipelineHtml = tokenDetails.map(td => {
+      const coreBadgeCls = DynamicGermanGrammar.getBadgeClass(td.coreLabel);
+      const caseBadgeCls = DynamicGermanGrammar.getCaseBadgeClass(td.case);
+      return `
+        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 shadow-2xs">
+          <div class="flex flex-col">
+            <span class="text-[9px] font-black uppercase tracking-wider text-slate-400">${td.coreLabel}</span>
+            <span class="font-mono font-bold text-slate-900 text-xs">${td.word}</span>
+          </div>
+          <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full ${caseBadgeCls}">${td.case}</span>
         </div>
-        <div class="text-slate-400 font-bold text-sm">&#8594;</div>
-        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
-          <span class="text-[10px] font-bold text-slate-400">2. Finite Verb (V2)</span>
-          <span class="font-mono font-bold text-slate-800 text-xs">${cleanTokens[1] || 'liebe'}</span>
-        </div>
-        <div class="text-slate-400 font-bold text-sm">&#8594;</div>
-        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
-          <span class="text-[10px] font-bold text-slate-400">3. Direct Object (Akkusativ)</span>
-          <span class="font-mono font-bold text-slate-800 text-xs">${cleanTokens.slice(2).join(' ') || 'dich'}</span>
-        </div>`;
-      formulaEq = 'Subjekt (Nominativ) + Finites Verb (Position 2) + Akkusativobjekt (dich)';
-    } else if (isModal) {
-      pipelineHtml = cleanTokens.map((t, idx) => {
-        let label = `Pos #${idx+1}`;
-        if (idx === 0) label = '1. Subject';
-        else if (idx === 1) label = '2. Modal Verb (V2)';
-        else if (idx === cleanTokens.length - 1) label = 'Satzende (Infinitiv)';
-        else label = `Erg\u00E4nzung #${idx}`;
-        return `
-          <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
-            <span class="text-[10px] font-bold text-slate-400">${label}</span>
-            <span class="font-mono font-bold text-slate-800 text-xs">${t}</span>
-          </div>`;
-      }).join('<div class="text-slate-400 font-bold text-sm">&#8594;</div>');
-      formulaEq = 'Subjekt + Modalverb (Position 2) + Erg\u00E4nzungen + Infinitiv (Satzende)';
-    } else {
-      pipelineHtml = cleanTokens.map((t, idx) => `
-        <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2">
-          <span class="text-[10px] font-bold text-slate-400">Pos #${idx+1}</span>
-          <span class="font-mono font-bold text-slate-800 text-xs">${t}</span>
-        </div>`
-      ).join('<div class="text-slate-400 font-bold text-sm">&#8594;</div>');
-      formulaEq = 'Subjekt (Position 1) + Finites Verb (Position 2) + Mittelfeld / Satzende';
-    }
+      `;
+    }).join('<div class="text-slate-400 font-black text-sm">&#8594;</div>');
 
-    // 3. Word-by-Word Cards (Section 1-B)
-    const tokenDetails = cleanTokens.map((tok, idx) => {
-      const low = tok.toLowerCase();
-      const p = DynamicGermanGrammar.pronouns[tok] || DynamicGermanGrammar.pronouns[low];
-      const v = DynamicGermanGrammar.verbs[low];
-      const pr = DynamicGermanGrammar.prepositions[low];
-      const n = DynamicGermanGrammar.nouns[low];
+    const formulaEq = tokenDetails.map(td => `${td.coreLabel} [${td.case}]`).join(' + ');
 
-      let posLabel = 'WORD';
-      let posBadgeCls = 'bg-slate-100 text-slate-700';
-      let role = 'Constituent';
-      let caseName = '-';
-      let gender = '-';
-      let number = '-';
-      let person = '-';
-      let tense = '-';
-      let mood = '-';
-      let ending = '-';
-      let lemma = tok;
-      let en = tok;
-      let id = tok;
-      let why = 'Constituent element in the sentence structure.';
-
-      if (p) {
-        posLabel = 'PRONOUN';
-        posBadgeCls = 'bg-emerald-100 text-emerald-800';
-        role = p.role;
-        caseName = p.case;
-        person = p.person;
-        number = p.number;
-        en = p.en;
-        id = p.id;
-        why = p.why;
-      } else if (v) {
-        posLabel = v.pos;
-        posBadgeCls = v.pos.includes('PARTIZIP') ? 'bg-amber-100 text-amber-900' : 'bg-rose-100 text-rose-800';
-        role = v.pos;
-        tense = v.tense;
-        person = v.person;
-        mood = v.mood;
-        lemma = v.lemma;
-        en = v.en;
-        id = v.id;
-        why = v.why;
-        if (tok.endsWith('e')) ending = '-e';
-        else if (tok.endsWith('st')) ending = '-st';
-        else if (tok.endsWith('t')) ending = '-t';
-        else if (tok.endsWith('en')) ending = '-en';
-      } else if (pr) {
-        posLabel = 'PREPOSITION';
-        posBadgeCls = 'bg-purple-100 text-purple-800';
-        role = pr.type;
-        caseName = pr.case;
-        en = pr.en;
-        id = pr.id;
-        why = pr.why;
-      } else if (n) {
-        posLabel = n.pos;
-        posBadgeCls = n.pos === 'NOUN' ? 'bg-indigo-100 text-indigo-800' : 'bg-sky-100 text-sky-800';
-        role = n.pos;
-        caseName = n.case;
-        gender = n.gender;
-        en = n.en;
-        id = n.id;
-        why = n.why;
-      } else {
-        // Fallback heuristics
-        if (idx === 0) {
-          posLabel = 'SUBJECT';
-          posBadgeCls = 'bg-blue-100 text-blue-800';
-          role = 'Subject (Vorfeld)';
-          caseName = 'Nominativ';
-          why = 'First element occupying Vorfeld as the grammatical subject.';
-        } else if (idx === 1) {
-          posLabel = 'VERB';
-          posBadgeCls = 'bg-rose-100 text-rose-800';
-          role = 'Finite Verb (V2)';
-          why = 'Strict V2 position in main clause agreeing with the subject.';
-        }
-      }
-
-      return {
-        word: tok,
-        lemma,
-        posLabel,
-        posBadgeCls,
-        role,
-        case: caseName,
-        gender,
-        number,
-        person,
-        tense,
-        mood,
-        ending,
-        en,
-        id,
-        why
-      };
-    });
-
-    const wordCardsHtml = tokenDetails.map(td => `
-      <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-3 flex flex-col justify-between">
-        <div>
-          <div class="flex flex-wrap items-center justify-between gap-1.5 pb-2 border-b border-slate-200/60">
-            <div class="flex items-baseline gap-2">
-              <span class="text-lg font-black text-slate-900">${td.word}</span>
-              ${td.lemma !== td.word ? `<span class="text-[10px] font-semibold text-slate-400">(${td.lemma})</span>` : ''}
+    // SECTION 1-B: Word Cards
+    const wordCardsHtml = tokenDetails.map(td => {
+      const coreBadgeCls = DynamicGermanGrammar.getBadgeClass(td.coreLabel);
+      const caseBadgeCls = DynamicGermanGrammar.getCaseBadgeClass(td.case);
+      return `
+        <div class="p-4 rounded-2xl bg-slate-50/70 border border-slate-200/80 space-y-3 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-1.5 pb-2 border-b border-slate-200/60">
+              <div class="flex items-baseline gap-2">
+                <span class="text-lg font-black text-slate-900">${td.word}</span>
+                ${td.lemma !== td.word ? `<span class="text-[10px] font-semibold text-slate-400">(${td.lemma})</span>` : ''}
+              </div>
+              <div class="flex flex-wrap items-center gap-1">
+                <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full ${coreBadgeCls} shrink-0">${td.coreLabel}</span>
+                ${td.verbRole !== '-' ? `<span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200 shrink-0">${td.verbRole}</span>` : ''}
+                <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full ${caseBadgeCls} shrink-0">${td.case}</span>
+              </div>
             </div>
-            <span class="text-[9px] font-extrabold px-2 py-0.5 rounded-full ${td.posBadgeCls} shrink-0">${td.posLabel}</span>
+
+            <div class="pt-2 pb-1 space-y-0.5 text-xs">
+              <div class="flex items-center gap-1.5"><span class="font-bold text-slate-400 text-[10px]">EN:</span> <span class="font-semibold text-slate-700">${td.en}</span></div>
+              <div class="flex items-center gap-1.5"><span class="font-bold text-slate-400 text-[10px]">ID:</span> <span class="font-semibold text-slate-700">${td.id}</span></div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-x-2 gap-y-1.5 pt-2 border-t border-slate-100 text-[11px]">
+              <div><span class="text-slate-400 font-medium">Core Label:</span> <span class="font-bold text-slate-800">${td.coreLabel}</span></div>
+              <div><span class="text-slate-400 font-medium">Verb Role:</span> <span class="font-bold text-slate-800">${td.verbRole}</span></div>
+              <div><span class="text-slate-400 font-medium">Case:</span> <span class="font-bold text-slate-800">${td.case}</span></div>
+              <div><span class="text-slate-400 font-medium">Gender:</span> <span class="font-bold text-slate-700">${td.gender}</span></div>
+              <div><span class="text-slate-400 font-medium">Number:</span> <span class="font-bold text-slate-700">${td.number}</span></div>
+              <div><span class="text-slate-400 font-medium">Person / Tense:</span> <span class="font-bold text-slate-700">${td.personTense}</span></div>
+              <div><span class="text-slate-400 font-medium">Ending:</span> <span class="font-bold text-slate-700 font-mono">${td.ending}</span></div>
+              <div><span class="text-slate-400 font-medium">Category:</span> <span class="font-bold text-slate-700">${td.category}</span></div>
+            </div>
           </div>
 
-          <div class="pt-2 pb-1 space-y-0.5 text-xs">
-            <div class="flex items-center gap-1.5"><span class="font-bold text-slate-400 text-[10px]">EN:</span> <span class="font-semibold text-slate-700">${td.en}</span></div>
-            <div class="flex items-center gap-1.5"><span class="font-bold text-slate-400 text-[10px]">ID:</span> <span class="font-semibold text-slate-700">${td.id}</span></div>
-          </div>
-
-          <div class="grid grid-cols-2 gap-x-2 gap-y-1 pt-2 border-t border-slate-100 text-[11px]">
-            <div><span class="text-slate-400 font-medium">Part of Speech:</span> <span class="font-bold text-slate-700">${td.role}</span></div>
-            <div><span class="text-slate-400 font-medium">Case:</span> <span class="font-bold text-slate-700">${td.case}</span></div>
-            <div><span class="text-slate-400 font-medium">Gender:</span> <span class="font-bold text-slate-700">${td.gender}</span></div>
-            <div><span class="text-slate-400 font-medium">Number:</span> <span class="font-bold text-slate-700">${td.number}</span></div>
-            <div><span class="text-slate-400 font-medium">Person / Tense:</span> <span class="font-bold text-slate-700">${td.person !== '-' ? td.person : (td.tense !== '-' ? td.tense : '-')}</span></div>
-            <div><span class="text-slate-400 font-medium">Ending:</span> <span class="font-bold text-slate-700">${td.ending}</span></div>
+          <div class="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200/60 text-[11px] text-amber-900 leading-snug">
+            <span class="font-bold text-amber-950">&#128161; Why:</span> ${td.why}
           </div>
         </div>
+      `;
+    }).join('');
 
-        <div class="p-2.5 rounded-xl bg-amber-50/80 border border-amber-200/60 text-[11px] text-amber-900 leading-snug">
-          <span class="font-bold text-amber-950">&#128161; Why:</span> ${td.why}
-        </div>
-      </div>
-    `).join('');
-
-    // 4. Case Analysis (Section 3)
-    let nomElements = [];
-    let akkElements = [];
-    let datElements = [];
-    let genElements = [];
-
-    tokenDetails.forEach(t => {
-      if (t.case.includes('Nominativ') || t.role.includes('Subject')) nomElements.push(t);
-      if (t.case.includes('Akkusativ') || (t.role.includes('Direct Object') && !t.case.includes('Nominativ'))) akkElements.push(t);
-      if (t.case.includes('Dativ') || t.role.includes('Indirect Object') || t.role.includes('Dative')) datElements.push(t);
-      if (t.case.includes('Genitiv')) genElements.push(t);
-    });
+    // SECTION 3: Case Analysis
+    const nomElements = tokenDetails.filter(t => t.case === 'NOMINATIVE');
+    const akkElements = tokenDetails.filter(t => t.case === 'ACCUSATIVE');
+    const datElements = tokenDetails.filter(t => t.case === 'DATIVE');
+    const genElements = tokenDetails.filter(t => t.case === 'GENITIVE');
+    const noCaseElements = tokenDetails.filter(t => t.case === 'NO CASE');
 
     const nomHtml = nomElements.length > 0 ? nomElements.map(e => `
       <div class="p-3 rounded-xl bg-white border border-blue-200 space-y-1">
         <div class="flex items-center justify-between">
           <span class="font-black text-slate-800 text-sm">${e.word}</span>
-          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">Subject</span>
+          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">${e.coreLabel}</span>
         </div>
-        <div class="text-[11px] text-slate-500">Wer oder was? (Subject)</div>
+        <div class="text-[11px] text-slate-500">Wer oder was? (Subject / Predicate Nominative)</div>
         <div class="text-[11px] text-blue-900 pt-1 border-t border-slate-100 leading-snug">
           <b>&#128161; Why:</b> ${e.why}
         </div>
       </div>
-    `).join('') : `<div class="p-3 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs italic">No explicit subject in this clause.</div>`;
+    `).join('') : `<div class="p-3 rounded-xl bg-white border border-slate-200 text-slate-400 text-xs italic">No nominative element in this clause.</div>`;
 
     const akkHtml = akkElements.length > 0 ? akkElements.map(e => `
       <div class="p-3 rounded-xl bg-white border border-sky-200 space-y-1">
         <div class="flex items-center justify-between">
           <span class="font-black text-slate-800 text-sm">${e.word}</span>
-          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">Direct Object</span>
+          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">${e.coreLabel}</span>
         </div>
-        <div class="text-[11px] text-slate-500">Wen oder was? (Direct Object)</div>
+        <div class="text-[11px] text-slate-500">Wen oder was? (Direct Object / Accusative Prep)</div>
         <div class="text-[11px] text-sky-900 pt-1 border-t border-slate-100 leading-snug">
           <b>&#128161; Why:</b> ${e.why}
         </div>
@@ -13798,7 +14382,7 @@ const ExactGrammarEngine = {
       <div class="p-3 rounded-xl bg-white border border-purple-200 space-y-1">
         <div class="flex items-center justify-between">
           <span class="font-black text-slate-800 text-sm">${e.word}</span>
-          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">Dative Element</span>
+          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">${e.coreLabel}</span>
         </div>
         <div class="text-[11px] text-slate-500">Wem? / Governed by preposition</div>
         <div class="text-[11px] text-purple-900 pt-1 border-t border-slate-100 leading-snug">
@@ -13816,7 +14400,7 @@ const ExactGrammarEngine = {
       <div class="p-3 rounded-xl bg-white border border-amber-200 space-y-1">
         <div class="flex items-center justify-between">
           <span class="font-black text-slate-800 text-sm">${e.word}</span>
-          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Genitive</span>
+          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">${e.coreLabel}</span>
         </div>
         <div class="text-[11px] text-slate-500">Wessen? (Possession)</div>
         <div class="text-[11px] text-amber-900 pt-1 border-t border-slate-100 leading-snug">
@@ -13830,8 +14414,21 @@ const ExactGrammarEngine = {
       </div>
     </div>`;
 
-    // 5. In-depth Verb Analysis (Section 4)
-    let verbElements = tokenDetails.filter(t => t.posLabel.includes('VERB'));
+    const noCaseHtml = noCaseElements.map(e => `
+      <div class="p-3 rounded-xl bg-white border border-slate-200 space-y-1">
+        <div class="flex items-center justify-between">
+          <span class="font-black text-slate-800 text-sm">${e.word}</span>
+          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${DynamicGermanGrammar.getBadgeClass(e.coreLabel)}">${e.coreLabel}</span>
+        </div>
+        <div class="text-[11px] text-slate-500">${e.category}</div>
+        <div class="text-[11px] text-slate-700 pt-1 border-t border-slate-100 leading-snug">
+          <b>&#128161; Why:</b> ${e.why}
+        </div>
+      </div>
+    `).join('');
+
+    // SECTION 4: In-depth Verb Analysis
+    let verbElements = tokenDetails.filter(t => t.verbRole !== '-');
     if (verbElements.length === 0 && cleanTokens.length >= 2) {
       verbElements = [tokenDetails[1]];
     }
@@ -13843,49 +14440,60 @@ const ExactGrammarEngine = {
             <span class="font-black text-slate-900 text-base">${v.word}</span>
             <span class="text-xs text-slate-400 font-semibold ml-1.5">(Lemma: ${v.lemma})</span>
           </div>
-          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${i === 0 ? 'bg-rose-100 text-rose-800' : 'bg-amber-100 text-amber-900'}">
-            ${i === 0 ? 'Position #2 (Finite Verb)' : 'Satzende (Non-Finite Verb)'}
-          </span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 border border-rose-200">
+              ${v.verbRole}
+            </span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full ${i === 0 ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-900'}">
+              ${i === 0 ? 'Position #2 (Linke Klammer)' : 'Satzende (Rechte Klammer)'}
+            </span>
+          </div>
         </div>
         <div class="grid grid-cols-2 gap-2 text-xs">
-          <div><span class="text-slate-400">Person / Number:</span> <span class="font-bold text-slate-800">${v.person !== '-' ? v.person : '1st Person Singular'}</span></div>
-          <div><span class="text-slate-400">Tense:</span> <span class="font-bold text-slate-800">${v.tense !== '-' ? v.tense : 'Pr\u00E4sens'}</span></div>
-          <div><span class="text-slate-400">Mood:</span> <span class="font-bold text-slate-800">${v.mood !== '-' ? v.mood : 'Indikativ'}</span></div>
-          <div><span class="text-slate-400">Verb Type:</span> <span class="font-bold text-slate-800">${v.posLabel}</span></div>
+          <div><span class="text-slate-400">Verb Role:</span> <span class="font-bold text-slate-800">${v.verbRole}</span></div>
+          <div><span class="text-slate-400">Person / Number:</span> <span class="font-bold text-slate-800">${v.personTense.split('•')[0] || 'Standard'}</span></div>
+          <div><span class="text-slate-400">Tense:</span> <span class="font-bold text-slate-800">${v.personTense.split('•')[1] || 'Präsens'}</span></div>
+          <div><span class="text-slate-400">Case:</span> <span class="font-bold text-slate-800">NO CASE</span></div>
+          <div><span class="text-slate-400">Ending:</span> <span class="font-bold text-slate-800 font-mono">${v.ending}</span></div>
           <div><span class="text-slate-400">Position:</span> <span class="font-bold text-slate-800">${i === 0 ? 'Position 2 (V2)' : 'Satzende (Rechte Klammer)'}</span></div>
-          <div><span class="text-slate-400">Conjugation:</span> <span class="font-bold text-slate-800">${v.ending !== '-' ? `Ending: ${v.ending}` : 'Standard'}</span></div>
         </div>
         <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-600 space-y-1">
-          <div><b>Satzklammer Role:</b> ${i === 0 ? 'Linke Satzklammer (Left Bracket)' : 'Rechte Satzklammer (Right Bracket)'}</div>
-          <div><b>Function:</b> ${v.why}</div>
+          <div><b>Satzklammer Role:</b> ${i === 0 ? 'Linke Satzklammer (Finite Anchor)' : 'Rechte Satzklammer (Clause Closer)'}</div>
+          <div><b>Function &amp; Why:</b> ${v.why}</div>
         </div>
       </div>
     `).join('');
 
-    // 6. Adjective Declension (Section 5)
-    const adjElements = tokenDetails.filter(t => t.posLabel.includes('ADJECTIVE') || t.word.toLowerCase() === 'scharfem');
+    // SECTION 5: Adjective Declension
+    const adjElements = tokenDetails.filter(t => t.coreLabel === 'ADJECTIVAL MODIFIER' || t.coreLabel === 'PREDICATE ADJECTIVE');
     let adjBadge = `${adjElements.length} Adjective${adjElements.length === 1 ? '' : 's'}`;
     let adjContent = adjElements.length > 0 ? adjElements.map(a => `
       <div class="p-4 rounded-2xl bg-white border border-orange-200 space-y-3">
         <div class="flex items-center justify-between pb-2 border-b border-orange-100">
           <span class="font-black text-slate-900 text-base">${a.word}</span>
-          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-orange-100 text-orange-800">Attributive Adjective</span>
+          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-orange-100 text-orange-800">${a.coreLabel}</span>
         </div>
-        <div class="text-xs text-slate-600">${a.why}</div>
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <div><span class="text-slate-400">Type:</span> <span class="font-bold text-slate-800">${a.coreLabel}</span></div>
+          <div><span class="text-slate-400">Case:</span> <span class="font-bold text-slate-800">${a.case}</span></div>
+          <div><span class="text-slate-400">Ending:</span> <span class="font-bold text-slate-800 font-mono">${a.ending}</span></div>
+          <div><span class="text-slate-400">Category:</span> <span class="font-bold text-slate-800">${a.category}</span></div>
+        </div>
+        <div class="text-xs text-slate-600 pt-1 border-t border-slate-100">${a.why}</div>
       </div>
     `).join('') : `
       <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-500 leading-relaxed">
         No attributive adjectives present in this sentence. (Attributive adjectives require declension endings: -e, -en, -er, -es, -em based on case, gender, and article type).
       </div>`;
 
-    // 7. Preposition & Government (Section 6)
-    const prepElements = tokenDetails.filter(t => t.posLabel.includes('PREPOSITION'));
+    // SECTION 6: Preposition & Government
+    const prepElements = tokenDetails.filter(t => t.coreLabel === 'PREPOSITION');
     let prepBadge = `${prepElements.length} Preposition${prepElements.length === 1 ? '' : 's'}`;
     let prepContent = prepElements.length > 0 ? prepElements.map(p => `
       <div class="p-4 rounded-2xl bg-white border border-purple-200 space-y-3">
         <div class="flex items-center justify-between pb-2 border-b border-purple-100">
           <span class="font-black text-slate-900 text-base">${p.word}</span>
-          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">${p.role}</span>
+          <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">PREPOSITION</span>
         </div>
         <div class="text-xs text-slate-600">${p.why}</div>
       </div>
@@ -13894,16 +14502,15 @@ const ExactGrammarEngine = {
         No prepositions used in this sentence. (Common prepositions require specific cases: Akk: f\u00FCr, um, durch, ohne, gegen | Dat: aus, bei, mit, nach, seit, von, zu | Two-way: in, an, auf, unter, \u00FCber, vor, hinter, neben, zwischen).
       </div>`;
 
-    // 8. Word Order & Satzklammer Logic (Section 7)
+    // SECTION 7: Satzklammer
     const pos1 = cleanTokens[0] || 'Vorfeld';
     const pos2 = cleanTokens[1] || 'Verb';
-    const rest = cleanTokens.slice(2).join(' ') || '-';
 
     const satzklammerHtml = `
       <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
         <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">POSITION 1 (VORFELD)</div>
         <div class="font-black text-slate-900 text-lg">${pos1}</div>
-        <div class="text-xs font-semibold text-blue-600">${tokenDetails[0] ? tokenDetails[0].role : 'Subject (Subjekt)'}</div>
+        <div class="text-xs font-semibold text-blue-600">${tokenDetails[0] ? `${tokenDetails[0].coreLabel} [${tokenDetails[0].case}]` : 'Subject'}</div>
         <p class="text-xs text-slate-500 leading-relaxed pt-1 border-t border-slate-100">
           Standard declarative order puts the topic or subject in Vorfeld. Inverted order occurs if an adverb begins the clause.
         </p>
@@ -13912,7 +14519,7 @@ const ExactGrammarEngine = {
       <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
         <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">POSITION 2 (LINKE KLAMMER)</div>
         <div class="font-black text-slate-900 text-lg">${pos2}</div>
-        <div class="text-xs font-semibold text-rose-600">${tokenDetails[1] ? tokenDetails[1].role : 'Finite Verb'}</div>
+        <div class="text-xs font-semibold text-rose-600">${tokenDetails[1] ? `${tokenDetails[1].verbRole || tokenDetails[1].coreLabel}` : 'Finite Verb'}</div>
         <p class="text-xs text-slate-500 leading-relaxed pt-1 border-t border-slate-100">
           Strict V2 Rule (Verbzweitstellung). The conjugated verb MUST occupy Position 2 in independent declarative main clauses.
         </p>
@@ -13921,13 +14528,13 @@ const ExactGrammarEngine = {
       <div class="p-4 rounded-2xl bg-white border border-slate-200 space-y-2">
         <div class="text-[10px] font-extrabold uppercase tracking-wider text-slate-400">SATZENDE (RECHTE KLAMMER)</div>
         <div class="font-black text-slate-900 text-lg">${cleanTokens.length > 2 ? cleanTokens[cleanTokens.length - 1] : '-'}</div>
-        <div class="text-xs font-semibold text-amber-600">Clause Closer / Complement</div>
+        <div class="text-xs font-semibold text-amber-600">${tokenDetails[tokenDetails.length - 1] ? tokenDetails[tokenDetails.length - 1].verbRole : 'Clause Closer'}</div>
         <p class="text-xs text-slate-500 leading-relaxed pt-1 border-t border-slate-100">
           Non-finite verb forms (Partizip II, Infinitiv, or separable prefixes) close the Satzklammer at sentence end.
         </p>
       </div>`;
 
-    // 9. Detected Rules (Section 8)
+    // SECTION 8: Detected Rules
     let rulesListHtml = `
       <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
         <span class="text-base">&#128204;</span>
@@ -13957,94 +14564,34 @@ const ExactGrammarEngine = {
           <span class="text-base">&#128204;</span>
           <div>
             <span class="font-extrabold text-slate-800 text-xs">Satzklammer (Sentence Bracket):</span>
-            <span class="text-xs text-slate-600 ml-1">Finite verb and non-finite verb form an architectural frame enclosing the Mittelfeld.</span>
+            <span class="text-xs text-slate-600 ml-1">Finite auxiliary and Partizip II form an architectural frame enclosing the Mittelfeld.</span>
           </div>
         </div>`;
     }
 
-    if (isTransitiveLove) {
-      rulesListHtml += `
-        <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-2.5">
-          <span class="text-base">&#128204;</span>
-          <div>
-            <span class="font-extrabold text-slate-800 text-xs">Transitive Verb Rektion:</span>
-            <span class="text-xs text-slate-600 ml-1">The verb "lieben" demands an Accusative object answering "Wen liebst du? &bull; Dich".</span>
-          </div>
-        </div>`;
-    }
-
-    // 10. Mistake Detector (Section 9)
-    let mistakesHtml = '';
-    if (isTransitiveLove) {
-      mistakesHtml = `
-        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
-          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
-            <span>Watch Out! Case Mistake with Object Pronoun</span>
-          </div>
-          <div class="font-mono text-xs text-rose-600 line-through">&#10060; Ich liebe dir. (Wrong Dative)</div>
-          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Ich liebe dich. (Correct Accusative)</div>
-          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
-            <b>&#128161; Why:</b> "lieben" is a transitive verb that requires an Accusative object ("Wen oder was?"). The Accusative form of "du" is "dich", not "dir".
-          </div>
+    // SECTION 9: Mistake Detector
+    let mistakesHtml = `
+      <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
+        <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
+          <span>Watch Out! Verb Position (V2 Rule)</span>
         </div>
-
-        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
-          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
-            <span>Watch Out! Verb Ending Agreement</span>
-          </div>
-          <div class="font-mono text-xs text-rose-600 line-through">&#10060; Ich liebt dich. / Ich lieben dich.</div>
-          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Ich liebe dich.</div>
-          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
-            <b>&#128161; Why:</b> For 1st person singular ("ich"), the regular present tense verb ending is strictly "-e".
-          </div>
-        </div>`;
-    } else if (isPerfekt) {
-      mistakesHtml = `
-        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
-          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
-            <span>Watch Out! Word Order Trap (Partizip Placement)</span>
-          </div>
-          <div class="font-mono text-xs text-rose-600 line-through">&#10060; Ich habe geschlafen heute.</div>
-          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Ich habe heute geschlafen.</div>
-          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
-            <b>&#128161; Why:</b> In German main clauses, the Partizip II MUST be placed at the absolute end of the clause (Satzklammer).
-          </div>
+        <div class="font-mono text-xs text-rose-600 line-through">&#10060; Heute ich lerne Deutsch.</div>
+        <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Heute lerne ich Deutsch.</div>
+        <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
+          <b>&#128161; Why:</b> If an adverb or complement occupies Position 1, the subject and verb invert to keep the verb in Position 2.
         </div>
+      </div>
 
-        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
-          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
-            <span>Watch Out! Wrong Auxiliary (haben vs. sein)</span>
-          </div>
-          <div class="font-mono text-xs text-rose-600 line-through">&#10060; Ich bin heute geschlafen.</div>
-          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Ich habe heute geschlafen.</div>
-          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
-            <b>&#128161; Why:</b> Duration of an action without movement from A to B takes "haben", not "sein".
-          </div>
-        </div>`;
-    } else {
-      mistakesHtml = `
-        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
-          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
-            <span>Watch Out! Verb Position (V2 Rule)</span>
-          </div>
-          <div class="font-mono text-xs text-rose-600 line-through">&#10060; Heute ich lerne Deutsch.</div>
-          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Heute lerne ich Deutsch.</div>
-          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
-            <b>&#128161; Why:</b> If an element other than the subject takes Position 1, the subject and verb invert to keep the verb in Position 2.
-          </div>
+      <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
+        <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
+          <span>Watch Out! Capitalization of Nouns</span>
         </div>
-
-        <div class="p-4 rounded-2xl bg-white border border-rose-200 space-y-2">
-          <div class="text-xs font-bold text-rose-800 flex items-center gap-1.5">
-            <span>Watch Out! Capitalization of Nouns</span>
-          </div>
-          <div class="font-mono text-xs text-rose-600 line-through">&#10060; ich lerne deutsch (all lowercase)</div>
-          <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Ich lerne Deutsch.</div>
-          <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
-            <b>&#128161; Why:</b> In German orthography, ALL nouns (Substantive) and the first word of a sentence MUST begin with a capital letter.
-          </div>
-        </div>`;
-    }
+        <div class="font-mono text-xs text-rose-600 line-through">&#10060; ich lerne deutsch (all lowercase)</div>
+        <div class="font-mono text-xs text-emerald-600 font-bold">&#9989; Ich lerne Deutsch.</div>
+        <div class="p-2.5 rounded-xl bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-snug">
+          <b>&#128161; Why:</b> In German orthography, ALL nouns (Substantive) and sentence-initial words MUST begin with a capital letter.
+        </div>
+      </div>`;
 
     return `
       <!-- SECTION 1-A: SENTENCE OVERVIEW -->
@@ -14132,7 +14679,7 @@ const ExactGrammarEngine = {
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
             <div class="flex items-center justify-between">
-              <span class="font-black text-xs text-blue-900 uppercase">NOMINATIV (SUBJECT)</span>
+              <span class="font-black text-xs text-blue-900 uppercase">NOMINATIVE</span>
               <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-800">${nomElements.length} element${nomElements.length === 1 ? '' : 's'}</span>
             </div>
             ${nomHtml}
@@ -14140,7 +14687,7 @@ const ExactGrammarEngine = {
 
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
             <div class="flex items-center justify-between">
-              <span class="font-black text-xs text-sky-900 uppercase">AKKUSATIV (DIRECT OBJECT)</span>
+              <span class="font-black text-xs text-sky-900 uppercase">ACCUSATIVE</span>
               <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-100 text-sky-800">${akkElements.length} element${akkElements.length === 1 ? '' : 's'}</span>
             </div>
             ${akkHtml}
@@ -14148,7 +14695,7 @@ const ExactGrammarEngine = {
 
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
             <div class="flex items-center justify-between">
-              <span class="font-black text-xs text-purple-900 uppercase">DATIV (INDIRECT / PREP)</span>
+              <span class="font-black text-xs text-purple-900 uppercase">DATIVE</span>
               <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-800">${datElements.length} element${datElements.length === 1 ? '' : 's'}</span>
             </div>
             ${datHtml}
@@ -14156,10 +14703,24 @@ const ExactGrammarEngine = {
 
           <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2.5">
             <div class="flex items-center justify-between">
-              <span class="font-black text-xs text-amber-900 uppercase">GENITIV (POSSESSIVE)</span>
+              <span class="font-black text-xs text-amber-900 uppercase">GENITIVE</span>
               <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">${genElements.length} element${genElements.length === 1 ? '' : 's'}</span>
             </div>
             ${genHtml}
+          </div>
+        </div>
+
+        <!-- NO CASE SECTION -->
+        <div class="p-4 rounded-2xl bg-slate-50/80 border border-slate-200 space-y-2.5">
+          <div class="flex items-center justify-between pb-1 border-b border-slate-200/60">
+            <div class="flex items-center gap-2">
+              <span class="font-black text-xs text-slate-800 uppercase tracking-wider">NO CASE (INVARIANT &amp; VERBAL ELEMENTS)</span>
+              <span class="text-[10px] text-slate-500 font-semibold">(Verbs, Temporal/Local Adverbs, Particles, Degree Modifiers)</span>
+            </div>
+            <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-200 text-slate-800">${noCaseElements.length} element${noCaseElements.length === 1 ? '' : 's'}</span>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5">
+            ${noCaseHtml}
           </div>
         </div>
       </div>
@@ -14252,7 +14813,7 @@ const ExactGrammarEngine = {
             <span>100% Grammatically Correct!</span>
           </div>
           <p class="text-xs text-emerald-700 leading-relaxed">
-            Input sentence has no grammatical, spelling, or word order errors. Fully natural phrasing.
+            Input sentence has no grammatical, spelling, or word order errors. Canonical native German syntax.
           </p>
         </div>
       </div>
@@ -14291,16 +14852,6 @@ const ExactGrammarEngine = {
               <li>Clear syntactic flow without unnatural direct word-for-word calques</li>
             </ul>
           </div>
-        </div>
-
-        <div class="p-4 rounded-2xl bg-amber-50/80 border border-amber-200/80 text-xs text-amber-900 space-y-1 leading-relaxed">
-          <div class="font-extrabold text-amber-950 flex items-center gap-1.5">
-            <span>&#128161;</span>
-            <span>Linguistic Observation:</span>
-          </div>
-          <p>
-            German main clauses adhere strictly to the Verb-Second (V2) rule. In spoken German, the Perfekt tense is preferred for completed past events, while transitive verbs demand appropriate accusative direct objects.
-          </p>
         </div>
       </div>
     `;
